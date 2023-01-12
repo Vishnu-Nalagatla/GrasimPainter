@@ -4,7 +4,6 @@ import styles from './styles';
 
 // style={activeTab === CLASS_CONSTANTS.MARKETING ? [styles.bodyContainer, styles.marketingBodyContainer] : styles.bodyContainer}
 const SwithcButtons = props => {
-  console.info('props..', props);
   const {buttons, onClick} = props;
 
   // TODO: text style review.
