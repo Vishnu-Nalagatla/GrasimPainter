@@ -4,20 +4,16 @@ import {StackHeaderProps} from '@react-navigation/stack';
 // import ViewPort from '../../constants/view-port';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, StyleSheet, Text, View} from 'react-native';
-const backImg = require('../../assets/images/back/image.png');
-const bellImg = require('../../assets/images/bell/image.png');
+import backImg from '../../assets/images/group/image.png';
+import bellImg from '../../assets/images/group/image.png';
 // const {vh} = ViewPort;
 
 function Header(props: StackHeaderProps) {
-  console.info('p', props);
-
-  const {name} = props;
-  const title = '';
-  //   const name = '';
+  const {options} = props;
   const navigation = {goBack: () => {}};
-  const showBackIcon = true;
+  // const showBackIcon = true;
 
-  //   const {title = undefined, showBackIcon = true} = options;
+  const {title = undefined, showBackIcon = false} = options;
   return (
     <View style={styles.container}>
       {showBackIcon ? (
@@ -30,14 +26,14 @@ function Header(props: StackHeaderProps) {
             source={backImg}
             // eslint-disable-next-line react-native/no-inline-styles
             style={{
-              height: 20,
+              height: 30,
             }}
             resizeMode="contain"
           />
         </TouchableOpacity>
       ) : null}
       <View style={styles.headerTitle}>
-        <Text style={styles.headerText}>{title || name}</Text>
+        <Text style={styles.headerText}>{title}</Text>
       </View>
       <View style={styles.bellContainer}>
         <TouchableOpacity
@@ -66,15 +62,15 @@ const styles = StyleSheet.create({
 
   backIcon: {
     height: '100%',
-    padding: 5,
-    justifyContent: 'center',
+    // padding: 5,
+    // justifyContent: 'center',
   },
   bellIcon: {
     alignItems: 'flex-end',
   },
   bellImg: {
-    height: 20,
-    width: 20,
+    height: 30,
+    width: 30,
     marginRight: 10,
   },
   headerTitle: {

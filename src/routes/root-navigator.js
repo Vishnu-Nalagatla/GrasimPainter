@@ -12,6 +12,7 @@ import {Image} from 'react-native';
 import groupIcon from '../assets/images/group/image.png';
 import Login from '../screens/Login';
 import MyDay from '../screens/MyDay';
+import Header from '../components/Header';
 
 const RootStack = createStackNavigator();
 
@@ -46,14 +47,16 @@ function RootNavigator(props) {
           tabBarActiveTintColor: '#e91e63',
           tabBarLabelStyle: {
             fontSize: 14,
-            fontWeight:'700',
+            fontWeight: '700',
           },
         }}>
         <Tab.Screen
-          name="MyDay"
+          name="MyDay1"
           component={MyDay}
           options={{
-            tabBarLabel: 'MyDay',
+            header: Header,
+            title: 'My Day',
+            // tabBarLabel: 'MyDay',
             tabBarIcon: ({color, size}) => {
               return (
                 <Image style={{width: size, height: 30}} source={groupIcon} />
@@ -65,7 +68,9 @@ function RootNavigator(props) {
           name="Projects"
           component={Login}
           options={{
-            tabBarLabel: 'Projects',
+            header: Header,
+            title: 'Projects',
+            // tabBarLabel: 'Projects',
             tabBarIcon: ({color, size}) => {
               return (
                 <Image style={{width: size, height: 30}} source={groupIcon} />
@@ -78,7 +83,9 @@ function RootNavigator(props) {
           name="My Team"
           component={Login}
           options={{
-            tabBarLabel: 'My Team',
+            header: Header,
+            title: 'My Team',
+            // tabBarLabel: 'My Team',
             tabBarIcon: ({color, size}) => {
               return (
                 <Image style={{width: size, height: 30}} source={groupIcon} />
@@ -90,7 +97,9 @@ function RootNavigator(props) {
           name="Attendance"
           component={Login}
           options={{
-            tabBarLabel: 'Attendance',
+            header: Header,
+            title: 'Attendance',
+            // tabBarLabel: 'Attendance',
             tabBarIcon: ({color, size}) => {
               return (
                 <Image style={{width: size, height: 30}} source={groupIcon} />
