@@ -84,6 +84,17 @@ project.ext.react = [
 
 apply from: "../../node_modules/react-native/react.gradle"
 
+project.ext.envConfigFiles = [
+        devdebug: ".env",
+        devrelease:".env",
+        stagedebug: ".env.staging",
+        stagerelease: ".env.staging",
+        proddebug: ".env.production",
+        prodrelease: ".env.production"
+]
+
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -140,6 +151,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        resValue "string", "build_config_package", "com.grasimpainter"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -228,6 +241,26 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "api"
+    productFlavors {
+        dev {
+            dimension "api"
+            applicationIdSuffix ".dev"
+            versionNameSuffix " - dev"
+            resValue "string", "app_name", "@string/app_name_debug"
+        }
+        stage {
+            dimension "api"
+            applicationIdSuffix ".stage"
+            versionNameSuffix " - stage"
+            resValue "string", "app_name", "@string/app_name_stage"
+        }
+        prod {
+            dimension "api"
+            resValue "string", "app_name", "@string/app_name_prod"
         }
     }
 
