@@ -33,7 +33,6 @@ function ProjectCard({name, status, onPress, ...remainingProps}: Props) {
         <Text style={styles.date}> 30 Oct 2022</Text>
         <Image
           source={handsImg}
-          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             height: 28,
           }}
