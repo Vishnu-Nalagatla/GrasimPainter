@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {BackHandler} from 'react-native';
+import {BackHandler, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import LoginNavigator from './login-navigator';
-import ProjectNavigator from './project-navigator';
-import SplashNavigator from './splash-navigator';
+// import ProjectNavigator from './project-navigator';
+// import SplashNavigator from './splash-navigator';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -39,29 +39,24 @@ function RootNavigator(props) {
     };
   }, []);
 
+  // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
     return (
       <Tab.Navigator
         initialRouteName="ProjectNavigator"
         screenOptions={{
-          tabBarActiveTintColor: '#e91e63',
-          tabBarLabelStyle: {
-            fontSize: 14,
-            fontWeight: '700',
-          },
+          tabBarActiveTintColor: '#2C4DAE',
         }}>
         <Tab.Screen
-          name="MyDay1"
+          name="MyDay"
           component={MyDay}
           options={{
             header: Header,
+            tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Day',
-            // tabBarLabel: 'MyDay',
-            tabBarIcon: ({color, size}) => {
-              return (
-                <Image style={{width: size, height: 30}} source={groupIcon} />
-              );
-            },
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={groupIcon} />
+            ),
           }}
         />
         <Tab.Screen
@@ -69,13 +64,11 @@ function RootNavigator(props) {
           component={Login}
           options={{
             header: Header,
+            tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Projects',
-            // tabBarLabel: 'Projects',
-            tabBarIcon: ({color, size}) => {
-              return (
-                <Image style={{width: size, height: 30}} source={groupIcon} />
-              );
-            },
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={groupIcon} />
+            ),
           }}
         />
 
@@ -84,13 +77,11 @@ function RootNavigator(props) {
           component={Login}
           options={{
             header: Header,
+            tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Team',
-            // tabBarLabel: 'My Team',
-            tabBarIcon: ({color, size}) => {
-              return (
-                <Image style={{width: size, height: 30}} source={groupIcon} />
-              );
-            },
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={groupIcon} />
+            ),
           }}
         />
         <Tab.Screen
@@ -98,13 +89,11 @@ function RootNavigator(props) {
           component={Login}
           options={{
             header: Header,
+            tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Attendance',
-            // tabBarLabel: 'Attendance',
-            tabBarIcon: ({color, size}) => {
-              return (
-                <Image style={{width: size, height: 30}} source={groupIcon} />
-              );
-            },
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={groupIcon} />
+            ),
           }}
         />
       </Tab.Navigator>
@@ -147,5 +136,15 @@ function RootNavigator(props) {
     </NativeBaseProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  tablelabelStyle: {
+    color: '#2C4DAE',
+    fontSize: 12,
+    fontWeight: '500',
+    marginBottom: 10,
+  },
+  icon: {width: 25, height: 30, marginTop: 15, marginBottom: 5},
+});
 
 export default RootNavigator;
