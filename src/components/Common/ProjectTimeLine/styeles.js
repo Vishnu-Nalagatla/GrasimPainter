@@ -7,24 +7,27 @@ const {vh, vw} = ViewPort;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 200,
+    height: 500 * vh,
     alignItems: 'flex-start',
-    paddingLeft: 60 * vw,
-    paddingRight: 40 * vw,
+    paddingLeft: 70 * vw,
+    paddingRight: 50 * vw,
   },
   projectName: {
-    fontSize: 42 * vh,
+    fontSize: 34 * vh,
     color: 'rgba(0, 0, 0, 0.6)',
     fontWeight: '700',
+    paddingTop: 10 * vh,
   },
   header: {
     flexDirection: 'row',
     display: 'flex',
     justifyContent: 'space-between',
+    height: 80 * vh,
   },
   ellipse: {
     height: 70 * vh,
     width: 70 * vh,
+    marginRight: 20 * vw,
   },
   viewDetailsText: {
     fontSize: 34 * vh,
@@ -40,6 +43,36 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
+  staitLine: {
+    backgroundColor: '#D0D7E8',
+    height: 440 * vh,
+    width: 12 * vw,
+    position: 'absolute',
+    left: 26 * vw,
+    top: 68 * vh,
+  },
+  projectLine: {
+    height: 300 * vh,
+    position: 'relative',
+  },
+  bodyContainer: {
+    marginLeft: 90 * vw,
+    marginTop: 10 * vh,
+  },
+  status: {
+    color: '#000000',
+    fontSize: 40 * vh,
+    fontWeight: '500',
+    letterSpacing: 1 * vh,
+  },
+  date: {
+    color: '#000000',
+    fontSize: 30 * vh,
+    fontWeight: '400',
+    letterSpacing: 1 * vh,
+    marginTop: 30 * vh,
+  },
+
 });
 
 export default styles;

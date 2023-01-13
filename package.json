@@ -17,6 +17,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "axios": "^1.2.2",
     "fbjs": "^3.0.4",
+    "moment": "^2.29.4",
     "mroads-js-utils": "^1.0.2",
     "native-base": "^3.4.25",
     "react": "18.1.0",
