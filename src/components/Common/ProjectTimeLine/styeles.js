@@ -7,7 +7,7 @@ const {vh, vw} = ViewPort;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 500 * vh,
+    minHeight: 520 * vh,
     alignItems: 'flex-start',
     paddingLeft: 70 * vw,
     paddingRight: 50 * vw,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   staitLine: {
     backgroundColor: '#D0D7E8',
-    height: 440 * vh,
+    height: 460 * vh,
     width: 12 * vw,
     position: 'absolute',
     left: 26 * vw,
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     marginLeft: 90 * vw,
     marginTop: 10 * vh,
+    alignItems:'flex-start',
   },
   status: {
     color: '#000000',
@@ -72,7 +73,21 @@ const styles = StyleSheet.create({
     letterSpacing: 1 * vh,
     marginTop: 30 * vh,
   },
-
+  button: {
+    borderColor: '#2C4DAE',
+    color: 'red',
+    minWidth: 300 * vw,
+    borderWidth: 2,
+    borderRadius: 20 * vh,
+    marginTop: 40 * vh,
+  },
+  btnTxt: {
+    fontSize: 36 * vh,
+    color: '#2C4DAE',
+    letterSpacing: 0.8,
+    fontWeight: '500',
+    paddingHorizontal: 16 * vh,
+  },
 });
 
 export default styles;

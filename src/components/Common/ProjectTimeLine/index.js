@@ -4,6 +4,7 @@ import styles from './styeles';
 import ellipse from '../../../assets/images/ellipse/image.png';
 import {Image} from 'react-native';
 import Moment from 'moment';
+import CustomButton from '../Button';
 
 const ProjectTimeLine = (props: Props) => {
   const {data} = props;
@@ -13,6 +14,9 @@ const ProjectTimeLine = (props: Props) => {
   const prepareDate = () => {
     const date = Moment(ProjectStartDate).format('DD MMMM YYYY');
     return `Starting on ${date}`;
+  };
+  const onPress = data => {
+    console.info('onPress data....');
   };
   return (
     <View style={styles.container}>
@@ -35,6 +39,17 @@ const ProjectTimeLine = (props: Props) => {
       <View style={styles.bodyContainer}>
         <Text style={styles.status}> {AssetCheckStatus}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
+        <Text style={styles.date}>
+          <Text style={styles.viewDetailsText}> {'Call Mr. Rajesh'}</Text>
+        </Text>
+        <View>
+          <CustomButton
+            title={AssetCheckStatus}
+            textStyle={[styles.btnTxt]}
+            style={[styles.button]}
+            onPress={onPress}
+          />
+        </View>
       </View>
     </View>
   );
