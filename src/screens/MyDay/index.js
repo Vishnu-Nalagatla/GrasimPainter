@@ -1,7 +1,9 @@
-import {View, Text} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles.js';
 import SwithcButtons from '../../components/SwithcButtons';
+import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
+import data from './data.json';
 
 export interface Props {
   props: String;
@@ -35,6 +37,22 @@ const MyDay = (props: Props) => {
     });
     setTabState(buttonsChanged);
   };
+
+  const getProjects = () => {
+    const {response} = data;
+    const {crewList, today, tomorrow} = response;
+    const projects = [];
+    return (
+      <SafeAreaView style={styles.projectsWrapper}>
+        <FlatList
+          data={today}
+          renderItem={({item}) => <ProjectTimeLine data={item} />}
+          keyExtractor={item => item.id}
+        />
+      </SafeAreaView>
+    );
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.welcomeMessage}>
@@ -43,7 +61,10 @@ const MyDay = (props: Props) => {
           done in your day{''}
         </Text>
       </View>
-      <SwithcButtons buttons={state} onClick={onClick} />
+      <View style={styles.bodyContainer}>
+        <SwithcButtons buttons={state} onClick={onClick} />
+        {getProjects()}
+      </View>
     </View>
   );
 };

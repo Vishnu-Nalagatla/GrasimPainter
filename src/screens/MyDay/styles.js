@@ -10,6 +10,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     // justifyContent: 'center',
   },
+  bodyContainer: {
+    flex: 1,
+    backgroundColor: '#FFFFFF',
+    width: '90%',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginBottom: 14,
+    paddingTop: 12,
+  },
   welcomeMessage: {
     backgroundColor: '#dce3f8',
     width: '90%',
@@ -25,6 +34,11 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     padding: 16,
     color: '#1e1e1e',
+  },
+  projectsWrapper: {
+    flex: 1,
+    width: '100%',
+    marginTop: 30,
   },
 });
 

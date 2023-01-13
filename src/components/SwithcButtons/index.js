@@ -10,9 +10,10 @@ const SwithcButtons = props => {
   return (
     <View style={styles.container}>
       {buttons.map(button => {
-        const {status, label} = button;
+        const {status, label, id} = button;
         return (
           <TouchableOpacity
+            key={id}
             onPress={() => (status ? '' : onClick(button))}
             style={status ? styles.activebutton : styles.button}>
             <Text style={status ? styles.activeLabel : styles.label}>

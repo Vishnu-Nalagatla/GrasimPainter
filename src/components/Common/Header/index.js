@@ -4,8 +4,8 @@ import {StackHeaderProps} from '@react-navigation/stack';
 // import ViewPort from '../../constants/view-port';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import backImg from '../../assets/images/group/image.png';
-import bellImg from '../../assets/images/group/image.png';
+import backImg from '../../../assets/images/group/image.png';
+import bellImg from '../../../assets/images/group/image.png';
 // const {vh} = ViewPort;
 
 function Header(props: StackHeaderProps) {

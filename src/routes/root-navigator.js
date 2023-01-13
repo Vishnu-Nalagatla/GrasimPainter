@@ -12,7 +12,7 @@ import {Image} from 'react-native';
 import groupIcon from '../assets/images/group/image.png';
 import Login from '../screens/Login';
 import MyDay from '../screens/MyDay';
-import Header from '../components/Header';
+import Header from '../components/Common/Header';
 
 const RootStack = createStackNavigator();
 
