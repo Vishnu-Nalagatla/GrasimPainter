@@ -13,6 +13,7 @@ import groupIcon from '../assets/images/group/image.png';
 import Login from '../screens/Login';
 import MyDay from '../screens/MyDay';
 import Header from '../components/Common/Header';
+import Projects from '../screens/Projects';
 
 const RootStack = createStackNavigator();
 
@@ -61,7 +62,7 @@ function RootNavigator(props) {
         />
         <Tab.Screen
           name="Projects"
-          component={Login}
+          component={Projects}
           options={{
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,

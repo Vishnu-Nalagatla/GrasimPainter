@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla',
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: 14,
+    fontSize: 24 * vh,
     lineHeight: 22,
     padding: 16,
     color: '#1e1e1e',

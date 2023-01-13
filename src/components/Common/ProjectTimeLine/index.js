@@ -1,4 +1,4 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './styeles';
 import ellipse from '../../../assets/images/ellipse/image.png';
@@ -7,7 +7,7 @@ import Moment from 'moment';
 import CustomButton from '../Button';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data} = props;
+  const {data, onClick} = props;
   const {Name, AssetCheckStatus, ProjectStartDate} = data;
   const viewDetails = 'View Details';
 
@@ -32,9 +32,9 @@ const ProjectTimeLine = (props: Props) => {
           </View>
           <Text style={styles.projectName}> {Name}</Text>
         </View>
-        <View style={styles.rightWrapper}>
+        <TouchableOpacity style={styles.rightWrapper} onPress={onClick}>
           <Text style={styles.viewDetailsText}> {viewDetails}</Text>
-        </View>
+        </TouchableOpacity>
       </View>
       <View style={styles.bodyContainer}>
         <Text style={styles.status}> {AssetCheckStatus}</Text>

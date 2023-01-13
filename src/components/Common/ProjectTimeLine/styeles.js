@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     height: 460 * vh,
     width: 12 * vw,
     position: 'absolute',
-    left: 26 * vw,
+    left: 28 * vw,
     top: 68 * vh,
   },
   projectLine: {

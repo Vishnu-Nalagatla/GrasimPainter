@@ -1,9 +1,16 @@
-import {View, Text, FlatList, SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  SafeAreaView,
+  useWindowDimensions,
+} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styles.js';
 import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 import data from './data.json';
+import {SceneMap} from 'react-native-tab-view';
 
 export interface Props {
   props: String;
@@ -24,6 +31,13 @@ const MyDay = (props: Props) => {
     },
   ];
   const [state, setTabState] = useState(buttons);
+  const layout = useWindowDimensions();
+
+  const [index, setIndex] = useState(0);
+  const [routes] = useState([
+    {key: 'first', title: 'First'},
+    {key: 'second', title: 'Second'},
+  ]);
 
   const onClick = event => {
     const buttonsChanged = state.map(button => {
@@ -38,6 +52,12 @@ const MyDay = (props: Props) => {
     setTabState(buttonsChanged);
   };
 
+  const projectClick = action => {
+    const {navigation} = props;
+    console.info('projectClickZ123');
+    navigation.navigate('Projects');
+  };
+
   const getProjects = () => {
     const {response} = data;
     const {crewList, today, tomorrow} = response;
@@ -46,8 +66,10 @@ const MyDay = (props: Props) => {
       <SafeAreaView style={styles.projectsWrapper}>
         <FlatList
           data={today}
-          renderItem={({item}) => <ProjectTimeLine data={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={(item, index) => item.Id}
+          renderItem={({item}) => (
+            <ProjectTimeLine data={item} onClick={projectClick} />
+          )}
         />
       </SafeAreaView>
     );
