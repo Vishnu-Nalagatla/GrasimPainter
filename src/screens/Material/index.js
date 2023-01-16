@@ -83,8 +83,14 @@ const Material = props => {
 
   const MaterialUsedCard = ({item, index} = props) => {
     const {name, cost, quantity, value} = item;
+    console.info('materialUsedCardEven.....',  index % 2 === 0);
     return (
-      <View style={styles.materialUsedCard}>
+      <View
+        style={
+          index % 2 === 0
+            ? styles.materialUsedCardEven
+            : styles.materialUsedCard
+        }>
         <View style={styles.usedRow}>
           <View>
             <Text>{name}</Text>
