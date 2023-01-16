@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import LoginNavigator from './login-navigator';
-import ProjectNavigator from './project-navigator';
 import SplashNavigator from './splash-navigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,10 +9,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NativeBaseProvider } from 'native-base';
 import { Image } from 'react-native';
 import groupIcon from '../assets/images/group/image.png';
-import Login from '../screens/Login';
-import MyDay from '../screens/MyDay';
 import Header from '../components/Common/Header';
-import Projects from '../screens/ProjectDetails';
+import ProjectsNavigator from './projects-navigator';
+import AttendanceNavigator from './attendance-navigator';
+import MyTeamNavigator from './myteam-navigator';
+import MyDayNavigator from './myday-navigator';
 
 const RootStack = createStackNavigator();
 
@@ -44,13 +44,13 @@ function RootNavigator(props) {
 	const getTabs = () => {
 		return (
 			<Tab.Navigator
-				initialRouteName="ProjectNavigator"
+				initialRouteName="MyDayNavigator"
 				screenOptions={{
 					tabBarActiveTintColor: '#2C4DAE',
 				}}>
 				<Tab.Screen
 					name="MyDay"
-					component={MyDay}
+					component={MyDayNavigator}
 					options={{
 						header: Header,
 						tabBarLabelStyle: styles.tablelabelStyle,
@@ -62,7 +62,7 @@ function RootNavigator(props) {
 				/>
 				<Tab.Screen
 					name="Projects"
-					component={Projects}
+					component={ProjectsNavigator}
 					options={{
 						header: Header,
 						tabBarLabelStyle: styles.tablelabelStyle,
@@ -72,10 +72,9 @@ function RootNavigator(props) {
 						),
 					}}
 				/>
-
 				<Tab.Screen
 					name="My Team"
-					component={Login}
+					component={MyTeamNavigator}
 					options={{
 						header: Header,
 						tabBarLabelStyle: styles.tablelabelStyle,
@@ -87,7 +86,7 @@ function RootNavigator(props) {
 				/>
 				<Tab.Screen
 					name="Attendance"
-					component={Login}
+					component={AttendanceNavigator}
 					options={{
 						header: Header,
 						tabBarLabelStyle: styles.tablelabelStyle,
@@ -103,31 +102,53 @@ function RootNavigator(props) {
 
 	const getScreen = () => {
 		if (isLoggedIn) {
-			// getTabs();
-			return <RootStack.Screen name="ProjectNavigator" component={ProjectNavigator} />;
+			return getTabs();
 		} else {
-			return <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />;
+			return (
+				<RootStack.Navigator
+					headerMode="none"
+					screenOptions={{
+						gestureEnabled: false,
+					}}>
+					<RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+				</RootStack.Navigator>
+			)
 		}
 	};
 
 	return (
 		<NativeBaseProvider>
-			<NavigationContainer independent={true} >
-				{showSplashScreen ? (
+			{showSplashScreen ? (
+				<NavigationContainer independent={true} >
 					<SplashNavigator />
-				) : (
-					<RootStack.Navigator
-						headerMode="none"
-						screenOptions={{
-							gestureEnabled: false,
-						}}>
-						{getScreen()}
-					</RootStack.Navigator>
-				)}
-			</NavigationContainer>
-		</NativeBaseProvider>
+				</NavigationContainer>
+			) : getScreen()}
+		</NativeBaseProvider >
+
+		// <NativeBaseProvider>
+		// 	<NavigationContainer independent={true} >
+		// 		<RootStack.Navigator
+		// 			headerMode="none"
+		// 			screenOptions={{
+		// 				gestureEnabled: false,
+		// 			}}>
+		// 			<RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+		// 		</RootStack.Navigator>
+		// 	</NavigationContainer>
+		// </NativeBaseProvider>
+
+		// <NativeBaseProvider>
+		// 	<NavigationContainer independent={true} >
+		// 		<SplashNavigator />
+		// 	</NavigationContainer>
+		// </NativeBaseProvider>
+
+		// <NativeBaseProvider>
+		// 	{getTabs()}
+		// </NativeBaseProvider>
 	);
 }
+
 
 const styles = StyleSheet.create({
 	tablelabelStyle: {

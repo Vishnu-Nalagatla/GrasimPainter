@@ -4,6 +4,10 @@ const RouteConfig = {
 	Otp: 'Otp',
 	Help: 'Help',
 	ProjectsDetails: 'ProjectsDetails',
+	Projects: 'Projects',
+	MyTeam: 'MyTeam',
+	Attendance: 'Attendance',
+	MyDay: 'MyDay',
 };
 
 export default RouteConfig;
