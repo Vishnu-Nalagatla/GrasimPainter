@@ -7,14 +7,10 @@ const {vh, vw} = ViewPort;
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // justifyContent: 'center',
-    // // width: '80%',
-    // marginLeft: 50 * vw,
-    // alignSelf: 'center',
   },
   thumbTouchSize: {
-    width: 40 * vw,
-    height: 40 * vh,
+    // width: 6 * vw,
+    // height: 6 * vh,
   },
 });
 
