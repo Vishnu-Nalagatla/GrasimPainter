@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   },
   materialCard: {
     width: 900 * vw,
-    height: 456 * vh,
+    height: 600 * vh,
     marginBottom: 40 * vh,
     borderWidth: 1,
     borderColor: '#91A9F9',

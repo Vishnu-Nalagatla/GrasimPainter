@@ -11,6 +11,7 @@
     "update-version": "npx react-native-version --never-amend"
   },
   "dependencies": {
+    "@miblanchard/react-native-slider": "^2.2.0",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",

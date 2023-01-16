@@ -2,6 +2,7 @@ import {FlatList, ScrollView, Text} from 'native-base';
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import CustomButton from '../../components/Button';
+import ProgressBar from '../../components/ProgressBar';
 
 import styles from './styles';
 
@@ -77,13 +78,13 @@ const Material = props => {
             <Text style={styles.leftOverValue}> {sliderValue}</Text>
           </View>
         </View>
+        <ProgressBar />
       </View>
     );
   };
 
   const MaterialUsedCard = ({item, index} = props) => {
     const {name, cost, quantity, value} = item;
-    console.info('materialUsedCardEven.....',  index % 2 === 0);
     return (
       <View
         style={
