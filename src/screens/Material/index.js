@@ -7,7 +7,7 @@ import styles from './styles';
 
 const Material = props => {
   const materialLeft = 'Let’s check quantity of material left';
-  const materialUsed = 'Here is the list of material used';
+  const materialUsedLabel = 'Here is the list of material used';
   const sliderValue = '23 Ltr';
   const leftOver = 'Leftover';
   const {
@@ -24,6 +24,39 @@ const Material = props => {
       },
     ],
     onPress,
+
+    materialUsed = {
+      painting: [
+        {
+          name: 'Shine',
+          cost: '8872',
+          quantity: '22 Ltr',
+        },
+        {
+          name: 'Royal paint',
+          cost: '8872',
+          quantity: '22 Ltr',
+        },
+      ],
+      accessories: [
+        {
+          name: 'Paint Roller',
+          value: '7 pcs',
+        },
+        {
+          name: 'Paint Brush',
+          value: '2 pcs',
+        },
+        {
+          name: 'Ladder',
+          value: '2 pcs',
+        },
+        {
+          name: 'Paint Spray Machine',
+          value: '2 pcs',
+        },
+      ],
+    },
   } = props;
 
   const MaterialCard = ({item} = props) => {
@@ -48,32 +81,56 @@ const Material = props => {
     );
   };
 
-  const getTabs = () => {
+  const MaterialUsedCard = ({item, index} = props) => {
+    const {name, cost, quantity, value} = item;
     return (
-      <FlatList
-        data={material}
-        keyExtractor={(item, index) => item.key}
-        renderItem={({item}) => <MaterialCard item={item} />}
-      />
+      <View style={styles.materialUsedCard}>
+        <View style={styles.usedRow}>
+          <View>
+            <Text>{name}</Text>
+          </View>
+          <View style={styles.rightInfo}>
+            <Text style={styles.cost}>{cost}</Text>
+            <Text>{quantity}</Text>
+            <Text>{value}</Text>
+          </View>
+        </View>
+      </View>
     );
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.materialLeftView}>
-        <Text style={styles.materialLabel}> {materialLeft}</Text>
-        {getTabs()}
-        <CustomButton
-          title={'Save'}
-          textStyle={[styles.btnTxt]}
-          style={[styles.button]}
-          onPress={onPress}
-        />
-      </View>
-      <View style={styles.materialusedView}>
-        <Text style={styles.materialLabel}> {materialUsed}</Text>
-      </View>
-    </ScrollView>
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.materialLeftView}>
+          <Text style={styles.materialLabel}> {materialLeft}</Text>
+          {material.map(item => (
+            <MaterialCard item={item} />
+          ))}
+          <CustomButton
+            title={'Save'}
+            textStyle={[styles.btnTxt]}
+            style={[styles.button]}
+            onPress={onPress}
+          />
+        </View>
+        <View style={styles.materialusedView}>
+          <Text style={styles.materialLabel}> {materialUsedLabel}</Text>
+          <Text style={styles.heading}>{'Painting Material'}</Text>
+          <View style={styles.cardView}>
+            {materialUsed.painting.map((item, index) => (
+              <MaterialUsedCard item={item} index={index} />
+            ))}
+          </View>
+          <Text style={styles.heading}>{'Accessories & Equipments'}</Text>
+          <View style={styles.cardView}>
+            {materialUsed.accessories.map((item, index) => (
+              <MaterialUsedCard item={item} index={index} />
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

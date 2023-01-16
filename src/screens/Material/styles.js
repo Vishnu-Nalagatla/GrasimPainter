@@ -9,30 +9,38 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: colors.sliderTrack,
-
+  },
+  contentContainer: {
+    width: '95%',
   },
 
   materialLeftView: {
-    width: '92%',
+    width: 1020 * vw,
     marginTop: 40 * vh,
     backgroundColor: colors.white,
     borderRadius: 20 * vh,
-    padding: 20 * vh,
+    paddingBottom: 40 * vh,
     alignItems: 'center',
   },
   materialusedView: {
-    width: '92%',
+    width: 1020 * vw,
     marginTop: 40 * vh,
     backgroundColor: colors.white,
     borderRadius: 20 * vh,
-    marginBottom: 20 * vh,
+    marginBottom: 100 * vh,
+    paddingBottom: 100 * vh,
+  },
+  cardView: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 0 * vh,
   },
   materialLabel: {
     fontSize: 42 * vh,
     color: 'rgba(0, 0, 0, 0.6)',
     fontWeight: '700',
-    paddingTop: 34 * vh,
-    padding: 20 * vh,
+    paddingVertical: 34 * vh,
+    paddingLeft: 50 * vh,
     alignSelf: 'flex-start',
   },
   tabView: {
@@ -83,8 +91,8 @@ const styles = StyleSheet.create({
   },
 
   leftOverView: {
-    height: 180 * vh,
-    width: 300 * vw,
+    height: 160 * vh,
+    width: 280 * vw,
     backgroundColor: '#E7EBF6',
     alignItems: 'center',
     justifyContent: 'center',
@@ -92,8 +100,7 @@ const styles = StyleSheet.create({
   },
   button: {
     borderColor: '#2C4DAE',
-    color: 'red',
-    width: '100%',
+    width: '90%',
     borderWidth: 2,
     borderRadius: 20 * vh,
     marginTop: 40 * vh,
@@ -104,7 +111,37 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingHorizontal: 16 * vh,
   },
-  
+  materialUsedCard: {
+    width: '90%',
+    flexDirection: 'row',
+    height: 160 * vh,
+    backgroundColor: colors.carteBlanche,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20 * vh,
+  },
+  usedRow: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 60 * vh,
+  },
+  rightInfo: {
+    flexDirection: 'row',
+  },
+  oddRow: {
+    backgroundColor: '#f5f8ff',
+  },
+  evenRow: {
+    backgroundColor: '#eef2ff',
+  },
+  cost: {
+    paddingRight: 60 * vh,
+  },
+  heading: {
+    paddingLeft: 60 * vw,
+    paddingVertical: 40 * vh,
+  },
 });
 
 export default styles;

@@ -16,6 +16,7 @@ const colors = {
   secondary: palette.ghostWhites,
   sliderTrack: palette.lavender,
   shadeOfBlack: palette.shadeOfBlack,
+  carteBlanche: palette.carteBlanche,
 };
 
 export default colors;
