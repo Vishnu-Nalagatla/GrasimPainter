@@ -6,9 +6,10 @@ const {vh, vw} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     backgroundColor: colors.sliderTrack,
+    overflow: 'scroll',
+    display: 'flex',
   },
   progressInfo: {
     width: '92%',
@@ -125,6 +126,27 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'center',
     textAlign: 'center',
+  },
+  tabView: {
+    width: '92%',
+    marginTop: 40 * vh,
+  },
+  navitem: {
+    height: 150 * vh,
+    width: 456 * vw,
+    margin: 20 * vh,
+    borderRadius: 20 * vh,
+    backgroundColor: colors.white,
+    justifyContent: 'center',
+    paddingLeft: 26 * vh,
+  },
+  itemView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  tabItem: {
+    color: colors.black,
+    fontWeight: '500',
   },
 });
 

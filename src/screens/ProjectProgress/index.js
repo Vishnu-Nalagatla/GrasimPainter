@@ -1,11 +1,12 @@
 import React from 'react';
-import {Container, Content} from 'native-base';
+import {Container, Content, FlatList, ScrollView} from 'native-base';
 import {Image, View, Text} from 'react-native';
 import styles from './styles';
 import bellImg from '../../assets/images/group/image.png';
 import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 console.log('styles', styles);
 
@@ -28,6 +29,33 @@ const ProjectProgress = props => {
     {
       key: 'Access to washroom',
       value: 'Yes',
+    },
+  ];
+
+  const tabList = [
+    {
+      key: 'material',
+      value: 'Material',
+    },
+    {
+      key: 'crewDetails',
+      value: 'Crew Details',
+    },
+    {
+      key: 'siteChecklist',
+      value: 'Site Checklist',
+    },
+    {
+      key: 'timeline',
+      value: 'Timeline',
+    },
+    {
+      key: 'reports',
+      value: 'Reports',
+    },
+    {
+      key: 'projectInfo',
+      value: 'Project Info',
     },
   ];
 
@@ -104,11 +132,29 @@ const ProjectProgress = props => {
     );
   };
 
+  const getTabs = () => {
+    return (
+      <SafeAreaView style={styles.tabView}>
+        <FlatList
+          data={tabList}
+          contentContainerStyle={styles.itemView}
+          keyExtractor={(item, index) => item.key}
+          renderItem={({item}) => (
+            <View style={styles.navitem}>
+              <Text style={styles.tabItem}>{item.value}</Text>
+            </View>
+          )}
+        />
+      </SafeAreaView>
+    );
+  };
+
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       {getProgressInfo()}
       {getProjectConstraints()}
-    </View>
+      {getTabs()}
+    </ScrollView>
   );
 };
 
