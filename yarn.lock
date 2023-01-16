@@ -7174,19 +7174,6 @@
   "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.1.2.tgz"
   "version" "6.1.2"
 
-"react-native-reanimated@^2.14.1":
-  "integrity" "sha512-o5fAcfYqgRENguVd1Xxd7PPwBgmqTA9yzrIlUk/I0iHeV+5lRLjYwya+Oz3muefUQoQk9hlVyEvZeEdwClC5AQ=="
-  "resolved" "https://registry.npmjs.org/react-native-reanimated/-/react-native-reanimated-2.14.1.tgz"
-  "version" "2.14.1"
-  dependencies:
-    "@babel/plugin-transform-object-assign" "^7.16.7"
-    "@babel/preset-typescript" "^7.16.7"
-    "convert-source-map" "^1.7.0"
-    "invariant" "^2.2.4"
-    "lodash.isequal" "^4.5.0"
-    "setimmediate" "^1.0.5"
-    "string-hash-64" "^1.0.3"
-
 "react-native-responsive-view-port@^1.0.7":
   "integrity" "sha512-2pE6rF22tjjn1Dhynt9Rd9GMHimCCP5nPAafwrTS0MxuOpyL4cArHRAGZ7Yi2LuOFYNjDk8Z7VPCA34mEezGMw=="
   "resolved" "https://registry.npmjs.org/react-native-responsive-view-port/-/react-native-responsive-view-port-1.0.7.tgz"

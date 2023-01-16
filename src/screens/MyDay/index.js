@@ -11,6 +11,7 @@ import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 import data from './data.json';
 import {SceneMap} from 'react-native-tab-view';
+import RouteConfig from '../../constants/route-config.js';
 
 export interface Props {
   props: String;
@@ -55,7 +56,7 @@ const MyDay = (props: Props) => {
   const projectClick = action => {
     const {navigation} = props;
     console.info('projectClickZ123');
-    navigation.navigate('Projects');
+    navigation.navigate(RouteConfig.ProjectsDetails);
   };
 
   const getProjects = () => {

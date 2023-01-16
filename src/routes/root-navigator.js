@@ -13,7 +13,7 @@ import groupIcon from '../assets/images/group/image.png';
 import Login from '../screens/Login';
 import MyDay from '../screens/MyDay';
 import Header from '../components/Common/Header';
-import Projects from '../screens/Projects';
+import Projects from '../screens/ProjectDetails';
 
 const RootStack = createStackNavigator();
 
@@ -103,8 +103,8 @@ function RootNavigator(props) {
 
 	const getScreen = () => {
 		if (isLoggedIn) {
-			getTabs();
-			// return <RootStack.Screen name="ProjectNavigator" component={ProjectNavigator} />;
+			// getTabs();
+			return <RootStack.Screen name="ProjectNavigator" component={ProjectNavigator} />;
 		} else {
 			return <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />;
 		}
