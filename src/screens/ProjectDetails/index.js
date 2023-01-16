@@ -5,6 +5,7 @@ import styles from './styles';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
+import Material from '../Material';
 
 const ProjectDetails = () => {
   const layout = useWindowDimensions();
@@ -16,17 +17,15 @@ const ProjectDetails = () => {
     {key: 'material', title: 'Material'},
     {key: 'reports', title: 'Reports'},
   ]);
-  const FirstRoute = () => <ProjectProgress />;
+  const progressRoute = () => <ProjectProgress />;
+  const materialRoute = () => <Material />;
 
-  const SecondRoute = () => (
-    // eslint-disable-next-line react-native/no-inline-styles
-    <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-  );
+  const SecondRoute = () => <View />;
 
   const renderScene = SceneMap({
-    progress: FirstRoute,
+    progress: progressRoute,
     timeline: SecondRoute,
-    material: FirstRoute,
+    material: materialRoute,
     reports: SecondRoute,
   });
   const renderTabBar = props => (
