@@ -8,7 +8,7 @@ import ViewPort from '../../constants/view-port';
 const {vh, vw} = ViewPort;
 const windowWidth = Dimensions.get('window').width;
 
-const ProgressBar = () => {
+const ProgressSlider = () => {
   const [value, setState] = useState(0);
   const left = (value * (windowWidth - 60)) / 45;
   return (
@@ -31,4 +31,4 @@ const ProgressBar = () => {
   );
 };
 
-export default ProgressBar;
+export default ProgressSlider;
