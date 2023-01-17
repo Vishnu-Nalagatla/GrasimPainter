@@ -7,6 +7,7 @@ import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
 import Material from '../Material';
 import ViewPort from '../../constants/view-port';
+import SiteCheckList from '../SiteCheckList';
 const {vh, vw} = ViewPort;
 
 const ProjectDetails = () => {
@@ -23,6 +24,7 @@ const ProjectDetails = () => {
   ]);
   const progressRoute = () => <ProjectProgress />;
   const materialRoute = () => <Material />;
+  const siteCheckListRoute = () => <SiteCheckList />;
 
   const SecondRoute = () => <View />;
 
@@ -31,7 +33,7 @@ const ProjectDetails = () => {
     timeline: SecondRoute,
     material: materialRoute,
     reports: SecondRoute,
-    siteCheckList: SecondRoute,
+    siteCheckList: siteCheckListRoute,
     info: SecondRoute,
   });
   const renderTabBar = props => (

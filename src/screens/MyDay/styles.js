@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#e7ebf6',
     alignItems: 'center',
-    // justifyContent: 'center',
   },
   bodyContainer: {
     flex: 1,
@@ -30,9 +29,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla',
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: 24 * vh,
+    fontSize: 40 * vh,
     lineHeight: 22,
-    padding: 16,
+    padding: 16 * vh,
     color: '#1e1e1e',
   },
   projectsWrapper: {
