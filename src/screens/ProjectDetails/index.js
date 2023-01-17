@@ -8,6 +8,7 @@ import ProjectProgress from '../ProjectProgress';
 import Material from '../Material';
 import ViewPort from '../../constants/view-port';
 import SiteCheckList from '../SiteCheckList';
+import Reports from '../Reports';
 const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
 
@@ -26,6 +27,7 @@ const ProjectDetails = () => {
   const progressRoute = () => <ProjectProgress />;
   const materialRoute = () => <Material />;
   const siteCheckListRoute = () => <SiteCheckList />;
+  const reportsRoute = () => <Reports />;
 
   const SecondRoute = () => (
     // eslint-disable-next-line react-native/no-inline-styles
@@ -37,7 +39,7 @@ const ProjectDetails = () => {
     progress: progressRoute,
     timeline: SecondRoute,
     material: materialRoute,
-    reports: SecondRoute,
+    reports: reportsRoute,
     siteCheckList: siteCheckListRoute,
     info: SecondRoute,
   });
