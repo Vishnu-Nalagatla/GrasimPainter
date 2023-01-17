@@ -7,7 +7,6 @@ import CustomButton from '../../components/Button';
 import styles from './styles';
 
 const SiteCheckList = () => {
-  console.log('project screen');
   const lable1 = 'Ensure following items are right';
   const lable2 = 'Let’s check few more items';
   const btnlabel = 'Save Checklist';
@@ -76,17 +75,15 @@ const SiteCheckList = () => {
     },
   ];
 
-  const Item = ({data}) => {
+  const Item = ({data, isLast}) => {
     const {question, index, status} = data;
     return (
-      <View style={styles.item}>
+      <View style={isLast ? styles.itemNoHr : styles.item}>
         <Text style={styles.question}> {question}</Text>
         <ToggleSwitch
           isOn={status}
           onColor="#2C4DAE"
           offColor="#DCE3F8"
-          label=""
-          labelStyle={{color: 'black', fontWeight: '900'}}
           size="small"
           onToggle={isOn => onToggle(index, isOn)}
         />
@@ -98,9 +95,11 @@ const SiteCheckList = () => {
     return (
       <View style={styles.checkList}>
         <Text style={styles.lable}>{lable}</Text>
-        {data.map(entity => (
-          <Item data={entity} />
-        ))}
+
+        {data.map((entity, index) => {
+          const isLast = index === data.length - 1;
+          return <Item data={entity} isLast={isLast} />;
+        })}
       </View>
     );
   };

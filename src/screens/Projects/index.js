@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import React from 'react';
 
 const Projects = () => {
-    console.log('project screen')
+    console.log('Projects')
     return (
         <View>
             <Text>Projects Screen</Text>

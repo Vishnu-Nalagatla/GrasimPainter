@@ -23,6 +23,10 @@ const styles = StyleSheet.create({
     paddingVertical: 20 * vh,
     flexDirection: 'row',
   },
+  itemNoHr: {
+    paddingVertical: 20 * vh,
+    flexDirection: 'row',
+  },
   question: {
     flex: 1,
     fontSize: 42 * vh,
