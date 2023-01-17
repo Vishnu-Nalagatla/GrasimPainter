@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
         left: 28 * vw,
         top: 68 * vh,
     },
-    projectLine: {
-        // height: 0 * vh,
-        // position: 'relative',
-    },
     item: {
         flex: 1,
         flexDirection: 'row',
@@ -106,9 +102,27 @@ const styles = StyleSheet.create({
         height: '80%',
     },
     highlight: {
-        fontColor: '#2C4DAE',
+        color: '#2C4DAE',
         fontSize: 35 * vh,
         textDecorationLine: 'underline',
+    },
+    buttonStyle: {
+        backgroundColor: '#e7ebf6',
+        width: 80 * vw,
+        height: 80 * vh,
+        borderRadius: 10 * vh,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    imgStyle: {
+        width: 60 * vw,
+        height: 60 * vh,
+    },
+    textStyle: {
+        fontFamily: 'Karla',
+        fontSize: 45 * vh,
+        alignItems: 'center',
+        textAlign: 'center',
     }
 });
 
