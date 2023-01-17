@@ -9,4 +9,6 @@ export default {
     contactCenter: 'Call Contact Center',
     goBackLogin: 'Go back to login',
     helpCenter: 'Help Center',
+    reorderText: 'Reorder the sequence if required',
+    updateProjectPlan: 'Update Project Plan',
 }

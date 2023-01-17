@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import {Container, Content, ScrollView} from 'native-base';
+import {Container, Content} from 'native-base';
 import {Image, View, Text, useWindowDimensions} from 'react-native';
 import styles from './styles';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
 import Material from '../Material';
 import ViewPort from '../../constants/view-port';
 import SiteCheckList from '../SiteCheckList';
 const {vh, vw} = ViewPort;
+import Timeline from '../Timeline';
 
 const ProjectDetails = () => {
   const layout = useWindowDimensions();
@@ -26,7 +27,11 @@ const ProjectDetails = () => {
   const materialRoute = () => <Material />;
   const siteCheckListRoute = () => <SiteCheckList />;
 
-  const SecondRoute = () => <View />;
+  const SecondRoute = () => (
+    // eslint-disable-next-line react-native/no-inline-styles
+    // <View style={{flex: 1, backgroundColor: '#673ab7'}} />
+    <Timeline />
+  );
 
   const renderScene = SceneMap({
     progress: progressRoute,
@@ -61,7 +66,7 @@ const ProjectDetails = () => {
       renderScene={renderScene}
       renderTabBar={renderTabBar}
       onIndexChange={setIndex}
-      initialLayout={{width: layout.width}}
+      initialLayout={{ width: layout.width }}
     />
   );
 };
