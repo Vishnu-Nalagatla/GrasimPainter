@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Container, Content, FlatList, ScrollView} from 'native-base';
 import {Image, View, Text} from 'react-native';
 import styles from './styles';
@@ -7,6 +7,10 @@ import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import ProgressBar from 'react-native-progress/Bar';
+import {Dimensions} from 'react-native';
+import ViewPort from '../../constants/view-port';
+import ProgressPercentage from '../../components/ProgressPercentage';
 
 console.log('styles', styles);
 
@@ -72,9 +76,7 @@ const ProjectProgress = props => {
             resizeMode="contain"
           />
         </View>
-        <View>
-          <Text> ProgressBar </Text>
-        </View>
+        <ProgressPercentage value={93} />
         <View style={styles.duration}>
           <View style={styles.startDate}>
             <Image
