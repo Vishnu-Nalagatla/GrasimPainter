@@ -17,6 +17,7 @@ const colors = {
   sliderTrack: palette.lavender,
   shadeOfBlack: palette.shadeOfBlack,
   carteBlanche: palette.carteBlanche,
+  ultraMass: palette.ultraMass,
 };
 
 export default colors;
