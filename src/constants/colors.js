@@ -18,6 +18,8 @@ const colors = {
   shadeOfBlack: palette.shadeOfBlack,
   carteBlanche: palette.carteBlanche,
   ultraMass: palette.ultraMass,
+  mediumShadeOfBlue: palette.mediumShadeOfBlue,
+  lavenderMist: palette.lavenderMist,
 };
 
 export default colors;

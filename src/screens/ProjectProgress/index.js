@@ -152,7 +152,7 @@ const ProjectProgress = props => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView style={styles.container}>
       {getProgressInfo()}
       {getProjectConstraints()}
       {getTabs()}

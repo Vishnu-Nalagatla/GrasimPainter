@@ -6,13 +6,13 @@ const {vh, vw} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
+    // alignItems: 'center',
     backgroundColor: colors.sliderTrack,
-    overflow: 'scroll',
-    display: 'flex',
   },
   progressInfo: {
     width: '92%',
+    alignSelf: 'center',
     backgroundColor: colors.white,
     marginTop: 50 * vw,
     padding: 40 * vh,
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
   // projectConstraintsWrapper
 
   projectConstraintsWrapper: {
+    alignSelf: 'center',
     backgroundColor: colors.white,
     borderRadius: 20 * vh,
     justifyContent: 'center',
@@ -129,6 +130,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   tabView: {
+    alignSelf: 'center',
     width: '92%',
     marginTop: 40 * vh,
   },

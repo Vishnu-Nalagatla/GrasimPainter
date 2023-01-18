@@ -7,7 +7,7 @@ const SplashStack = createStackNavigator();
 
 function SplashNavigator() {
   return (
-    <SplashStack.Navigator headerMode="none">
+    <SplashStack.Navigator screenOptions={{headerShown: false}}>
       <SplashStack.Screen name="SplashScreen" component={SplashScreen} />
       <SplashStack.Screen name="Login" component={Login} />
     </SplashStack.Navigator>

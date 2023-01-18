@@ -6,7 +6,9 @@ const ProjectsStack = createStackNavigator();
 
 function ProjectsNavigator() {
   return (
-    <ProjectsStack.Navigator headerMode="none" initialRouteName="Projects">
+    <ProjectsStack.Navigator
+      screenOptions={{headerShown: false}}
+      initialRouteName="Projects">
       <ProjectsStack.Screen name="Projects" component={Projects} />
     </ProjectsStack.Navigator>
   );
