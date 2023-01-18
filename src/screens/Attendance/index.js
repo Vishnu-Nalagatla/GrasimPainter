@@ -4,8 +4,13 @@ import styles from './styles';
 import Moment from 'moment';
 import bellImg from '../../assets/images/group/image.png';
 import {FlatList, Image} from 'native-base';
+import RouteConfig from '../../constants/route-config';
 
-const Attendance = () => {
+export interface Props {
+  props: String;
+}
+
+const Attendance = (props: Props) => {
   const leaveRequests = 'Leave Requests';
   const count = 99;
   const date = Moment(new Date()).format('DD MMM YYYY');
@@ -104,6 +109,11 @@ const Attendance = () => {
   const onAttendance = () => {
     setAttendance(true);
   };
+  const onLeaveRequest = () => {
+    console.info('onLeaveRequest..');
+    const {navigation} = props;
+    navigation.navigate(RouteConfig.LeaveRequests);
+  };
 
   const LeaveCard = ({leave}) => {
     const {status, duration} = leave;
@@ -125,10 +135,10 @@ const Attendance = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <TouchableOpacity style={styles.header} onPress={onLeaveRequest}>
         <Text style={styles.leaveRequestlabel}>{leaveRequests}</Text>
         <Text style={styles.leaveRequestCount}>{count}</Text>
-      </View>
+      </TouchableOpacity>
       <Text style={styles.date}>{date} </Text>
       <TouchableOpacity
         disabled={attendance}
