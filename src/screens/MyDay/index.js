@@ -12,7 +12,7 @@ import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 // import data from './data.json';
 import RouteConfig from '../../constants/route-config.js';
-import { API } from '../../requests';
+import {API} from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
 
@@ -48,12 +48,12 @@ class MyDay extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
   };
 
   closePopup = () => {
-    this.setState({ popup: undefined });
+    this.setState({popup: undefined});
   };
 
   fetchMyDayInfo = () => {
@@ -64,7 +64,7 @@ class MyDay extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const { data } = response;
+        const {data} = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -81,10 +81,10 @@ class MyDay extends React.Component<Props, State> {
   };
 
   onClick = event => {
-    const { buttons } = this.state;
+    const {buttons} = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const { index } = button;
+      const {index} = button;
       if (event.index === index && !event.status) {
         button.status = true;
       } else {
@@ -100,21 +100,21 @@ class MyDay extends React.Component<Props, State> {
   };
 
   projectClick = action => {
-    const { navigation } = this.props;
+    const {navigation} = this.props;
     navigation.navigate(RouteConfig.ProjectsDetails);
   };
 
   getProjects = () => {
     // const {response} = data;
-    const { myDayInfo, activeTabIndex } = this.state;
-    const { today, crewList, tomorrow } = myDayInfo;
+    const {myDayInfo, activeTabIndex} = this.state;
+    const {today, crewList, tomorrow} = myDayInfo;
     const projects = activeTabIndex === 1 ? today : tomorrow;
     return (
       <SafeAreaView style={styles.projectsWrapper}>
         <FlatList
           data={projects}
           keyExtractor={(item, index) => item.Id + index}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <ProjectTimeLine data={item} onClick={this.projectClick} />
           )}
         />
@@ -123,7 +123,7 @@ class MyDay extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const { popup } = this.state;
+    const {popup} = this.state;
 
     if (!popup) {
       return null;
@@ -137,7 +137,7 @@ class MyDay extends React.Component<Props, State> {
   };
 
   render() {
-    const { name, buttons, popup } = this.state;
+    const {name, buttons, popup} = this.state;
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
