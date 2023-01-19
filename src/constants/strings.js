@@ -11,4 +11,5 @@ export default {
     helpCenter: 'Help Center',
     reorderText: 'Reorder the sequence if required',
     updateProjectPlan: 'Update Project Plan',
+    applyLeave: 'Apply Leave',
 }

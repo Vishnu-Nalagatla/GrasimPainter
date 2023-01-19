@@ -165,7 +165,6 @@ const Timeline = () => {
                 return <CalendarPicker onDateChange={(date) => onStartDateChange(date)}
                     previousComponent={getPreviousComponent()}
                     nextComponent={getNextComponent()}
-                    nextTitleStyle={styles.titleStyle}
                     startFromMonday={true}
                     showDayStragglers={true}
                     selectedDayColor='#2C4DAE'
@@ -175,7 +174,6 @@ const Timeline = () => {
                 return <CalendarPicker onDateChange={(date) => onEndDateChange(date)}
                     previousComponent={getPreviousComponent()}
                     nextComponent={getNextComponent()}
-                    nextTitleStyle={styles.titleStyle}
                     startFromMonday={true}
                     showDayStragglers={true}
                     selectedDayColor='#2C4DAE'
@@ -198,7 +196,7 @@ const Timeline = () => {
 
     const getNextComponent = () => {
         return (
-            <View style={styles.titleStyle}>
+            <View style={styles.buttonStyle}>
                 <Image
                     source={ellipse}
                     style={styles.imgStyle}
