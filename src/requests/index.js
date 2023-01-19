@@ -31,7 +31,13 @@ class Requests {
   validateUser = body => this.axios.post(URLs.validateUser, body);
 
   verifyOtp = body => this.axios.post(URLs.verifyOtp, body);
-  
+
+
+  // MY DAY
+
+  getMyDayInfo = body => this.axios.post(URLs.myDayInfo, body);
+
+  // MY DAY
 }
 
 export const API = new Requests();
