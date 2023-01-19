@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: 20 * vh,
   },
   heading: {
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     fontSize: 50 * vh,
     fontWeight: '700',
     marginTop: 50 * vh,
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   roomName: {
     fontSize: 45 * vh,
-    fontFamily: 'Lato',
+    fontFamily: 'Lato-Bold',
     paddingLeft: 50 * vw,
     fontWeight: '700',
     color: '#000000',

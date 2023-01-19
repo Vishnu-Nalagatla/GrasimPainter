@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   welcomeText: {
-    fontFamily: 'Karla',
+    fontFamily: 'Karla-SemiBold',
     fontStyle: 'normal',
     fontWeight: '600',
     fontSize: 40 * vh,

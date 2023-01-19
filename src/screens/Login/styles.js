@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         fontSize: 35 * vh,
         position: 'absolute',
         bottom: 60 * vh,
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Bold',
         fontWeight: '700',
         textAlign: 'center',
         textDecorationLine: 'underline',

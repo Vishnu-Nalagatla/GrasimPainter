@@ -26,12 +26,12 @@ const styles = StyleSheet.create({
         top: 60 * vh,
         zIndex: 999,
         paddingHorizontal: 20 * vh,
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Regular',
     },
     selectedTextStyle: {
         fontSize: 40 * vh,
         color: '#949DB6',
-        fontFamily: 'Lato',
+        fontFamily: 'Lato-Regular',
         fontWeight: '400',
     },
     iconStyle: {
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     },
     descText: {
         marginTop: 20 * vh,
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Regular',
     },
     fromContainer: {
         flexDirection: 'row',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 50 * vh,
         fontWeight: '700',
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Bold',
         textAlign: 'center',
     },
     button: {

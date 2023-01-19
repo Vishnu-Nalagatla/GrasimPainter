@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     userText: {
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Regular',
         fontSize: 40 * vh,
         fontWeight: '400',
         textAlign: 'center',
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     },
     goBack: {
         fontSize: 40 * vh,
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Bold',
         fontWeight: '700',
         textDecorationLine: 'underline',
         color: '#2C4DAE',
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     helpCenterText: {
         fontSize: 50 * vh,
-        fontFamily: 'Lato',
+        fontFamily: 'Lato-Bold',
         fontWeight: '700',
         textAlign: 'center',
         color: '#000000',

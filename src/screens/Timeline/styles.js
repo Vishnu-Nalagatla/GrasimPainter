@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         paddingLeft: 40 * vw,
     },
     heading: {
-        fontFamily: 'Lato',
+        fontFamily: 'Lato-Bold',
         fontSize: 47 * vh,
         fontWeight: '700',
         marginTop: 50 * vh,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         paddingLeft: 20 * vw,
     },
     startDate: {
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Bold',
         fontSize: 30 * vh,
         fontWeight: '700',
         color: '#000000',
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontSize: 50 * vh,
         fontWeight: '700',
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Bold',
         textAlign: 'center',
     },
     button: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
         height: 60 * vh,
     },
     textStyle: {
-        fontFamily: 'Karla',
+        fontFamily: 'Karla-Regular',
         fontSize: 45 * vh,
         alignItems: 'center',
         textAlign: 'center',

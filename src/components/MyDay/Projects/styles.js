@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     color: 'rgba(0, 0, 0, 0.6)',
     fontSize: 12,
     fontWeight: '700',
-    fontFamily: 'karla',
+    fontFamily: 'Karla-Bold',
     fontStyle: 'normal',
   },
   date: {
