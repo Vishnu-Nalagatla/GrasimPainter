@@ -10,6 +10,7 @@ const RouteConfig = {
   MyDay: 'MyDay',
   LeaveRequests: 'LeaveRequests',
   ApplyLeave: 'ApplyLeave',
+  Approve: 'Approve',
 };
 
 export default RouteConfig;

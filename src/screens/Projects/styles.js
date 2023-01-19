@@ -7,13 +7,14 @@ const {vh, vw} = ViewPort;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: colors.sliderTrack,
   },
   projectsCard: {
     backgroundColor: colors.white,
+    alignSelf: 'center',
     padding: 40 * vh,
-    width: 900 * vh,
+    width: '90%',
     marginVertical: 40 * vh,
     borderRadius: 20 * vh,
   },
@@ -59,6 +60,14 @@ const styles = StyleSheet.create({
   date: {
     color: '#949DB6',
     marginLeft: 80 * vh,
+  },
+  label: {
+    fontSize: 50 * vh,
+    fontWeight: '600',
+    width: '90%',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginTop: 60 * vh,
   },
 });
 

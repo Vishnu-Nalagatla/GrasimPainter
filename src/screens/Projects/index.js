@@ -1,60 +1,115 @@
-import {View, Text, SafeAreaView, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React from 'react';
 import data from './data.json';
 import {FlatList, Image, ScrollView} from 'native-base';
 import styles from './styles';
 import bellImg from '../../assets/images/group/image.png';
+import Popup from '../../components/Popup';
+import POPUP_CONSTANTS from '../../enums/popup';
+import colors from '../../constants/colors';
+import RouteConfig from '../../constants/route-config';
 
-const Projects = () => {
-  console.log('Projects');
-  const {response = {}} = data;
-  const {newProjects, ongoingProjects} = response;
+class Projects extends React.Component<Props, State> {
+  constructor(props) {
+    const {response = {}} = data;
+    const {newProjects, ongoingProjects} = response;
+    super(props);
+    this.state = {
+      popup: undefined,
+      newProjects: newProjects,
+      ongoingProjects: ongoingProjects,
+    };
+  }
 
-  const onPress = () => {
+  componentDidMount() {
+    // this.fetchMyDayInfo();
+  }
+
+  onPress = () => {
+    const {navigation} = this.props;
     console.info('onPress...');
-  };
-  const Project = ({project, label, index}) => {
-    const {Name, ProjectPlanStatus} = project;
-    return (
-      <TouchableOpacity style={styles.projectsCard} onPress={onPress}>
-        {/* {index === 0 ? <Text style={{fontSize: 20}}>{label}</Text> : null} */}
-        <View style={styles.headerInfo}>
-          <Text style={styles.name}> {Name}</Text>
-          <Text style={styles.status}> {ProjectPlanStatus}</Text>
-        </View>
-        <View style={styles.dateInfo}>
-          <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
-          <Text style={styles.name}> {'Starting in 20 days'}</Text>
-        </View>
-        <View style={styles.bottomInfo}>
-          <Text style={styles.date}> {'30 Oct 2022'}</Text>
-          <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
-        </View>
-      </TouchableOpacity>
-    );
+    navigation.navigate(RouteConfig.ProjectsDetails);
   };
 
-  const ProjectList = ({projects, label}) => {
+  getPopupContent = () => {
+    const {popup} = this.state;
+
+    if (!popup) {
+      return null;
+    }
+    switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
+    }
+  };
+
+  render() {
+    const {ongoingProjects, newProjects, popup} = this.state;
     return (
-      <SafeAreaView style={styles.projectsWrapper}>
-        <Text style={{fontSize: 20}}>{label}</Text>
-        <FlatList
-          data={projects}
-          keyExtractor={(item, index) => item.Id}
-          renderItem={({item, index}) => (
-            <Project project={item} label={label} index={index} />
-          )}
+      <ScrollView style={styles.container}>
+        <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
+        <ProjectList
+          projects={newProjects}
+          label={'New'}
+          onPress={this.onPress}
         />
-      </SafeAreaView>
+        <ProjectList
+          projects={ongoingProjects}
+          label={'Ongoing'}
+          onPress={this.onPress}
+        />
+      </ScrollView>
     );
-  };
+  }
+}
 
+export default Projects;
+
+const Project = ({project, label, index, onPress}) => {
+  const {Name, ProjectPlanStatus} = project;
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <ProjectList projects={newProjects} label={'New'} />
-      <ProjectList projects={ongoingProjects} label={'Ongoing'} />
-    </ScrollView>
+    <TouchableOpacity style={styles.projectsCard} onPress={onPress}>
+      {/* {index === 0 ? <Text style={{fontSize: 20, width: '90%', backgroundColor: 'red'}}>{label}</Text> : null} */}
+      <View style={styles.headerInfo}>
+        <Text style={styles.name}> {Name}</Text>
+        <Text style={styles.status}> {ProjectPlanStatus}</Text>
+      </View>
+      <View style={styles.dateInfo}>
+        <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
+        <Text style={styles.name}> {'Starting in 20 days'}</Text>
+      </View>
+      <View style={styles.bottomInfo}>
+        <Text style={styles.date}> {'30 Oct 2022'}</Text>
+        <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
+      </View>
+    </TouchableOpacity>
   );
 };
 
-export default Projects;
+const ProjectList = ({projects, label, onPress}) => {
+  return (
+    <SafeAreaView style={styles.projectsWrapper}>
+      <Text style={styles.label}>{label}</Text>
+      <FlatList
+        data={projects}
+        keyExtractor={(item, index) => item.Id}
+        renderItem={({item, index}) => (
+          <Project
+            project={item}
+            label={label}
+            index={index}
+            onPress={onPress}
+          />
+        )}
+      />
+    </SafeAreaView>
+  );
+};

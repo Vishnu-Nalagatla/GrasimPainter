@@ -32,7 +32,9 @@ const ProjectTimeLine = (props: Props) => {
           </View>
           <Text style={styles.projectName}> {Name}</Text>
         </View>
-        <TouchableOpacity style={styles.rightWrapper} onPress={onClick}>
+        <TouchableOpacity
+          style={styles.rightWrapper}
+          onPress={() => onClick('PROJECT_DETAILS', data)}>
           <Text style={styles.viewDetailsText}> {viewDetails}</Text>
         </TouchableOpacity>
       </View>
@@ -47,7 +49,7 @@ const ProjectTimeLine = (props: Props) => {
             title={AssetCheckStatus}
             textStyle={[styles.btnTxt]}
             style={[styles.button]}
-            onPress={onPress}
+            onPress={() => onClick('APPROVE_PROJECT', data)}
           />
         </View>
       </View>

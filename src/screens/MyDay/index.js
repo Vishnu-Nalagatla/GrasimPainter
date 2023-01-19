@@ -10,7 +10,7 @@ import styles from './styles.js';
 import POPUP_CONSTANTS from '../../enums/popup';
 import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
-// import data from './data.json';
+import data from './data.json';
 import RouteConfig from '../../constants/route-config.js';
 import {API} from '../../requests';
 import colors from '../../constants/colors.js';
@@ -37,13 +37,13 @@ class MyDay extends React.Component<Props, State> {
           status: false,
         },
       ],
-      myDayInfo: {},
+      myDayInfo: data.response,
       activeTabIndex: 1,
     };
   }
 
   componentDidMount() {
-    this.fetchMyDayInfo();
+    // this.fetchMyDayInfo();
   }
 
   showSpinner = () => {
@@ -96,12 +96,27 @@ class MyDay extends React.Component<Props, State> {
       buttons: buttonsChanged,
       activeTabIndex,
     });
-    this.fetchMyDayInfo();
+    // this.fetchMyDayInfo();
   };
 
-  projectClick = action => {
+  projectClick = (action, project) => {
     const {navigation} = this.props;
-    navigation.navigate(RouteConfig.ProjectsDetails);
+    switch (action) {
+      case 'PROJECT_DETAILS':
+        navigation.navigate(RouteConfig.ProjectsDetails);
+        break;
+      case 'APPROVE_PROJECT':
+        navigation.navigate(RouteConfig.Approve);
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  approveProject = action => {
+    const {navigation} = this.props;
+    navigation.navigate(RouteConfig.Approve);
   };
 
   getProjects = () => {
