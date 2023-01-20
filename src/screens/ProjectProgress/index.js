@@ -70,11 +70,7 @@ const ProjectProgress = props => {
       <View style={styles.progressInfo}>
         <View style={styles.header}>
           <Text> Project Palnning</Text>
-          <Image
-            source={bellImg}
-            style={styles.profileIcon}
-            resizeMode="contain"
-          />
+          <Image source={bellImg} style={styles.wallImg} resizeMode="contain" />
         </View>
         <ProgressPercentage value={93} />
         <View style={styles.duration}>
