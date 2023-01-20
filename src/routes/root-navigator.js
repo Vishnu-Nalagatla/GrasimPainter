@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { BackHandler, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {BackHandler, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NativeBaseProvider } from 'native-base';
-import { Image } from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NativeBaseProvider} from 'native-base';
+import {Image} from 'react-native';
+
 import groupIcon from '../assets/images/group/image.png';
+import paintRollerColor from '../assets/images/paintRollerColor/image.png';
+import teamColor from '../assets/images/teamColor/image.png';
+import myDayColor from '../assets/images/myDayColor/image.png';
+import attendanceColor from '../assets/images/attendanceColor/image.png';
+
 import Header from '../components/Common/Header';
 import ProjectsNavigator from './projects-navigator';
 import AttendanceNavigator from './attendance-navigator';
@@ -25,8 +31,8 @@ function onBackButtonPressed() {
 
 function RootNavigator(props) {
   const reduxProps = useSelector(state => state);
-  const { login } = reduxProps;
-  const { isLoggedIn } = login;
+  const {login} = reduxProps;
+  const {isLoggedIn} = login;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   // TODO: Revisit the logic
@@ -55,8 +61,8 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Day',
-            tabBarIcon: ({ color, size }) => (
-              <Image style={styles.icon} source={groupIcon} />
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={myDayColor} />
             ),
           }}
         />
@@ -67,8 +73,8 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Projects',
-            tabBarIcon: ({ color, size }) => (
-              <Image style={styles.icon} source={groupIcon} />
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={paintRollerColor} />
             ),
           }}
         />
@@ -79,8 +85,8 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Team',
-            tabBarIcon: ({ color, size }) => (
-              <Image style={styles.icon} source={groupIcon} />
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={teamColor} />
             ),
           }}
         />
@@ -91,8 +97,8 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Attendance',
-            tabBarIcon: ({ color, size }) => (
-              <Image style={styles.icon} source={groupIcon} />
+            tabBarIcon: ({color, size}) => (
+              <Image style={styles.icon} source={attendanceColor} />
             ),
           }}
         />
@@ -158,7 +164,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 10,
   },
-  icon: { width: 25, height: 30, marginTop: 15, marginBottom: 5 },
+  icon: {width: 20, height: 20, marginTop: 15, marginBottom: 5},
 });
 
 export default RootNavigator;

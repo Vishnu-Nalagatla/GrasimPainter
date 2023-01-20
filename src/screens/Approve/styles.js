@@ -128,6 +128,13 @@ const styles = StyleSheet.create({
     fontSize: 45 * vh,
     backgroundColor: 'red',
   },
+  retakeView: {
+    position: 'absolute',
+    top: 20 * vh,
+    right: 20 * vw,
+    fontSize: 45 * vh,
+    backgroundColor: 'red',
+  },
   tabItem: {
     // width: '100%',
   },
@@ -137,13 +144,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 20 * vh,
     marginVertical: 40 * vh,
-    alignSelf:'center',
+    alignSelf: 'center',
   },
   btnTxt: {
-    fontSize: 36 * vh,
+    fontSize: 42 * vh,
     fontFamily: 'karla',
     letterSpacing: 0.8,
-    fontWeight: '500',
+    fontWeight: '700',
     paddingHorizontal: 16 * vh,
   },
   wallName: {

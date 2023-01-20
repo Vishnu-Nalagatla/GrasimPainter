@@ -2,7 +2,14 @@ import React, {useState} from 'react';
 import {Container, Content, FlatList, ScrollView} from 'native-base';
 import {Image, View, Text} from 'react-native';
 import styles from './styles';
+
 import bellImg from '../../assets/images/group/image.png';
+import profileImg from '../../assets/images/profileColor/image.png';
+import locationImg from '../../assets/images/location/image.png';
+import rightArrowImg from '../../assets/images/rightArrowBlack/image.png';
+
+
+
 import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
@@ -69,8 +76,12 @@ const ProjectProgress = props => {
     return (
       <View style={styles.progressInfo}>
         <View style={styles.header}>
-          <Text> Project Palnning</Text>
-          <Image source={bellImg} style={styles.wallImg} resizeMode="contain" />
+          <Text style={styles.label}> Project Palnning</Text>
+          <Image
+            source={profileImg}
+            style={styles.profileIcon}
+            resizeMode="contain"
+          />
         </View>
         <ProgressPercentage value={93} />
         <View style={styles.duration}>
@@ -104,7 +115,7 @@ const ProjectProgress = props => {
         <View style={styles.hrLine} />
         <View style={styles.addressinfo}>
           <Image
-            source={bellImg}
+            source={locationImg}
             style={styles.locationIcon}
             resizeMode="contain"
           />
@@ -140,6 +151,11 @@ const ProjectProgress = props => {
           renderItem={({item}) => (
             <View style={styles.navitem}>
               <Text style={styles.tabItem}>{item.value}</Text>
+              <Image
+                source={rightArrowImg}
+                style={styles.locationIcon}
+                resizeMode="contain"
+              />
             </View>
           )}
         />

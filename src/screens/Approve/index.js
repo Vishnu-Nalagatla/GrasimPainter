@@ -1,17 +1,25 @@
-import {View, ActivityIndicator, Text, SafeAreaView} from 'react-native';
+import {
+  View,
+  ActivityIndicator,
+  Text,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import styles from './styles.js';
 import POPUP_CONSTANTS from '../../enums/popup';
 import RouteConfig from '../../constants/route-config.js';
 import bellImg from '../../assets/images/group/image.png';
+import multipleImg from '../../assets/images/multiple/image.png';
 import {API} from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
-import {FlatList, Image, ScrollView} from 'native-base';
+import {Checkbox, FlatList, Image, ScrollView} from 'native-base';
 import Moment from 'moment';
 import ProgressPercentage from '../../components/ProgressPercentage/index.js';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import CustomButton from '../../components/Button';
+import Slideshow from 'react-native-image-slider-show';
 
 export interface Props {
   props: String;
@@ -29,22 +37,32 @@ class Approve extends React.Component<Props, State> {
       {
         wallName: 'Wall1',
         images: [groupIcon],
+        wallIndex: 1,
+        showRightIcon: false,
       },
       {
         wallName: 'Wall2',
         images: [bellImg, bellImg],
+        wallIndex: 2,
+        showRightIcon: false,
       },
       {
         wallName: 'Wall3',
         images: [bellImg],
+        wallIndex: 3,
+        showRightIcon: false,
       },
       {
         wallName: 'Wall4',
         images: [bellImg],
+        wallIndex: 4,
+        showRightIcon: false,
       },
       {
         wallName: 'Ceiling',
         images: [bellImg],
+        wallIndex: 5,
+        showRightIcon: false,
       },
     ],
   };
@@ -56,6 +74,14 @@ class Approve extends React.Component<Props, State> {
       popup: undefined,
       roomInfo: this.roomInfo,
       resendInfo: this.resendInfo,
+      images: [
+        {url: bellImg},
+        {url: groupIcon},
+        {url: bellImg},
+        {url: bellImg},
+      ],
+      position: 1,
+      showGallery: false,
     };
   }
 
@@ -74,11 +100,26 @@ class Approve extends React.Component<Props, State> {
     console.info('updateImage');
   };
 
-  onClick = (event, data) => {
-    console.info('onClick');
+  onPositionChange = index => {
+    this.setState({position: index});
   };
+
+  showgallery = wallPics => {
+    this.setState({
+      showGallery: true,
+      popup: {type: POPUP_CONSTANTS.SHOW_GALLERY},
+      images: wallPics.map(img => {
+        return {
+          url: img,
+        };
+      }),
+    });
+  };
+
   getPopupContent = () => {
     const {popup} = this.state;
+    const {roomInfo, images} = this.state;
+    const {gallery} = roomInfo;
 
     if (!popup) {
       return null;
@@ -88,17 +129,52 @@ class Approve extends React.Component<Props, State> {
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
         );
+      case POPUP_CONSTANTS.SHOW_GALLERY:
+        return (
+          <ImagesGallery
+            gallery={gallery}
+            images={images}
+            onPositionChange={this.onPositionChange}
+          />
+        );
     }
   };
 
+  onImageLongPress = wallIndex => {
+    const {roomInfo} = this.state;
+    const {gallery} = roomInfo;
+    console.info('onImageLongPress wallIndex...', wallIndex);
+    const updatedGallery = gallery.map(img => {
+      const {showRightIcon} = img;
+      if (img.wallIndex === wallIndex) {
+        return {
+          ...img,
+          showRightIcon: !showRightIcon,
+        };
+      } else {
+        return img;
+      }
+    });
+    roomInfo.gallery = updatedGallery;
+    this.setState({
+      roomInfo,
+    });
+  };
+
   render() {
-    const {roomInfo, popup, resendInfo} = this.state;
+    const {roomInfo, popup, resendInfo, images} = this.state;
     const {gallery} = roomInfo;
     return (
       <ScrollView style={styles.container}>
-        <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
+        <Popup onPress={this.closePopup} visible={!!popup}>
+          {this.getPopupContent()}
+        </Popup>
         <ProgressInfo roomInfo={roomInfo} resendInfo={resendInfo} />
-        <ImagesInfo gallery={gallery} onPress={this.updateImage} />
+        <ImagesInfo
+          gallery={gallery}
+          onPress={this.showgallery}
+          onLongPress={this.onImageLongPress}
+        />
       </ScrollView>
     );
   }
@@ -133,7 +209,24 @@ const ProgressInfo = ({roomInfo, resendInfo}) => {
   );
 };
 
-const ImagesInfo = ({gallery}) => {
+const ImagesGallery = ({images, position = 1, onPositionChange}) => {
+  return (
+    <Slideshow
+      dataSource={images}
+      position={position}
+      indicatorColor="red"
+      indicatorSize={0}
+      arrowLeft={
+        <Image source={bellImg} style={styles.countIcon} resizeMode="contain" />
+      }
+      arrowRight={
+        <Image source={bellImg} style={styles.countIcon} resizeMode="contain" />
+      }
+      onPositionChanged={index => onPositionChange(index)}
+    />
+  );
+};
+const ImagesInfo = ({gallery, onPress, onLongPress}) => {
   return (
     <SafeAreaView style={styles.tabView}>
       <FlatList
@@ -142,24 +235,32 @@ const ImagesInfo = ({gallery}) => {
         keyExtractor={(item, index) => item.key}
         renderItem={({item}) => {
           const wallImgCount = item.images.length;
+          const showRightIcon = item.showRightIcon;
+          console.info('showRightIcon....', showRightIcon);
           return (
-            <View style={styles.navitem}>
+            <TouchableOpacity
+              style={styles.navitem}
+              onPress={() => onPress(item.images)}
+              onLongPress={() => onLongPress(item.wallIndex)}>
               <Image
                 source={item.images[0]}
                 style={styles.wallImg}
                 resizeMode="contain"
               />
-              <Text style={styles.wallImgCount}>
+              <View style={styles.wallImgCount}>
                 {wallImgCount > 1 ? (
                   <Image
-                    source={bellImg}
+                    source={multipleImg}
                     style={styles.countIcon}
                     resizeMode="contain"
                   />
                 ) : null}
-              </Text>
+              </View>
+              <View style={styles.retakeView}>
+                {showRightIcon ? <Checkbox checked={showRightIcon} /> : null}
+              </View>
               <Text style={styles.wallName}>{item.wallName}</Text>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

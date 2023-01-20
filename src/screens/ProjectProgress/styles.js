@@ -47,9 +47,14 @@ const styles = StyleSheet.create({
     fontSize: 70 * vh,
     fontWeight: '600',
   },
+  label: {
+    fontFamily: 'Lato',
+    fontSize: 50 * vh,
+    fontWeight: '700',
+  },
   profileIcon: {
-    height: 30,
-    width: 30,
+    height: 52 * vh,
+    width: 52 * vw,
   },
   button: {
     borderColor: '#2C4DAE',
@@ -90,8 +95,8 @@ const styles = StyleSheet.create({
     width: '80%',
   },
   locationIcon: {
-    height: 50 * vh,
-    width: 50 * vw,
+    height: 60 * vh,
+    width: 60 * vw,
     margin: 30 * vh,
   },
 
@@ -139,17 +144,23 @@ const styles = StyleSheet.create({
     width: 456 * vw,
     margin: 20 * vh,
     borderRadius: 20 * vh,
+    flexDirection: 'row',
     backgroundColor: colors.white,
-    justifyContent: 'center',
-    paddingLeft: 26 * vh,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    paddingLeft: 60 * vh,
   },
   itemView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
   },
   tabItem: {
+    fontFamily: 'Lato',
+    fontStyle:'normal',
+    fontSize: 42 * vh,
     color: colors.black,
-    fontWeight: '500',
+    fontWeight: '700',
+    letterSpacing: 0.6,
   },
 });
 
