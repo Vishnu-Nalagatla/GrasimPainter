@@ -35,6 +35,7 @@ const Priority = {
   CHECK_UPDATES: 6,
   UPDATE_LEFTOVER_MATERIAL: 7,
   PROJECT_DETAILS: 8,
+  ON_CREW_CONFIRMATION: 9,
 };
 const PROJECT_DETAILS_NAVIGATION = {
   PROGRESS: 0,
@@ -163,6 +164,40 @@ class MyDay extends React.Component<Props, State> {
       });
   };
 
+  updateCrewDetails = project => {
+    console.info('updateCrewDetails...', project);
+    this.setState({
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+    });
+    const request = {
+      organizationId: 'organizationID',
+      scheduleId: 'scheduleID',
+    };
+    API.updateCrewDetails(request)
+      .then(res => {
+        console.info('res', res);
+        this.setState({
+          popup: undefined,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            headingImage: errorIcon,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
   projectClick = project => {
     const {displayStatus} = project || {};
     const {order} = displayStatus || {};
@@ -175,14 +210,15 @@ class MyDay extends React.Component<Props, State> {
         this.confirmCrewAllocation(project);
         break;
       case Priority.CONFIRM_UPDATED_PLAN:
-        navigation.navigate(RouteConfig.ProjectsDetails);
+        navigation.navigate(RouteConfig.ProjectsDetails, {
+          index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
+        });
         break;
       case Priority.VISIT_PROJECT_SITE:
         navigation.navigate(RouteConfig.ProjectsDetails);
         break;
       case Priority.REQUEST_FOR_QUALITY_CHECK:
         this.requestForQualityCheck(project);
-        // navigation.navigate(RouteConfig.ProjectsDetails);
         break;
       case Priority.CHECK_UPDATES:
         navigation.navigate(RouteConfig.ProjectsDetails);
@@ -192,7 +228,6 @@ class MyDay extends React.Component<Props, State> {
           index: PROJECT_DETAILS_NAVIGATION.MATERIAL,
         });
         break;
-
       default:
         navigation.navigate(RouteConfig.ProjectsDetails, {
           index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
@@ -217,7 +252,11 @@ class MyDay extends React.Component<Props, State> {
           data={projects}
           keyExtractor={(item, index) => item.Id + index}
           renderItem={({item}) => (
-            <ProjectTimeLine data={item} onClick={this.projectClick} />
+            <ProjectTimeLine
+              data={item}
+              onClick={this.projectClick}
+              updateCrewDetails={this.updateCrewDetails}
+            />
           )}
         />
       </SafeAreaView>

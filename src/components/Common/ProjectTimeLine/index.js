@@ -11,13 +11,27 @@ import {Dropdown} from 'react-native-element-dropdown';
 // import {Dropdown} from 'react-native-element-dropdown';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data, onClick} = props;
+  const {data, onClick, updateCrewDetails} = props;
+
+  const Priority = {
+    CREATE_PROJECT_PLAN: 1,
+    CONFIRM_CREW_ALLOCATION: 2,
+    CONFIRM_UPDATED_PLAN: 3,
+    VISIT_PROJECT_SITE: 4,
+    REQUEST_FOR_QUALITY_CHECK: 5,
+    CHECK_UPDATES: 6,
+    UPDATE_LEFTOVER_MATERIAL: 7,
+    PROJECT_DETAILS: 8,
+    ON_CREW_CONFIRMATION: 9,
+  };
 
   const {Name, AssetCheckStatus, ProjectStartDate, displayStatus} = data;
   console.info('displayStatus....: ', data);
   const {title, ctaLabel, order} = displayStatus;
   const viewDetails = 'View Details';
   const viewCrewCalendar = 'View Crew Calendar';
+  const [crew, setCrew] = useState();
+  const [error, showError] = useState(false);
 
   const crewData = [
     {
@@ -52,16 +66,40 @@ const ProjectTimeLine = (props: Props) => {
         names: 'Rajesh4, Mahesh, Manohar, Javed',
       },
     },
+    {
+      label: 'Crew1',
+      value: {
+        title: 'Crew1',
+        status: 1,
+        names: 'Rajesh1, Mahesh, Manohar, Javed1,  Manohar, Javed',
+      },
+    },
+    {
+      label: 'Crew 2',
+      value: {
+        title: 'Crew2',
+        status: 2,
+        names: 'Rajesh2, Mahesh, Manohar, Javed',
+      },
+    },
+    {
+      label: 'Crew 3',
+      value: {
+        title: 'Crew3',
+        status: 3,
+        names: 'Rajes3, Mahesh, Manohar, Javed1',
+      },
+    },
+    {
+      label: 'Crew 4',
+      value: {
+        title: 'Crew4',
+        status: 4,
+        names: 'Rajesh4, Mahesh, Manohar, Javed',
+      },
+    },
   ];
 
-  const [value, setValue] = useState({
-    label: 'Crew1',
-    value: {
-      title: 'Crew1',
-      status: 1,
-      names: 'Rajesh1, Mahesh, Manohar, Javed',
-    },
-  });
   const prepareDate = () => {
     const date = Moment(ProjectStartDate).format('DD MMMM YYYY');
     return `Starting on ${date}`;
@@ -83,10 +121,14 @@ const ProjectTimeLine = (props: Props) => {
     );
   };
   const onChangeItem = item => {
-    setValue(item);
+    if (crew) {
+      showError(false);
+      updateCrewDetails(item);
+    }
   };
 
   const showCewCalendar = () => {
+    const erStyle = error ? styles.dropdownError : styles.dropdown;
     return (
       <View style={styles.crewWrapper}>
         <TouchableOpacity style={styles.cewCalendar}>
@@ -99,17 +141,17 @@ const ProjectTimeLine = (props: Props) => {
         </TouchableOpacity>
         <View style={styles.buttonWrapper}>
           <Dropdown
-            style={styles.dropdown}
+            style={erStyle}
             placeholderStyle={styles.placeholderStyle}
             selectedTextStyle={styles.selectedTextStyle}
             inputSearchStyle={styles.inputSearchStyle}
             labelField="label"
             valueField="value"
             data={crewData}
-            value={value}
+            value={crew}
             placeholder="Select Crew"
             onChange={item => {
-              // setValue('Hello');
+              setCrew(item);
             }}
             maxHeight={250}
             renderItem={renderItem}
@@ -120,7 +162,7 @@ const ProjectTimeLine = (props: Props) => {
               title={ctaLabel}
               textStyle={[styles.btnTxtPrimary]}
               style={[styles.buttonPrimary]}
-              onPress={() => onClick(data)}
+              onPress={() => onChangeItem(Priority.ON_CREW_CONFIRMATION)}
             />
           </View>
         </View>

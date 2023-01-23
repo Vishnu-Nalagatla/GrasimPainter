@@ -37,6 +37,7 @@ class Requests {
   getMyDayInfo = body => this.axios.post(URLs.myDayInfo, body);
   requestForQualityCheck = body =>
     this.axios.post(URLs.requestForQualityCheck, body);
+  updateCrewDetails = body => this.axios.post(URLs.updateCrewDetails, body);
 
   // MY DAY
 }

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla-SemiBold',
     fontStyle: 'normal',
     fontWeight: '600',
-    fontSize: 40 * vh,
+    fontSize: 32 * vh,
     lineHeight: 22,
     padding: 16 * vh,
     color: '#1e1e1e',
