@@ -11,7 +11,8 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 
 const initialData = {
-    projectStartDate: '2022-08-19',
+    projectStartDate: '2023-01-19',
+    projectEndDate: '2023-01-31',
     roomSequence: [
         {
             name: 'Bedroom',
@@ -48,25 +49,27 @@ const initialData = {
             name: 'Living Room',
             timeTaken: 3,
             startDate: '30 Oct 2022',
-            index: 2,
+            index: 5,
         },
         {
             name: 'Balcony',
             timeTaken: 1,
             startDate: '29 Oct 2022',
-            index: 3,
+            index: 6,
         },
         {
             name: 'Bedroom',
             timeTaken: 1,
             startDate: '28 Oct 2022',
-            index: 4,
+            index: 7,
         },
     ]
 };
 
 const Timeline = () => {
     const [timeLineData, setTimeLineData] = useState(initialData.roomSequence);
+    const [projectStartDate, setProjectStartDate] = useState(initialData.projectStartDate);
+    const [projectEndDate, setProjectEndDate] = useState(initialData.projectEndDate);
     const [popup, setPopup] = useState(undefined);
 
     // const getCalculatedTimelineSequence = () => {
@@ -93,6 +96,7 @@ const Timeline = () => {
         const selectedDate = new Date(date);
         var formatDate = selectedDate.getDate() + ' ' + selectedDate.toString().substr(4, 3) + ' ' + selectedDate.getFullYear();
         timeLineData[timeLineData.length - 1].startDate = formatDate;
+        setProjectStartDate(selectedDate.getFullYear() + '-' + (selectedDate.getMonth() + 1) + '-' + selectedDate.getDate());
         setTimeLineData(timeLineData);
         setPopup(undefined);
     }
@@ -101,6 +105,7 @@ const Timeline = () => {
         const selectedDate = new Date(date);
         var formatDate = selectedDate.getDate() + ' ' + selectedDate.toString().substr(4, 3) + ' ' + selectedDate.getFullYear();
         timeLineData[0].startDate = formatDate;
+        setProjectEndDate(selectedDate.getFullYear() + '-' + selectedDate.getMonth() + '-' + selectedDate.getDate());
         setTimeLineData(timeLineData);
         setPopup(undefined);
     }
@@ -156,6 +161,10 @@ const Timeline = () => {
 
     }
 
+    const recalculateProjectPlan = () => {
+
+    }
+
     const getPopupContent = () => {
         if (!popup) {
             return null;
@@ -169,6 +178,7 @@ const Timeline = () => {
                     showDayStragglers={true}
                     selectedDayColor='#2C4DAE'
                     textStyle={styles.textStyle}
+                    minDate={new Date()}
                 />;
             case POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR:
                 return <CalendarPicker onDateChange={(date) => onEndDateChange(date)}
@@ -178,6 +188,7 @@ const Timeline = () => {
                     showDayStragglers={true}
                     selectedDayColor='#2C4DAE'
                     textStyle={styles.textStyle}
+                    minDate={new Date(projectStartDate)}// replace with project start date
                 />;
         }
     };
@@ -223,6 +234,12 @@ const Timeline = () => {
                     />
                 </View>
             </View>
+            <CustomButton
+                title={strings.recalculateProjectPlan}
+                textStyle={styles.buttonText}
+                style={styles.button}
+                onPress={recalculateProjectPlan}
+            />
             <CustomButton
                 title={strings.updateProjectPlan}
                 textStyle={styles.buttonText}
