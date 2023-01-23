@@ -295,11 +295,13 @@ class MyDay extends React.Component<Props, State> {
                 to be done in your day{''}
               </Text>
             </View>
-            <SwithcButtons
-              buttons={buttons}
-              onClick={button => this.onClick(button)}
-            />
-            {this.getProjects()}
+            <View style={styles.body}>
+              <SwithcButtons
+                buttons={buttons}
+                onClick={button => this.onClick(button)}
+              />
+              {this.getProjects()}
+            </View>
           </View>
         )}
       </View>
