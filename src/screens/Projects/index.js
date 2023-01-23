@@ -15,6 +15,15 @@ import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
 
+const PROJECT_DETAILS_NAVIGATION = {
+  PROGRESS: 0,
+  TIMELINE: 1,
+  MATERIAL: 2,
+  REPORTS: 3,
+  CHECKLIST: 4,
+  INFO: 5,
+};
+
 class Projects extends React.Component<Props, State> {
   constructor(props) {
     const {response = {}} = data;
@@ -35,6 +44,9 @@ class Projects extends React.Component<Props, State> {
     const {navigation} = this.props;
     console.info('onPress...');
     navigation.navigate(RouteConfig.ProjectsDetails);
+    navigation.navigate(RouteConfig.ProjectsDetails, {
+      index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
+    });
   };
 
   getPopupContent = () => {
