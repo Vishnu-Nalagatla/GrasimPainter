@@ -29,21 +29,18 @@ const styles = StyleSheet.create({
     borderRadius: 35 * vh,
     marginRight: 20 * vh,
     borderWidth: 1,
-    borderColor: 'red',
   },
   approveIcon: {
-    height: 70 * vh,
-    width: 70 * vw,
+    height: 80 * vh,
+    width: 80 * vw,
     marginRight: 50 * vw,
     borderWidth: 1,
-    borderColor: 'red',
   },
   declineIcon: {
     height: 70 * vh,
     width: 70 * vw,
     marginRight: 20 * vw,
     borderWidth: 1,
-    borderColor: 'red',
   },
   name: {
     fontSize: 46 * vh,

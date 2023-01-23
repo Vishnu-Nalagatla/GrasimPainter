@@ -4,6 +4,10 @@ import {TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import bellImg from '../../assets/images/group/image.png';
 
+import approveImg from '../../assets/images/approve/image.png';
+
+import naImg from '../../assets/images/naColor/image.png';
+
 import styles from './styles';
 
 const LeaveRequests = () => {
@@ -108,15 +112,15 @@ const LeaveRequests = () => {
             <View style={styles.rightInfo}>
               <TouchableOpacity onPress={() => declineLeave(data)}>
                 <Image
-                  source={bellImg}
-                  style={styles.approveIcon}
+                  source={naImg}
+                  style={styles.declineIcon}
                   resizeMode="contain"
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => approveLeave(data)}>
                 <Image
-                  source={bellImg}
-                  style={styles.declineIcon}
+                  source={approveImg}
+                  style={styles.approveIcon}
                   resizeMode="contain"
                 />
               </TouchableOpacity>

@@ -82,11 +82,11 @@
           }
         ],
         "displayStatus": {
-          "code": "3",
-          "title": "Confirm updated plan",
-          "eventTitle": "View requested timeline",
-          "statusDescription": "<p>Updated plan is confirmed</p>\n"
-        }
+          "order": "1",
+          "title": "Create Project Plan",
+          "ctaLabel": "Create Now",
+          "confirmMessage": "<p>Plan created and shared with customer</p>\n"
+      }
       },
       {
         "Id": "a061y000000EvblAAC",
@@ -166,88 +166,11 @@
           }
         ],
         "displayStatus": {
-          "code": "5",
-          "title": "Request for Quality Check",
-          "eventTitle": "Request now",
-          "statusDescription": "<p>Quality Check Requested</p>\n"
-        }
-      },
-      {
-        "Id": "a061y000000EvVzAAK",
-        "Name": "Project - Krunal Arora",
-        "SiteId": "a051y000004AulmAAC",
-        "LeadId": "00Q1y0000015pxeEAA",
-        "AccountId": "0011y00000YFpv7AAD",
-        "Status": "Delayed",
-        "EmailId": "arora.k@gmail.com",
-        "WarrantyId": "",
-        "ProjectId": "PJ-00000096",
-        "QuotationNumber": "764735",
-        "AssetCheckStatus": "Under Procurement",
-        "ProjectStartDate": "2022-12-17",
-        "ProjectEndDate": "2023-01-05",
-        "WelcomeKitStatus": "Sent",
-        "SiteName": "",
-        "ProjectPlanStatus": "Confirmed By Consumer",
-        "TLProjectPlanCreatedDate": "2022-11-29",
-        "TLProjectPlanConfirmationDate": "2022-11-29",
-        "TLVisitDate": "1901-01-01",
-        "TLVisitScheduleDate": "1901-01-01",
-        "CrewAllocationDate": "1901-01-01",
-        "QCAllocationDate": "1901-01-01",
-        "CompletionPercentage": "",
-        "IsCrewAllocated": false,
-        "IsFinalPaymentDone": false,
-        "RoomList": [
-          {
-            "Id": "a071y000003301zAAA",
-            "Name": "BedRoom",
-            "RoomID": "RM-00000068",
-            "RoomSequence": 21,
-            "RoomUser": "Elderly",
-            "RoomType": "L Shaped Room",
-            "RoomNotes": "",
-            "AdditionalArea": 0,
-            "SiteId": "a051y000004AulmAAC",
-            "SiteName": "",
-            "ProjectName": "",
-            "WallList": []
-          },
-          {
-            "Id": "a071y0000032fuIAAQ",
-            "Name": "Main Hall Room",
-            "RoomID": "RM-00000053",
-            "RoomSequence": 22,
-            "RoomUser": "Elderly",
-            "RoomType": "Rectangular Room",
-            "RoomNotes": "",
-            "AdditionalArea": 0,
-            "SiteId": "a051y000004AulmAAC",
-            "SiteName": "",
-            "ProjectName": "",
-            "WallList": []
-          },
-          {
-            "Id": "a071y0000032fuNAAQ",
-            "Name": "Kitchen Room",
-            "RoomID": "RM-00000054",
-            "RoomSequence": 18,
-            "RoomUser": "Adults",
-            "RoomType": "L Shaped Room",
-            "RoomNotes": "",
-            "AdditionalArea": 0,
-            "SiteId": "a051y000004AulmAAC",
-            "SiteName": "",
-            "ProjectName": "",
-            "WallList": []
-          }
-        ],
-        "displayStatus": {
-          "code": "2",
+          "order": "2",
           "title": "Confirm Crew Allocation",
-          "eventTitle": "Confirm",
-          "statusDescription": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
-        }
+          "ctaLabel": "Confirm",
+          "confirmMessage": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
+      }
       },
       {
         "Id": "a061y000000EvVzAAK",
@@ -320,11 +243,11 @@
           }
         ],
         "displayStatus": {
-          "code": "3",
+          "order": "3",
           "title": "Confirm updated plan",
-          "eventTitle": "View requested timeline",
-          "statusDescription": "<p>Updated plan is confirmed</p>\n"
-        }
+          "ctaLabel": "View requested timeline",
+          "confirmMessage": "<p>Updated plan is confirmed</p>\n"
+      }
       },
       {
         "Id": "a061y000000EvVzAAK",
@@ -397,11 +320,88 @@
           }
         ],
         "displayStatus": {
-          "code": "5",
+          "order": "4",
+          "title": "Visit Project Site",
+          "ctaLabel": "Schedule a time",
+          "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
+      }
+      },
+      {
+        "Id": "a061y000000EvVzAAK",
+        "Name": "Project - Krunal Arora",
+        "SiteId": "a051y000004AulmAAC",
+        "LeadId": "00Q1y0000015pxeEAA",
+        "AccountId": "0011y00000YFpv7AAD",
+        "Status": "Delayed",
+        "EmailId": "arora.k@gmail.com",
+        "WarrantyId": "",
+        "ProjectId": "PJ-00000096",
+        "QuotationNumber": "764735",
+        "AssetCheckStatus": "Under Procurement",
+        "ProjectStartDate": "2022-12-17",
+        "ProjectEndDate": "2023-01-05",
+        "WelcomeKitStatus": "Sent",
+        "SiteName": "",
+        "ProjectPlanStatus": "Confirmed By Consumer",
+        "TLProjectPlanCreatedDate": "2022-11-29",
+        "TLProjectPlanConfirmationDate": "2022-11-29",
+        "TLVisitDate": "1901-01-01",
+        "TLVisitScheduleDate": "1901-01-01",
+        "CrewAllocationDate": "1901-01-01",
+        "QCAllocationDate": "1901-01-01",
+        "CompletionPercentage": "",
+        "IsCrewAllocated": false,
+        "IsFinalPaymentDone": false,
+        "RoomList": [
+          {
+            "Id": "a071y000003301zAAA",
+            "Name": "BedRoom",
+            "RoomID": "RM-00000068",
+            "RoomSequence": 21,
+            "RoomUser": "Elderly",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "",
+            "AdditionalArea": 0,
+            "SiteId": "a051y000004AulmAAC",
+            "SiteName": "",
+            "ProjectName": "",
+            "WallList": []
+          },
+          {
+            "Id": "a071y0000032fuIAAQ",
+            "Name": "Main Hall Room",
+            "RoomID": "RM-00000053",
+            "RoomSequence": 22,
+            "RoomUser": "Elderly",
+            "RoomType": "Rectangular Room",
+            "RoomNotes": "",
+            "AdditionalArea": 0,
+            "SiteId": "a051y000004AulmAAC",
+            "SiteName": "",
+            "ProjectName": "",
+            "WallList": []
+          },
+          {
+            "Id": "a071y0000032fuNAAQ",
+            "Name": "Kitchen Room",
+            "RoomID": "RM-00000054",
+            "RoomSequence": 18,
+            "RoomUser": "Adults",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "",
+            "AdditionalArea": 0,
+            "SiteId": "a051y000004AulmAAC",
+            "SiteName": "",
+            "ProjectName": "",
+            "WallList": []
+          }
+        ],
+        "displayStatus": {
+          "order": "5",
           "title": "Request for Quality Check",
-          "eventTitle": "Request now",
-          "statusDescription": "<p>Quality Check Requested</p>\n"
-        }
+          "ctaLabel": "Request now",
+          "confirmMessage": "<p>Quality Check Requested</p>\n"
+      }
       },
       {
         "Id": "a061y000000EwQ5AAK",
@@ -471,11 +471,11 @@
           }
         ],
         "displayStatus": {
-          "code": "1",
-          "title": "Create Project Plan",
-          "eventTitle": "Create Now",
-          "statusDescription": "<p>Plan created and shared with customer</p>\n"
-        }
+          "order": "6",
+          "title": "Check updates",
+          "ctaLabel": "Check now",
+          "confirmMessage": "<p>Updates are checked</p>\n"
+      }
       },
       {
         "Id": "a061y000000EwQ5AAK",
@@ -545,11 +545,11 @@
           }
         ],
         "displayStatus": {
-          "code": "3",
-          "title": "Confirm updated plan",
-          "eventTitle": "View requested timeline",
-          "statusDescription": "<p>Updated plan is confirmed</p>\n"
-        }
+          "order": "7",
+          "title": "Update leftover material",
+          "ctaLabel": "Update now",
+          "confirmMessage": "<p>Updates were made</p>\n"
+      }
       },
       {
         "Id": "a061y000000EwQ5AAK",

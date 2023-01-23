@@ -1,0 +1,44 @@
+[
+    {
+        "order": "1",
+        "title": "Create Project Plan",
+        "ctaLabel": "Create Now",
+        "confirmMessage": "<p>Plan created and shared with customer</p>\n"
+    },
+    {
+        "order": "2",
+        "title": "Confirm Crew Allocation",
+        "ctaLabel": "Confirm",
+        "confirmMessage": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
+    },
+    {
+        "order": "3",
+        "title": "Confirm updated plan",
+        "ctaLabel": "View requested timeline",
+        "confirmMessage": "<p>Updated plan is confirmed</p>\n"
+    },
+    {
+        "order": "4",
+        "title": "Visit Project Site",
+        "ctaLabel": "Schedule a time",
+        "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
+    },
+    {
+        "order": "5",
+        "title": "Request for Quality Check",
+        "ctaLabel": "Request now",
+        "confirmMessage": "<p>Quality Check Requested</p>\n"
+    },
+    {
+        "order": "6",
+        "title": "Check updates",
+        "ctaLabel": "Check now",
+        "confirmMessage": "<p>Updates are checked</p>\n"
+    },
+    {
+        "order": "7",
+        "title": "Update leftover material",
+        "ctaLabel": "Update now",
+        "confirmMessage": "<p>Updates were made</p>\n"
+    }
+]
