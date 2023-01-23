@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.2.0",
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/clipboard": "^1.5.1",
     "@react-navigation/bottom-tabs": "^6.5.3",
     "@react-navigation/native": "^6.1.2",
@@ -32,6 +33,7 @@
     "react-native-element-dropdown": "^2.5.3",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-image-slider-show": "^1.0.3",
+    "react-native-onboarding-swiper": "^1.2.0",
     "react-native-pager-view": "^6.1.2",
     "react-native-progress": "^5.0.0",
     "react-native-reanimated": "^2.14.1",

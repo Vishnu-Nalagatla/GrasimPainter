@@ -12,4 +12,5 @@ export default {
     reorderText: 'Reorder the sequence if required',
     updateProjectPlan: 'Update Project Plan',
     applyLeave: 'Apply Leave',
+    recalculateProjectPlan: 'Recalculate Project Plan'
 }

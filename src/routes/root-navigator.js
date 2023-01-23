@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {BackHandler, StyleSheet} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { BackHandler, StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NativeBaseProvider} from 'native-base';
-import {Image} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NativeBaseProvider } from 'native-base';
+import { Image } from 'react-native';
 
 import groupIcon from '../assets/images/group/image.png';
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
@@ -20,6 +20,7 @@ import ProjectsNavigator from './projects-navigator';
 import AttendanceNavigator from './attendance-navigator';
 import MyTeamNavigator from './myteam-navigator';
 import MyDayNavigator from './myday-navigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const RootStack = createStackNavigator();
 
@@ -31,8 +32,8 @@ function onBackButtonPressed() {
 
 function RootNavigator(props) {
   const reduxProps = useSelector(state => state);
-  const {login} = reduxProps;
-  const {isLoggedIn} = login;
+  const { login } = reduxProps;
+  const { isLoggedIn } = login;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   // TODO: Revisit the logic
@@ -41,10 +42,23 @@ function RootNavigator(props) {
     setTimeout(() => {
       setShowSplashScreen(false);
     }, 3000);
+    setStorage();
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', onBackButtonPressed);
     };
   }, []);
+
+  const setStorage = () => {
+    const date = new Date();
+    const currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    const prevDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() - 1;
+    AsyncStorage.removeItem('loggedInUser_' + prevDate);
+    AsyncStorage.getItem('loggedInUser_' + currentDate).then(user => {
+      if (user) {
+        this.userExists = true;
+      }
+    });
+  }
 
   // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
@@ -61,7 +75,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Day',
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Image style={styles.icon} source={myDayColor} />
             ),
           }}
@@ -73,7 +87,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Projects',
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Image style={styles.icon} source={paintRollerColor} />
             ),
           }}
@@ -85,7 +99,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Team',
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Image style={styles.icon} source={teamColor} />
             ),
           }}
@@ -97,7 +111,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Attendance',
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Image style={styles.icon} source={attendanceColor} />
             ),
           }}
@@ -107,7 +121,8 @@ function RootNavigator(props) {
   };
 
   const getScreen = () => {
-    if (true) {
+
+    if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
       return (
@@ -164,7 +179,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 10,
   },
-  icon: {width: 20, height: 20, marginTop: 15, marginBottom: 5},
+  icon: { width: 20, height: 20, marginTop: 15, marginBottom: 5 },
 });
 
 export default RootNavigator;

@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
+        fontSize: 40 * vh,
     },
     nextBtnText: {
         fontSize: 40 * vh,

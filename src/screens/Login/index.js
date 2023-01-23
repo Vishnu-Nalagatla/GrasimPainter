@@ -53,6 +53,7 @@ class Login extends React.Component<Props, State> {
         }
         const request = {
             mobileNumber: userName,
+            // appType: "Colour Consultant Agent",
             appType: "Team Lead"
         };
         this.showSpinner();
@@ -62,6 +63,7 @@ class Login extends React.Component<Props, State> {
                 if (data && data.code && data.code === 401) {
                     this.setState({ validationMsg: data.message, popup: undefined })
                 } else if (data.code && data.code === 1701) {
+                    const parsedObject = JSON.parse(data.response);
                     API.sendOTP({
                         msisdn: userName
                     }).then(() => { })
@@ -69,7 +71,8 @@ class Login extends React.Component<Props, State> {
                     this.closePopup();
                     navigation.navigate(RouteConfig.Otp, {
                         userName: userName,
-                        firstName: '',
+                        firstName: parsedObject ? parsedObject.firstName : '',
+                        lastName: parsedObject ? parsedObject.lastName : '',
                     });
                 }
             })
