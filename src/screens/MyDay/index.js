@@ -15,10 +15,35 @@ import RouteConfig from '../../constants/route-config.js';
 import {API} from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
+import Success from '../../components/Common/Success/index.js';
+
+import doneColor from '../../assets/images/doneColor/image.png';
+import errorIcon from '../../assets/images/naColor/image.png';
+
+import StandardPopup from '../../components/Common/StandardPopup/index.js';
 
 export interface Props {
   props: String;
 }
+
+const Priority = {
+  CREATE_PROJECT_PLAN: 1,
+  CONFIRM_CREW_ALLOCATION: 2,
+  CONFIRM_UPDATED_PLAN: 3,
+  VISIT_PROJECT_SITE: 4,
+  REQUEST_FOR_QUALITY_CHECK: 5,
+  CHECK_UPDATES: 6,
+  UPDATE_LEFTOVER_MATERIAL: 7,
+  PROJECT_DETAILS: 8,
+};
+const PROJECT_DETAILS_NAVIGATION = {
+  PROGRESS: 0,
+  TIMELINE: 1,
+  MATERIAL: 2,
+  REPORTS: 3,
+  CHECKLIST: 4,
+  INFO: 5,
+};
 
 class MyDay extends React.Component<Props, State> {
   constructor(props) {
@@ -39,8 +64,13 @@ class MyDay extends React.Component<Props, State> {
       ],
       myDayInfo: data.response,
       activeTabIndex: 1,
+      successScreen: undefined,
     };
   }
+  // successScreen: {
+  //   message: 'Request for quality check has been sent successfully',
+  //   image: doneColor,
+  // },
 
   componentDidMount() {
     // this.fetchMyDayInfo();
@@ -99,17 +129,74 @@ class MyDay extends React.Component<Props, State> {
     // this.fetchMyDayInfo();
   };
 
-  projectClick = (action, project) => {
+  requestForQualityCheck = project => {
+    console.info('project...', project);
+    this.setState({
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+    });
+    const request = {
+      organizationId: 'organizationID',
+      scheduleId: 'scheduleID',
+    };
+    API.requestForQualityCheck(request)
+      .then(res => {
+        console.info('res', res);
+        this.setState({
+          popup: undefined,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            headingImage: errorIcon,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
+  projectClick = project => {
+    const {displayStatus} = project || {};
+    const {order} = displayStatus || {};
     const {navigation} = this.props;
-    switch (action) {
-      case 'PROJECT_DETAILS':
+    switch (+order) {
+      case Priority.CREATE_PROJECT_PLAN:
+        // navigation.navigate(RouteConfig.ProjectsDetails);
+        break;
+      case Priority.CONFIRM_CREW_ALLOCATION:
+        this.confirmCrewAllocation(project);
+        break;
+      case Priority.CONFIRM_UPDATED_PLAN:
         navigation.navigate(RouteConfig.ProjectsDetails);
         break;
-      case 'APPROVE_PROJECT':
-        navigation.navigate(RouteConfig.Approve);
+      case Priority.VISIT_PROJECT_SITE:
+        navigation.navigate(RouteConfig.ProjectsDetails);
+        break;
+      case Priority.REQUEST_FOR_QUALITY_CHECK:
+        this.requestForQualityCheck(project);
+        // navigation.navigate(RouteConfig.ProjectsDetails);
+        break;
+      case Priority.CHECK_UPDATES:
+        navigation.navigate(RouteConfig.ProjectsDetails);
+        break;
+      case Priority.UPDATE_LEFTOVER_MATERIAL:
+        navigation.navigate(RouteConfig.ProjectsDetails, {
+          index: PROJECT_DETAILS_NAVIGATION.MATERIAL,
+        });
         break;
 
       default:
+        navigation.navigate(RouteConfig.ProjectsDetails, {
+          index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
+        });
         break;
     }
   };
@@ -148,27 +235,34 @@ class MyDay extends React.Component<Props, State> {
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
         );
+      case POPUP_CONSTANTS.ERROR_POPUP:
+        return <StandardPopup {...popup} />;
     }
   };
 
   render() {
-    const {name, buttons, popup} = this.state;
+    const {name, buttons, popup, successScreen} = this.state;
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
-        <View style={styles.welcomeMessage}>
-          <Text style={styles.welcomeText}>
-            Hi {name}, Good Morning! Here is the list of things that needs to be
-            done in your day{''}
-          </Text>
-        </View>
-        <View style={styles.bodyContainer}>
-          <SwithcButtons
-            buttons={buttons}
-            onClick={button => this.onClick(button)}
-          />
-          {this.getProjects()}
-        </View>
+
+        {successScreen ? (
+          <Success info={successScreen} />
+        ) : (
+          <View style={styles.bodyContainer}>
+            <View style={styles.welcomeMessage}>
+              <Text style={styles.welcomeText}>
+                Hi {name}, Good Morning! Here is the list of things that needs
+                to be done in your day{''}
+              </Text>
+            </View>
+            <SwithcButtons
+              buttons={buttons}
+              onClick={button => this.onClick(button)}
+            />
+            {this.getProjects()}
+          </View>
+        )}
       </View>
     );
   }

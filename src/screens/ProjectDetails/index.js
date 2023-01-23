@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Content} from 'native-base';
 import {Image, View, Text, useWindowDimensions} from 'react-native';
 import styles from './styles';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
 import Material from '../Material';
@@ -12,10 +12,12 @@ import Reports from '../Reports';
 const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
 
-const ProjectDetails = () => {
+const ProjectDetails = props => {
+  const {route} = props;
+  const {params} = route;
   const layout = useWindowDimensions();
+  const [index, setIndex] = useState(params.index);
 
-  const [index, setIndex] = useState(0);
   const [routes] = useState([
     {key: 'progress', title: 'Progress'},
     {key: 'timeline', title: 'Timeline'},
@@ -68,7 +70,7 @@ const ProjectDetails = () => {
       renderScene={renderScene}
       renderTabBar={renderTabBar}
       onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
+      initialLayout={{width: layout.width}}
     />
   );
 };

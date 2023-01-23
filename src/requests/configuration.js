@@ -3,4 +3,5 @@ export default {
   sendOTP: '/api/send-otp',
   verifyOtp: 'api/verify-otp',
   myDayInfo: '/api/user/myday-info',
+  requestForQualityCheck: '/api/user/requestForQualityCheck',
 };

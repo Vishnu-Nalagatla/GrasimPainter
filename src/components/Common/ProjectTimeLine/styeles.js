@@ -1,4 +1,6 @@
 import {StyleSheet} from 'react-native';
+import {color} from 'react-native-reanimated';
+import colors from '../../../constants/colors';
 import ViewPort from '../../../constants/view-port';
 // import colors from '../../../constants/colors';
 
@@ -58,7 +60,9 @@ const styles = StyleSheet.create({
   bodyContainer: {
     marginLeft: 90 * vw,
     marginTop: 10 * vh,
-    alignItems:'flex-start',
+    alignItems: 'flex-start',
+    flex: 1,
+    width: '100%',
   },
   status: {
     color: '#000000',
@@ -73,20 +77,131 @@ const styles = StyleSheet.create({
     letterSpacing: 1 * vh,
     marginTop: 30 * vh,
   },
-  button: {
-    borderColor: '#2C4DAE',
-    color: 'red',
+  buttonPrimary: {
+    borderColor: colors.primary,
+    color: colors.white,
     minWidth: 300 * vw,
     borderWidth: 2,
     borderRadius: 20 * vh,
     marginTop: 40 * vh,
+    backgroundColor: colors.primary,
   },
-  btnTxt: {
+  btnTxtPrimary: {
     fontSize: 36 * vh,
-    color: '#2C4DAE',
+    color: colors.white,
     letterSpacing: 0.8,
     fontWeight: '500',
     paddingHorizontal: 16 * vh,
+  },
+
+  button: {
+    borderColor: colors.primary,
+    color: colors.primary,
+    minWidth: 300 * vw,
+    borderWidth: 2,
+    borderRadius: 20 * vh,
+    marginTop: 40 * vh,
+    backgroundColor: colors.white,
+  },
+  btnTxt: {
+    fontSize: 36 * vh,
+    color: colors.primary,
+    letterSpacing: 0.8,
+    fontWeight: '500',
+    paddingHorizontal: 16 * vh,
+  },
+
+  cewCalendar: {
+    flexDirection: 'row',
+    marginTop: 26 * vh,
+    marginBottom: 20 * vh,
+  },
+  viewCrewCalendar: {
+    fontFamily: 'Karla',
+    fontWeight: '700',
+    fontStyle: 'normal',
+    fontSize: 32 * vh,
+    color: colors.primary,
+    textDecorationLine: 'underline',
+  },
+  calendar: {
+    height: 42 * vh,
+    width: 42 * vh,
+    marginRight: 20 * vw,
+  },
+  crewItem: {
+    backgroundColor: colors.sliderTrack,
+    paddingBottom: 30 * vh,
+    paddingLeft: 20 * vh,
+    // borderRadius: 10 * vh,
+  },
+
+  crewWrapper: {
+    width: '46%',
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  crewTitle: {
+    fontSize: 38 * vh,
+    color: colors.black,
+    fontWeight: '700',
+
+  },
+  crewNames: {
+    fontSize: 26 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontWeight: '500',
+    paddingHorizontal: 8 * vh,
+  },
+  selectedTextStyle: {
+    fontSize: 40 * vh,
+    color: colors.black,
+    fontWeight: '700',
+    paddingLeft: 26 * vh,
+  },
+  placeholderStyle: {
+    // height: 150 * vh,
+    // backgroundColor: 'green',
+    justifyContent:'center',
+    alignItems: 'center',
+  },
+  dropdown: {
+    height: 120 * vh,
+    marginTop: 30 * vh,
+    width: '90%',
+    marginRight: 20 * vh,
+    backgroundColor: colors.sliderTrack,
+    borderRadius: 12 * vh,
+    padding: 12,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  crewInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16 * vh,
+  },
+  crewStatus: {
+    height: 26 * vh,
+    width: 26 * vw,
+    borderRadius: 13 * vh,
+    backgroundColor: colors.error,
+    marginLeft: 30 * vw,
+  },
+  successStatus: {
+    height: 26 * vh,
+    width: 26 * vw,
+    borderRadius: 13 * vh,
+    marginLeft: 30 * vw,
+    backgroundColor: colors.success,
   },
 });
 

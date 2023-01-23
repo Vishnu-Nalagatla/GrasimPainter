@@ -32,10 +32,11 @@ class Requests {
 
   verifyOtp = body => this.axios.post(URLs.verifyOtp, body);
 
-
   // MY DAY
 
   getMyDayInfo = body => this.axios.post(URLs.myDayInfo, body);
+  requestForQualityCheck = body =>
+    this.axios.post(URLs.requestForQualityCheck, body);
 
   // MY DAY
 }
