@@ -7,7 +7,6 @@ import paintCraftIcon from '../../assets/images/splash/paint_logo.png';
 import painterIcon from '../../assets/images/splash/paint_logo.png';
 import styles from './styles';
 
-console.log('styles', styles);
 
 const SplashScreen = () => {
     return (

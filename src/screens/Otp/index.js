@@ -134,10 +134,35 @@ class Otp extends React.Component<Props, State> {
                 } else if (data.statusCode && data.statusCode === 101) {
                     const date = new Date();
                     const currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-                    AsyncStorage.setItem('loggedInUser_' + currentDate, userName)
-                        .then(() => {
-                            dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName } })
-                        });
+                    const prevDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() - 1;
+                    AsyncStorage.removeItem('loggedInUser_' + prevDate);
+                    AsyncStorage.removeItem('currentUser_' + prevDate);
+                    AsyncStorage.setItem('currentUser_' + currentDate, userName);
+                    AsyncStorage.getItem('loggedInUser_' + currentDate).then(user => {
+                        if (user) {
+                            const parsedUser = JSON.parse(user);
+                            if (parsedUser.hasOwnProperty(userName)) {
+                                const showOnboardingScreen = parsedUser[userName];
+                                dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: showOnboardingScreen } });
+                            } else {
+                                const updatedUser = {
+                                    ...parsedUser,
+                                    [userName]: true,
+                                }
+                                AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify(updatedUser));
+                                dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: true } });
+                            }
+                        } else {
+                            dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: true } });
+                            AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify({
+                                [userName]: true
+                            }));
+                        }
+                    });
+                    // AsyncStorage.setItem('loggedInUser_' + currentDate, userName)
+                    //     .then(() => {
+                    //         dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName } })
+                    //     });
                     //Here data.response has multiple records, which one to consider
                     // dispatchSetLoginData(userData.records);
                 }
