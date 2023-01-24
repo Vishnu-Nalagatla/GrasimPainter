@@ -11,6 +11,8 @@ const RouteConfig = {
   LeaveRequests: 'LeaveRequests',
   ApplyLeave: 'ApplyLeave',
   Approve: 'Approve',
+  CrewCalendar: 'CrewCalendar',
+
 };
 
 export default RouteConfig;

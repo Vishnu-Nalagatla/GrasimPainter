@@ -11,7 +11,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 // import {Dropdown} from 'react-native-element-dropdown';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data, onClick, updateCrewDetails} = props;
+  const {data, onClick, updateCrewDetails, viewCrewCalendar} = props;
 
   const Priority = {
     CREATE_PROJECT_PLAN: 1,
@@ -29,7 +29,7 @@ const ProjectTimeLine = (props: Props) => {
   console.info('displayStatus....: ', data);
   const {title, ctaLabel, order} = displayStatus;
   const viewDetails = 'View Details';
-  const viewCrewCalendar = 'View Crew Calendar';
+  const viewCrewCalendarLabel = 'View Crew Calendar';
   const [crew, setCrew] = useState();
   const [error, showError] = useState(false);
 
@@ -131,13 +131,13 @@ const ProjectTimeLine = (props: Props) => {
     const erStyle = error ? styles.dropdownError : styles.dropdown;
     return (
       <View style={styles.crewWrapper}>
-        <TouchableOpacity style={styles.cewCalendar}>
+        <TouchableOpacity style={styles.cewCalendar} onPress={viewCrewCalendar}>
           <Image
             source={calendar}
             style={styles.calendar}
             resizeMode="contain"
           />
-          <Text style={styles.viewCrewCalendar}>{viewCrewCalendar}</Text>
+          <Text style={styles.viewCrewCalendar}>{viewCrewCalendarLabel}</Text>
         </TouchableOpacity>
         <View style={styles.buttonWrapper}>
           <Dropdown

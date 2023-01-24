@@ -38,6 +38,7 @@ class Requests {
   requestForQualityCheck = body =>
     this.axios.post(URLs.requestForQualityCheck, body);
   updateCrewDetails = body => this.axios.post(URLs.updateCrewDetails, body);
+  updateLeftMaterial = body => this.axios.post(URLs.updateLeftMaterial, body);
 
   // MY DAY
 }

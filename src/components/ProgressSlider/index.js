@@ -8,9 +8,13 @@ import ViewPort from '../../constants/view-port';
 const {vh, vw} = ViewPort;
 const windowWidth = Dimensions.get('window').width;
 
-const ProgressSlider = () => {
+const ProgressSlider = ({onValueChange}) => {
   const [value, setState] = useState(0);
   const left = (value * (windowWidth - 60)) / 45;
+  const onChange = data => {
+    setState(data);
+    onValueChange(data[0]);
+  };
   return (
     <View style={styles.container}>
       <Text style={{width: 70 * vw, textAlign: 'center', left: left * vw}}>
@@ -25,7 +29,7 @@ const ProgressSlider = () => {
         step={1}
         thumbTouchSize={{width: 40, height: 40}}
         thumbTintColor="#D0D7E8"
-        onValueChange={data => setState(data)}
+        onValueChange={data => onChange(data)}
       />
     </View>
   );

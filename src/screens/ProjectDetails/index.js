@@ -26,10 +26,10 @@ const ProjectDetails = props => {
     {key: 'siteCheckList', title: 'Site Checklist'},
     {key: 'info', title: 'Info'},
   ]);
-  const progressRoute = () => <ProjectProgress />;
-  const materialRoute = () => <Material />;
-  const siteCheckListRoute = () => <SiteCheckList />;
-  const reportsRoute = () => <Reports />;
+  const progressRoute = () => <ProjectProgress project={params.project} />;
+  const materialRoute = () => <Material project={params.project} />;
+  const siteCheckListRoute = () => <SiteCheckList project={params.project} />;
+  const reportsRoute = () => <Reports project={params.project} />;
 
   const SecondRoute = () => (
     // eslint-disable-next-line react-native/no-inline-styles

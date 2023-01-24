@@ -197,6 +197,10 @@ class MyDay extends React.Component<Props, State> {
         });
       });
   };
+  viewCrewCalendar = () => {
+    const {navigation} = this.props;
+    navigation.navigate(RouteConfig.CrewCalendar);
+  };
 
   projectClick = project => {
     const {displayStatus} = project || {};
@@ -204,13 +208,17 @@ class MyDay extends React.Component<Props, State> {
     const {navigation} = this.props;
     switch (+order) {
       case Priority.CREATE_PROJECT_PLAN:
-        // navigation.navigate(RouteConfig.ProjectsDetails);
+        navigation.navigate(RouteConfig.ProjectsDetails, {
+          project,
+          index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
+        });
         break;
       case Priority.CONFIRM_CREW_ALLOCATION:
         this.confirmCrewAllocation(project);
         break;
       case Priority.CONFIRM_UPDATED_PLAN:
         navigation.navigate(RouteConfig.ProjectsDetails, {
+          project,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
         break;
@@ -221,15 +229,17 @@ class MyDay extends React.Component<Props, State> {
         this.requestForQualityCheck(project);
         break;
       case Priority.CHECK_UPDATES:
-        navigation.navigate(RouteConfig.ProjectsDetails);
+        navigation.navigate(RouteConfig.Approve);
         break;
       case Priority.UPDATE_LEFTOVER_MATERIAL:
         navigation.navigate(RouteConfig.ProjectsDetails, {
+          project,
           index: PROJECT_DETAILS_NAVIGATION.MATERIAL,
         });
         break;
       default:
         navigation.navigate(RouteConfig.ProjectsDetails, {
+          project,
           index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
         });
         break;
@@ -256,6 +266,7 @@ class MyDay extends React.Component<Props, State> {
               data={item}
               onClick={this.projectClick}
               updateCrewDetails={this.updateCrewDetails}
+              viewCrewCalendar={this.viewCrewCalendar}
             />
           )}
         />

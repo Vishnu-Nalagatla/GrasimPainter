@@ -5,4 +5,5 @@ export default {
   myDayInfo: '/api/user/myday-info',
   requestForQualityCheck: '/api/user/requestForQualityCheck',
   updateCrewDetails: '/api/user/updateCrewDetails',
+  updateLeftMaterial: '/api/user/updateLeftMaterial',
 };

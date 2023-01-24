@@ -22,16 +22,21 @@ import ProgressPercentage from '../../components/ProgressPercentage';
 console.log('styles', styles);
 
 const ProjectProgress = props => {
+
+  console.info('ProjectProgress.....', props);
+  const {project} = props;
   const {
-    ProjectStartDate = '2022-08-19',
-    ProjectEndDate = '2022-09-19',
-    onPress,
+    ProjectStartDate,
+    ProjectEndDate,
     paymentInfo = '1st payment received',
     address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
-  } = props;
+  } = project;
   const startDate = Moment(ProjectStartDate).format('DD MMM YYYY');
   const endDate = Moment(ProjectEndDate).format('DD MMM YYYY');
 
+  const onPress = () => {
+    console.info('project..');
+  };
   const constraints = [
     {
       key: 'Space required for material movement',

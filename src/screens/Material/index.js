@@ -1,16 +1,25 @@
 import {FlatList, ScrollView, Text} from 'native-base';
-import React from 'react';
-import {SafeAreaView, View} from 'react-native';
+import React, {useState} from 'react';
+import {ActivityIndicator, SafeAreaView, View} from 'react-native';
 import CustomButton from '../../components/Button';
 import ProgressSlider from '../../components/ProgressSlider';
+import {API} from '../../requests';
+import POPUP_CONSTANTS from '../../enums/popup';
+
+import errorIcon from '../../assets/images/naColor/image.png';
 
 import styles from './styles';
+import Popup from '../../components/Popup';
+import StandardPopup from '../../components/Common/StandardPopup';
+import colors from '../../constants/colors';
 
 const Material = props => {
   const materialLeft = 'Let’s check quantity of material left';
   const materialUsedLabel = 'Here is the list of material used';
   const sliderValue = '23 Ltr';
   const leftOver = 'Leftover';
+  const [popup, setPopup] = useState(undefined);
+
   const {
     material = [
       {
@@ -24,8 +33,6 @@ const Material = props => {
         brand: 'Asain Paints',
       },
     ],
-    onPress,
-
     materialUsed = {
       painting: [
         {
@@ -60,6 +67,40 @@ const Material = props => {
     },
   } = props;
 
+  const showSpinner = () => {
+    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+  };
+
+  const closePopup = () => {
+    setPopup(undefined);
+  };
+
+  const onPress = () => {
+    const request = {};
+    showSpinner();
+    API.updateLeftMaterial(request)
+      .then(res => {
+        console.info('res', res);
+        setPopup(undefined);
+      })
+      .catch(error => {
+        setPopup({
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          heading: 'Network Error',
+          message: error.message,
+          headingImage: errorIcon,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => closePopup(),
+            },
+          ],
+        });
+      });
+  };
+  const onValueChange = (name, value) => {
+    console.info('onValueChange.....', name, value);
+  };
   const MaterialCard = ({item} = props) => {
     const {name, brand, totalQuantity} = item;
     return (
@@ -78,7 +119,7 @@ const Material = props => {
             <Text style={styles.leftOverValue}> {sliderValue}</Text>
           </View>
         </View>
-        <ProgressSlider />
+        <ProgressSlider onValueChange={value => onValueChange(name, value)} />
       </View>
     );
   };
@@ -106,8 +147,23 @@ const Material = props => {
     );
   };
 
+  const getPopupContent = () => {
+    if (!popup) {
+      return null;
+    }
+    switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
+      case POPUP_CONSTANTS.ERROR_POPUP:
+        return <StandardPopup {...popup} />;
+    }
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <Popup visible={!!popup}>{getPopupContent()}</Popup>
       <ScrollView>
         <View style={styles.materialLeftView}>
           <Text style={styles.materialLabel}> {materialLeft}</Text>
@@ -137,7 +193,7 @@ const Material = props => {
           </View>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
