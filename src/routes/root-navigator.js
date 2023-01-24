@@ -121,26 +121,18 @@ function RootNavigator(props) {
   };
 
   const getScreen = () => {
-
-    if (this.userExists) {
+    if (this.userExists || isLoggedIn) {
       return getTabs();
-    } else if (isLoggedIn) {
-      if (showOnboarding) {
-        <OnboardingNavigator />
-      } else {
-        return getTabs();
-      }
     } else {
-      return getTabs();
-      // return (
-      //   <RootStack.Navigator
-      //     headerMode="none"
-      //     screenOptions={{
-      //       gestureEnabled: false,
-      //     }}>
-      //     <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-      //   </RootStack.Navigator>
-      // );
+      return (
+        <RootStack.Navigator
+          headerMode="none"
+          screenOptions={{
+            gestureEnabled: false,
+          }}>
+          <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+        </RootStack.Navigator>
+      );
     }
   };
 
@@ -150,9 +142,11 @@ function RootNavigator(props) {
         <NavigationContainer independent={true}>
           <SplashNavigator />
         </NavigationContainer>
-      ) : (
-        getScreen()
-      )}
+      ) : isLoggedIn && showOnboarding ? (
+        <NavigationContainer independent={true}>
+          <OnboardingNavigator />
+        </NavigationContainer>
+      ) : getScreen()}
     </NativeBaseProvider>
 
     // <NativeBaseProvider>

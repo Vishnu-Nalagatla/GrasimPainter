@@ -143,20 +143,23 @@ class Otp extends React.Component<Props, State> {
                             const parsedUser = JSON.parse(user);
                             if (parsedUser.hasOwnProperty(userName)) {
                                 const showOnboardingScreen = parsedUser[userName];
-                                dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: showOnboardingScreen } });
+                                dispatchSetLoginData({ userName: userName, showOnboarding: showOnboardingScreen });
                             } else {
                                 const updatedUser = {
                                     ...parsedUser,
                                     [userName]: true,
                                 }
-                                AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify(updatedUser));
-                                dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: true } });
+                                AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify(updatedUser))
+                                    .then(res => {
+                                        dispatchSetLoginData({ userName: userName, showOnboarding: true });
+                                    });
                             }
                         } else {
-                            dispatchSetLoginData({ isLoggedIn: true, loginInfo: { userName: userName, showOnboarding: true } });
                             AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify({
                                 [userName]: true
-                            }));
+                            })).then(res => {
+                                dispatchSetLoginData({ userName: userName, showOnboarding: true });
+                            });
                         }
                     });
                     // AsyncStorage.setItem('loggedInUser_' + currentDate, userName)

@@ -4,6 +4,7 @@ import Login from '../screens/Login';
 import Otp from '../screens/Otp';
 import Help from '../screens/Help';
 import {NavigationContainer} from '@react-navigation/native';
+import OnboardingScreen from '../screens/Onboarding';
 
 const LoginStack = createStackNavigator();
 
@@ -14,6 +15,7 @@ function LoginNavigator() {
         <LoginStack.Screen name="Login" component={Login} />
         <LoginStack.Screen name="Otp" component={Otp} />
         <LoginStack.Screen name="Help" component={Help} />
+        <LoginStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       </LoginStack.Navigator>
     </NavigationContainer>
   );

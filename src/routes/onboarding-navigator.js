@@ -9,7 +9,6 @@ function OnboardingNavigator() {
     return (
         <OnboardingStack.Navigator screenOptions={{ headerShown: false }}>
             <OnboardingStack.Screen name="Onboarding" component={Onboarding} />
-            <OnboardingStack.Screen name="Login" component={Login} />
         </OnboardingStack.Navigator>
     );
 }
