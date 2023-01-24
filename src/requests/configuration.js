@@ -4,6 +4,9 @@ export default {
   verifyOtp: 'api/verify-otp',
   myDayInfo: '/api/user/myday-info',
   requestForQualityCheck: '/api/user/requestForQualityCheck',
-  updateCrewDetails: '/api/user/updateCrewDetails',
   updateLeftMaterial: '/api/user/updateLeftMaterial',
+
+  assignCrewToProject: '/sfdc/assign-crew-to-project',
+  qualityCheckRequest: '/sfdc/update-project-qc-request/',
+  scheduleSiteVisit: '/sfdc/create-event',
 };

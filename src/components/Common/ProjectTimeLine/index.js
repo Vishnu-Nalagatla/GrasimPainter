@@ -11,7 +11,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 // import {Dropdown} from 'react-native-element-dropdown';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data, onClick, updateCrewDetails, viewCrewCalendar} = props;
+  const {data, onClick, assignCrewToProject, viewCrewCalendar} = props;
 
   const Priority = {
     CREATE_PROJECT_PLAN: 1,
@@ -26,7 +26,6 @@ const ProjectTimeLine = (props: Props) => {
   };
 
   const {Name, AssetCheckStatus, ProjectStartDate, displayStatus} = data;
-  console.info('displayStatus....: ', data);
   const {title, ctaLabel, order} = displayStatus;
   const viewDetails = 'View Details';
   const viewCrewCalendarLabel = 'View Crew Calendar';
@@ -123,7 +122,7 @@ const ProjectTimeLine = (props: Props) => {
   const onChangeItem = item => {
     if (crew) {
       showError(false);
-      updateCrewDetails(item);
+      assignCrewToProject(item);
     }
   };
 

@@ -12,15 +12,16 @@ import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 import data from './data.json';
 import RouteConfig from '../../constants/route-config.js';
-import {API} from '../../requests';
+import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
 import Success from '../../components/Common/Success/index.js';
 
-import doneColor from '../../assets/images/doneColor/image.png';
 import errorIcon from '../../assets/images/naColor/image.png';
 
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
+
+import TimePicker from '../../components/TimePicker/index.js';
 
 export interface Props {
   props: String;
@@ -66,6 +67,7 @@ class MyDay extends React.Component<Props, State> {
       myDayInfo: data.response,
       activeTabIndex: 1,
       successScreen: undefined,
+      showTime: false,
     };
   }
   // successScreen: {
@@ -164,16 +166,17 @@ class MyDay extends React.Component<Props, State> {
       });
   };
 
-  updateCrewDetails = project => {
+  assignCrewToProject = project => {
     console.info('updateCrewDetails...', project);
+    const {Id} = project;
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
     const request = {
-      organizationId: 'organizationID',
-      scheduleId: 'scheduleID',
+      hpId: '0031y00000RNstfAAD',
+      projectID: Id,
     };
-    API.updateCrewDetails(request)
+    API.assignCrewToProject(request)
       .then(res => {
         console.info('res', res);
         this.setState({
@@ -197,6 +200,46 @@ class MyDay extends React.Component<Props, State> {
         });
       });
   };
+
+  scheduleSiteVisit = project => {
+    console.info('scheduleSiteVisit...', project);
+    const {Id} = project;
+    this.setState({
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+    });
+    const request = {
+      OwnerId: '0051y000000NpxWAAS',
+      WhatId: Id,
+      StartDateTime: '2023-01-04T14:00:00Z',
+      EndDateTime: '2023-01-04T14:30:00Z',
+      Type: 'TL Visit',
+      Subject: 'TL Visit',
+    };
+    SFDC_API.scheduleSiteVisit(request)
+      .then(res => {
+        console.info('res', res);
+        this.setState({
+          popup: undefined,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            headingImage: errorIcon,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
   viewCrewCalendar = () => {
     const {navigation} = this.props;
     navigation.navigate(RouteConfig.CrewCalendar);
@@ -223,7 +266,10 @@ class MyDay extends React.Component<Props, State> {
         });
         break;
       case Priority.VISIT_PROJECT_SITE:
-        navigation.navigate(RouteConfig.ProjectsDetails);
+        console.info('showTime.....', this.state.showTime);
+        this.setState({
+          showTime: false,
+        });
         break;
       case Priority.REQUEST_FOR_QUALITY_CHECK:
         this.requestForQualityCheck(project);
@@ -265,7 +311,7 @@ class MyDay extends React.Component<Props, State> {
             <ProjectTimeLine
               data={item}
               onClick={this.projectClick}
-              updateCrewDetails={this.updateCrewDetails}
+              assignCrewToProject={this.assignCrewToProject}
               viewCrewCalendar={this.viewCrewCalendar}
             />
           )}
@@ -289,13 +335,29 @@ class MyDay extends React.Component<Props, State> {
         return <StandardPopup {...popup} />;
     }
   };
+  onChange = () => {};
+  showTimePicker = () => {
+    return (
+      <TimePicker
+        testID="dateTimePicker"
+        value={new Date()}
+        mode={'time'}
+        is24Hour={true}
+        onChange={this.onChange}
+        onClose={this.onChange}
+        hours={12}
+        minutes={12}
+        meridian="AM"
+      />
+    );
+  };
 
   render() {
-    const {name, buttons, popup, successScreen} = this.state;
+    const {name, buttons, popup, successScreen, showTime} = this.state;
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
-
+        {showTime ? this.showTimePicker() : null}
         {successScreen ? (
           <Success info={successScreen} />
         ) : (
