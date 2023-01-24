@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   },
   crewWrapper: {
     flexDirection: 'row',
+    // overflow: 'scrool',
   },
   crewTimeLine: {
     flexDirection: 'row',
@@ -67,33 +68,33 @@ const styles = StyleSheet.create({
     marginHorizontal: 6 * vh,
   },
   timeLineRowFirst: {
-    width: 22 * vw,
+    width: 26 * vw,
     backgroundColor: colors.primary,
     alignSelf: 'center',
     height: 221 * vh,
-    borderRadius: 12 * vh,
+    // borderRadius: 12 * vh,
   },
   timeLineRowLast: {
-    width: 22 * vw,
+    width: 26 * vw,
     backgroundColor: colors.primary,
     alignSelf: 'center',
     height: 221 * vh,
-    borderRadius: 12 * vh,
+    // borderRadius: 12 * vh,
   },
   timeLineRow: {
-    width: 22 * vw,
+    width: 26 * vw,
     backgroundColor: colors.primary,
     alignSelf: 'center',
     height: 221 * vh,
   },
   timeLineNotOccupied: {
-    width: 22 * vw,
+    width: 26 * vw,
     backgroundColor: colors.sliderTrack,
     alignSelf: 'center',
     height: 221 * vh,
   },
   timeLineRowInActive: {
-    width: 22 * vw,
+    width: 26 * vw,
     color: 'red',
     backgroundColor: colors.primary,
     alignSelf: 'center',
@@ -103,8 +104,8 @@ const styles = StyleSheet.create({
   timeLineRowLeave: {
     position: 'absolute',
     backgroundColor: colors.yellow,
-    borderRadius: 8 * vh,
-    width: 22 * vw,
+    // borderRadius: 8 * vh,
+    width: 26 * vw,
     height: 60 * vh,
   },
 });

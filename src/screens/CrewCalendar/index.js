@@ -1,6 +1,6 @@
 import {Text} from 'native-base';
 import React from 'react';
-import {View} from 'react-native';
+import {View, ScrollView} from 'react-native';
 import {Image} from 'native-base';
 import ellipse from '../../assets/images/ellipse/image.png';
 
@@ -14,7 +14,7 @@ const CrewCalendar = () => {
       crew: [
         {c1: 'occupied'},
         {c2: 'leave'},
-        {c3: 'notOccupied'},
+        {c3: 'occupied'},
         {c4: 'occupied'},
         {c5: 'occupied'},
       ],
@@ -118,7 +118,7 @@ const CrewCalendar = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.bodyContainer}>
+      <ScrollView contentContainerStyle={styles.bodyContainer}>
         <View style={styles.header}>
           <View style={styles.dayWrapper}>
             <Image
@@ -142,7 +142,7 @@ const CrewCalendar = () => {
             <TimeLine item={item} />
           ))}
         </View>
-      </View>
+      </ScrollView>
     </View>
   );
 };

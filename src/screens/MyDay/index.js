@@ -268,7 +268,7 @@ class MyDay extends React.Component<Props, State> {
       case Priority.VISIT_PROJECT_SITE:
         console.info('showTime.....', this.state.showTime);
         this.setState({
-          showTime: false,
+          showTime: true,
         });
         break;
       case Priority.REQUEST_FOR_QUALITY_CHECK:
