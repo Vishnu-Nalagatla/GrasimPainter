@@ -3,6 +3,7 @@ import { BackHandler, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
+import OnboardingNavigator from './onboarding-navigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -33,7 +34,8 @@ function onBackButtonPressed() {
 function RootNavigator(props) {
   const reduxProps = useSelector(state => state);
   const { login } = reduxProps;
-  const { isLoggedIn } = login;
+  const { isLoggedIn, loginInfo = {} } = login;
+  const { showOnboarding = false } = loginInfo;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   // TODO: Revisit the logic
@@ -51,9 +53,7 @@ function RootNavigator(props) {
   const setStorage = () => {
     const date = new Date();
     const currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    const prevDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() - 1;
-    AsyncStorage.removeItem('loggedInUser_' + prevDate);
-    AsyncStorage.getItem('loggedInUser_' + currentDate).then(user => {
+    AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
         this.userExists = true;
       }
@@ -122,8 +122,14 @@ function RootNavigator(props) {
 
   const getScreen = () => {
 
-    if (this.userExists || isLoggedIn) {
+    if (this.userExists) {
       return getTabs();
+    } else if (isLoggedIn) {
+      if (showOnboarding) {
+        <OnboardingNavigator />
+      } else {
+        return getTabs();
+      }
     } else {
       return getTabs();
       // return (
