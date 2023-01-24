@@ -21,6 +21,7 @@ const palette = {
   lightShadeOfBlue: '#d0d7e8',
   lightGrey: '#3a3a3a',
   ghostWhites: '#f4f5ff',
+  yellow: '#F3D467',
 };
 
 export default palette;

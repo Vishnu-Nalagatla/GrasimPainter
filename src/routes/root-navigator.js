@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { BackHandler, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {BackHandler, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
 import OnboardingNavigator from './onboarding-navigator';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NativeBaseProvider } from 'native-base';
-import { Image } from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {NativeBaseProvider} from 'native-base';
+import {Image} from 'react-native';
 
 import groupIcon from '../assets/images/group/image.png';
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
@@ -33,9 +33,9 @@ function onBackButtonPressed() {
 
 function RootNavigator(props) {
   const reduxProps = useSelector(state => state);
-  const { login } = reduxProps;
-  const { isLoggedIn, loginInfo = {} } = login;
-  const { showOnboarding = false } = loginInfo;
+  const {login} = reduxProps;
+  const {isLoggedIn, loginInfo = {}} = login;
+  const {showOnboarding = false} = loginInfo;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   // TODO: Revisit the logic
@@ -52,13 +52,14 @@ function RootNavigator(props) {
 
   const setStorage = () => {
     const date = new Date();
-    const currentDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    const currentDate =
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
         this.userExists = true;
       }
     });
-  }
+  };
 
   // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
@@ -75,7 +76,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Day',
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <Image style={styles.icon} source={myDayColor} />
             ),
           }}
@@ -87,7 +88,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Projects',
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <Image style={styles.icon} source={paintRollerColor} />
             ),
           }}
@@ -99,7 +100,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'My Team',
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <Image style={styles.icon} source={teamColor} />
             ),
           }}
@@ -111,7 +112,7 @@ function RootNavigator(props) {
             header: Header,
             tabBarLabelStyle: styles.tablelabelStyle,
             title: 'Attendance',
-            tabBarIcon: ({ color, size }) => (
+            tabBarIcon: ({color, size}) => (
               <Image style={styles.icon} source={attendanceColor} />
             ),
           }}
@@ -124,15 +125,16 @@ function RootNavigator(props) {
     if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
-      return (
-        <RootStack.Navigator
-          headerMode="none"
-          screenOptions={{
-            gestureEnabled: false,
-          }}>
-          <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-        </RootStack.Navigator>
-      );
+      return getTabs();
+      // return (
+      //   <RootStack.Navigator
+      //     headerMode="none"
+      //     screenOptions={{
+      //       gestureEnabled: false,
+      //     }}>
+      //     <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+      //   </RootStack.Navigator>
+      // );
     }
   };
 
@@ -146,7 +148,9 @@ function RootNavigator(props) {
         <NavigationContainer independent={true}>
           <OnboardingNavigator />
         </NavigationContainer>
-      ) : getScreen()}
+      ) : (
+        getScreen()
+      )}
     </NativeBaseProvider>
 
     // <NativeBaseProvider>
@@ -180,7 +184,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 10,
   },
-  icon: { width: 20, height: 20, marginTop: 15, marginBottom: 5 },
+  icon: {width: 20, height: 20, marginTop: 15, marginBottom: 5},
 });
 
 export default RootNavigator;

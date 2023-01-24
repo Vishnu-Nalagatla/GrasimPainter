@@ -14,7 +14,7 @@ function MyDayNavigator() {
   return (
     <MyDayStack.Navigator
       screenOptions={{headerShown: false}}
-      initialRouteName="MyDay">
+      initialRouteName="CrewCalendar">
       <MyDayStack.Screen name="MyDay" component={MyDay} />
       <MyDayStack.Screen name="ProjectsDetails" component={ProjectDetails} />
       <MyDayStack.Screen name="LeaveRequests" component={LeaveRequests} />

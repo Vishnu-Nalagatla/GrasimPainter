@@ -20,6 +20,7 @@ const colors = {
   ultraMass: palette.ultraMass,
   mediumShadeOfBlue: palette.mediumShadeOfBlue,
   lavenderMist: palette.lavenderMist,
+  yellow: palette.yellow,
 };
 
 export default colors;
