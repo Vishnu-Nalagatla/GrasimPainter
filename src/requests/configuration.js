@@ -9,4 +9,5 @@ export default {
   assignCrewToProject: '/sfdc/assign-crew-to-project',
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event',
+  accessToken: '/sfdc/access-token/',
 };

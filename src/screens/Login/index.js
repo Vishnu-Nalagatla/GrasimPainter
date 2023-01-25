@@ -44,7 +44,6 @@ class Login extends React.Component<Props, State> {
     }
 
     validateUser = async () => {
-        API.setHeaders();
         const { userName } = this.state;
         const { navigation } = this.props;
         if (userName.length === 0) {

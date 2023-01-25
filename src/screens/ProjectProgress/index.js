@@ -19,8 +19,6 @@ import {Dimensions} from 'react-native';
 import ViewPort from '../../constants/view-port';
 import ProgressPercentage from '../../components/ProgressPercentage';
 
-console.log('styles', styles);
-
 const ProjectProgress = props => {
 
   console.info('ProjectProgress.....', props);

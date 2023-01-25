@@ -21,9 +21,8 @@ class Requests {
     this.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
-  setHeaders = () => {
-    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
-      'd03c44ae42da46aaa7b0b63555e54477';
+  setHeaders = subscriptionKey => {
+    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] = subscriptionKey;
   };
 
   sendOTP = body => this.axios.post(URLs.sendOTP, body);
@@ -46,7 +45,7 @@ class SfdcAPI {
   constructor() {
     this.axios = Axios.create({
       // baseURL: Config.API_BASE_URL,
-      baseURL: 'https://grasimpaints-api.azure-api.net/',
+      baseURL: 'https://grasimpaints-api.azure-api.net',
     });
   }
 
@@ -58,10 +57,11 @@ class SfdcAPI {
     this.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
-  setHeaders = () => {
-    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
-      'd03c44ae42da46aaa7b0b63555e54477';
+  setHeaders = subscriptionKey => {
+    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] = subscriptionKey;
   };
+
+  accessToken = body => this.axios.post(URLs.accessToken, body);
 
   assignCrewToProject = body => this.axios.post(URLs.assignCrewToProject, body);
 
