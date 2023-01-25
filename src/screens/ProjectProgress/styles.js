@@ -44,8 +44,10 @@ const styles = StyleSheet.create({
   },
 
   dotted: {
-    fontSize: 70 * vh,
-    fontWeight: '600',
+    width: 18 * vw,
+    height: 7 * vh,
+    backgroundColor: '#949DB6',
+    borderRadius: 4 * vh,
   },
   label: {
     fontFamily: 'Lato',

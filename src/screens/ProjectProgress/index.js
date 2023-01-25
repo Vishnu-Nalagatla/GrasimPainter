@@ -94,7 +94,15 @@ const ProjectProgress = props => {
             />
             <Text> {startDate} </Text>
           </View>
-          <Text style={styles.dotted}> - - - - - </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
+          <Text style={styles.dotted}> </Text>
           <View style={styles.endDate}>
             <Image
               source={bellImg}
