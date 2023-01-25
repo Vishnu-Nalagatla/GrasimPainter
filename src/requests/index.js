@@ -2,7 +2,7 @@ import Axios from 'axios';
 import URLs from './configuration';
 import Config from 'react-native-config';
 
-Axios.defaults.timeout = 2000;
+Axios.defaults.timeout = 20000;
 Axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 class Requests {
