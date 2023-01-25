@@ -48,6 +48,12 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: 30,
   },
+  popup: {
+    width: '80%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 20 * vh,
+  },
 });
 
 export default styles;

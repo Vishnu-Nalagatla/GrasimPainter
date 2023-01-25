@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-end',
   },
-  staitLine: {
+  sraitLine: {
     backgroundColor: '#D0D7E8',
     height: 460 * vh,
     width: 12 * vw,

@@ -22,7 +22,8 @@ class Requests {
   };
 
   setHeaders = subscriptionKey => {
-    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] = subscriptionKey;
+    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+      subscriptionKey;
   };
 
   sendOTP = body => this.axios.post(URLs.sendOTP, body);
@@ -58,7 +59,8 @@ class SfdcAPI {
   };
 
   setHeaders = subscriptionKey => {
-    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] = subscriptionKey;
+    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+      subscriptionKey;
   };
 
   accessToken = body => this.axios.post(URLs.accessToken, body);
@@ -69,7 +71,7 @@ class SfdcAPI {
     return this.axios.get(`${URLs.qualityCheckRequest}${projectId}`, body);
   };
 
-  scheduleSiteVisit = body => this.axios.post(URLs.assignCrewToProject, body);
+  scheduleSiteVisit = body => this.axios.post(URLs.scheduleSiteVisit, body);
 
   qualityCheckRequest;
 }

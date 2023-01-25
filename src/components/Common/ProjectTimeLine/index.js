@@ -179,7 +179,7 @@ const ProjectTimeLine = (props: Props) => {
               style={styles.ellipse}
               resizeMode="contain"
             />
-            <View style={styles.staitLine} />
+            <View style={styles.sraitLine} />
           </View>
           <Text style={styles.projectName}> {Name}</Text>
         </View>

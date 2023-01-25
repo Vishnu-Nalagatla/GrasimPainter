@@ -74,6 +74,39 @@ const CrewCalendar = () => {
         {c5: 'notOccupied'},
       ],
     },
+    {
+      date: '07 Sep',
+      index: 4,
+      crew: [
+        {c1: 'occupied'},
+        {c2: 'leave'},
+        {c3: 'notOccupied'},
+        {c4: 'occupied'},
+        {c5: 'notOccupied'},
+      ],
+    },
+    {
+      date: '08 Sep',
+      index: 5,
+      crew: [
+        {c1: 'notOccupied'},
+        {c2: 'notOccupied'},
+        {c3: 'notOccupied'},
+        {c4: 'notOccupied'},
+        {c5: 'leave'},
+      ],
+    },
+    {
+      date: '09 Sep',
+      index: 6,
+      crew: [
+        {c1: 'leave'},
+        {c2: 'notOccupied'},
+        {c3: 'notOccupied'},
+        {c4: 'notOccupied'},
+        {c5: 'notOccupied'},
+      ],
+    },
   ];
   const TimeLine = ({item}) => {
     const {date, crew} = item;
@@ -86,6 +119,7 @@ const CrewCalendar = () => {
             alt=""
             resizeMode="contain"
           />
+          <View style={styles.sraitLine} />
           <Text>{date}</Text>
         </View>
         <View style={styles.crewWrapper}>
@@ -118,7 +152,7 @@ const CrewCalendar = () => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.bodyContainer}>
+      <View style={styles.bodyContainer}>
         <View style={styles.header}>
           <View style={styles.dayWrapper}>
             <Image
@@ -137,12 +171,12 @@ const CrewCalendar = () => {
             <Text style={styles.crewName}>{'C5'}</Text>
           </View>
         </View>
-        <View style={styles.timeLineContainer}>
+        <ScrollView contentContainerStyle={styles.timeLineContainer}>
           {weekData.map(item => (
             <TimeLine item={item} />
           ))}
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
     </View>
   );
 };

@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginBottom: 100 * vh,
   },
   ellipse: {
     height: 70 * vh,
@@ -34,14 +35,21 @@ const styles = StyleSheet.create({
   },
   crewWrapper: {
     flexDirection: 'row',
-    // overflow: 'scrool',
+  },
+  sraitLine: {
+    backgroundColor: '#D0D7E8',
+    height: 160 * vh,
+    width: 12 * vw,
+    position: 'absolute',
+    left: 28 * vw,
+    top: 68 * vh,
   },
   crewTimeLine: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   timeLineContainer: {
-    marginTop: 100 * vh,
+    // marginTop: 100 * vh,
   },
   crewName: {
     width: 116 * vw,

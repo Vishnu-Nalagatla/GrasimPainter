@@ -6,4 +6,5 @@ export default {
   SHOW_GALLERY: 'show-gallery',
   SHOW_START_DATE_CALENDAR: 'show-start-date-calendar',
   SHOW_END_DATE_CALENDAR: 'show-end-date-calendar',
+  TIME_PICKER: 'time-picker',
 };

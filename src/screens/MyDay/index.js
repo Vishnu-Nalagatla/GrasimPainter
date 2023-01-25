@@ -22,6 +22,7 @@ import errorIcon from '../../assets/images/naColor/image.png';
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 
 import TimePicker from '../../components/TimePicker/index.js';
+import TimePickerPopup from '../../components/Common/TimePickerPopup/index.js';
 
 export interface Props {
   props: String;
@@ -202,7 +203,6 @@ class MyDay extends React.Component<Props, State> {
   };
 
   scheduleSiteVisit = project => {
-    console.info('scheduleSiteVisit...', project);
     const {Id} = project;
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
@@ -266,7 +266,6 @@ class MyDay extends React.Component<Props, State> {
         });
         break;
       case Priority.VISIT_PROJECT_SITE:
-        console.info('showTime.....', this.state.showTime);
         this.setState({
           showTime: true,
         });
@@ -326,6 +325,7 @@ class MyDay extends React.Component<Props, State> {
     if (!popup) {
       return null;
     }
+    console.info('getPopupContent....', popup.type);
     switch (popup.type) {
       case POPUP_CONSTANTS.SPINNER_POPUP:
         return (
@@ -333,30 +333,45 @@ class MyDay extends React.Component<Props, State> {
         );
       case POPUP_CONSTANTS.ERROR_POPUP:
         return <StandardPopup {...popup} />;
+      case POPUP_CONSTANTS.TIME_PICKER:
+        return (
+          <TimePicker
+            testID="dateTimePicker"
+            value={new Date()}
+            mode={'time'}
+            is24Hour={true}
+            onChange={this.scheduleSiteVisit}
+            onClose={this.closePopup}
+            hours={12}
+            minutes={12}
+            meridian="AM"
+            {...popup}
+          />
+        );
     }
   };
-  onChange = () => {};
   showTimePicker = () => {
-    return (
-      <TimePicker
-        testID="dateTimePicker"
-        value={new Date()}
-        mode={'time'}
-        is24Hour={true}
-        onChange={this.onChange}
-        onClose={this.onChange}
-        hours={12}
-        minutes={12}
-        meridian="AM"
-      />
-    );
+    this.setState({
+      popup: {
+        type: POPUP_CONSTANTS.TIME_PICKER,
+        buttons: [
+          {
+            title: 'TryAgain',
+            onPress: () => this.closePopup(),
+          },
+        ],
+      },
+      showTime: false,
+    });
   };
 
   render() {
     const {name, buttons, popup, successScreen, showTime} = this.state;
     return (
       <View style={styles.container}>
-        <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
+        <Popup popupStyle={styles.popup} visible={!!popup}>
+          {this.getPopupContent()}
+        </Popup>
         {showTime ? this.showTimePicker() : null}
         {successScreen ? (
           <Success info={successScreen} />
