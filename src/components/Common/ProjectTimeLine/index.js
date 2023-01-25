@@ -6,9 +6,8 @@ import calendar from '../../../assets/images/calendar/image.png';
 import {Image} from 'react-native';
 import Moment from 'moment';
 import CustomButton from '../Button';
-import DropDown from '../../DropDown';
 import {Dropdown} from 'react-native-element-dropdown';
-// import {Dropdown} from 'react-native-element-dropdown';
+import call from 'react-native-phone-call';
 
 const ProjectTimeLine = (props: Props) => {
   const {data, onClick, assignCrewToProject, viewCrewCalendar} = props;
@@ -169,6 +168,16 @@ const ProjectTimeLine = (props: Props) => {
     );
   };
 
+  const callNumber = () => {
+    const args = {
+      number: '7207440195',
+      prompt: false,
+      skipCanOpen: true,
+    };
+    call(args).catch(error => {
+      console.info('erroe', error);
+    });
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -193,9 +202,9 @@ const ProjectTimeLine = (props: Props) => {
         <Text style={styles.status}> {title}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
         {+order === 4 ? (
-          <Text style={styles.date}>
+          <TouchableOpacity style={styles.date} onPress={callNumber}>
             <Text style={styles.viewDetailsText}> {'Call Mr. Rajesh'}</Text>
-          </Text>
+          </TouchableOpacity>
         ) : null}
         {+order === 2 ? (
           showCewCalendar()

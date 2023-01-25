@@ -11,6 +11,7 @@ import SiteCheckList from '../SiteCheckList';
 import Reports from '../Reports';
 const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
+import ProjectInfo from '../ProjectInfo';
 
 const ProjectDetails = props => {
   const {route} = props;
@@ -30,6 +31,7 @@ const ProjectDetails = props => {
   const materialRoute = () => <Material project={params.project} />;
   const siteCheckListRoute = () => <SiteCheckList project={params.project} />;
   const reportsRoute = () => <Reports project={params.project} />;
+  const infoRoute = () => <ProjectInfo project={params.project} />;
 
   const SecondRoute = () => (
     // eslint-disable-next-line react-native/no-inline-styles
@@ -43,7 +45,7 @@ const ProjectDetails = props => {
     material: materialRoute,
     reports: reportsRoute,
     siteCheckList: siteCheckListRoute,
-    info: SecondRoute,
+    info: infoRoute,
   });
   const renderTabBar = props => (
     <TabBar

@@ -7256,6 +7256,13 @@
   "resolved" "https://registry.npmjs.org/react-native-config/-/react-native-config-1.4.12.tgz"
   "version" "1.4.12"
 
+"react-native-date-picker@^4.2.6":
+  "integrity" "sha512-qnSLefvCInFp1etQ27AsDzpCJgvi0Q0eIYRtIzjBp5WC5hzINIY7WWeQESAA/QUPbwFJU7Vk06ouQc51dC1Qaw=="
+  "resolved" "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-4.2.6.tgz"
+  "version" "4.2.6"
+  dependencies:
+    "prop-types" "^15.8.1"
+
 "react-native-draggable-flatlist@^4.0.0":
   "integrity" "sha512-3DVzZsCXNlK29UyIkx4Uh5+2TAHwHC9Q45i1lbuqEOcuSmZ8jHcqbE8VkLot2bVfWZGO5WFgihStmxkI0gBHRQ=="
   "resolved" "https://registry.npmjs.org/react-native-draggable-flatlist/-/react-native-draggable-flatlist-4.0.0.tgz"
@@ -7300,6 +7307,11 @@
   "integrity" "sha512-qs2KSFc+7N7B+UZ6SG2sTvCkppagm5fVyRclv1KFKc7lDtrhXLzN59tXJw575LDP/dRJoXsNwqUAhZJdws6ABQ=="
   "resolved" "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-6.1.2.tgz"
   "version" "6.1.2"
+
+"react-native-phone-call@^1.2.0":
+  "integrity" "sha512-M1CiocX8w7YNsh3Cwcnwc3eUkIJOPaBIQji3P9Uv/ZWAwb6XGI2NtV2UBSAa4Prvn6ooXeFPZs/YXmeTHmVHKg=="
+  "resolved" "https://registry.npmjs.org/react-native-phone-call/-/react-native-phone-call-1.2.0.tgz"
+  "version" "1.2.0"
 
 "react-native-progress@^5.0.0":
   "integrity" "sha512-KjnGIt3r9i5Kn2biOD9fXLJocf0bwxPRxOyAgXEnZTJQU2O+HyzgGFRCbM5h3izm9kKIkSc1txh8aGmMafCD9A=="

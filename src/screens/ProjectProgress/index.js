@@ -14,8 +14,6 @@ import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import ProgressBar from 'react-native-progress/Bar';
-import {Dimensions} from 'react-native';
 import ViewPort from '../../constants/view-port';
 import ProgressPercentage from '../../components/ProgressPercentage';
 
