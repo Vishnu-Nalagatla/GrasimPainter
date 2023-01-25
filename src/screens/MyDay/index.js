@@ -22,7 +22,8 @@ import errorIcon from '../../assets/images/naColor/image.png';
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 
 import TimePicker from '../../components/TimePicker/index.js';
-import TimePickerPopup from '../../components/Common/TimePickerPopup/index.js';
+import CustomButton from '../../components/Button';
+import {Image} from 'native-base';
 
 export interface Props {
   props: String;
@@ -171,7 +172,9 @@ class MyDay extends React.Component<Props, State> {
     console.info('updateCrewDetails...', project);
     const {Id} = project;
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: {
+        type: POPUP_CONSTANTS.SPINNER_POPUP,
+      },
     });
     const request = {
       hpId: '0031y00000RNstfAAD',
@@ -187,7 +190,8 @@ class MyDay extends React.Component<Props, State> {
       .catch(error => {
         this.setState({
           popup: {
-            type: POPUP_CONSTANTS.ERROR_POPUP,
+            type: POPUP_CONSTANTS.CREW_OCCUPIED,
+            style: styles.popup,
             heading: 'Network Error',
             message: error.message,
             headingImage: errorIcon,
@@ -325,7 +329,6 @@ class MyDay extends React.Component<Props, State> {
     if (!popup) {
       return null;
     }
-    console.info('getPopupContent....', popup.type);
     switch (popup.type) {
       case POPUP_CONSTANTS.SPINNER_POPUP:
         return (
@@ -333,6 +336,8 @@ class MyDay extends React.Component<Props, State> {
         );
       case POPUP_CONSTANTS.ERROR_POPUP:
         return <StandardPopup {...popup} />;
+      case POPUP_CONSTANTS.CREW_OCCUPIED:
+        return <CrewOccupied {...popup} onPress={this.closePopup} />;
       case POPUP_CONSTANTS.TIME_PICKER:
         return (
           <TimePicker
@@ -354,6 +359,7 @@ class MyDay extends React.Component<Props, State> {
     this.setState({
       popup: {
         type: POPUP_CONSTANTS.TIME_PICKER,
+        style: styles.popup,
         buttons: [
           {
             title: 'TryAgain',
@@ -367,9 +373,10 @@ class MyDay extends React.Component<Props, State> {
 
   render() {
     const {name, buttons, popup, successScreen, showTime} = this.state;
+    const {style = {}} = popup || {};
     return (
       <View style={styles.container}>
-        <Popup popupStyle={styles.popup} visible={!!popup}>
+        <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
         </Popup>
         {showTime ? this.showTimePicker() : null}
@@ -396,5 +403,25 @@ class MyDay extends React.Component<Props, State> {
     );
   }
 }
+
+const CrewOccupied = ({onPress}) => {
+  return (
+    <View style={styles.crewContainer}>
+      <Image source={errorIcon} style={styles.errorIcon} resizeMode="contain" />
+      <Text style={styles.headerMessage}>
+        {'This crew is occupied with a different  project for this duration'}
+      </Text>
+      <Text style={styles.textInfo}>
+        {'Please select a different crew which is available'}
+      </Text>
+      <CustomButton
+        title={'Go back and select crew'}
+        textStyle={styles.btnTxt}
+        style={styles.button}
+        onPress={onPress}
+      />
+    </View>
+  );
+};
 
 export default MyDay;

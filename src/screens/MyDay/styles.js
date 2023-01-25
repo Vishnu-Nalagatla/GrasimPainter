@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 
 const {vw, vh} = ViewPort;
@@ -49,10 +50,44 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   popup: {
-    width: '80%',
+    width: '85%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 20 * vh,
+  },
+  crewContainer:{
+    width: '90%',
+  },
+  headerMessage: {
+    width: '100%',
+    fontSize: 44 * vh,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  errorIcon: {
+    height: 80 * vh,
+    width: 80 * vw,
+    alignSelf: 'center',
+    paddingVertical: 100 * vh,
+  },
+  textInfo: {
+    fontSize: 34 * vh,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginVertical: 50 * vh,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    width: '90%',
+    borderRadius: 20 * vh,
+    marginBottom: 100 * vh,
+  },
+  btnTxt: {
+    color: colors.white,
+    fontSize: 40 * vh,
+    letterSpacing: 0.8,
+    fontWeight: '500',
+    paddingHorizontal: 16 * vh,
   },
 });
 
