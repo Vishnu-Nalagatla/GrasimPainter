@@ -21,9 +21,9 @@ import errorIcon from '../../assets/images/naColor/image.png';
 
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 
-import TimePicker from '../../components/TimePicker/index.js';
 import CustomButton from '../../components/Button';
 import {Image} from 'native-base';
+import TimePicker from '../../components/TimePicker';
 
 export interface Props {
   props: String;

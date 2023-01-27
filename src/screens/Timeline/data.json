@@ -1,0 +1,64 @@
+{
+    "Id": "a061y000000EvblAAC",
+    "Name": "Project1",
+    "SiteId": "a051y000004AvlbAAC",
+    "LeadId": "00Q1y0000016IvyEAE",
+    "AccountId": "0011y00000YGD9nAAH",
+    "Status": "",
+    "EmailId": "anushajoglekar@gmail.com",
+    "WarrantyId": "",
+    "ProjectId": "PJ-00000099",
+    "QuotationNumber": "23",
+    "AssetCheckStatus": "Under Procurement",
+    "ProjectStartDate": "2022-08-19",
+    "ProjectEndDate": "2022-10-19",
+    "WelcomeKitStatus": "Pending",
+    "SiteName": "Site",
+    "ProjectPlanStatus": "Pending",
+    "TLProjectPlanCreatedDate": "1901-01-01",
+    "TLProjectPlanConfirmationDate": "1901-01-01",
+    "TLVisitDate": "1901-01-01",
+    "TLVisitScheduleDate": "1901-01-01",
+    "CrewAllocationDate": "1901-01-01",
+    "QCAllocationDate": "1901-01-01",
+    "CompletionPercentage": "",
+    "IsCrewAllocated": true,
+    "IsFinalPaymentDone": false,
+    "RoomList": [
+        {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 2",
+            "RoomSequence": 2,
+            "DaysRequiredForRoom": 1,
+            "HrsRequiredForRoom": 0
+        },
+        {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 4",
+            "RoomSequence": 4,
+            "DaysRequiredForRoom": 1.2,
+            "HrsRequiredForRoom": 0
+        },
+        {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 3",
+            "RoomSequence": 3,
+            "DaysRequiredForRoom": 1.5,
+            "HrsRequiredForRoom": 0
+        },
+        {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 1",
+            "RoomSequence": 1,
+            "DaysRequiredForRoom": 0.5,
+            "HrsRequiredForRoom": 0
+        },
+        {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 5",
+            "RoomSequence": 5,
+            "DaysRequiredForRoom": 2,
+            "HrsRequiredForRoom": 0
+        }
+    ]
+}
