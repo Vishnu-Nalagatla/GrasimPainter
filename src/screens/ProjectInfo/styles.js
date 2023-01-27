@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.sliderTrack,
   },
   bodyContainer: {
-    width: 328 * vh,
+    width: 328 * vw,
     backgroundColor: colors.white,
     marginTop: 22 * vh,
     borderRadius: 8 * vh,
