@@ -10,14 +10,14 @@ const windowWidth = Dimensions.get('window').width;
 
 const ProgressSlider = ({onValueChange}) => {
   const [value, setState] = useState(0);
-  const left = (value * (windowWidth - 60)) / 45;
+  const left = (value * (windowWidth - 190)) / 90;
   const onChange = data => {
     setState(data);
     onValueChange(data[0]);
   };
   return (
     <View style={styles.container}>
-      <Text style={{width: 70 * vw, textAlign: 'center', left: left * vw}}>
+      <Text style={{width: 70 * vw, textAlign: 'center', left: left}}>
         {value}
       </Text>
       <Slider
@@ -27,7 +27,7 @@ const ProgressSlider = ({onValueChange}) => {
         maximumValue={100}
         minimumValue={0}
         step={1}
-        thumbTouchSize={{width: 40, height: 40}}
+        thumbTouchSize={{width: 40 * vw, height: 40 * vh}}
         thumbTintColor="#D0D7E8"
         onValueChange={data => onChange(data)}
       />

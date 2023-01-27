@@ -106,7 +106,7 @@ const Material = props => {
     return (
       <View style={styles.materialCard}>
         <View style={styles.headerView}>
-          <Text>{name}</Text>
+          <Text style={styles.name}>{name}</Text>
           <Text>{brand}</Text>
         </View>
         <Text style={styles.totalQuantityLabel}>
@@ -135,12 +135,12 @@ const Material = props => {
         }>
         <View style={styles.usedRow}>
           <View>
-            <Text>{name}</Text>
+            <Text style={styles.label}>{name}</Text>
           </View>
           <View style={styles.rightInfo}>
             <Text style={styles.cost}>{cost}</Text>
-            <Text>{quantity}</Text>
-            <Text>{value}</Text>
+            <Text style={styles.label}>{quantity}</Text>
+            <Text style={styles.label}>{value}</Text>
           </View>
         </View>
       </View>
@@ -178,7 +178,7 @@ const Material = props => {
           />
         </View>
         <View style={styles.materialusedView}>
-          <Text style={styles.materialLabel}> {materialUsedLabel}</Text>
+          <Text style={styles.materialLabel2}> {materialUsedLabel}</Text>
           <Text style={styles.heading}>{'Painting Material'}</Text>
           <View style={styles.cardView}>
             {materialUsed.painting.map((item, index) => (
