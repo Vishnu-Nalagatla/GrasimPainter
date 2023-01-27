@@ -23,7 +23,7 @@ const ProjectInfo = props => {
             <Text style={styles.projectName}>{Name}</Text>
             <Image
               source={multiple}
-              style={styles.locationIcon}
+              style={styles.multiple}
               resizeMode="contain"
             />
           </View>
