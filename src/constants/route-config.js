@@ -12,7 +12,7 @@ const RouteConfig = {
   ApplyLeave: 'ApplyLeave',
   Approve: 'Approve',
   CrewCalendar: 'CrewCalendar',
-
+  ClinetInfo: 'ClinetInfo',
 };
 
 export default RouteConfig;

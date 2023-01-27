@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Container, Content, FlatList, ScrollView} from 'native-base';
-import {Image, View, Text} from 'react-native';
+import {Image, View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
 
 import bellImg from '../../assets/images/group/image.png';
@@ -8,17 +8,15 @@ import profileImg from '../../assets/images/profileColor/image.png';
 import locationImg from '../../assets/images/location/image.png';
 import rightArrowImg from '../../assets/images/rightArrowBlack/image.png';
 
-
-
 import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import ViewPort from '../../constants/view-port';
 import ProgressPercentage from '../../components/ProgressPercentage';
+import RouteConfig from '../../constants/route-config';
 
 const ProjectProgress = props => {
-
   console.info('ProjectProgress.....', props);
   const {project} = props;
   const {
@@ -32,6 +30,10 @@ const ProjectProgress = props => {
 
   const onPress = () => {
     console.info('project..');
+  };
+  const viewCustomerProfile = () => {
+    const {navigation} = props;
+    navigation.navigate(RouteConfig.ClinetInfo);
   };
   const constraints = [
     {
@@ -78,11 +80,13 @@ const ProjectProgress = props => {
       <View style={styles.progressInfo}>
         <View style={styles.header}>
           <Text style={styles.label}> Project Palnning</Text>
-          <Image
-            source={profileImg}
-            style={styles.profileIcon}
-            resizeMode="contain"
-          />
+          <TouchableOpacity onPress={viewCustomerProfile}>
+            <Image
+              source={profileImg}
+              style={styles.profileIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
         <ProgressPercentage value={93} />
         <View style={styles.duration}>
