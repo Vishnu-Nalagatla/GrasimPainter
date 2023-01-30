@@ -50,12 +50,12 @@ function Header(props: StackHeaderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    height: 50,
-    width: '100%',
+    height: 56 * vh,
+    width: 360 * vw,
     flexDirection: 'row',
     backgroundColor: '#2C4DAE',
     justifyContent: 'center',
-    alignItems:'center',
+    alignItems: 'center',
   },
   bellContainer: {
     flex: 1,
@@ -65,25 +65,25 @@ const styles = StyleSheet.create({
   backIcon: {
     height: 50 * vh,
     width: 50 * vw,
-    marginRight: 40 * vw,
   },
   bellIcon: {
     alignItems: 'flex-end',
   },
   bellImg: {
-    height: 50 * vh,
-    width: 50 * vw,
-    marginRight: 50 * vw,
+    height: 24 * vh,
+    width: 24 * vw,
+    marginRight: 16 * vw,
   },
   headerTitle: {
     paddingLeft: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   headerText: {
-    fontSize: 20,
+    fontFamily: 'Lato',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: 16 * vh,
+    lineHeight: 24 * vh,
     color: 'white',
-    fontWeight: 'bold',
   },
 });
 

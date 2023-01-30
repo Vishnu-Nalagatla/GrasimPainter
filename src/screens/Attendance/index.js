@@ -12,7 +12,7 @@ export interface Props {
 
 const Attendance = (props: Props) => {
   const leaveRequests = 'Leave Requests';
-  const count = 99;
+  const count = 98;
   const date = Moment(new Date()).format('DD MMM YYYY');
   const [attendance, setAttendance] = useState(false);
   const attendanceLabel = attendance ? 'Marked' : 'Mark attendance';
@@ -127,7 +127,7 @@ const Attendance = (props: Props) => {
         </View>
 
         <View style={styles.leavesBottom}>
-          <Text>{status}</Text>
+          <Text style={styles.dateRange}> {status}</Text>
         </View>
       </View>
     );
