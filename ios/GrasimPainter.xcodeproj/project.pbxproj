@@ -8,25 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* GrasimPainterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* GrasimPainterTests.m */; };
+		0B3F8D0EC7C4498297C9DAEF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62B63916F4604F06AA8B91FD /* Lato-Light.ttf */; };
 		0C80B921A6F3F58F76C31292 /* libPods-GrasimPainter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-GrasimPainter.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		14ACD2421BD442ED825E6042 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */; };
+		183E1EF67D8447A3BC967314 /* Karla-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */; };
+		288A7F52C0F048B7A858AD98 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */; };
+		4C46400BD2BB48BCB1332462 /* Karla-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */; };
+		4CE18BE944794D9CBECE6767 /* Karla-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */; };
+		602803BCA54A4846A7A869DA /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E36B307168A445582EF3D5A /* Karla-Bold.ttf */; };
+		661D268C40744E8EB8586730 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-GrasimPainter-GrasimPainterTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-GrasimPainter-GrasimPainterTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		602803BCA54A4846A7A869DA /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E36B307168A445582EF3D5A /* Karla-Bold.ttf */; };
-		4CE18BE944794D9CBECE6767 /* Karla-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */; };
-		183E1EF67D8447A3BC967314 /* Karla-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */; };
+		BD4D3B829832431CB7E9C125 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */; };
+		C5EDFB97E4694CB2B8A98B56 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 729059795B9C426F8D48F68E /* Lato-Regular.ttf */; };
 		D3C9D7F67B5E439692ABA11E /* Karla-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A5FC65119454D3B8531006C /* Karla-Light.ttf */; };
 		F887FF13585D418689799B5E /* Karla-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AEF95A0BB7C04397B8AB7F89 /* Karla-Medium.ttf */; };
 		FE05D7E5C9B046ECB4A4E935 /* Karla-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2A640FCED6E47348AB9EBEB /* Karla-Regular.ttf */; };
-		4C46400BD2BB48BCB1332462 /* Karla-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */; };
-		661D268C40744E8EB8586730 /* Lato-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */; };
-		288A7F52C0F048B7A858AD98 /* Lato-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */; };
-		0B3F8D0EC7C4498297C9DAEF /* Lato-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 62B63916F4604F06AA8B91FD /* Lato-Light.ttf */; };
-		BD4D3B829832431CB7E9C125 /* Lato-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */; };
-		C5EDFB97E4694CB2B8A98B56 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 729059795B9C426F8D48F68E /* Lato-Regular.ttf */; };
-		14ACD2421BD442ED825E6042 /* Lato-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +43,7 @@
 		00E356EE1AD99517003FC87E /* GrasimPainterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GrasimPainterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* GrasimPainterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GrasimPainterTests.m; sourceTree = "<group>"; };
+		1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-ExtraLight.ttf"; path = "../assets/fonts/Karla-ExtraLight.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* GrasimPainter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrasimPainter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = GrasimPainter/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = GrasimPainter/AppDelegate.mm; sourceTree = "<group>"; };
@@ -50,26 +51,25 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = GrasimPainter/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = GrasimPainter/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-GrasimPainter-GrasimPainterTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GrasimPainter-GrasimPainterTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-ExtraBold.ttf"; path = "../assets/fonts/Karla-ExtraBold.ttf"; sourceTree = "<group>"; };
+		2A5FC65119454D3B8531006C /* Karla-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Light.ttf"; path = "../assets/fonts/Karla-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-GrasimPainter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrasimPainter.debug.xcconfig"; path = "Target Support Files/Pods-GrasimPainter/Pods-GrasimPainter.debug.xcconfig"; sourceTree = "<group>"; };
+		3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-GrasimPainter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrasimPainter.release.xcconfig"; path = "Target Support Files/Pods-GrasimPainter/Pods-GrasimPainter.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-GrasimPainter-GrasimPainterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrasimPainter-GrasimPainterTests.debug.xcconfig"; path = "Target Support Files/Pods-GrasimPainter-GrasimPainterTests/Pods-GrasimPainter-GrasimPainterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-GrasimPainter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GrasimPainter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5E36B307168A445582EF3D5A /* Karla-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Bold.ttf"; path = "../assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; };
+		62B63916F4604F06AA8B91FD /* Lato-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; };
+		729059795B9C426F8D48F68E /* Lato-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GrasimPainter/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-GrasimPainter-GrasimPainterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrasimPainter-GrasimPainterTests.release.xcconfig"; path = "Target Support Files/Pods-GrasimPainter-GrasimPainterTests/Pods-GrasimPainter-GrasimPainterTests.release.xcconfig"; sourceTree = "<group>"; };
+		968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Medium.ttf"; path = "../assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; };
+		A2A640FCED6E47348AB9EBEB /* Karla-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Regular.ttf"; path = "../assets/fonts/Karla-Regular.ttf"; sourceTree = "<group>"; };
+		AEF95A0BB7C04397B8AB7F89 /* Karla-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-Medium.ttf"; path = "../assets/fonts/Karla-Medium.ttf"; sourceTree = "<group>"; };
+		C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; };
+		DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Karla-SemiBold.ttf"; path = "../assets/fonts/Karla-SemiBold.ttf"; sourceTree = "<group>"; };
+		E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		5E36B307168A445582EF3D5A /* Karla-Bold.ttf */ = {isa = PBXFileReference; name = "Karla-Bold.ttf"; path = "../assets/fonts/Karla-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Karla-ExtraBold.ttf"; path = "../assets/fonts/Karla-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Karla-ExtraLight.ttf"; path = "../assets/fonts/Karla-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		2A5FC65119454D3B8531006C /* Karla-Light.ttf */ = {isa = PBXFileReference; name = "Karla-Light.ttf"; path = "../assets/fonts/Karla-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AEF95A0BB7C04397B8AB7F89 /* Karla-Medium.ttf */ = {isa = PBXFileReference; name = "Karla-Medium.ttf"; path = "../assets/fonts/Karla-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		A2A640FCED6E47348AB9EBEB /* Karla-Regular.ttf */ = {isa = PBXFileReference; name = "Karla-Regular.ttf"; path = "../assets/fonts/Karla-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; name = "Karla-SemiBold.ttf"; path = "../assets/fonts/Karla-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */ = {isa = PBXFileReference; name = "Lato-Black.ttf"; path = "../assets/fonts/Lato-Black.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */ = {isa = PBXFileReference; name = "Lato-Bold.ttf"; path = "../assets/fonts/Lato-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		62B63916F4604F06AA8B91FD /* Lato-Light.ttf */ = {isa = PBXFileReference; name = "Lato-Light.ttf"; path = "../assets/fonts/Lato-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */ = {isa = PBXFileReference; name = "Lato-Medium.ttf"; path = "../assets/fonts/Lato-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		729059795B9C426F8D48F68E /* Lato-Regular.ttf */ = {isa = PBXFileReference; name = "Lato-Regular.ttf"; path = "../assets/fonts/Lato-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */ = {isa = PBXFileReference; name = "Lato-Thin.ttf"; path = "../assets/fonts/Lato-Thin.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +120,27 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
 			name = GrasimPainter;
+			sourceTree = "<group>";
+		};
+		1D0B5C90903748A984F49393 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5E36B307168A445582EF3D5A /* Karla-Bold.ttf */,
+				22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */,
+				1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */,
+				2A5FC65119454D3B8531006C /* Karla-Light.ttf */,
+				AEF95A0BB7C04397B8AB7F89 /* Karla-Medium.ttf */,
+				A2A640FCED6E47348AB9EBEB /* Karla-Regular.ttf */,
+				DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */,
+				C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */,
+				3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */,
+				62B63916F4604F06AA8B91FD /* Lato-Light.ttf */,
+				968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */,
+				729059795B9C426F8D48F68E /* Lato-Regular.ttf */,
+				E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -174,27 +195,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		1D0B5C90903748A984F49393 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				5E36B307168A445582EF3D5A /* Karla-Bold.ttf */,
-				22AED827383B4C18930E9199 /* Karla-ExtraBold.ttf */,
-				1198126D57D247BFB1A8EFFE /* Karla-ExtraLight.ttf */,
-				2A5FC65119454D3B8531006C /* Karla-Light.ttf */,
-				AEF95A0BB7C04397B8AB7F89 /* Karla-Medium.ttf */,
-				A2A640FCED6E47348AB9EBEB /* Karla-Regular.ttf */,
-				DD74C487A51A48139E96A9CB /* Karla-SemiBold.ttf */,
-				C37DC6C3AAC54D5E803BE7D4 /* Lato-Black.ttf */,
-				3DE70DBA1C4643C98B626427 /* Lato-Bold.ttf */,
-				62B63916F4604F06AA8B91FD /* Lato-Light.ttf */,
-				968257054CC444F6AAD4F0B9 /* Lato-Medium.ttf */,
-				729059795B9C426F8D48F68E /* Lato-Regular.ttf */,
-				E381CC999BF64010BA5B2016 /* Lato-Thin.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 

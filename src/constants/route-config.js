@@ -13,6 +13,8 @@ const RouteConfig = {
   Approve: 'Approve',
   CrewCalendar: 'CrewCalendar',
   ClinetInfo: 'ClinetInfo',
+  SendUpdates: 'SendUpdates',
+  CapturePics: 'CapturePics',
 };
 
 export default RouteConfig;
