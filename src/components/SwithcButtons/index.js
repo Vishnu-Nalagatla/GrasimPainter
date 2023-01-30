@@ -2,7 +2,6 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import styles from './styles';
 
-// style={activeTab === CLASS_CONSTANTS.MARKETING ? [styles.bodyContainer, styles.marketingBodyContainer] : styles.bodyContainer}
 const SwithcButtons = props => {
   const {buttons, onClick} = props;
 

@@ -22,6 +22,7 @@ const palette = {
   lightGrey: '#3a3a3a',
   ghostWhites: '#f4f5ff',
   yellow: '#F3D467',
+  textColor: '#000000cc',
 };
 
 export default palette;

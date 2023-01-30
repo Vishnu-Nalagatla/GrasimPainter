@@ -89,7 +89,6 @@ const Project = ({project, label, index, onPress}) => {
   const {Name, ProjectPlanStatus} = project;
   return (
     <TouchableOpacity style={styles.projectsCard} onPress={onPress}>
-      {/* {index === 0 ? <Text style={{fontSize: 20, width: '90%', backgroundColor: 'red'}}>{label}</Text> : null} */}
       <View style={styles.headerInfo}>
         <Text style={styles.name}> {Name}</Text>
         <Text style={styles.status}> {ProjectPlanStatus}</Text>

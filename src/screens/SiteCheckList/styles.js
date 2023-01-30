@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     // padding: 50 * vh,
   },
   item: {
-    width: 296 * vh,
+    width: 296 * vw,
     borderBottomColor: '#E7EBF6',
     borderBottomWidth: 1 * vh,
     paddingVertical: 12 * vh,
@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   itemNoHr: {
-    width: 296 * vh,
+    width: 296 * vw,
     paddingVertical: 12 * vh,
     flexDirection: 'row',
     alignSelf: 'center',
   },
   question: {
     // flex: 1,
-    width: 236 * vh,
+    width: 236 * vw,
     fontSize: 16 * vh,
     color: 'rgba(0, 0, 0, 0.6)',
     marginRight: 24 * vw,

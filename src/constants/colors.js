@@ -21,6 +21,7 @@ const colors = {
   mediumShadeOfBlue: palette.mediumShadeOfBlue,
   lavenderMist: palette.lavenderMist,
   yellow: palette.yellow,
+  textColor: palette.textColor,
 };
 
 export default colors;

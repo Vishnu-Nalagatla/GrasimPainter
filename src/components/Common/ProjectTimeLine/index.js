@@ -188,7 +188,6 @@ const ProjectTimeLine = (props: Props) => {
               style={styles.ellipse}
               resizeMode="contain"
             />
-            <View style={styles.sraitLine} />
           </View>
           <Text style={styles.projectName}> {Name}</Text>
         </View>
@@ -202,7 +201,7 @@ const ProjectTimeLine = (props: Props) => {
         <Text style={styles.status}> {title}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
         {+order === 4 ? (
-          <TouchableOpacity style={styles.date} onPress={callNumber}>
+          <TouchableOpacity style={styles.callNumer} onPress={callNumber}>
             <Text style={styles.viewDetailsText}> {'Call Mr. Rajesh'}</Text>
           </TouchableOpacity>
         ) : null}
@@ -219,6 +218,7 @@ const ProjectTimeLine = (props: Props) => {
           </View>
         )}
       </View>
+      <View style={styles.sraitLine} />
     </View>
   );
 };

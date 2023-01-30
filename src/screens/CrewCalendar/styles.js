@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   ellipse: {
     height: 70 * vh,
-    width: 70 * vh,
+    width: 70 * vw,
     marginRight: 20 * vw,
   },
   dayWrapper: {
