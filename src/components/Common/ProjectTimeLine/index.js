@@ -112,7 +112,7 @@ const ProjectTimeLine = (props: Props) => {
       <View style={styles.crewItem}>
         <View style={styles.crewInfo}>
           <Text style={styles.crewTitle}>{title}</Text>
-          <Text style={styles.crewStatus}>.</Text>
+          <Text style={styles.successStatus}>.</Text>
         </View>
         <Text style={styles.crewNames}>{names}</Text>
       </View>

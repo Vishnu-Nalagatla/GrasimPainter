@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 import {color} from 'react-native-reanimated';
 import colors from '../../../constants/colors';
 import ViewPort from '../../../constants/view-port';
-// import colors from '../../../constants/colors';
 
 const {vh, vw} = ViewPort;
 
@@ -11,7 +10,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     marginHorizontal: 16 * vw,
-    // paddingBottom: 30 * vh,
     position: 'relative',
   },
   projectName: {
@@ -31,7 +29,6 @@ const styles = StyleSheet.create({
   ellipse: {
     height: 24 * vh,
     width: 24 * vw,
-    zIndex: 123,
   },
   viewDetailsText: {
     fontFamily: 'Karla',
@@ -163,33 +160,15 @@ const styles = StyleSheet.create({
     width: 14 * vw,
     marginRight: 7 * vw,
   },
-  crewItem: {
-    backgroundColor: colors.sliderTrack,
-    paddingBottom: 30 * vh,
-    paddingLeft: 20 * vh,
-  },
-
-  crewWrapper: {
-    marginBottom: 30 * vh,
-  },
+ 
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  crewTitle: {
-    fontSize: 38 * vh,
-    color: colors.black,
-    fontWeight: '700',
-  },
-  crewNames: {
-    fontSize: 26 * vh,
-    color: 'rgba(0, 0, 0, 0.6)',
-    fontWeight: '500',
-    paddingHorizontal: 8 * vh,
-  },
+ 
   selectedTextStyle: {
-    fontSize: 40 * vh,
+    fontSize: 12 * vh,
     color: colors.black,
     fontWeight: '700',
     paddingLeft: 26 * vh,
@@ -235,20 +214,39 @@ const styles = StyleSheet.create({
   crewInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16 * vh,
+    marginBottom: 4 * vh,
+  },
+  crewItem: {
+    backgroundColor: colors.sliderTrack,
+    paddingBottom: 12 * vh,
+    paddingLeft: 12 * vh,
+    paddingTop: 8 * vh,
+  },
+  crewWrapper: {
+    marginBottom: 30 * vh,
+  },
+  crewTitle: {
+    fontSize: 12 * vh,
+    color: colors.black,
+    fontWeight: '700',
+  },
+  crewNames: {
+    fontSize: 10 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontWeight: '500',
   },
   crewStatus: {
-    height: 26 * vh,
-    width: 26 * vw,
+    height: 8 * vh,
+    width: 8 * vw,
     borderRadius: 13 * vh,
     backgroundColor: colors.error,
     marginLeft: 30 * vw,
   },
   successStatus: {
-    height: 26 * vh,
-    width: 26 * vw,
+    height: 8 * vh,
+    width: 8 * vw,
     borderRadius: 13 * vh,
-    marginLeft: 30 * vw,
+    marginLeft: 10 * vw,
     backgroundColor: colors.success,
   },
 });

@@ -9,17 +9,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.sliderTrack,
     alignItems: 'center',
-    // width: '100%',
   },
   bodyContainer: {
     flex: 1,
-    // backgroundColor: colors.white,
     width: 328 * vw,
     alignSelf: 'center',
     borderRadius: 8 * vh,
     marginBottom: 14 * vh,
     paddingTop: 16 * vh,
-    margin: 16 * vw,
+    marginHorizontal: 16 * vw,
   },
   body: {
     flex: 1,

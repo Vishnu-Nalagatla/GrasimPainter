@@ -16,11 +16,8 @@ import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
 import Success from '../../components/Common/Success/index.js';
-
 import errorIcon from '../../assets/images/naColor/image.png';
-
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
-
 import CustomButton from '../../components/Button';
 import {Image} from 'native-base';
 import TimePicker from '../../components/TimePicker';
@@ -72,10 +69,6 @@ class MyDay extends React.Component<Props, State> {
       showTime: false,
     };
   }
-  // successScreen: {
-  //   message: 'Request for quality check has been sent successfully',
-  //   image: doneColor,
-  // },
 
   componentDidMount() {
     // this.fetchMyDayInfo();
