@@ -20,6 +20,10 @@ import ProgressPercentage from '../../components/ProgressPercentage/index.js';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import CustomButton from '../../components/Button';
 import Slideshow from 'react-native-image-slider-show';
+import {AnimatedCircularProgress} from 'react-native-circular-progress';
+
+import ViewPort from '../../constants/view-port';
+const {vh, vw} = ViewPort;
 
 export interface Props {
   props: String;
@@ -186,14 +190,33 @@ const ProgressInfo = ({roomInfo, resendInfo}) => {
   return (
     <View style={styles.infoWrapper}>
       <Text style={styles.roomName}>{roomName}</Text>
-      <View style={styles.dateView}>
-        <Image source={bellImg} style={styles.flagIcon} resizeMode="contain" />
-        <Text style={styles.date}>{dateStr}</Text>
-      </View>
+
       <View style={styles.progressWrapper}>
-        <View>
-          <Text style={styles.progressInfo}>{'updates by'}</Text>
-          <Text style={styles.progressInfo}>{updatedBy}</Text>
+        <View style={styles.leftView}>
+          <View style={styles.dateView}>
+            <Image
+              source={bellImg}
+              style={styles.flagIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.date}>{dateStr}</Text>
+          </View>
+          <View style={styles.updatedBy}>
+            <Text style={styles.progressInfo}>{'updates by'}</Text>
+            <Text style={styles.progressInfo}>{updatedBy}</Text>
+          </View>
+        </View>
+        <View style={styles.circularProgress}>
+          <AnimatedCircularProgress
+            size={80 * vh}
+            width={10 * vw}
+            fill={75}
+            rotation={-360}
+            tintColor="#3C58B5"
+            lineCap="round"
+            backgroundColor="#D5DFFF">
+            {() => <Text style={styles.percentage}>{'75 %'}</Text>}
+          </AnimatedCircularProgress>
         </View>
       </View>
       <View style={styles.resendView}>

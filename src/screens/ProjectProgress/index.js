@@ -141,9 +141,11 @@ const ProjectProgress = props => {
     return (
       <View style={styles.projectConstraintsWrapper}>
         <Text style={styles.projectConstraintsLabel}>{projectConstraints}</Text>
-        {constraints.map(info => {
+        {constraints.map((info, index) => {
+          const styleInfo =
+            index % 2 === 0 ? styles.constraintInfo : styles.constraintInfoOdd;
           return (
-            <View style={styles.constraintInfo}>
+            <View style={styleInfo}>
               <Text style={styles.constraintKey}>{info.key} </Text>
               <Text style={styles.constraintValue}>{info.value} </Text>
             </View>

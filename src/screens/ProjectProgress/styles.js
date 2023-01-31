@@ -140,9 +140,12 @@ const styles = StyleSheet.create({
   },
 
   constraintInfo: {
-    backgroundColor: '#F5F8FF',
+    backgroundColor: colors.cardBackground,
     flexDirection: 'row',
-    // height: 140 * vh,
+  },
+  constraintInfoOdd: {
+    backgroundColor: colors.carteBlanche,
+    flexDirection: 'row',
   },
   constraintKey: {
     flex: 1,
