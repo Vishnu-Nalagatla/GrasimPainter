@@ -2,6 +2,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styeles';
 import ellipse from '../../../assets/images/ellipse/image.png';
+import check from '../../../assets/images/check/image.png';
 import calendar from '../../../assets/images/calendar/image.png';
 import {Image} from 'react-native';
 import Moment from 'moment';
@@ -10,7 +11,8 @@ import {Dropdown} from 'react-native-element-dropdown';
 import call from 'react-native-phone-call';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data, onClick, assignCrewToProject, viewCrewCalendar} = props;
+  const {data, activeTabIndex, onClick, assignCrewToProject, viewCrewCalendar} =
+    props;
 
   const Priority = {
     CREATE_PROJECT_PLAN: 1,
@@ -25,7 +27,7 @@ const ProjectTimeLine = (props: Props) => {
   };
 
   const {Name, AssetCheckStatus, ProjectStartDate, displayStatus} = data;
-  const {title, ctaLabel, order} = displayStatus;
+  const {title, ctaLabel, order, confirmMessage = ''} = displayStatus;
   const viewDetails = 'View Details';
   const viewCrewCalendarLabel = 'View Crew Calendar';
   const [crew, setCrew] = useState();
@@ -200,6 +202,11 @@ const ProjectTimeLine = (props: Props) => {
       <View style={styles.bodyContainer}>
         <Text style={styles.status}> {title}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
+        <View styele={styles.confirmMessage}>
+          <Image source={check} style={styles.check} resizeMode="contain" />
+          <Text style={styles.date}> {confirmMessage}</Text>
+        </View>
+
         {+order === 4 ? (
           <TouchableOpacity style={styles.callNumer} onPress={callNumber}>
             <Text style={styles.viewDetailsText}> {'Call Mr. Rajesh'}</Text>
@@ -210,6 +217,7 @@ const ProjectTimeLine = (props: Props) => {
         ) : (
           <View>
             <CustomButton
+              disabled={activeTabIndex !== 1}
               title={ctaLabel}
               textStyle={[styles.btnTxt]}
               style={[styles.button]}

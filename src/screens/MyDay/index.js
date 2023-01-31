@@ -8,7 +8,6 @@ import {
 import React from 'react';
 import styles from './styles.js';
 import POPUP_CONSTANTS from '../../enums/popup';
-import SwithcButtons from '../../components/SwithcButtons';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 import data from './data.json';
 import RouteConfig from '../../constants/route-config.js';
@@ -21,6 +20,7 @@ import StandardPopup from '../../components/Common/StandardPopup/index.js';
 import CustomButton from '../../components/Button';
 import {Image} from 'native-base';
 import TimePicker from '../../components/TimePicker';
+import SwitchButtons from '../../components/SwitchButtons';
 
 export interface Props {
   props: String;
@@ -306,6 +306,7 @@ class MyDay extends React.Component<Props, State> {
           renderItem={({item}) => (
             <ProjectTimeLine
               data={item}
+              activeTabIndex={activeTabIndex}
               onClick={this.projectClick}
               assignCrewToProject={this.assignCrewToProject}
               viewCrewCalendar={this.viewCrewCalendar}
@@ -384,7 +385,7 @@ class MyDay extends React.Component<Props, State> {
               </Text>
             </View>
             <View style={styles.body}>
-              <SwithcButtons
+              <SwitchButtons
                 buttons={buttons}
                 onClick={button => this.onClick(button)}
               />

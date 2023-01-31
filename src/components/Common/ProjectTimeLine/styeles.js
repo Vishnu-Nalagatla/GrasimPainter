@@ -87,6 +87,13 @@ const styles = StyleSheet.create({
     letterSpacing: 1 * vh,
     marginTop: 8 * vh,
   },
+  confirmMessage: {
+    flexDirection: 'row',
+  },
+  check: {
+    height: 16 * vh,
+    width: 16 * vw,
+  },
   callNumer: {
     color: colors.black,
     fontFamily: 'Karla',

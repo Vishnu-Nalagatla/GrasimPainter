@@ -1,7 +1,7 @@
 import { ScrollView } from 'native-base';
 import React, { useState } from 'react';
 import { Text, View, TouchableOpacity, Image } from 'react-native';
-import SwithcButtons from '../../components/SwithcButtons';
+import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from './styles';
 import upImg from '../../assets/images/splash/upload.png';
@@ -180,7 +180,7 @@ const Reports = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.bodyContainer}>
-        <SwithcButtons buttons={state} onClick={onClick} />
+        <SwitchButtons buttons={state} onClick={onClick} />
         <View style={styles.accordionContainer}>
           <Text style={styles.heading}>Product and Colors</Text>
           <View>

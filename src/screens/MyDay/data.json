@@ -85,7 +85,7 @@
           "order": "1",
           "title": "Create Project Plan",
           "ctaLabel": "Create Now",
-          "confirmMessage": "<p>Plan created and shared with customer</p>\n"
+          "confirmMessage": "Plan created and shared with customer"
       }
       },
       {

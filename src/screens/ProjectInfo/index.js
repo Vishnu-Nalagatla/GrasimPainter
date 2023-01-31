@@ -1,7 +1,7 @@
 import {ScrollView} from 'native-base';
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
-import SwithcButtons from '../../components/SwithcButtons';
+import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
 
 import styles from './styles';
