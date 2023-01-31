@@ -8,8 +8,7 @@ import RouteConfig from '../../constants/route-config';
 import CustomButton from '../../components/Button';
 import Popup from '../../components/Popup';
 import { API } from '../../requests';
-import paintIcon from '../../assets/images/splash/paint_logo.png';
-import starIcon from '../../assets/images/splash/star_logo.png';
+import paintLogo from '../../assets/images/login/paintLogo.png';
 import colors from '../../constants/colors';
 
 export interface Props {
@@ -101,26 +100,26 @@ class Login extends React.Component<Props, State> {
                 <Popup visible={!!popup}>
                     {this.getPopupContent()}
                 </Popup>
-                <View style={styles.imageContainer}>
-                    <Image source={paintIcon} style={styles.paintIcon} resizeMode="contain" />
-                    <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
+                <View style={styles.innerContainer}>
+                    <Image source={paintLogo} style={styles.paintIcon} resizeMode="contain" />
+                    <View style={styles.inputWrapper}>
+                        <Input
+                            value={userName}
+                            placeholder={strings.usernamePlaceholder}
+                            onChangeText={this.onUserNameChange}
+                            style={validationMsg ? [styles.input, styles.errorBorder] : styles.input}
+                            isInvalid={validationMsg ? true : false}
+                        />
+                        {validationMsg ? <Text style={styles.errorText}>{validationMsg}</Text> : null}
+                        <CustomButton
+                            title={strings.next}
+                            textStyle={styles.nextBtnText}
+                            style={styles.nextBtn}
+                            onPress={this.validateUser}
+                        />
+                    </View>
+                    <Text style={styles.helpText} onPress={this.invokeHelp}>{strings.needHelp}</Text>
                 </View>
-                <View style={styles.inputWrapper}>
-                    <Input
-                        value={userName}
-                        placeholder={strings.usernamePlaceholder}
-                        onChangeText={this.onUserNameChange}
-                        style={validationMsg ? [styles.input, styles.errorBorder] : styles.input}
-                    />
-                    {validationMsg ? <Text style={styles.errorText}>{validationMsg}</Text> : null}
-                    <CustomButton
-                        title={strings.next}
-                        textStyle={styles.nextBtnText}
-                        style={styles.nextBtn}
-                        onPress={this.validateUser}
-                    />
-                </View>
-                <Text style={styles.helpText} onPress={this.invokeHelp}>{strings.needHelp}</Text>
             </View>
         );
     }
