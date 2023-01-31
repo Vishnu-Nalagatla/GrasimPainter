@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     marginLeft: 34 * vw,
-    // alignItems: 'flex-start',
-    // flex: 1,
+    alignItems: 'flex-start',
+    flex: 1,
     width: '100%',
-    // position: 'relative',
+    position: 'relative',
   },
   status: {
     fontFamily: 'Lato',

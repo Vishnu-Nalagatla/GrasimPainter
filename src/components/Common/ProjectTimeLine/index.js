@@ -9,7 +9,7 @@ import Moment from 'moment';
 import CustomButton from '../Button';
 import {Dropdown} from 'react-native-element-dropdown';
 import call from 'react-native-phone-call';
-import { Text, View } from 'native-base';
+import {Text, View} from 'native-base';
 
 const ProjectTimeLine = (props: Props) => {
   const {data, activeTabIndex, onClick, assignCrewToProject, viewCrewCalendar} =

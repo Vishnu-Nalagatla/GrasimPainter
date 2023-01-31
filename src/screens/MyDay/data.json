@@ -169,7 +169,7 @@
           "order": "2",
           "title": "Confirm Crew Allocation",
           "ctaLabel": "Confirm",
-          "confirmMessage": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
+          "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
       }
       },
       {
@@ -1689,7 +1689,7 @@
           "code": "2",
           "title": "Confirm Crew Allocation",
           "eventTitle": "Confirm",
-          "statusDescription": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
+          "statusDescription": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
         }
       },
       {

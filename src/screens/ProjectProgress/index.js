@@ -88,7 +88,7 @@ const ProjectProgress = props => {
             />
           </TouchableOpacity>
         </View>
-        <ProgressPercentage value={93} />
+        <ProgressPercentage value={63} />
         <View style={styles.duration}>
           <View style={styles.startDate}>
             <Image
@@ -98,7 +98,6 @@ const ProjectProgress = props => {
             />
             <Text> {startDate} </Text>
           </View>
-          <Text style={styles.dotted}> </Text>
           <Text style={styles.dotted}> </Text>
           <Text style={styles.dotted}> </Text>
           <Text style={styles.dotted}> </Text>
@@ -117,7 +116,7 @@ const ProjectProgress = props => {
           </View>
         </View>
         <View style={styles.paymentInfo}>
-          <Text> {paymentInfo}</Text>
+          <Text style={styles.paymentInfoLabel}> {paymentInfo}</Text>
         </View>
         <CustomButton
           title={'Create Project plan'}
@@ -166,7 +165,7 @@ const ProjectProgress = props => {
               <Text style={styles.tabItem}>{item.value}</Text>
               <Image
                 source={rightArrowImg}
-                style={styles.locationIcon}
+                style={styles.arrowIcon}
                 resizeMode="contain"
               />
             </View>

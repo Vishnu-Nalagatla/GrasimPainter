@@ -3,13 +3,13 @@
         "order": "1",
         "title": "Create Project Plan",
         "ctaLabel": "Create Now",
-        "confirmMessage": "<p>Plan created and shared with customer</p>\n"
+        "confirmMessage": "Plan created and shared with customer"
     },
     {
         "order": "2",
         "title": "Confirm Crew Allocation",
         "ctaLabel": "Confirm",
-        "confirmMessage": "<p>Crew 01 ( Rajesh Akash, Jay) is confirmed</p>\n"
+        "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
     },
     {
         "order": "3",
@@ -21,7 +21,7 @@
         "order": "4",
         "title": "Visit Project Site",
         "ctaLabel": "Schedule a time",
-        "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
+        "confirmMessage": "Project site visit is scheduled at"
     },
     {
         "order": "5",
