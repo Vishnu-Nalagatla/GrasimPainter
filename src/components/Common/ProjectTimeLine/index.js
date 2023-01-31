@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import styles from './styeles';
 import ellipse from '../../../assets/images/ellipse/image.png';
@@ -9,6 +9,7 @@ import Moment from 'moment';
 import CustomButton from '../Button';
 import {Dropdown} from 'react-native-element-dropdown';
 import call from 'react-native-phone-call';
+import { Text, View } from 'native-base';
 
 const ProjectTimeLine = (props: Props) => {
   const {data, activeTabIndex, onClick, assignCrewToProject, viewCrewCalendar} =
@@ -202,9 +203,9 @@ const ProjectTimeLine = (props: Props) => {
       <View style={styles.bodyContainer}>
         <Text style={styles.status}> {title}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
-        <View styele={styles.confirmMessage}>
+        <View style={styles.confirmMessageView}>
           <Image source={check} style={styles.check} resizeMode="contain" />
-          <Text style={styles.date}> {confirmMessage}</Text>
+          <Text style={styles.confirmMessage}> {confirmMessage}</Text>
         </View>
 
         {+order === 4 ? (

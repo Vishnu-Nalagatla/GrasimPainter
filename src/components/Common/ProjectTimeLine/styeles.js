@@ -63,10 +63,10 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     marginLeft: 34 * vw,
-    alignItems: 'flex-start',
-    flex: 1,
+    // alignItems: 'flex-start',
+    // flex: 1,
     width: '100%',
-    position: 'relative',
+    // position: 'relative',
   },
   status: {
     fontFamily: 'Lato',
@@ -87,12 +87,23 @@ const styles = StyleSheet.create({
     letterSpacing: 1 * vh,
     marginTop: 8 * vh,
   },
+  confirmMessageView: {
+    flexDirection:'row',
+    marginTop: 8 * vh,
+  },
   confirmMessage: {
-    flexDirection: 'row',
+    color: colors.black,
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: 10 * vh,
+    lineHeight: 12 * vh,
+    letterSpacing: 1 * vh,
   },
   check: {
     height: 16 * vh,
     width: 16 * vw,
+    marginRight: 4 * vw,
   },
   callNumer: {
     color: colors.black,

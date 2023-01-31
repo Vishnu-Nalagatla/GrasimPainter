@@ -8,33 +8,21 @@ import colors from '../../constants/colors';
 const {vw, vh} = ViewPort;
 
 const styles = StyleSheet.create({
-  onepicker: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  OnePickerView: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 0.75,
-  },
   viewContainer: {
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
-    width: '90%',
-    // height: Platform.OS === 'ios' ? 1000 * vh : 1000 * vh,
-    padding: 40 * vh,
+    width: 252 * vw,
+    height: 262 * vh,
   },
   heading: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    width: '100%',
-    padding: Platform.OS === 'ios' ? 25 * vh : 15 * vh,
+    marginTop: 16 * vh,
   },
   headingText: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    alignSelf: 'flex-start',
     color: colors.black,
-    fontSize: 50 * vh,
+    fontSize: 16 * vh,
     fontWeight: '600',
     width: '100%',
   },
@@ -48,25 +36,26 @@ const styles = StyleSheet.create({
   closeIcon: {color: '#fff'},
   arrowIcon: {color: '#000'},
   btnStyle: {
-    height: 200 * vh,
+    height: 35 * vh,
     backgroundColor: 'white',
+    marginBottom: 38 * vh,
   },
   hrLine: {
-    borderColor: '#E7EBF6',
-    borderBottomWidth: 6 * vh,
-    marginTop: 60 * vh,
+    borderColor: colors.sliderTrack,
+    borderBottomWidth: 1 * vh,
     width: '100%',
+    marginTop: 16 * vh,
   },
   btnText: {
     color: colors.primary,
-    fontSize: 42 * vh,
+    fontSize: 12 * vh,
     width: '100%',
     textAlign: 'center',
     fontWeight: '600',
   },
   btnTextErr: {
     color: colors.error,
-    fontSize: 42 * vh,
+    fontSize: 12 * vh,
     width: '100%',
     textAlign: 'center',
     fontWeight: '600',
@@ -75,6 +64,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'flex-end',
+    marginBottom: 16 * vh,
+    marginTop: 16 * vh,
+  },
+  datePicker: {
+    // backgroundColor: 'red',
+    // borderRadius: 5,
+    // borderColor: '#C5C5C5',
+    // borderWidth: 1,
+    marginVertical: -10 * vh,
+    height: 165 * vh,
   },
 });
 
@@ -135,10 +134,10 @@ export default function TimePicker(props: Props) {
   return (
     <View style={styles.viewContainer}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>Select the visit time</Text>
-        <View style={styles.hrLine} />
+        <Text style={styles.headingText}>Select the visit time1</Text>
       </View>
-      <View style={{width: '90%', height: 240}}>
+      <View style={styles.hrLine} />
+      <View style={styles.datePicker}>
         <DatePicker
           date={new Date(new Date().setHours(hours, minutes, 0, 0))}
           mode="time"
@@ -152,14 +151,14 @@ export default function TimePicker(props: Props) {
           }}
           androidVariant="nativeAndroid"
         />
-        <View style={styles.buttonWrapper}>
-          <Button onPress={onClose} style={styles.btnStyle}>
-            <Text style={styles.btnTextErr}>CANCEL</Text>
-          </Button>
-          <Button onPress={onHandleOk} style={styles.btnStyle}>
-            <Text style={styles.btnText}>OK</Text>
-          </Button>
-        </View>
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Button onPress={onClose} style={styles.btnStyle}>
+          <Text style={styles.btnTextErr}>CANCEL</Text>
+        </Button>
+        <Button onPress={onHandleOk} style={styles.btnStyle}>
+          <Text style={styles.btnText}>OK</Text>
+        </Button>
       </View>
     </View>
   );
