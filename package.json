@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "update-version": "npx react-native-version --never-amend"
+    "update-version": "npx react-native-version --never-amend",
+    "devtools" : "react-devtools"
   },
   "dependencies": {
     "@miblanchard/react-native-slider": "^2.2.0",
@@ -25,6 +26,7 @@
     "mroads-js-utils": "^1.0.2",
     "native-base": "^3.4.25",
     "react": "18.1.0",
+    "react-devtools": "^4.27.1",
     "react-native": "0.70.6",
     "react-native-calendar-picker": "^7.1.3",
     "react-native-collapsible": "^1.6.0",
