@@ -6,6 +6,7 @@ import LeaveRequests from '../screens/LeaveRequests';
 import Approve from '../screens/Approve';
 import CrewCalendar from '../screens/CrewCalendar';
 import ClinetInfo from '../screens/ClinetInfo';
+import Notifications from '../screens/Notifications';
 
 const MyDayStack = createStackNavigator();
 
@@ -20,6 +21,7 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="Approve" component={Approve} />
       <MyDayStack.Screen name="CrewCalendar" component={CrewCalendar} />
       <MyDayStack.Screen name="ClinetInfo" component={ClinetInfo} />
+      <MyDayStack.Screen name="Notifications" component={Notifications} />
     </MyDayStack.Navigator>
   );
 }

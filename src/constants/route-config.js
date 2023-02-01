@@ -15,6 +15,7 @@ const RouteConfig = {
   ClinetInfo: 'ClinetInfo',
   SendUpdates: 'SendUpdates',
   CapturePics: 'CapturePics',
+  Notifications: 'Notifications',
 };
 
 export default RouteConfig;
