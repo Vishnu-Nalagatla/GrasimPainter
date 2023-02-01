@@ -9,8 +9,7 @@ import RouteConfig from '../../constants/route-config';
 import CustomButton from '../../components/Button';
 import Popup from '../../components/Popup';
 import { API } from '../../requests';
-import paintIcon from '../../assets/images/splash/paint_logo.png';
-import starIcon from '../../assets/images/splash/star_logo.png';
+import paintIcon from '../../assets/images/login/paintLogo.png';
 import colors from '../../constants/colors';
 import { setLoginData } from '../../store/actions';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
@@ -114,7 +113,7 @@ class Otp extends React.Component<Props, State> {
         const { otp } = this.state;
         const { navigation, route, dispatchSetLoginData } = this.props;
         const { params } = route;
-        const { userName } = params;
+        const { userName, firstName } = params;
         if (otp.length === 0) {
             this.setState({ validationMsg: strings.emptyOtp });
             return;
@@ -143,7 +142,7 @@ class Otp extends React.Component<Props, State> {
                             const parsedUser = JSON.parse(user);
                             if (parsedUser.hasOwnProperty(userName)) {
                                 const showOnboardingScreen = parsedUser[userName];
-                                dispatchSetLoginData({ userName: userName, showOnboarding: showOnboardingScreen });
+                                dispatchSetLoginData({ userName: userName, firstName: firstName, showOnboarding: showOnboardingScreen });
                             } else {
                                 const updatedUser = {
                                     ...parsedUser,
@@ -151,14 +150,14 @@ class Otp extends React.Component<Props, State> {
                                 }
                                 AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify(updatedUser))
                                     .then(res => {
-                                        dispatchSetLoginData({ userName: userName, showOnboarding: true });
+                                        dispatchSetLoginData({ userName: userName, firstName: firstName, showOnboarding: true });
                                     });
                             }
                         } else {
                             AsyncStorage.setItem('loggedInUser_' + currentDate, JSON.stringify({
                                 [userName]: true
                             })).then(res => {
-                                dispatchSetLoginData({ userName: userName, showOnboarding: true });
+                                dispatchSetLoginData({ userName: userName, firstName: firstName, showOnboarding: true });
                             });
                         }
                     });
@@ -206,39 +205,38 @@ class Otp extends React.Component<Props, State> {
                 <Popup visible={!!popup}>
                     {this.getPopupContent()}
                 </Popup>
-                <View style={styles.imageContainer}>
+                <View style={styles.innerContainer}>
                     <Image source={paintIcon} style={styles.paintIcon} resizeMode="contain" />
-                    <Image source={starIcon} style={styles.starIcon} resizeMode="contain" />
+                    <View style={styles.inputWrapper}>
+                        <Text style={styles.userText}>Hi {firstName}, please enter the OTP sent to {userName} </Text>
+                        <Text style={styles.userName}>{userName}</Text>
+                        <OTPInputView
+                            style={styles.otpInput}
+                            pinCount={4}
+                            autoFocusOnLoad
+                            codeInputFieldStyle={validationMsg ? [styles.underlineStyleBase, styles.errorField] : styles.underlineStyleBase}
+                            codeInputHighlightStyle={validationMsg ? [styles.underlineStyleBase, styles.underlineStyleHighLighted, styles.errorField] : [styles.underlineStyleBase, styles.underlineStyleHighLighted]}
+                            autofillFromClipboard={false}
+                            onCodeFilled={(code) => this.onOtpChange(code)}
+                        />
+                        {validationMsg ? <Text style={styles.errorText}>{validationMsg}</Text> : null}
+                        <CustomButton
+                            title={strings.login}
+                            textStyle={styles.nextBtnText}
+                            style={styles.nextBtn}
+                            onPress={this.verifyOtp}
+                        />
+                        {showResend ? (
+                            <View style={styles.row}>
+                                <Text style={[styles.resendOtpText, styles.resendOtpText]}>Din't receive the code ? </Text>
+                                <Text style={[styles.resendOtpText, styles.resendOtp, styles.resendOtp]} onPress={this.resendOtp}>Resend OTP</Text>
+                            </View>) : resendCount < 3 ? (
+                                <Text style={styles.resendText}>Didn't receive the code ? Resend in {count} seconds</Text>
+                            ) : null}
+                        <Text style={styles.helpText} onPress={this.invokeHelp}>{strings.needHelp}</Text>
+                    </View>
+
                 </View>
-                <View style={styles.inputWrapper}>
-                    <Text style={styles.userText}>Hi {firstName}, please enter the OTP</Text>
-                    <Text style={styles.userText}>sent to {userName}</Text>
-                    <Text style={styles.userName}>{userName}</Text>
-                    <OTPInputView
-                        style={styles.otpInput}
-                        pinCount={4}
-                        autoFocusOnLoad
-                        codeInputFieldStyle={validationMsg ? [styles.underlineStyleBase, styles.errorField] : styles.underlineStyleBase}
-                        codeInputHighlightStyle={validationMsg ? [styles.underlineStyleBase, styles.underlineStyleHighLighted, styles.errorField] : [styles.underlineStyleBase, styles.underlineStyleHighLighted]}
-                        autofillFromClipboard={false}
-                        onCodeFilled={(code) => this.onOtpChange(code)}
-                    />
-                    {validationMsg ? <Text style={styles.errorText}>{validationMsg}</Text> : null}
-                    <CustomButton
-                        title={strings.login}
-                        textStyle={styles.nextBtnText}
-                        style={styles.nextBtn}
-                        onPress={this.verifyOtp}
-                    />
-                    {showResend ? (
-                        <View style={styles.row}>
-                            <Text style={styles.userText}>Din't receive the code ? </Text>
-                            <Text style={styles.resendOtp} onPress={this.resendOtp}>Resend OTP</Text>
-                        </View>) : resendCount < 3 ? (
-                            <Text style={styles.userText}>Didn't receive the code ? Resend in {count} seconds</Text>
-                        ) : null}
-                </View>
-                <Text style={styles.helpText} onPress={this.invokeHelp}>{strings.needHelp}</Text>
             </View >
         );
     }
