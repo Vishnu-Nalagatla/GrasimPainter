@@ -1,7 +1,8 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import ellipse from '../../assets/images/ellipse/image.png';
-import hamburger from '../../assets/images/myDay/hamburger.png';
+import hamburger from '../../assets/images/timeline/reorder.png';
+import flagImg from '../../assets/images/timeline/flag.png';
 import styles from './styles';
 import DraggableFlatList from 'react-native-draggable-flatlist';
 import strings from '../../constants/strings';
@@ -134,11 +135,11 @@ class Timeline extends React.Component {
                     <View style={styles.straightLine} />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={[styles.heading, styles.noMargin]}>{item.Name}</Text>
+                    <Text style={[styles.heading, styles.roomHeading, styles.noMargin]}>{item.Name}</Text>
                     <View style={styles.dateContainer}>
                         {/* <View style={styles.dateContainer} onPress={() => showCalendar(index)}> */}
                         <Image
-                            source={ellipse}
+                            source={flagImg}
                             style={styles.flagImg}
                             resizeMode="contain"
                         />
@@ -244,13 +245,13 @@ class Timeline extends React.Component {
                         // containerStyle={styles.listStyle}
                         />
                     </View>
+                    <CustomButton
+                        title={strings.recalculateProjectPlan}
+                        textStyle={styles.recalculateButtonText}
+                        style={styles.recalculateButton}
+                        onPress={this.recalculateProjectPlan}
+                    />
                 </View>
-                <CustomButton
-                    title={strings.recalculateProjectPlan}
-                    textStyle={styles.buttonText}
-                    style={styles.button}
-                    onPress={this.recalculateProjectPlan}
-                />
                 <CustomButton
                     title={strings.updateProjectPlan}
                     textStyle={styles.buttonText}
