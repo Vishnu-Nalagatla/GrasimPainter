@@ -18,6 +18,7 @@ import {Checkbox, FlatList, Image, ScrollView} from 'native-base';
 import Moment from 'moment';
 import ProgressPercentage from '../../components/ProgressPercentage/index.js';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
+import closeIcon from '../../assets/images/close/image.png';
 import CustomButton from '../../components/Button';
 import Slideshow from 'react-native-image-slider-show';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
@@ -112,6 +113,7 @@ class Approve extends React.Component<Props, State> {
     this.setState({
       showGallery: true,
       popup: {type: POPUP_CONSTANTS.SHOW_GALLERY},
+      position: 0,
       images: wallPics.map(img => {
         return {
           url: img,
@@ -122,9 +124,8 @@ class Approve extends React.Component<Props, State> {
 
   getPopupContent = () => {
     const {popup} = this.state;
-    const {roomInfo, images} = this.state;
-    const {gallery} = roomInfo;
-
+    const {images, position} = this.state;
+    const count = position + 1 + '/' + images.length;
     if (!popup) {
       return null;
     }
@@ -135,11 +136,23 @@ class Approve extends React.Component<Props, State> {
         );
       case POPUP_CONSTANTS.SHOW_GALLERY:
         return (
-          <ImagesGallery
-            gallery={gallery}
-            images={images}
-            onPositionChange={this.onPositionChange}
-          />
+          <View style={styles.sliderView}>
+            <Text style={styles.imageCount}>{count}</Text>
+            <TouchableOpacity
+              style={styles.clossIcon}
+              onPress={this.closePopup}>
+              <Image
+                source={closeIcon}
+                style={styles.clossIcon}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+            <ImagesGallery
+              images={images}
+              position={position}
+              onPositionChange={this.onPositionChange}
+            />
+          </View>
         );
     }
   };
@@ -170,9 +183,7 @@ class Approve extends React.Component<Props, State> {
     const {gallery} = roomInfo;
     return (
       <ScrollView style={styles.container}>
-        <Popup onPress={this.closePopup} visible={!!popup}>
-          {this.getPopupContent()}
-        </Popup>
+        <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
         <ProgressInfo roomInfo={roomInfo} resendInfo={resendInfo} />
         <ImagesInfo
           gallery={gallery}
@@ -245,7 +256,9 @@ const ImagesGallery = ({images, position = 1, onPositionChange}) => {
       arrowRight={
         <Image source={bellImg} style={styles.countIcon} resizeMode="contain" />
       }
-      onPositionChanged={index => onPositionChange(index)}
+      onPositionChanged={index => {
+        onPositionChange(index);
+      }}
     />
   );
 };

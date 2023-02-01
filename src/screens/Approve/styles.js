@@ -133,11 +133,11 @@ const styles = StyleSheet.create({
     margin: 8 * vw,
     position: 'relative',
     marginBottom: 16 * vh,
-
   },
   countIcon: {
-    height: 12 * vh,
-    width: 12 * vw,
+    height: 14 * vh,
+    width: 14 * vw,
+    backgroundColor: 'red',
   },
   wallImgCount: {
     position: 'absolute',
@@ -182,6 +182,41 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '700',
     fontSize: 14 * vh,
+  },
+  sliderImage: {
+    // width: 296 * vw,
+    // height: 222 * vh,
+  },
+  sliderView: {
+    width: 296 * vw,
+    // height: 222 * vh,
+    backgroundColor: 'red',
+    // padding: 40 * vh,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8 * vh,
+    overflow: 'hidden',
+    position: 'relative',
+    // backgroundColor: 'none',
+  },
+  imageCount: {
+    fontSamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: 14 * vh,
+    lineHeight: 22 * vh,
+    position: 'absolute',
+    top: 10 * vh,
+    left: 10 * vh,
+    zIndex: 1,
+  },
+  clossIcon: {
+    height: 24 * vh,
+    width: 24 * vw,
+    position: 'absolute',
+    top: 5 * vh,
+    right: 5 * vh,
+    zIndex: 1,
   },
 });
 
