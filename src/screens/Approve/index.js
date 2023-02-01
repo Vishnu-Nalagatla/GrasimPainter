@@ -87,6 +87,7 @@ class Approve extends React.Component<Props, State> {
       ],
       position: 1,
       showGallery: false,
+      buttonLabel: 'Approve',
     };
   }
 
@@ -157,8 +158,9 @@ class Approve extends React.Component<Props, State> {
     }
   };
 
+  //NOTE: change buttonLabel values based on logpressed wall images count.
   onImageLongPress = wallIndex => {
-    const {roomInfo} = this.state;
+    const {roomInfo, buttonLabel} = this.state;
     const {gallery} = roomInfo;
     console.info('onImageLongPress wallIndex...', wallIndex);
     const updatedGallery = gallery.map(img => {
@@ -175,11 +177,13 @@ class Approve extends React.Component<Props, State> {
     roomInfo.gallery = updatedGallery;
     this.setState({
       roomInfo,
+      buttonLabel:
+        buttonLabel === 'Ask for Retake' ? 'Approve' : 'Ask for Retake',
     });
   };
 
   render() {
-    const {roomInfo, popup, resendInfo, images} = this.state;
+    const {roomInfo, popup, resendInfo, buttonLabel} = this.state;
     const {gallery} = roomInfo;
     return (
       <ScrollView style={styles.container}>
@@ -189,6 +193,7 @@ class Approve extends React.Component<Props, State> {
           gallery={gallery}
           onPress={this.showgallery}
           onLongPress={this.onImageLongPress}
+          buttonLabel={buttonLabel}
         />
       </ScrollView>
     );
@@ -251,10 +256,20 @@ const ImagesGallery = ({images, position = 1, onPositionChange}) => {
       indicatorColor="red"
       indicatorSize={0}
       arrowLeft={
-        <Image source={bellImg} style={styles.countIcon} resizeMode="contain" />
+        <Image
+          source={bellImg}
+          style={styles.countIcon}
+          resizeMode="contain"
+          alt=""
+        />
       }
       arrowRight={
-        <Image source={bellImg} style={styles.countIcon} resizeMode="contain" />
+        <Image
+          source={bellImg}
+          style={styles.countIcon}
+          resizeMode="contain"
+          alt=""
+        />
       }
       onPositionChanged={index => {
         onPositionChange(index);
@@ -262,12 +277,13 @@ const ImagesGallery = ({images, position = 1, onPositionChange}) => {
     />
   );
 };
-const ImagesInfo = ({gallery, onPress, onLongPress}) => {
+const ImagesInfo = ({gallery, onPress, onLongPress, buttonLabel}) => {
   return (
     <SafeAreaView style={styles.tabView}>
       <FlatList
         data={gallery}
         contentContainerStyle={styles.wallImages}
+        numColumns={3}
         keyExtractor={(item, index) => item.key}
         renderItem={({item}) => {
           const wallImgCount = item.images.length;
@@ -281,6 +297,7 @@ const ImagesInfo = ({gallery, onPress, onLongPress}) => {
                 source={item.images[0]}
                 style={styles.wallImg}
                 resizeMode="contain"
+                alt=""
               />
               <View style={styles.wallImgCount}>
                 {wallImgCount > 1 ? (
@@ -288,6 +305,7 @@ const ImagesInfo = ({gallery, onPress, onLongPress}) => {
                     source={multipleImg}
                     style={styles.countIcon}
                     resizeMode="contain"
+                    alt=""
                   />
                 ) : null}
               </View>
@@ -300,7 +318,7 @@ const ImagesInfo = ({gallery, onPress, onLongPress}) => {
         }}
       />
       <CustomButton
-        title={'Approve'}
+        title={buttonLabel}
         textStyle={[styles.btnTxt]}
         style={[styles.button]}
         onPress={() => this.onClick('approve')}

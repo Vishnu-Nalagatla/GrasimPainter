@@ -118,8 +118,9 @@ const styles = StyleSheet.create({
   },
   wallImages: {
     flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    flexDirection: 'column',
   },
   wallImg: {
     height: 90 * vh,
