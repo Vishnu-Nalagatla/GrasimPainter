@@ -42,31 +42,31 @@ class Approve extends React.Component<Props, State> {
         wallName: 'Wall1',
         images: [groupIcon],
         wallIndex: 1,
-        showRightIcon: false,
+        showRetakeIcon: false,
       },
       {
         wallName: 'Wall2',
         images: [bellImg, bellImg],
         wallIndex: 2,
-        showRightIcon: false,
+        showRetakeIcon: false,
       },
       {
         wallName: 'Wall3',
         images: [bellImg],
         wallIndex: 3,
-        showRightIcon: false,
+        showRetakeIcon: false,
       },
       {
         wallName: 'Wall4',
         images: [bellImg],
         wallIndex: 4,
-        showRightIcon: false,
+        showRetakeIcon: false,
       },
       {
         wallName: 'Ceiling',
         images: [bellImg],
         wallIndex: 5,
-        showRightIcon: false,
+        showRetakeIcon: false,
       },
     ],
   };
@@ -149,11 +149,11 @@ class Approve extends React.Component<Props, State> {
     const {gallery} = roomInfo;
     console.info('onImageLongPress wallIndex...', wallIndex);
     const updatedGallery = gallery.map(img => {
-      const {showRightIcon} = img;
+      const {showRetakeIcon} = img;
       if (img.wallIndex === wallIndex) {
         return {
           ...img,
-          showRightIcon: !showRightIcon,
+          showRetakeIcon: !showRetakeIcon,
         };
       } else {
         return img;
@@ -258,8 +258,7 @@ const ImagesInfo = ({gallery, onPress, onLongPress}) => {
         keyExtractor={(item, index) => item.key}
         renderItem={({item}) => {
           const wallImgCount = item.images.length;
-          const showRightIcon = item.showRightIcon;
-          console.info('showRightIcon....', showRightIcon);
+          const showRetakeIcon = item.showRetakeIcon;
           return (
             <TouchableOpacity
               style={styles.navitem}
@@ -280,7 +279,7 @@ const ImagesInfo = ({gallery, onPress, onLongPress}) => {
                 ) : null}
               </View>
               <View style={styles.retakeView}>
-                {showRightIcon ? <Checkbox checked={showRightIcon} /> : null}
+                {showRetakeIcon ? <Checkbox checked={showRetakeIcon} /> : null}
               </View>
               <Text style={styles.wallName}>{item.wallName}</Text>
             </TouchableOpacity>

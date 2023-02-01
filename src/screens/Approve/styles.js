@@ -124,15 +124,16 @@ const styles = StyleSheet.create({
   wallImg: {
     height: 90 * vh,
     width: 90 * vw,
-    marginBottom: 8 * vh,
     borderRadius: 8 * vh,
+    marginBottom: 8 * vh,
   },
   navitem: {
-    height: 90 * vh,
+    height: 116 * vh,
     width: 90 * vw,
     margin: 8 * vw,
     position: 'relative',
-    marginBottom: 28 * vh,
+    marginBottom: 16 * vh,
+
   },
   countIcon: {
     height: 12 * vh,
@@ -146,8 +147,8 @@ const styles = StyleSheet.create({
   },
   retakeView: {
     position: 'absolute',
-    top: 20 * vh,
-    right: 20 * vw,
+    top: 2 * vh,
+    right: 2 * vw,
     fontSize: 16 * vh,
   },
   tabItem: {
@@ -158,7 +159,8 @@ const styles = StyleSheet.create({
     width: '90%',
     borderWidth: 2,
     borderRadius: 8 * vh,
-    marginVertical: 40 * vh,
+    marginTop: 24 * vh,
+    marginBottom: 16 * vh,
     alignSelf: 'center',
   },
   btnTxt: {
@@ -173,8 +175,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Lato',
     fontStyle: 'normal',
     fontWeight: '700',
-    fontSize: 16 * vh,
-    marginBottom: 10 * vh,
+    fontSize: 12 * vh,
   },
   percentage: {
     fontFamily: 'Lato',

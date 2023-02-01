@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: 8 * vh,
     paddingBottom: 16 * vh,
-    // marginBottom: 16 * vh,
+    marginBottom: 16 * vh,
     alignSelf: 'center',
   },
   cardView: {
