@@ -41,6 +41,7 @@ class Otp extends React.Component<Props, State> {
     }
 
     setResendInterval = () => {
+        const { resendCount } = this.state;
         const interval = setInterval(() => {
             this.setState(prevState => {
                 return {
@@ -49,9 +50,11 @@ class Otp extends React.Component<Props, State> {
             }, () => {
                 if (this.state.count === 1) {
                     clearInterval(interval);
-                    this.setState({
-                        showResend: true,
-                    })
+                    if (resendCount < 3) {
+                        this.setState({
+                            showResend: true,
+                        })
+                    }
                 }
             });
         }, 1000);
