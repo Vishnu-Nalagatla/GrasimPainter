@@ -48,7 +48,9 @@ const styles = StyleSheet.create({
     width: 16 * vw,
     marginRight: 8 * vw,
   },
-  circularProgress: {},
+  circularProgress: {
+    padding: 10 * vh,
+  },
   leftView: {},
   progressWrapper: {
     flexDirection: 'row',
@@ -183,6 +185,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '700',
     fontSize: 14 * vh,
+    color: colors.black,
   },
   sliderImage: {
     // width: 296 * vw,
@@ -191,7 +194,6 @@ const styles = StyleSheet.create({
   sliderView: {
     width: 296 * vw,
     // height: 222 * vh,
-    backgroundColor: 'red',
     // padding: 40 * vh,
     justifyContent: 'center',
     alignItems: 'center',

@@ -24,6 +24,7 @@ const ProgressPercentage = props => {
     zIndex: 123,
     fontSize: 14 * vh,
     fontWeight: '700',
+    paddingTop: 4 * vh,
   };
   return (
     <View style={styles.container}>

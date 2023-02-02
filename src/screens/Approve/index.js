@@ -224,8 +224,8 @@ const ProgressInfo = ({roomInfo, resendInfo}) => {
         </View>
         <View style={styles.circularProgress}>
           <AnimatedCircularProgress
-            size={80 * vh}
-            width={10 * vw}
+            size={70 * vh}
+            width={8 * vw}
             fill={75}
             rotation={-360}
             tintColor="#3C58B5"
