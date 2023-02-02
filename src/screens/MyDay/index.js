@@ -250,7 +250,7 @@ class MyDay extends React.Component<Props, State> {
       case Priority.CREATE_PROJECT_PLAN:
         navigation.navigate(RouteConfig.ProjectsDetails, {
           project,
-          index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
+          index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
         break;
       case Priority.CONFIRM_CREW_ALLOCATION:

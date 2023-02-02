@@ -4,6 +4,8 @@ import {Slider} from '@miblanchard/react-native-slider';
 import styles from './styles';
 import {Dimensions} from 'react-native';
 import ViewPort from '../../constants/view-port';
+import rollerIcon from '../../assets/images/roller/image.png';
+import colors from '../../constants/colors';
 
 const {vh, vw} = ViewPort;
 const windowWidth = Dimensions.get('window').width;
@@ -15,20 +17,23 @@ const ProgressSlider = ({onValueChange}) => {
     setState(data);
     onValueChange(data[0]);
   };
+  const viewStyle = {left: left};
   return (
     <View style={styles.container}>
-      <Text style={{width: 70 * vw, textAlign: 'center', left: left}}>
-        {value}
-      </Text>
+      <Text style={[styles.textValue, viewStyle]}>{value}</Text>
       <Slider
         animateTransitions
         value={value}
-        minimumTrackTintColor="#2C4DAE"
+        style={styles.slider}
+        minimumTrackTintColor={colors.primary}
         maximumValue={100}
         minimumValue={0}
+        thumbStyle={styles.thumbStyle}
+        trackStyle={styles.trackStyle}
+        thumbImage={rollerIcon}
         step={1}
-        thumbTouchSize={{width: 40 * vw, height: 40 * vh}}
-        thumbTintColor="#D0D7E8"
+        thumbTouchSize={{width: 60 * vw, height: 60 * vh}}
+        thumbTintColor="#FFFF"
         onValueChange={data => onChange(data)}
       />
     </View>
