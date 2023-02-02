@@ -8,6 +8,7 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import strings from '../../constants/strings';
 import CustomButton from '../../components/Button';
+import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 
 const leaveTypes = [
     { label: 'Sick', value: '1' },
@@ -47,7 +48,7 @@ const ApplyLeave = () => {
     const renderHalfDayLabel = () => {
         if (!popup || (popup && popup.type !== POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR && popup.type !== POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR)) {
             return (
-                <Text style={[styles.selectedTextStyle, styles.label]}>
+                <Text style={[styles.selectedTextStyle, styles.halfDayLabel]}>
                     Half Day
                 </Text>
             );
@@ -106,7 +107,7 @@ const ApplyLeave = () => {
         return (
             <View style={styles.buttonStyle}>
                 <Image
-                    source={ellipse}
+                    source={prevDateImg}
                     style={styles.imgStyle}
                     resizeMode="contain"
                 />
@@ -118,7 +119,7 @@ const ApplyLeave = () => {
         return (
             <View style={styles.buttonStyle}>
                 <Image
-                    source={ellipse}
+                    source={prevDateImg}
                     style={styles.imgStyle}
                     resizeMode="contain"
                 />
