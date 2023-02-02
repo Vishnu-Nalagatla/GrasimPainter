@@ -126,15 +126,15 @@ function RootNavigator(props) {
       return getTabs();
     } else {
       return getTabs();
-      // return (
-      //   <RootStack.Navigator
-      //     headerMode="none"
-      //     screenOptions={{
-      //       gestureEnabled: false,
-      //     }}>
-      //     <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-      //   </RootStack.Navigator>
-      // );
+      return (
+        <RootStack.Navigator
+          headerMode="none"
+          screenOptions={{
+            gestureEnabled: false,
+          }}>
+          <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+        </RootStack.Navigator>
+      );
     }
   };
 
