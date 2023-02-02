@@ -9,7 +9,6 @@ import ViewPort from '../../constants/view-port';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { setLoginData } from '../../store/actions';
 
-const { width } = Dimensions.get("window");
 const { vh } = ViewPort;
 
 class OnboardingScreen extends React.Component {
@@ -36,10 +35,14 @@ class OnboardingScreen extends React.Component {
     };
 
     render() {
+        const { reduxProps } = this.props;
+        const { login } = reduxProps;
+        const { loginInfo = {} } = login;
+        const { firstName = '' } = loginInfo;
         return (
             <Onboarding
                 showSkip={false}
-                bottomBarHeight={750 * vh}
+                bottomBarHeight={170 * vh}
                 bottomBarColor='#2c4dae'
                 onDone={this.onDone}
                 nextLabel={(
@@ -52,21 +55,19 @@ class OnboardingScreen extends React.Component {
                     {
                         backgroundColor: '#2c4dae',
                         image: (
-                            <View key={1} style={{ width: width }}>
-                                <Image resizeMode="contain"
-                                    key={1}
-                                    source={onboardingIcon}
-                                    style={styles.sliderImage} />
-                            </View>
+                            <Image resizeMode="contain"
+                                key={1}
+                                source={onboardingIcon}
+                                style={styles.sliderImage} />
                         ),
                         title: (
-                            <View style={[styles.padding32, styles.titleContainer]}>
-                                <Text style={styles.title}>Hi Snigdha</Text>
-                                <Text style={styles.title}>Welcome to Paint Craft</Text>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.userText}>Hi {firstName} </Text>
+                                <Text style={styles.userText}>Welcome to Paint Craft</Text>
                             </View>
                         ),
                         subtitle: (
-                            <View style={[styles.padding32, styles.subtitleContainer]}>
+                            <View style={styles.subtitleContainer}>
                                 <Text style={styles.descriptionText}>Manage and track all your projects and project updates.</Text>
                             </View>
                         ),
@@ -74,21 +75,19 @@ class OnboardingScreen extends React.Component {
                     {
                         backgroundColor: '#2c4dae',
                         image: (
-                            <View key={1} style={{ width: width }}>
-                                <Image resizeMode="contain"
-                                    key={1}
-                                    source={onboardingIcon}
-                                    style={styles.sliderImage} />
-                            </View>
+                            <Image resizeMode="contain"
+                                key={1}
+                                source={onboardingIcon}
+                                style={styles.sliderImage} />
                         ),
                         title: (
-                            <View style={[styles.padding32, styles.titleContainer]}>
-                                <Text style={styles.title}>Hi Snigdha</Text>
-                                <Text style={styles.title}>Welcome to Paint Craft</Text>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.userText}>Hi {firstName} </Text>
+                                <Text style={styles.userText}>Welcome to Paint Craft</Text>
                             </View>
                         ),
                         subtitle: (
-                            <View style={[styles.padding32, styles.subtitleContainer]}>
+                            <View style={styles.subtitleContainer}>
                                 <Text style={styles.descriptionText}>See project insights and performance, manage your teams.</Text>
                             </View>
                         ),
@@ -96,21 +95,19 @@ class OnboardingScreen extends React.Component {
                     {
                         backgroundColor: '#2c4dae',
                         image: (
-                            <View key={1} style={{ width: width }}>
-                                <Image resizeMode="contain"
-                                    key={1}
-                                    source={onboardingIcon}
-                                    style={styles.sliderImage} />
-                            </View>
+                            <Image resizeMode="contain"
+                                key={1}
+                                source={onboardingIcon}
+                                style={styles.sliderImage} />
                         ),
                         title: (
-                            <View style={[styles.padding32, styles.titleContainer]}>
-                                <Text style={styles.title}>Hi Snigdha</Text>
-                                <Text style={styles.title}>Welcome to Paint Craft</Text>
+                            <View style={styles.titleContainer}>
+                                <Text style={styles.userText}>Hi {firstName} </Text>
+                                <Text style={styles.userText}>Welcome to Paint Craft</Text>
                             </View>
                         ),
                         subtitle: (
-                            <View style={[styles.padding32, styles.subtitleContainer]}>
+                            <View style={styles.subtitleContainer}>
                                 <Text style={styles.descriptionText}>Apply attendance, view profile, see HR related documents.</Text>
                             </View>
                         ),
@@ -121,11 +118,15 @@ class OnboardingScreen extends React.Component {
     }
 }
 
+const mapStateToProps = (reduxProps) => ({
+    reduxProps,
+});
+
 const mapDispatchToProps = (dispatch) => ({
     dispatchSetLoginData: (payload) => {
         dispatch(setLoginData(payload));
     },
 });
 
-export default connect(null, mapDispatchToProps)(OnboardingScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(OnboardingScreen);
 
