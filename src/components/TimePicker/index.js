@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {StyleSheet, TouchableOpacity, Platform, Appearance} from 'react-native';
 import {View, Text, Icon, Button} from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import ViewPort from '../../constants/view-port';
@@ -130,17 +130,17 @@ export default function TimePicker(props: Props) {
     onChange && onChange(timeValue, meridian);
     onClose && onClose();
   };
-
   return (
     <View style={styles.viewContainer}>
       <View style={styles.heading}>
-        <Text style={styles.headingText}>Select the visit time1</Text>
+        <Text style={styles.headingText}>Select the visit time</Text>
       </View>
       <View style={styles.hrLine} />
       <View style={styles.datePicker}>
         <DatePicker
           date={new Date(new Date().setHours(hours, minutes, 0, 0))}
           mode="time"
+          textColor="#000"
           onDateChange={value => {
             const selectedMinutes = value.getMinutes();
             const dateHours = value.getHours();
