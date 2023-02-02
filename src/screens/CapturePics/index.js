@@ -110,8 +110,8 @@ const CapturePics = ({ navigation, route }: any) => {
                 <CustomButton
                     title="Take More"
                     onPress={() => setIsPhotoCaptured(false)}
-                    style={styles.btn}
-                    textStyle={styles.btnText}
+                    style={[styles.btn, styles.takeMore, styles.margin]}
+                    textStyle={[styles.btnText, styles.takeMoreText]}
                 />
                 <CustomButton
                     title="Done"

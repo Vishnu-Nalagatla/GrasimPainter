@@ -18,6 +18,8 @@ import Moment from 'moment';
 import CustomButton from '../../components/Button';
 import Slideshow from 'react-native-image-slider-show';
 import uploadImg from '../../assets/images/approve/plus.png';
+import flagImg from '../../assets/images/timeline/flag.png';
+import infoImg from '../../assets/images/timeline/info.png';
 import {
     Camera,
 } from 'react-native-vision-camera';
@@ -193,17 +195,24 @@ class SendUpdates extends React.Component<Props, State> {
         const { roomInfo, popup, resendInfo } = this.state;
         const { gallery } = roomInfo;
         return (
-            <ScrollView style={styles.container}>
-                <Popup onPress={this.closePopup} visible={!!popup}>
-                    {this.getPopupContent()}
-                </Popup>
-                <ProgressInfo roomInfo={roomInfo} resendInfo={resendInfo} />
-                <ImagesInfo
-                    gallery={gallery}
-                    onPress={this.onImageClick}
-                    sendUpdates={this.sendUpdates}
-                />
-            </ScrollView>
+            <View style={styles.container}>
+                <View style={styles.updatesContainer}>
+                    <Text style={styles.updatesLabel}>Latest Updates</Text>
+                    <Text style={styles.historyLabel}>View History</Text>
+                </View>
+                <ScrollView contentContainerStyle={styles.subContainer}>
+                    <Popup onPress={this.closePopup} visible={!!popup}>
+                        {this.getPopupContent()}
+                    </Popup>
+                    <ProgressInfo roomInfo={roomInfo} resendInfo={resendInfo} />
+                    <ImagesInfo
+                        gallery={gallery}
+                        onPress={this.onImageClick}
+                        sendUpdates={this.sendUpdates}
+                    />
+                </ScrollView>
+            </View>
+
         );
     }
 }
@@ -215,7 +224,7 @@ const ProgressInfo = ({ roomInfo, resendInfo }) => {
         <View style={styles.infoWrapper}>
             <Text style={styles.roomName}>{roomName}</Text>
             <View style={styles.dateView}>
-                <Image source={bellImg} style={styles.flagIcon} resizeMode="contain" />
+                <Image source={flagImg} style={styles.flagIcon} resizeMode="contain" />
                 <Text style={styles.date}>{dateStr}</Text>
             </View>
             <View style={styles.progressWrapper}>
@@ -225,7 +234,7 @@ const ProgressInfo = ({ roomInfo, resendInfo }) => {
                 </View>
             </View>
             <View style={styles.resendView}>
-                <Image source={bellImg} style={styles.infoIcon} resizeMode="contain" />
+                <Image source={infoImg} style={styles.infoIcon} resizeMode="contain" />
                 <Text style={styles.resendInfo}>{resendInfo}</Text>
             </View>
         </View>
@@ -261,17 +270,20 @@ const ImagesInfo = ({ gallery, onPress, sendUpdates }) => {
                     // const showRightIcon = item.showRightIcon;
                     console.info('wallImgs....', wallImgs);
                     return (
-                        <TouchableOpacity
-                            style={styles.navitem}
-                            onPress={() => onPress(item)}>
-                            <Image
-                                source={wallImgs.length > 0 ? { uri: `file://${wallImgs[0]}` } : uploadImg}
-                                style={styles.wallImg}
-                                resizeMode="contain"
-                                alt="plus"
-                            />
+                        <View>
+                            <TouchableOpacity
+                                style={styles.navitem}
+                                onPress={() => onPress(item)}>
+                                <Image
+                                    source={wallImgs.length > 0 ? { uri: `file://${wallImgs[0]}` } : uploadImg}
+                                    style={styles.wallImg}
+                                    resizeMode="contain"
+                                    alt="plus"
+                                />
+                            </TouchableOpacity>
                             <Text style={styles.wallName}>{item.wallName}</Text>
-                        </TouchableOpacity>
+                        </View>
+
                     );
                 }}
             />
