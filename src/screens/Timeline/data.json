@@ -62,22 +62,22 @@
         },
         {
             "Id": "a071y0000032gJiAAI",
-            "Name": "Room 3",
-            "RoomSequence": 3,
+            "Name": "Room 7",
+            "RoomSequence": 7,
             "DaysRequiredForRoom": 1.5,
             "HrsRequiredForRoom": 0
         },
         {
             "Id": "a071y0000032gJiAAI",
-            "Name": "Room 1",
-            "RoomSequence": 1,
+            "Name": "Room 6",
+            "RoomSequence": 6,
             "DaysRequiredForRoom": 0.5,
             "HrsRequiredForRoom": 0
         },
         {
             "Id": "a071y0000032gJiAAI",
-            "Name": "Room 5",
-            "RoomSequence": 5,
+            "Name": "Room 8",
+            "RoomSequence": 8,
             "DaysRequiredForRoom": 2,
             "HrsRequiredForRoom": 0
         }

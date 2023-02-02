@@ -118,9 +118,9 @@ class Timeline extends React.Component {
 
     renderItem = (data) => {
         const { item, drag } = data;
-        const { totalTime = 0, index } = item;
+        const { totalTime = 0 } = item;
         const { timeLineData } = this.state;
-
+        const index = data.getIndex();
         return (
             <TouchableOpacity style={styles.item}
                 onPress={() => this.showCalendar(index)}
@@ -143,7 +143,7 @@ class Timeline extends React.Component {
                             style={styles.flagImg}
                             resizeMode="contain"
                         />
-                        <Text style={index === 0 || index === timeLineData.length - 1 ? [styles.startDate, styles.highlight] : styles.startDate}>{item.roomStartDate}</Text>
+                        <Text onPress={() => this.showCalendar(index)} style={index === 0 || index === timeLineData.length - 1 ? [styles.startDate, styles.highlight] : styles.startDate}>{item.roomStartDate}</Text>
                     </View>
                 </View>
                 <View style={styles.hamburgerContainer}>
@@ -153,7 +153,7 @@ class Timeline extends React.Component {
                         resizeMode="contain"
                     />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity >
         )
     }
 
