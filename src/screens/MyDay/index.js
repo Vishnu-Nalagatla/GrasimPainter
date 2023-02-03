@@ -264,7 +264,10 @@ class MyDay extends React.Component<Props, State> {
         break;
       case Priority.VISIT_PROJECT_SITE:
         this.setState({
-          showTime: true,
+          popup: {
+            type: POPUP_CONSTANTS.TIME_PICKER,
+            style: styles.popup,
+          },
         });
         break;
       case Priority.REQUEST_FOR_QUALITY_CHECK:
@@ -349,21 +352,6 @@ class MyDay extends React.Component<Props, State> {
         );
     }
   };
-  showTimePicker = () => {
-    this.setState({
-      popup: {
-        type: POPUP_CONSTANTS.TIME_PICKER,
-        style: styles.popup,
-        buttons: [
-          {
-            title: 'TryAgain',
-            onPress: () => this.closePopup(),
-          },
-        ],
-      },
-      showTime: false,
-    });
-  };
 
   render() {
     const {name, buttons, popup, successScreen, showTime} = this.state;
@@ -373,7 +361,6 @@ class MyDay extends React.Component<Props, State> {
         <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
         </Popup>
-        {showTime ? this.showTimePicker() : null}
         {successScreen ? (
           <Success info={successScreen} />
         ) : (
