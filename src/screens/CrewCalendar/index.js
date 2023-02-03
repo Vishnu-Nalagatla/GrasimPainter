@@ -1,10 +1,15 @@
 import {Text} from 'native-base';
-import React from 'react';
+import React, {useState} from 'react';
 import {View, ScrollView} from 'react-native';
 import {Image} from 'native-base';
 import ellipse from '../../assets/images/ellipse/image.png';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+
+import ViewPort from '../../constants/view-port';
+const {vh, vw} = ViewPort;
 
 import styles from './styles';
+import colors from '../../constants/colors';
 
 const CrewCalendar = () => {
   const weekData = [
@@ -108,6 +113,31 @@ const CrewCalendar = () => {
       ],
     },
   ];
+
+  const [index, setIndex] = useState(1);
+
+  const onSwipeLeft = gestureState => {
+    console.info('onSwipeLeft...');
+    setIndex(index + 1);
+  };
+
+  const onSwipeRight = gestureState => {
+    console.info('onSwipeRight');
+    setIndex(index - 1);
+  };
+
+  const showCrewRow = () => {
+    return (
+      <View style={styles.crewWrapper}>
+        <Text style={styles.crewName}>{'C' + index}</Text>
+        <Text style={styles.crewName}>{'C' + (index + 1)}</Text>
+        <Text style={styles.crewName}>{'C' + (index + 2)}</Text>
+        <Text style={styles.crewName}>{'C' + (index + 3)}</Text>
+        <Text style={styles.crewName}>{'C' + (index + 4)}</Text>
+      </View>
+    );
+  };
+
   const TimeLine = ({item}) => {
     const {date, crew} = item;
     return (
@@ -127,7 +157,7 @@ const CrewCalendar = () => {
             const cIndex = index + 1;
             const onLeave = crewDay['c' + cIndex] === 'leave';
             const occupied = crewDay['c' + cIndex] === 'occupied';
-            console.info('crewDay', crewDay, onLeave);
+            // console.info('crewDay', crewDay, onLeave);
             return (
               <View style={styles.timeLineView}>
                 {onLeave ? (
@@ -149,25 +179,36 @@ const CrewCalendar = () => {
     );
   };
 
+  const config = {
+    velocityThreshold: 0.9,
+    directionalOffsetThreshold: 30,
+  };
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
-        <View style={styles.header}>
-          <View style={styles.dayWrapper}>
+        <View style={styles.gestureWrapper}>
+          <View style={styles.header}>
             <Image
               source={ellipse}
               style={styles.ellipse}
               alt=""
               resizeMode="contain"
             />
-            <Text>{'Date'}</Text>
+            <Text style={styles.date}>{'Date'}</Text>
           </View>
-          <View style={styles.crewWrapper}>
-            <Text style={styles.crewName}>{'C1'}</Text>
-            <Text style={styles.crewName}>{'C2'}</Text>
-            <Text style={styles.crewName}>{'C3'}</Text>
-            <Text style={styles.crewName}>{'C4'}</Text>
-            <Text style={styles.crewName}>{'C5'}</Text>
+          <View>
+            <GestureRecognizer
+              onSwipeLeft={state => onSwipeLeft(state)}
+              onSwipeRight={state => onSwipeRight(state)}
+              config={config}
+              style={{
+                // flex: 1,
+                backgroundColor: colors.white,
+                height: 38 * vh,
+                width: 200 * vw,
+              }}>
+              {showCrewRow()}
+            </GestureRecognizer>
           </View>
         </View>
         <ScrollView contentContainerStyle={styles.timeLineContainer}>

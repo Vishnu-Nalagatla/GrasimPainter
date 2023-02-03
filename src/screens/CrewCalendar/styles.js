@@ -13,17 +13,21 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     backgroundColor: colors.white,
-    width: 328 * vh,
+    width: 328 * vw,
     height: 572 * vh,
     margin: 16 * vh,
     borderRadius: 8 * vh,
     paddingRight: 16 * vh,
     paddingVertical: 16 * vh,
   },
+  date: {
+    // backgroundColor: 'red',
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 23 * vh,
+
+    marginRight: 36 * vw,
   },
   ellipse: {
     height: 24 * vh,
@@ -37,6 +41,13 @@ const styles = StyleSheet.create({
   },
   crewWrapper: {
     flexDirection: 'row',
+  },
+  gestureWrapper: {
+    flexDirection: 'row',
+    width: '100%',
+    height: 40 * vh,
+    // backgroundColor: 'green',
+    marginBottom: 23 * vh,
   },
   sraitLine: {
     backgroundColor: '#D0D7E8',
@@ -105,7 +116,7 @@ const styles = StyleSheet.create({
   },
   timeLineRowInActive: {
     width: 12 * vw,
-    color: 'red',
+    // color: 'red',
     backgroundColor: colors.primary,
     alignSelf: 'center',
     height: 221 * vh,

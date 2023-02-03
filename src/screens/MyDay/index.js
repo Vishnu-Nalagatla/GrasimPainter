@@ -67,6 +67,7 @@ class MyDay extends React.Component<Props, State> {
       activeTabIndex: 1,
       successScreen: undefined,
       showTime: false,
+      calendarCrewIndex: 1,
     };
   }
 
@@ -239,7 +240,11 @@ class MyDay extends React.Component<Props, State> {
 
   viewCrewCalendar = () => {
     const {navigation} = this.props;
+    const {calendarCrewIndex} = this.state;
     navigation.navigate(RouteConfig.CrewCalendar);
+    navigation.navigate(RouteConfig.CrewCalendar, {
+      calendarCrewIndex: calendarCrewIndex,
+    });
   };
 
   projectClick = project => {
