@@ -10,7 +10,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NativeBaseProvider} from 'native-base';
 import {Image} from 'react-native';
 
-import groupIcon from '../assets/images/group/image.png';
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
 import teamColor from '../assets/images/teamColor/image.png';
 import myDayColor from '../assets/images/myDayColor/image.png';
@@ -125,7 +124,7 @@ function RootNavigator(props) {
     if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
-      return getTabs();
+      // return getTabs();
       return (
         <RootStack.Navigator
           headerMode="none"
@@ -152,28 +151,6 @@ function RootNavigator(props) {
         getScreen()
       )}
     </NativeBaseProvider>
-
-    // <NativeBaseProvider>
-    // 	<NavigationContainer independent={true} >
-    // 		<RootStack.Navigator
-    // 			headerMode="none"
-    // 			screenOptions={{
-    // 				gestureEnabled: false,
-    // 			}}>
-    // 			<RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-    // 		</RootStack.Navigator>
-    // 	</NavigationContainer>
-    // </NativeBaseProvider>
-
-    // <NativeBaseProvider>
-    // 	<NavigationContainer independent={true} >
-    // 		<SplashNavigator />
-    // 	</NavigationContainer>
-    // </NativeBaseProvider>
-
-    // <NativeBaseProvider>
-    // 	{getTabs()}
-    // </NativeBaseProvider>
   );
 }
 
