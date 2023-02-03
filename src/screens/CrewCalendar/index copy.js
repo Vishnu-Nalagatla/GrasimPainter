@@ -125,6 +125,7 @@ const CrewCalendar = () => {
         <View style={styles.crewWrapper}>
           {crew.map((crewDay, index) => {
             const cIndex = index + 1;
+            // console.info('crewDay', crewDay, cIndex);
             const onLeave = crewDay['c' + cIndex] === 'leave';
             const occupied = crewDay['c' + cIndex] === 'occupied';
             console.info('crewDay', crewDay, onLeave);
