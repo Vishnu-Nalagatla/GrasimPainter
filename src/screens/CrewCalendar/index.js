@@ -179,8 +179,9 @@ const CrewCalendar = () => {
     );
   };
 
+
   const config = {
-    velocityThreshold: 0.9,
+    velocityThreshold: 0.1,
     directionalOffsetThreshold: 30,
   };
   return (
@@ -202,7 +203,6 @@ const CrewCalendar = () => {
               onSwipeRight={state => onSwipeRight(state)}
               config={config}
               style={{
-                // flex: 1,
                 backgroundColor: colors.white,
                 height: 38 * vh,
                 width: 200 * vw,
