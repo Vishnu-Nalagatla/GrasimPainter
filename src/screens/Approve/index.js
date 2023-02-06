@@ -184,16 +184,31 @@ class Approve extends React.Component<Props, State> {
 
   render() {
     const {roomInfo, popup, resendInfo, buttonLabel} = this.state;
-    const {gallery} = roomInfo;
+    const {gallery, activity} = roomInfo;
     return (
       <ScrollView style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
         <ProgressInfo roomInfo={roomInfo} resendInfo={resendInfo} />
-        <ImagesInfo
+        <ActivityInfo
           gallery={gallery}
           onPress={this.showgallery}
           onLongPress={this.onImageLongPress}
           buttonLabel={buttonLabel}
+          activity={activity}
+        />
+        <ActivityInfo
+          gallery={gallery}
+          onPress={this.showgallery}
+          onLongPress={this.onImageLongPress}
+          buttonLabel={buttonLabel}
+          activity={activity}
+        />
+        <ActivityInfo
+          gallery={gallery}
+          onPress={this.showgallery}
+          onLongPress={this.onImageLongPress}
+          buttonLabel={buttonLabel}
+          activity={activity}
         />
       </ScrollView>
     );
@@ -239,11 +254,11 @@ const ProgressInfo = ({roomInfo, resendInfo}) => {
         <Image source={bellImg} style={styles.infoIcon} resizeMode="contain" />
         <Text style={styles.resendInfo}>{resendInfo}</Text>
       </View>
-      <Text style={styles.activityLabel}>{'Activity'}</Text>
+      {/* <Text style={styles.activityLabel}>{'Activity'}</Text>
       <Text style={styles.activityInfo}>{activity}</Text>
 
       <Text style={styles.activityProressLabel}>{'Activity Progress'}</Text>
-      <ProgressPercentage value={42} />
+      <ProgressPercentage value={42} /> */}
     </View>
   );
 };
@@ -277,9 +292,21 @@ const ImagesGallery = ({images, position = 1, onPositionChange}) => {
     />
   );
 };
-const ImagesInfo = ({gallery, onPress, onLongPress, buttonLabel}) => {
+const ActivityInfo = ({
+  gallery,
+  onPress,
+  onLongPress,
+  buttonLabel,
+  activity,
+}) => {
   return (
     <SafeAreaView style={styles.tabView}>
+      <View style={styles.activity}>
+        <Text style={styles.activityLabel}>{'Activity'}</Text>
+        <Text style={styles.activityInfo}>{activity}</Text>
+        <Text style={styles.activityProressLabel}>{'Activity Progress'}</Text>
+        <ProgressPercentage value={42} />
+      </View>
       <FlatList
         data={gallery}
         contentContainerStyle={styles.wallImages}

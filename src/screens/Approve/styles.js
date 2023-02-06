@@ -112,7 +112,6 @@ const styles = StyleSheet.create({
   tabView: {
     alignSelf: 'center',
     width: '92%',
-    paddingTop: 16 * vh,
     backgroundColor: colors.white,
     borderBottomLeftRadius: 16 * vh,
     borderBottomRightRadius: 16 * vh,
@@ -220,6 +219,11 @@ const styles = StyleSheet.create({
     top: 5 * vh,
     right: 5 * vh,
     zIndex: 1,
+  },
+  activity: {
+    paddingHorizontal: 16 * vh,
+    paddingRight: 30 * vh,
+    marginBottom: 24 * vh,
   },
 });
 
