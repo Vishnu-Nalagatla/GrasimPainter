@@ -10,16 +10,61 @@ import Popup from '../../components/Popup';
 import errorIcon from '../../assets/images/naColor/image.png';
 import {Image, ScrollView} from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
+import mobileBlack from '../../assets/images/mobileBlack/image.png';
 import calendar from '../../assets/images/calendar/image.png';
 import data from './data.json';
 
-class MyTeam extends React.Component<Props, State> {
+class CrewProfile extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
       popup: undefined,
     };
   }
+  infoList = [
+    {
+      key: 'PaintCraft ID',
+      value: 'MUM1002',
+    },
+    {
+      key: 'NPS Score',
+      value: '110',
+    },
+    {
+      key: 'Experience as a painter',
+      value: '4 years',
+    },
+    {
+      key: 'Area of operation',
+      value: 'Mumbai',
+    },
+    {
+      key: 'Associated Service Partner',
+      value: 'Partner name',
+    },
+    {
+      key: 'Products Trained On',
+      value: '--',
+    },
+  ];
+  iinsightsList = [
+    {
+      key: 'NPS Score',
+      value: '200',
+    },
+    {
+      key: 'Quality Score',
+      value: '200',
+    },
+    {
+      key: 'Total Sites Done',
+      value: '34',
+    },
+    {
+      key: 'Sites this month',
+      value: '4',
+    },
+  ];
   available = 'Available';
   occupied = 'Occupied';
   crewCalendar = 'Crew Calendar';
@@ -139,75 +184,68 @@ class MyTeam extends React.Component<Props, State> {
     console.info('firstName...', firstName);
     const {popup} = this.state;
     const {style = {}} = popup || {};
-    const availableCrew = [data[0]];
-    const occupiedCrew = data;
+    const skills = ['Wall artist', 'Skill two', 'Skill three'];
+
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
         </Popup>
-
-        <ScrollView style={styles.crewWrapper}>
-          <CrewList title={this.available} crewList={availableCrew} />
-          <CrewList title={this.occupied} crewList={occupiedCrew} />
-        </ScrollView>
-      </View>
+        <View style={styles.profileInfo}>
+          <View style={styles.header}>
+            <View style={styles.headerWrapper}>
+              <Image
+                source={groupIcon}
+                style={styles.profilePic}
+                resizeMode="contain"
+              />
+              <View style={styles.info}>
+                <Text style={styles.employeeName}> {'Vikas Sharma'}</Text>
+                <Text style={styles.status}> {'ON LEAVE'}</Text>
+              </View>
+            </View>
+            <Image
+              source={mobileBlack}
+              style={styles.mobileBlack}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={styles.skillsWrapper}>
+            {skills.map(skill => {
+              return <Text style={styles.skill}> {skill}</Text>;
+            })}
+          </View>
+          <View style={styles.crewInfo}>
+            {this.infoList.map((info, index) => {
+              const styleRow =
+                index % 2 === 0 ? styles.infoRow : styles.infoRowOdd;
+              const {key, value} = info;
+              return (
+                <View style={styleRow}>
+                  <Text style={styles.key}>{key}</Text>
+                  <Text style={styles.value}>{value}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+        <View style={styles.insights}>
+          <Text style={styles.insightsLabel}>{'General Insights'}</Text>
+          <View style={styles.insightsWrapper}>
+            {this.iinsightsList.map((insight, index) => {
+              const {key, value} = insight;
+              return (
+                <View style={styles.insightCard}>
+                  <Text style={styles.insightKey}>{key}</Text>
+                  <Text style={styles.insightValue}>{value}</Text>
+                </View>
+              );
+            })}
+          </View>
+        </View>
+      </ScrollView>
     );
   }
 }
 
-const CrewList = ({title, crewList}) => {
-  const hrStyle = title === 'Available' ? styles.hrLine : styles.hrLineO;
-  const showCrewCalendar = title === 'Available' ? false : true;
-  return (
-    <View style={styles.crewContainer}>
-      <View style={styles.labelWrapper}>
-        <Text style={styles.crewTitle}>{title}</Text>
-        <View style={hrStyle} />
-        {showCrewCalendar ? (
-          <Text style={styles.crewCalendarLabel}>{'Crew Calendar'}</Text>
-        ) : null}
-      </View>
-      {crewList.map(crew => {
-        return <CrewCard crew={crew} />;
-      })}
-    </View>
-  );
-};
-
-const CrewCard = ({crew}) => {
-  const {name, img = groupIcon, status, skills} = crew;
-  return (
-    <View style={styles.crewCard}>
-      <View style={styles.crewInfo}>
-        <Image source={groupIcon} style={styles.crewImg} resizeMode="contain" />
-        <View>
-          <Text style={styles.title}>{name}</Text>
-          <View style={styles.crewAvailablity}>
-            <Image
-              source={calendar}
-              style={styles.calendarImg}
-              resizeMode="contain"
-            />
-            <Text>{status}</Text>
-          </View>
-          <Text style={styles.availablitylabel}>
-            {'Available from 30 Oct 2022'}
-          </Text>
-        </View>
-      </View>
-      <View style={styles.skillsWrapper}>
-        {skills.map(skill => {
-          return <Text style={styles.skill}> {skill}</Text>;
-        })}
-      </View>
-    </View>
-  );
-};
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
-
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyTeam);
+export default CrewProfile;

@@ -13,7 +13,7 @@ import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
 import data from './data.json';
 
-class MyTeam extends React.Component<Props, State> {
+class CrewDetails extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -139,62 +139,56 @@ class MyTeam extends React.Component<Props, State> {
     console.info('firstName...', firstName);
     const {popup} = this.state;
     const {style = {}} = popup || {};
-    const availableCrew = [data[0]];
-    const occupiedCrew = data;
+    const crewList = data;
+    const crewName = 'Bandra Crew 1';
+    const crewInfo =
+      'Crew 01 is a team of skilled painter Vikas Sharma and Sunil Mali with Ram Prakash as a head painter. The team is based in Mumbai. The Team is lead by Team Lead Mukesh soni.';
     return (
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
         </Popup>
+        <View>
+          <Text style={styles.crewTitle}>{crewName}</Text>
+          <Text style={styles.crewMessage}>{crewInfo}</Text>
+        </View>
 
-        <ScrollView style={styles.crewWrapper}>
-          <CrewList title={this.available} crewList={availableCrew} />
-          <CrewList title={this.occupied} crewList={occupiedCrew} />
-        </ScrollView>
+        <View style={styles.crewWrapper}>
+          <CrewList title={this.available} crewList={crewList} />
+        </View>
       </View>
     );
   }
 }
 
 const CrewList = ({title, crewList}) => {
-  const hrStyle = title === 'Available' ? styles.hrLine : styles.hrLineO;
-  const showCrewCalendar = title === 'Available' ? false : true;
   return (
-    <View style={styles.crewContainer}>
-      <View style={styles.labelWrapper}>
-        <Text style={styles.crewTitle}>{title}</Text>
-        <View style={hrStyle} />
-        {showCrewCalendar ? (
-          <Text style={styles.crewCalendarLabel}>{'Crew Calendar'}</Text>
-        ) : null}
-      </View>
+    <ScrollView style={styles.crewContainer}>
       {crewList.map(crew => {
         return <CrewCard crew={crew} />;
       })}
-    </View>
+    </ScrollView>
   );
 };
 
 const CrewCard = ({crew}) => {
-  const {name, img = groupIcon, status, skills} = crew;
+  const {name, profilePic = groupIcon, status, skills = []} = crew;
   return (
     <View style={styles.crewCard}>
-      <View style={styles.crewInfo}>
-        <Image source={groupIcon} style={styles.crewImg} resizeMode="contain" />
-        <View>
-          <Text style={styles.title}>{name}</Text>
-          <View style={styles.crewAvailablity}>
-            <Image
-              source={calendar}
-              style={styles.calendarImg}
-              resizeMode="contain"
-            />
-            <Text>{status}</Text>
-          </View>
-          <Text style={styles.availablitylabel}>
-            {'Available from 30 Oct 2022'}
-          </Text>
+      <View style={styles.header}>
+        <Text style={styles.role}> {'Painter'}</Text>
+        <Text style={styles.status}> {'ON LEAVE'}</Text>
+      </View>
+      <View style={styles.body}>
+        <View style={styles.bodyWrapper}>
+          <Image
+            source={profilePic}
+            style={styles.profilePic}
+            resizeMode="contain"
+          />
+          <Text style={styles.employeeName}> {'Vikas Sharma'}</Text>
         </View>
+        <Text style={styles.viewProfile}> {'View Profile'}</Text>
       </View>
       <View style={styles.skillsWrapper}>
         {skills.map(skill => {
@@ -210,4 +204,4 @@ const mapStateToProps = reduxProps => ({
 
 const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(MyTeam);
+export default connect(mapStateToProps, mapDispatchToProps)(CrewDetails);

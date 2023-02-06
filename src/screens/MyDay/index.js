@@ -366,7 +366,11 @@ class MyDay extends React.Component<Props, State> {
   };
 
   render() {
-    const {name, buttons, popup, successScreen, showTime} = this.state;
+    const {reduxProps} = this.props;
+    const {login} = reduxProps;
+    const {loginInfo = {}} = login;
+    const {firstName = ''} = loginInfo;
+    const {buttons, popup, successScreen} = this.state;
     const {style = {}} = popup || {};
     return (
       <View style={styles.container}>
@@ -379,8 +383,8 @@ class MyDay extends React.Component<Props, State> {
           <View style={styles.bodyContainer}>
             <View style={styles.welcomeMessage}>
               <Text style={styles.welcomeText}>
-                Hi {name}, Good Morning! Here is the list of things that needs
-                to be done in your day{''}
+                Hi {firstName}, Good Morning! Here is the list of things that
+                needs to be done in your day{''}
               </Text>
             </View>
             <View style={styles.body}>
@@ -423,4 +427,8 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(null, mapDispatchToProps)(MyDay);
+const mapStateToProps = reduxProps => ({
+  reduxProps,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyDay);

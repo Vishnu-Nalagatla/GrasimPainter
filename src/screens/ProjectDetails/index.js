@@ -70,6 +70,7 @@ const ProjectDetails = props => {
   return (
     <TabView
       scrollEnabled={true}
+      swipeEnabled={false}
       navigationState={{index, routes}}
       renderScene={renderScene}
       renderTabBar={renderTabBar}
