@@ -6,6 +6,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
+import {connect} from 'react-redux';
 import styles from './styles.js';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
@@ -21,6 +22,7 @@ import CustomButton from '../../components/Button';
 import {Image} from 'native-base';
 import TimePicker from '../../components/TimePicker';
 import SwitchButtons from '../../components/SwitchButtons';
+import {setMyDayData} from '../../store/actions';
 
 export interface Props {
   props: String;
@@ -247,12 +249,16 @@ class MyDay extends React.Component<Props, State> {
     });
   };
 
-  projectClick = project => {
+  projectClick = (project, projectData) => {
     const {displayStatus} = project || {};
     const {order} = displayStatus || {};
-    const {navigation} = this.props;
+    const {navigation, dispatchSetMyDayData} = this.props;
+    if (projectData) {
+      dispatchSetMyDayData(projectData);
+    }
     switch (+order) {
       case Priority.CREATE_PROJECT_PLAN:
+        dispatchSetMyDayData(project);
         navigation.navigate(RouteConfig.ProjectsDetails, {
           project,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
@@ -262,6 +268,7 @@ class MyDay extends React.Component<Props, State> {
         this.confirmCrewAllocation(project);
         break;
       case Priority.CONFIRM_UPDATED_PLAN:
+        dispatchSetMyDayData(project);
         navigation.navigate(RouteConfig.ProjectsDetails, {
           project,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
@@ -410,4 +417,10 @@ const CrewOccupied = ({onPress}) => {
   );
 };
 
-export default MyDay;
+const mapDispatchToProps = dispatch => ({
+  dispatchSetMyDayData: payload => {
+    dispatch(setMyDayData(payload));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(MyDay);

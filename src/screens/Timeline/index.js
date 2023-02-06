@@ -1,5 +1,5 @@
 import {View, Text, Image, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import ellipse from '../../assets/images/ellipse/image.png';
 import hamburger from '../../assets/images/timeline/reorder.png';
 import flagImg from '../../assets/images/timeline/flag.png';
@@ -10,25 +10,27 @@ import CustomButton from '../../components/Button';
 import CalendarPicker from 'react-native-calendar-picker';
 import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
-import data from './data.json';
+// import data from './data.json';
+import {connect} from 'react-redux';
 
-class Timeline extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // timeLineData: initialData.roomSequence,
-      timeLineData: [],
-      projectStartDate: data.ProjectStartDate,
-      projectEndDate: data.ProjectEndDate,
-      popup: undefined,
-    };
-  }
+const Timeline = props => {
+  const {myDay} = props;
+  const {myDayInfo} = myDay;
+  const [timeLineData, setTimeLineData] = useState([]);
+  const [projectStartDate, setProjectStartDate] = useState(
+    myDayInfo.ProjectStartDate,
+  );
+  const [projectEndDate, setProjectEndDate] = useState(
+    myDayInfo.ProjectEndDate,
+  );
+  const [popup, setPopup] = useState(undefined);
 
-  componentDidMount = () => {
-    this.getTimeLineSequence();
-  };
+  useEffect(() => {
+    getTimeLineSequence();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  compare(room1, room2) {
+  const compare = (room1, room2) => {
     if (room1.RoomSequence < room2.RoomSequence) {
       return 1;
     }
@@ -36,25 +38,23 @@ class Timeline extends React.Component {
       return -1;
     }
     return 0;
-  }
-
-  getTimeLineSequence = () => {
-    const roomsList = data.RoomList;
-    let sequencedArray = roomsList.sort(this.compare);
-    console.log('sequencedArray', sequencedArray);
-    const roomOrderedList = this.getCalculatedTimelineSequence(sequencedArray);
-    this.setState({timeLineData: roomOrderedList.reverse()});
   };
 
-  getCalculatedTimelineSequence = roomsList => {
+  const getTimeLineSequence = () => {
+    const roomsList = myDayInfo.RoomList;
+    let sequencedArray = roomsList.sort(compare);
+    const roomOrderedList = getCalculatedTimelineSequence(sequencedArray);
+    setTimeLineData(roomOrderedList.reverse());
+  };
+
+  const getCalculatedTimelineSequence = roomsList => {
     const calculatedTimelineSequence = [];
-    const {projectStartDate} = this.state;
 
     for (var roomIdx = roomsList.length - 1; roomIdx >= 0; roomIdx--) {
       let DaysForPrevRooms = 0;
       let roomStartDate = '';
       if (roomIdx === roomsList.length - 1) {
-        roomStartDate = this.getFormattedDate();
+        roomStartDate = getFormattedDate();
         DaysForPrevRooms = 0;
       } else {
         DaysForPrevRooms =
@@ -62,7 +62,7 @@ class Timeline extends React.Component {
             .DaysForPrevRooms +
           calculatedTimelineSequence[calculatedTimelineSequence.length - 1]
             .DaysRequiredForRoom;
-        roomStartDate = this.getFormattedDate(DaysForPrevRooms);
+        roomStartDate = getFormattedDate(DaysForPrevRooms);
       }
       calculatedTimelineSequence.push({
         ...roomsList[roomIdx],
@@ -70,12 +70,10 @@ class Timeline extends React.Component {
         DaysForPrevRooms,
       });
     }
-    console.log('calculatedTimelineSequence', calculatedTimelineSequence);
     return calculatedTimelineSequence;
   };
 
-  getFormattedDate = roomDuration => {
-    const {projectStartDate} = this.state;
+  const getFormattedDate = roomDuration => {
     var date = new Date(projectStartDate);
     let nextRoomStartDate;
     if (roomDuration) {
@@ -94,8 +92,7 @@ class Timeline extends React.Component {
     return formattedDate;
   };
 
-  onStartDateChange = date => {
-    const {timeLineData} = this.state;
+  const onStartDateChange = date => {
     const selectedDate = new Date(date);
     var formatDate =
       selectedDate.getDate() +
@@ -104,20 +101,18 @@ class Timeline extends React.Component {
       ' ' +
       selectedDate.getFullYear();
     timeLineData[timeLineData.length - 1].roomStartDate = formatDate;
-    this.setState({
-      projectStartDate:
-        selectedDate.getFullYear() +
-        '-' +
-        (selectedDate.getMonth() + 1) +
-        '-' +
-        selectedDate.getDate(),
-      timeLineData: timeLineData,
-      popup: undefined,
-    });
+    const updatedProjectStartDate =
+      selectedDate.getFullYear() +
+      '-' +
+      (selectedDate.getMonth() + 1) +
+      '-' +
+      selectedDate.getDate();
+    setTimeLineData(timeLineData);
+    setProjectStartDate(updatedProjectStartDate);
+    setPopup(undefined);
   };
 
-  onEndDateChange = date => {
-    const {timeLineData} = this.state;
+  const onEndDateChange = date => {
     const selectedDate = new Date(date);
     var formatDate =
       selectedDate.getDate() +
@@ -126,36 +121,31 @@ class Timeline extends React.Component {
       ' ' +
       selectedDate.getFullYear();
     timeLineData[0].roomStartDate = formatDate;
-    this.setState({
-      projectEndDate:
-        selectedDate.getFullYear() +
-        '-' +
-        selectedDate.getMonth() +
-        '-' +
-        selectedDate.getDate(),
-      timeLineData: timeLineData,
-      popup: undefined,
-    });
+    const updatedProjectEndDate =
+      selectedDate.getFullYear() +
+      '-' +
+      (selectedDate.getMonth() + 1) +
+      '-' +
+      selectedDate.getDate();
+    setTimeLineData(timeLineData);
+    setProjectEndDate(updatedProjectEndDate);
+    setPopup(undefined);
   };
 
-  showCalendar = index => {
-    const {timeLineData} = this.state;
-    if (index === 0)
-      this.setState({type: POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR});
-    else if (index === timeLineData.length - 1)
-      this.setState({type: POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR});
+  const showCalendar = index => {
+    if (index === 0) {
+      setPopup({type: POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR});
+    } else if (index === timeLineData.length - 1) {
+      setPopup({type: POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR});
+    }
   };
 
-  renderItem = data => {
+  const renderItem = data => {
     const {item, drag} = data;
     const {totalTime = 0} = item;
-    const {timeLineData} = this.state;
     const index = data.getIndex();
     return (
-      <TouchableOpacity
-        style={styles.item}
-        onPress={() => this.showCalendar(index)}
-        onLongPress={drag}>
+      <TouchableOpacity style={styles.item} onLongPress={drag}>
         <View style={styles.projectLine}>
           <Image source={ellipse} style={styles.ellipse} resizeMode="contain" />
           <View style={styles.straightLine} />
@@ -165,14 +155,13 @@ class Timeline extends React.Component {
             {item.Name}
           </Text>
           <View style={styles.dateContainer}>
-            {/* <View style={styles.dateContainer} onPress={() => showCalendar(index)}> */}
             <Image
               source={flagImg}
               style={styles.flagImg}
               resizeMode="contain"
             />
             <Text
-              onPress={() => this.showCalendar(index)}
+              onPress={() => showCalendar(index)}
               style={
                 index === 0 || index === timeLineData.length - 1
                   ? [styles.startDate, styles.highlight]
@@ -193,19 +182,16 @@ class Timeline extends React.Component {
     );
   };
 
-  updateProjectPlan = () => {};
+  const updateProjectPlan = () => {};
 
-  recalculateProjectPlan = () => {};
+  const recalculateProjectPlan = () => {};
 
-  setTimelineSequence = data => {
-    console.log('setTimelineSequence data', data);
-    const updatedSequence = this.getCalculatedTimelineSequence(data);
-    console.log('setTimelineSequence updatedSequence data', updatedSequence);
-    this.setState({timeLineData: updatedSequence.reverse()});
+  const setTimelineSequence = data => {
+    const updatedSequence = getCalculatedTimelineSequence(data);
+    setTimeLineData(updatedSequence.reverse());
   };
 
-  getPopupContent = () => {
-    const {popup, projectStartDate} = this.state;
+  const getPopupContent = () => {
     if (!popup) {
       return null;
     }
@@ -213,9 +199,9 @@ class Timeline extends React.Component {
       case POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR:
         return (
           <CalendarPicker
-            onDateChange={date => this.onStartDateChange(date)}
-            previousComponent={this.getPreviousComponent()}
-            nextComponent={this.getNextComponent()}
+            onDateChange={date => onStartDateChange(date)}
+            previousComponent={getPreviousComponent()}
+            nextComponent={getNextComponent()}
             startFromMonday={true}
             showDayStragglers={true}
             selectedDayColor="#2C4DAE"
@@ -227,21 +213,21 @@ class Timeline extends React.Component {
       case POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR:
         return (
           <CalendarPicker
-            onDateChange={date => this.onEndDateChange(date)}
-            previousComponent={this.getPreviousComponent()}
-            nextComponent={this.getNextComponent()}
+            onDateChange={date => onEndDateChange(date)}
+            previousComponent={getPreviousComponent()}
+            nextComponent={getNextComponent()}
             startFromMonday={true}
             showDayStragglers={true}
             selectedDayColor="#2C4DAE"
             textStyle={styles.textStyle}
             weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
-            minDate={new Date(projectStartDate)} // replace with project start date
+            minDate={new Date(projectStartDate)}
           />
         );
     }
   };
 
-  getPreviousComponent = () => {
+  const getPreviousComponent = () => {
     return (
       <View style={styles.buttonStyle}>
         <Image source={ellipse} style={styles.imgStyle} resizeMode="contain" />
@@ -249,7 +235,7 @@ class Timeline extends React.Component {
     );
   };
 
-  getNextComponent = () => {
+  const getNextComponent = () => {
     return (
       <View style={styles.buttonStyle}>
         <Image source={ellipse} style={styles.imgStyle} resizeMode="contain" />
@@ -257,7 +243,7 @@ class Timeline extends React.Component {
     );
   };
 
-  getPopupStyle = popup => {
+  const getPopupStyle = () => {
     let popupStyle = {};
     if (
       popup &&
@@ -269,42 +255,43 @@ class Timeline extends React.Component {
     return popupStyle;
   };
 
-  render() {
-    const {popup, timeLineData} = this.state;
-    return (
-      <View style={styles.container}>
-        <Popup visible={!!popup} popupStyle={this.getPopupStyle(popup)}>
-          {this.getPopupContent()}
-        </Popup>
-        <View style={styles.innerContainer}>
-          <Text style={styles.heading}>{strings.reorderText}</Text>
-          <View style={styles.listStyle}>
-            <DraggableFlatList
-              data={timeLineData}
-              renderItem={this.renderItem}
-              keyExtractor={(item, index) => index.toString()}
-              onDragEnd={({data}) => {
-                this.setTimelineSequence(data);
-              }}
-              // containerStyle={styles.listStyle}
-            />
-          </View>
-          <CustomButton
-            title={strings.recalculateProjectPlan}
-            textStyle={styles.recalculateButtonText}
-            style={styles.recalculateButton}
-            onPress={this.recalculateProjectPlan}
+  return (
+    <View style={styles.container}>
+      <Popup visible={!!popup} popupStyle={getPopupStyle()}>
+        {getPopupContent()}
+      </Popup>
+      <View style={styles.innerContainer}>
+        <Text style={styles.heading}>{strings.reorderText}</Text>
+        <View style={styles.listStyle}>
+          <DraggableFlatList
+            data={timeLineData}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+            onDragEnd={({data}) => {
+              setTimelineSequence(data);
+            }}
+            // containerStyle={styles.listStyle}
           />
         </View>
         <CustomButton
-          title={strings.updateProjectPlan}
-          textStyle={styles.buttonText}
-          style={styles.button}
-          onPress={this.updateProjectPlan}
+          title={strings.recalculateProjectPlan}
+          textStyle={styles.recalculateButtonText}
+          style={styles.recalculateButton}
+          onPress={recalculateProjectPlan}
         />
       </View>
-    );
-  }
+      <CustomButton
+        title={strings.updateProjectPlan}
+        textStyle={styles.buttonText}
+        style={styles.button}
+        onPress={updateProjectPlan}
+      />
+    </View>
+  );
+};
+
+function mapStateToProps(state) {
+  return {myDay: state.myDay};
 }
 
-export default Timeline;
+export default connect(mapStateToProps, null)(Timeline);

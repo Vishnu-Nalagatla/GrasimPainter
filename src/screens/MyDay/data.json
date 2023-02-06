@@ -33,7 +33,7 @@
         "RoomList": [
           {
             "Id": "a071y0000032gJiAAI",
-            "Name": "Room 1",
+            "Name": "Room 2",
             "RoomID": "RM-00000057",
             "RoomSequence": 2,
             "RoomUser": "Kids",
@@ -43,6 +43,314 @@
             "SiteId": "a051y000004AvlbAAC",
             "SiteName": "Site",
             "ProjectName": "Project1",
+            "DaysRequiredForRoom": 1,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 4",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 4,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 1.2,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 3",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 3,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 1.5,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 1",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 1,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 0.5,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 5",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 5,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 2,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 7",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 7,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 1.5,
+            "HrsRequiredForRoom": 0,
+            "WallList": [
+              {
+                "Id": "a081y000000AHzIAAW",
+                "Name": "Wall 1",
+                "WallId": "WL-00000050",
+                "Description": "Test Wall",
+                "Height": 3,
+                "Length": 2,
+                "TotalArea": 2.4,
+                "WallNotes": "Test Notes",
+                "MoistureReading": 1.1,
+                "CurrentPaintType": "Economy Water Based",
+                "WallDefects": "Cracks",
+                "FalseSealingMultiplier": "1.5",
+                "PHReading": 2.34,
+                "PaintingCode": "Testcode",
+                "ShadeCode": "Test code",
+                "WallDefectsExterior": "Cracks",
+                "PaintingDescription": "Test Description",
+                "ShadeName": "Test name",
+                "SiteId": "a051y000004AvlbAAC",
+                "SiteName": "Site",
+                "RoomName": "Room 1",
+                "ActivityList": [
+                  {
+                    "Id": "a091y000004AKKkAAO",
+                    "Name": "Activity 1",
+                    "CrewMemberId": "",
+                    "MaterialCode": "test code",
+                    "MaterialName": "testSKU",
+                    "TotalHours": 24,
+                    "WallName": "Wall 1"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Id": "a071y0000032gJiAAI",
+            "Name": "Room 6",
+            "RoomID": "RM-00000057",
+            "RoomSequence": 6,
+            "RoomUser": "Kids",
+            "RoomType": "L Shaped Room",
+            "RoomNotes": "only one room to paint",
+            "AdditionalArea": 123.55,
+            "SiteId": "a051y000004AvlbAAC",
+            "SiteName": "Site",
+            "ProjectName": "Project1",
+            "DaysRequiredForRoom": 0.5,
+            "HrsRequiredForRoom": 0,
             "WallList": [
               {
                 "Id": "a081y000000AHzIAAW",
