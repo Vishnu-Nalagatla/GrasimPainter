@@ -8,4 +8,5 @@ export default {
   SHOW_END_DATE_CALENDAR: 'show-end-date-calendar',
   TIME_PICKER: 'time-picker',
   CREW_OCCUPIED: 'crew-occupied',
+  TOGGLE_DRAWER: 'toggleDrawer',
 };

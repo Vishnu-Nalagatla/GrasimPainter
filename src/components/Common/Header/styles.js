@@ -1,6 +1,4 @@
 import {StyleSheet} from 'react-native';
-import {color} from 'react-native-reanimated';
-import colors from '../../../constants/colors';
 import ViewPort from '../../../constants/view-port';
 
 const {vh, vw} = ViewPort;
@@ -47,6 +45,14 @@ const styles = StyleSheet.create({
     lineHeight: 24 * vh,
     color: 'white',
     marginLeft: 32 * vw,
+  },
+  toggleDrawerStyle: {
+    height: 800 * vh,
+    width: 302 * vw,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    overflow: 'hidden',
   },
 });
 
