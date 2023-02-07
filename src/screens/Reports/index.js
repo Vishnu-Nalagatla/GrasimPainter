@@ -35,6 +35,22 @@ const roomsData = [
         ],
         addOns: ['Water Proofing', 'Design Finish'],
       },
+      {
+        name: 'Wall 4',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
+      {
+        name: 'Wall 5',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
     ],
   },
   {
@@ -87,6 +103,38 @@ const roomsData = [
       },
       {
         name: 'Wall 3',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
+      {
+        name: 'Wall 4',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
+      {
+        name: 'Wall 5',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
+      {
+        name: 'Wall 6',
+        paintingSystem: [
+          'FS Premium  Emulsion (Acry P)',
+          'Birla White Wall Care Putty',
+        ],
+        addOns: ['Water Proofing', 'Design Finish'],
+      },
+      {
+        name: 'Wall 7',
         paintingSystem: [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
@@ -160,35 +208,49 @@ const Reports = () => {
         <Text style={[styles.roomName, styles.marginStyle]}>
           Painting System
         </Text>
-        <View style={styles.separator} />
+        <View style={styles.separator2} />
         <Text style={[styles.roomName, styles.marginStyle]}>Add Ons</Text>
-        <View style={styles.separator} />
+        <View style={styles.separator2} />
+      </View>
+    );
+  };
+
+  const RoomInfo = ({room}) => {
+    console.info('room...', room);
+    const {name} = room;
+    return (
+      <View>
+        <Text style={styles.roomInfo}>{name}</Text>
+        <View>
+          <Accordion
+            activeSections={activeRooms}
+            sections={room.walls}
+            touchableComponent={TouchableOpacity}
+            renderHeader={renderHeader}
+            renderContent={renderContent}
+            expandMultiple={multipleSelect}
+            onChange={data => {
+              setActiveRooms(data);
+            }}
+          />
+          <View style={styles.separator} />
+        </View>
       </View>
     );
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <SwitchButtons buttons={state} onClick={onClick} />
-        <View style={styles.accordionContainer}>
+        <ScrollView style={styles.accordionContainer}>
           <Text style={styles.heading}>Product and Colors</Text>
-          <View>
-            <Accordion
-              activeSections={activeRooms}
-              sections={roomsData[0].walls}
-              touchableComponent={TouchableOpacity}
-              renderHeader={renderHeader}
-              renderContent={renderContent}
-              expandMultiple={multipleSelect}
-              onChange={data => {
-                setActiveRooms(data);
-              }}
-            />
-          </View>
-        </View>
+          {roomsData.map(room => {
+            return <RoomInfo room={room} />;
+          })}
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

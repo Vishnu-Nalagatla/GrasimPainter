@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import ViewPort from '../../constants/view-port';
 import colors from '../../constants/colors';
 
-const { vh, vw } = ViewPort;
+const {vh, vw} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -14,19 +14,31 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 22 * vh,
     borderRadius: 20 * vh,
+    width: 328 * vw,
   },
   accordionContainer: {
     flex: 1,
     marginTop: 24 * vh,
     backgroundColor: colors.white,
     borderRadius: 8 * vh,
+    marginBottom: 20 * vh,
   },
   heading: {
     fontFamily: 'Lato-Bold',
     fontSize: 16 * vh,
     fontWeight: '700',
     marginTop: 16 * vh,
-    marginBottom: 80 * vh,
+    marginBottom: 24 * vh,
+    color: '#000000',
+    opacity: 0.6,
+    letterSpacing: 1 * vw,
+    paddingLeft: 16 * vw,
+  },
+  roomInfo: {
+    fontFamily: 'Lato-Bold',
+    fontSize: 16 * vh,
+    fontWeight: '700',
+    // marginBottom: 16 * vh,
     color: '#000000',
     opacity: 0.6,
     letterSpacing: 1 * vw,
@@ -45,13 +57,13 @@ const styles = StyleSheet.create({
     borderRadius: 8 * vh,
     borderColor: '#91A9F9',
     borderWidth: 1 * vh,
-    width: '90%',
+    width: 296 * vw,
     height: 56 * vh,
     alignSelf: 'center',
     paddingBottom: 12 * vh,
     flexDirection: 'row',
     padding: 16 * vh,
-    marginBottom: 20 * vh,
+    marginTop: 20 * vh,
   },
   activeHeaderContainer: {
     borderTopRightRadius: 8 * vh,
@@ -59,7 +71,7 @@ const styles = StyleSheet.create({
     borderColor: '#91A9F9',
     borderWidth: 1 * vh,
     borderBottomWidth: 0,
-    width: '90%',
+    width: 296 * vw,
     height: 56 * vh,
     alignSelf: 'center',
     paddingBottom: 12 * vh,
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
     borderColor: '#91A9F9',
     borderWidth: 1 * vh,
     borderTopWidth: 0,
-    width: '90%',
+    width: 296 * vw,
     height: 56 * vh,
     alignSelf: 'center',
     paddingBottom: 12 * vh,
@@ -84,7 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 8 * vh,
     borderColor: '#91A9F9',
     borderWidth: 1 * vh,
-    width: '90%',
+    width: 296 * vw,
     height: 56 * vh,
     alignSelf: 'center',
     paddingBottom: 12 * vh,
@@ -109,8 +121,9 @@ const styles = StyleSheet.create({
   },
   separator: {
     borderBottomColor: '#E7EBF6',
-    borderBottomWidth: 6 * vh,
-    width: '90%',
+    borderBottomWidth: 2 * vh,
+    marginVertical: 16 * vh,
+    width: 296 * vw,
     alignSelf: 'center',
   },
 });
