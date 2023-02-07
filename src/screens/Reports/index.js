@@ -1,6 +1,6 @@
-import { ScrollView } from 'native-base';
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Image } from 'react-native';
+import {ScrollView} from 'native-base';
+import React, {useState} from 'react';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
 import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from './styles';
@@ -17,10 +17,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 2',
@@ -28,10 +25,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 3',
@@ -39,12 +33,9 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
-    ]
+    ],
   },
   {
     name: 'Living Room',
@@ -55,10 +46,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 2',
@@ -66,10 +54,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 3',
@@ -77,12 +62,9 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
-    ]
+    ],
   },
   {
     name: 'Kitchen',
@@ -93,10 +75,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 2',
@@ -104,10 +83,7 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
       {
         name: 'Wall 3',
@@ -115,15 +91,11 @@ const roomsData = [
           'FS Premium  Emulsion (Acry P)',
           'Birla White Wall Care Putty',
         ],
-        addOns: [
-          'Water Proofing',
-          'Design Finish',
-        ]
+        addOns: ['Water Proofing', 'Design Finish'],
       },
-    ]
-  }
-]
-
+    ],
+  },
+];
 
 const Reports = () => {
   const buttons = [
@@ -145,7 +117,7 @@ const Reports = () => {
 
   const onClick = event => {
     const buttonsChanged = state.map(button => {
-      const { id } = button;
+      const {id} = button;
       if (event.id === id && !event.status) {
         button.status = true;
       } else {
@@ -156,26 +128,44 @@ const Reports = () => {
     setTabState(buttonsChanged);
   };
 
-  const renderHeader = (wall) => {
+  const renderHeader = wall => {
+    const {name} = wall;
+    const index = name.split(' ')[1];
+    const activeRoom = activeRooms[0] + 1;
+    const isActiveRoom = +index === +activeRoom;
+    console.info('activeRoom...', activeRoom);
+    console.info('index...', index);
+    console.info('isActiveRoom...', isActiveRoom);
     return (
-      <View style={styles.wallContainer}>
+      <View
+        style={
+          isActiveRoom ? styles.activeHeaderContainer : styles.headerContainer
+        }>
         <Text style={styles.roomName}>{wall.name}</Text>
         <Image source={downImg} style={styles.accordionImg} />
       </View>
-    )
-  }
+    );
+  };
 
-  const renderContent = (wall) => {
+  const renderContent = wall => {
+    const {name} = wall;
+    const index = name.split(' ')[1];
+    const activeRoom = activeRooms[0] + 1;
+    const isActiveRoom = +index === +activeRoom;
+    const wallStyles = isActiveRoom
+      ? styles.activeWallContainer
+      : styles.wallContainer;
     return (
-      <View style={[styles.wallContainer, styles.wallDetailsContainer]}>
-        <Text style={styles.roomName}>{wall.name}</Text>
-        <Text style={[styles.roomName, styles.marginStyle]}>Painting System</Text>
+      <View style={[wallStyles, styles.wallDetailsContainer]}>
+        <Text style={[styles.roomName, styles.marginStyle]}>
+          Painting System
+        </Text>
         <View style={styles.separator} />
         <Text style={[styles.roomName, styles.marginStyle]}>Add Ons</Text>
         <View style={styles.separator} />
       </View>
-    )
-  }
+    );
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -191,7 +181,7 @@ const Reports = () => {
               renderHeader={renderHeader}
               renderContent={renderContent}
               expandMultiple={multipleSelect}
-              onChange={(data) => {
+              onChange={data => {
                 setActiveRooms(data);
               }}
             />
