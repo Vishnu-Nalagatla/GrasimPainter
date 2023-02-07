@@ -243,7 +243,6 @@ class MyDay extends React.Component<Props, State> {
   viewCrewCalendar = () => {
     const {navigation} = this.props;
     const {calendarCrewIndex} = this.state;
-    navigation.navigate(RouteConfig.CrewCalendar);
     navigation.navigate(RouteConfig.CrewCalendar, {
       calendarCrewIndex: calendarCrewIndex,
     });

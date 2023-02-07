@@ -1,4 +1,4 @@
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {connect} from 'react-redux';
 import {API} from '../../requests';
@@ -11,6 +11,7 @@ import errorIcon from '../../assets/images/naColor/image.png';
 import {Image, ScrollView} from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
+import RouteConfig from '../../constants/route-config.js';
 import data from './data.json';
 
 class CrewDetails extends React.Component<Props, State> {
@@ -130,6 +131,13 @@ class CrewDetails extends React.Component<Props, State> {
         return <StandardPopup {...popup} />;
     }
   };
+  viewCrewProfile = () => {
+    const {navigation} = this.props;
+
+    navigation.navigate(RouteConfig.CrewProfile, {
+      profile: {},
+    });
+  };
 
   render() {
     const {reduxProps} = this.props;
@@ -154,24 +162,28 @@ class CrewDetails extends React.Component<Props, State> {
         </View>
 
         <View style={styles.crewWrapper}>
-          <CrewList title={this.available} crewList={crewList} />
+          <CrewList
+            title={this.available}
+            crewList={crewList}
+            onPress={this.viewCrewProfile}
+          />
         </View>
       </View>
     );
   }
 }
 
-const CrewList = ({title, crewList}) => {
+const CrewList = ({title, crewList, onPress}) => {
   return (
     <ScrollView style={styles.crewContainer}>
       {crewList.map(crew => {
-        return <CrewCard crew={crew} />;
+        return <CrewCard crew={crew} onPress={onPress} />;
       })}
     </ScrollView>
   );
 };
 
-const CrewCard = ({crew}) => {
+const CrewCard = ({crew, onPress}) => {
   const {name, profilePic = groupIcon, status, skills = []} = crew;
   return (
     <View style={styles.crewCard}>
@@ -185,10 +197,13 @@ const CrewCard = ({crew}) => {
             source={profilePic}
             style={styles.profilePic}
             resizeMode="contain"
+            alt=""
           />
           <Text style={styles.employeeName}> {'Vikas Sharma'}</Text>
         </View>
-        <Text style={styles.viewProfile}> {'View Profile'}</Text>
+        <Text onPress={onPress} style={styles.viewProfile}>
+          {'View Profile'}
+        </Text>
       </View>
       <View style={styles.skillsWrapper}>
         {skills.map(skill => {

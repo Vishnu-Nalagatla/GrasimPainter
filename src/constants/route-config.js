@@ -16,6 +16,8 @@ const RouteConfig = {
   SendUpdates: 'SendUpdates',
   CapturePics: 'CapturePics',
   Notifications: 'Notifications',
+  CrewDetails: 'CrewDetails',
+  CrewProfile: 'CrewProfile',
 };
 
 export default RouteConfig;

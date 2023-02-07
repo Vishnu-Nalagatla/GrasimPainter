@@ -1,4 +1,4 @@
-import {View, Text, ActivityIndicator} from 'react-native';
+import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {connect} from 'react-redux';
 import {API} from '../../requests';
@@ -12,6 +12,7 @@ import {Image, ScrollView} from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
 import data from './data.json';
+import RouteConfig from '../../constants/route-config';
 
 class MyTeam extends React.Component<Props, State> {
   constructor(props) {
@@ -130,13 +131,14 @@ class MyTeam extends React.Component<Props, State> {
         return <StandardPopup {...popup} />;
     }
   };
+  viewCrewDetails = () => {
+    const {navigation} = this.props;
+    navigation.navigate(RouteConfig.CrewDetails, {
+      data: [''],
+    });
+  };
 
   render() {
-    const {reduxProps} = this.props;
-    const {login} = reduxProps;
-    const {loginInfo = {}} = login;
-    const {firstName = ''} = loginInfo;
-    console.info('firstName...', firstName);
     const {popup} = this.state;
     const {style = {}} = popup || {};
     const availableCrew = [data[0]];
@@ -148,15 +150,23 @@ class MyTeam extends React.Component<Props, State> {
         </Popup>
 
         <ScrollView style={styles.crewWrapper}>
-          <CrewList title={this.available} crewList={availableCrew} />
-          <CrewList title={this.occupied} crewList={occupiedCrew} />
+          <CrewList
+            title={this.available}
+            crewList={availableCrew}
+            onPress={this.viewCrewDetails}
+          />
+          <CrewList
+            title={this.occupied}
+            crewList={occupiedCrew}
+            onPress={this.viewCrewDetails}
+          />
         </ScrollView>
       </View>
     );
   }
 }
 
-const CrewList = ({title, crewList}) => {
+const CrewList = ({title, crewList, onPress}) => {
   const hrStyle = title === 'Available' ? styles.hrLine : styles.hrLineO;
   const showCrewCalendar = title === 'Available' ? false : true;
   return (
@@ -169,18 +179,23 @@ const CrewList = ({title, crewList}) => {
         ) : null}
       </View>
       {crewList.map(crew => {
-        return <CrewCard crew={crew} />;
+        return <CrewCard crew={crew} onPress={onPress} />;
       })}
     </View>
   );
 };
 
-const CrewCard = ({crew}) => {
+const CrewCard = ({crew, onPress}) => {
   const {name, img = groupIcon, status, skills} = crew;
   return (
-    <View style={styles.crewCard}>
+    <TouchableOpacity onPress={onPress} style={styles.crewCard}>
       <View style={styles.crewInfo}>
-        <Image source={groupIcon} style={styles.crewImg} resizeMode="contain" />
+        <Image
+          source={groupIcon}
+          style={styles.crewImg}
+          resizeMode="contain"
+          alt=""
+        />
         <View>
           <Text style={styles.title}>{name}</Text>
           <View style={styles.crewAvailablity}>
@@ -188,6 +203,7 @@ const CrewCard = ({crew}) => {
               source={calendar}
               style={styles.calendarImg}
               resizeMode="contain"
+              alt=""
             />
             <Text>{status}</Text>
           </View>
@@ -201,7 +217,7 @@ const CrewCard = ({crew}) => {
           return <Text style={styles.skill}> {skill}</Text>;
         })}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 const mapStateToProps = reduxProps => ({

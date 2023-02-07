@@ -1,6 +1,5 @@
 import {View, Text, ActivityIndicator} from 'react-native';
 import React from 'react';
-import {connect} from 'react-redux';
 import {API} from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
@@ -177,11 +176,11 @@ class CrewProfile extends React.Component<Props, State> {
   };
 
   render() {
-    const {reduxProps} = this.props;
-    const {login} = reduxProps;
-    const {loginInfo = {}} = login;
-    const {firstName = ''} = loginInfo;
-    console.info('firstName...', firstName);
+    // const {reduxProps} = this.props;
+    // const {login} = reduxProps;
+    // const {loginInfo = {}} = login;
+    // const {firstName = ''} = loginInfo;
+    // console.info('firstName...', firstName);
     const {popup} = this.state;
     const {style = {}} = popup || {};
     const skills = ['Wall artist', 'Skill two', 'Skill three'];
