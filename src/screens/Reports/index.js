@@ -7,8 +7,12 @@ import styles from './styles';
 import crackImage from '../../assets/images/wallCrack/image.png';
 import downImg from '../../assets/images/splash/down.png';
 import moistureImg from '../../assets/images/moisture/image.png';
+import brushImg from '../../assets/images/brush/image.png';
 
-
+const report = {
+  PAINTING_REPORT: 1,
+  QC_REPORT: 2,
+};
 
 const roomsData = [
   {
@@ -163,10 +167,12 @@ const Reports = () => {
   ];
 
   const [state, setTabState] = useState(buttons);
+  const [activeTab, setActiveTab] = useState(1);
   const [activeRooms, setActiveRooms] = useState([]);
   const [multipleSelect, setMultipleSelect] = useState(false);
 
   const onClick = event => {
+    setActiveTab(event.id);
     const buttonsChanged = state.map(button => {
       const {id} = button;
       if (event.id === id && !event.status) {
@@ -246,7 +252,6 @@ const Reports = () => {
   };
 
   const RoomInfo = ({room}) => {
-    console.info('room...', room);
     const {name} = room;
     return (
       <View>
@@ -268,17 +273,33 @@ const Reports = () => {
       </View>
     );
   };
-
+  const QcReport = () => {
+    return (
+      <View style={styles.qcReport}>
+        <Image source={brushImg} style={styles.crackImage} />
+        <Text>{'Not yet available'}</Text>
+      </View>
+    );
+  };
+  const PaintingReport = () => {
+    return (
+      <ScrollView style={styles.accordionContainer}>
+        <Text style={styles.heading}>Product and Colors</Text>
+        {roomsData.map(room => {
+          return <RoomInfo room={room} />;
+        })}
+      </ScrollView>
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <SwitchButtons buttons={state} onClick={onClick} />
-        <ScrollView style={styles.accordionContainer}>
-          <Text style={styles.heading}>Product and Colors</Text>
-          {roomsData.map(room => {
-            return <RoomInfo room={room} />;
-          })}
-        </ScrollView>
+        {activeTab === report.PAINTING_REPORT ? (
+          <PaintingReport />
+        ) : (
+          <QcReport />
+        )}
       </View>
     </View>
   );

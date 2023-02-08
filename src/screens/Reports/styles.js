@@ -197,6 +197,12 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     lineHeight: 12 * vh,
   },
+
+  qcReport: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default styles;
