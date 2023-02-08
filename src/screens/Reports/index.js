@@ -4,8 +4,11 @@ import {Text, View, TouchableOpacity, Image} from 'react-native';
 import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from './styles';
-import upImg from '../../assets/images/splash/upload.png';
+import crackImage from '../../assets/images/wallCrack/image.png';
 import downImg from '../../assets/images/splash/down.png';
+import moistureImg from '../../assets/images/moisture/image.png';
+
+
 
 const roomsData = [
   {
@@ -181,9 +184,6 @@ const Reports = () => {
     const index = name.split(' ')[1];
     const activeRoom = activeRooms[0] + 1;
     const isActiveRoom = +index === +activeRoom;
-    console.info('activeRoom...', activeRoom);
-    console.info('index...', index);
-    console.info('isActiveRoom...', isActiveRoom);
     return (
       <View
         style={
@@ -203,14 +203,44 @@ const Reports = () => {
     const wallStyles = isActiveRoom
       ? styles.activeWallContainer
       : styles.wallContainer;
+    const paintingSystem = [
+      'FS Premium Emulsion (Acry P)',
+      'Birla White Wall Care Putty',
+    ];
+    const addOns = ['Water Proofing', 'Design Finish'];
+    const wallInfo = ['Water Proofing', 'Design Finish'];
     return (
       <View style={[wallStyles, styles.wallDetailsContainer]}>
-        <Text style={[styles.roomName, styles.marginStyle]}>
+        <Text style={[styles.paintingSystem, styles.marginStyle]}>
           Painting System
         </Text>
+        {paintingSystem.map(item => (
+          <Text style={styles.infoKey}>{item}</Text>
+        ))}
         <View style={styles.separator2} />
-        <Text style={[styles.roomName, styles.marginStyle]}>Add Ons</Text>
+        <Text style={[styles.paintingSystem, styles.marginStyle]}>Add Ons</Text>
+        {addOns.map(item => (
+          <Text style={styles.infoKey}>{item}</Text>
+        ))}
         <View style={styles.separator2} />
+        <View style={styles.colorWrapper}>
+          <View style={styles.colorWrapper}>
+            <View style={styles.wallColor} />
+            <View>
+              <Text style={styles.extraInfo}>{'Color Primary'}</Text>
+              <Text style={styles.extraInfo2}>{'Placid Blue - N'}</Text>
+              <Text style={styles.extraInfo2}>{'9637'}</Text>
+            </View>
+          </View>
+          <View style={styles.cracksWrapper}>
+            <Image source={crackImage} style={styles.crackImage} />
+            <Text style={styles.cracksInfo}>{'Cracks Present'}</Text>
+          </View>
+          <View style={styles.cracksWrapper}>
+            <Image source={moistureImg} style={styles.crackImage} />
+            <Text style={styles.cracksInfo}>{'Contains Dampness'}</Text>
+          </View>
+        </View>
       </View>
     );
   };

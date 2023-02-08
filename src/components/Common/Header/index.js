@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {StackHeaderProps} from '@react-navigation/stack';
 import styles from './styles.js';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
@@ -13,7 +13,8 @@ const Header = (props: StackHeaderProps) => {
   const {options, navigation, toggleDrawer} = props;
   console.info('props.....', props);
   const {title = undefined, showBackIcon = true} = options;
-  const [popup, setPopup] = useState(undefined);
+  // const [popup, setPopup] = useState(undefined);
+  const popup = {};
 
   const getPopupStyle = () => {
     let popupStyle = {};
@@ -23,9 +24,9 @@ const Header = (props: StackHeaderProps) => {
     return popupStyle;
   };
 
-  const closePopup = () => {
-    setPopup(undefined);
-  };
+  // const closePopup = () => {
+  //     setPopup(undefined);
+  // };
 
   const getPopupContent = () => {
     if (!popup) {
@@ -33,7 +34,7 @@ const Header = (props: StackHeaderProps) => {
     }
     switch (popup.type) {
       case POPUP_CONSTANTS.TOGGLE_DRAWER:
-        return <Drawer closePopup={closePopup} navigation={navigation} />;
+        return <Drawer navigation={navigation} />;
       default:
         break;
     }
@@ -49,11 +50,11 @@ const Header = (props: StackHeaderProps) => {
           <TouchableOpacity
             style={styles.menuImg}
             onPress={() => {
-              // if (toggleDrawer) {
-              //   toggleDrawer();
-              // } else {
-              //   setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER});
-              // }
+              if (toggleDrawer) {
+                toggleDrawer();
+              } else {
+                // setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER});
+              }
               navigation.goBack();
             }}>
             <Image
