@@ -23,6 +23,7 @@ import {Image} from 'native-base';
 import TimePicker from '../../components/TimePicker';
 import SwitchButtons from '../../components/SwitchButtons';
 import {setMyDayData} from '../../store/actions';
+import strings from '../../globalization';
 
 export interface Props {
   props: String;
@@ -131,7 +132,6 @@ class MyDay extends React.Component<Props, State> {
   };
 
   requestForQualityCheck = project => {
-    console.info('project...', project);
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
@@ -141,7 +141,6 @@ class MyDay extends React.Component<Props, State> {
     };
     API.requestForQualityCheck(request)
       .then(res => {
-        console.info('res', res);
         this.setState({
           popup: undefined,
         });
@@ -165,7 +164,6 @@ class MyDay extends React.Component<Props, State> {
   };
 
   assignCrewToProject = project => {
-    console.info('updateCrewDetails...', project);
     const {Id} = project;
     this.setState({
       popup: {
@@ -382,8 +380,7 @@ class MyDay extends React.Component<Props, State> {
           <View style={styles.bodyContainer}>
             <View style={styles.welcomeMessage}>
               <Text style={styles.welcomeText}>
-                Hi {firstName}, Good Morning! Here is the list of things that
-                needs to be done in your day{''}
+                Hi {firstName},{strings.goodMoringing}
               </Text>
             </View>
             <View style={styles.body}>
@@ -407,9 +404,7 @@ const CrewOccupied = ({onPress}) => {
       <Text style={styles.headerMessage}>
         {'This crew is occupied with a different  project for this duration'}
       </Text>
-      <Text style={styles.textInfo}>
-        {'Please select a different crew which is available'}
-      </Text>
+      <Text style={styles.textInfo}>{strings.selectDifferentCrew}</Text>
       <CustomButton
         title={'Go back and select crew'}
         textStyle={styles.btnTxt}
