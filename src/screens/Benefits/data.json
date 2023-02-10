@@ -1,0 +1,45 @@
+{
+    "assets": [
+        "Electric Stirrer", "Paint Sprayer", "Electric Wall Sander", "Steel Scrapper",
+        "Foldable Ladder", "Gloves"
+    ],
+    "insurance": {
+        "insurer": "Tata AIG",
+        "policyNumber": "0G-9876-87-9876",
+        "membersCovered": 2
+    },
+    "claims": [
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        },
+        {
+            "key": "Claim 1",
+            "value": 20000
+        }
+    ]
+}
