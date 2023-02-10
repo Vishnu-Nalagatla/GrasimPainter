@@ -7,7 +7,7 @@ import bellImg from '../../assets/images/group/image.png';
 import approveImg from '../../assets/images/approve/image.png';
 
 import naImg from '../../assets/images/naColor/image.png';
-
+import strings from '../../globalization';
 import styles from './styles';
 
 const LeaveRequests = () => {
@@ -42,7 +42,7 @@ const LeaveRequests = () => {
     const {index} = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
-        leave.status = 'APPROVED';
+        leave.status = strings.approved;
       }
       return leave;
     });
@@ -52,7 +52,7 @@ const LeaveRequests = () => {
     const {index} = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
-        leave.status = 'DECLINED';
+        leave.status = strings.declined;
       }
       return leave;
     });
@@ -64,10 +64,10 @@ const LeaveRequests = () => {
     console.info('description....', description);
     return (
       <View>
-        <Text style={styles.leaveInfo}>{'getExtraInfo'}</Text>
+        <Text style={styles.leaveInfo}>{strings.getExtraInfo}</Text>
         <View style={styles.hrLine} />
         <View style={styles.description}>
-          <Text style={styles.descriptionLabel}>{'Description'}</Text>
+          <Text style={styles.descriptionLabel}>{strings.description}</Text>
           <Text style={styles.description}>{description}</Text>
         </View>
         <View style={styles.hrLine} />
@@ -84,9 +84,11 @@ const LeaveRequests = () => {
     return (
       <View>
         <View style={styles.leaveStatus}>
-          <Text style={styles.leaveInfo}>{'getExtraInfo'}</Text>
+          <Text style={styles.leaveInfo}>{strings.getExtraInfo}</Text>
           <Text
-            style={status === 'APPROVED' ? styles.approved : styles.declined}>
+            style={
+              status === strings.approved ? styles.approved : styles.declined
+            }>
             {status}
           </Text>
         </View>

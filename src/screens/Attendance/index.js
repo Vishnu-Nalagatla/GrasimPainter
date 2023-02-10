@@ -5,6 +5,7 @@ import Moment from 'moment';
 import bellImg from '../../assets/images/group/image.png';
 import {FlatList, Image} from 'native-base';
 import RouteConfig from '../../constants/route-config';
+import strings from '../../globalization';
 
 export interface Props {
   props: String;
@@ -17,8 +18,8 @@ const Attendance = (props: Props) => {
   const [attendance, setAttendance] = useState(false);
   const attendanceLabel = attendance ? 'Marked' : 'Mark attendance';
 
-  const approved = 'APPROVED';
-  const declined = 'DECLINED';
+  // const approved = 'APPROVED';
+  // const declined = 'DECLINED';
   const leaves = [
     {
       date: '',
@@ -121,7 +122,10 @@ const Attendance = (props: Props) => {
       <View style={styles.leaveCard}>
         <View style={styles.leavesHeader}>
           <Text style={styles.duration}>{duration}</Text>
-          <Text style={status === approved ? styles.approved : styles.declined}>
+          <Text
+            style={
+              status === strings.approved ? styles.approved : styles.declined
+            }>
             {status}
           </Text>
         </View>

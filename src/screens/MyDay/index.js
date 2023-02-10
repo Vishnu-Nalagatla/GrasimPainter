@@ -56,13 +56,13 @@ class MyDay extends React.Component<Props, State> {
       popup: undefined,
       buttons: [
         {
-          label: 'Today',
+          label: strings.todayLabel,
           status: true,
           index: 1,
         },
         {
           index: 2,
-          label: 'Tomorrow',
+          label: strings.tomorrowLabel,
           status: false,
         },
       ],
@@ -401,12 +401,10 @@ const CrewOccupied = ({onPress}) => {
   return (
     <View style={styles.crewContainer}>
       <Image source={errorIcon} style={styles.errorIcon} resizeMode="contain" />
-      <Text style={styles.headerMessage}>
-        {'This crew is occupied with a different  project for this duration'}
-      </Text>
+      <Text style={styles.headerMessage}>{strings.crewOccupiedMessage}</Text>
       <Text style={styles.textInfo}>{strings.selectDifferentCrew}</Text>
       <CustomButton
-        title={'Go back and select crew'}
+        title={strings.selectCrew}
         textStyle={styles.btnTxt}
         style={styles.button}
         onPress={onPress}
