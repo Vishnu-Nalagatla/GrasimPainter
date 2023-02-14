@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignSelf: 'center',
     marginTop: 24 * vh,
-    borderRadius: 15 * vh,
+    borderRadius: 8 * vh,
   },
   assetsText: {
     fontFamily: 'Lato-Bold',
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignSelf: 'center',
     marginTop: 24 * vh,
-    borderRadius: 15 * vh,
+    borderRadius: 8 * vh,
   },
   align: {
     flex: 1,
@@ -92,7 +92,63 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignSelf: 'center',
     marginTop: 24 * vh,
-    borderRadius: 15 * vh,
+    borderRadius: 8 * vh,
+  },
+  SalarySlipContainer: {
+    width: 328 * vw,
+    padding: 16 * vw,
+    backgroundColor: '#FFFFFF',
+    alignSelf: 'center',
+    marginTop: 24 * vh,
+    borderRadius: 8 * vh,
+  },
+  dropdown: {
+    height: 56 * vh,
+    width: 264 * vw,
+    marginRight: 12 * vh,
+    backgroundColor: colors.white,
+    borderRadius: 8 * vh,
+    borderWidth: 1 * vh,
+    borderColor: '#91A9F9',
+    margin: 16 * vh,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 1.41,
+    elevation: 2,
+  },
+  selectedTextStyle: {
+    fontSize: 14 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontWeight: '700',
+    paddingLeft: 26 * vh,
+  },
+  iconStyle: {
+    marginRight: 12 * vw,
+    height: 24 * vh,
+    width: 24 * vw,
+  },
+  placeholderStyle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 16 * vw,
+  },
+  dropdownWrapper: {
+    backgroundColor: colors.cardBackground,
+  },
+  renderItem: {
+    backgroundColor: colors.sliderTrack,
+    paddingBottom: 12 * vh,
+    paddingLeft: 12 * vh,
+    paddingTop: 8 * vh,
+  },
+  renderName: {
+    fontSize: 14 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
+    fontWeight: '500',
   },
 });
 
