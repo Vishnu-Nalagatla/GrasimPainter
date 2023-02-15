@@ -25,6 +25,8 @@ const Timeline = props => {
     myDayInfo.ProjectEndDate,
   );
   const [popup, setPopup] = useState(undefined);
+  const {displayStatus} = myDayInfo || {};
+  const {order} = displayStatus || {};
 
   useEffect(() => {
     getTimeLineSequence();
@@ -285,26 +287,29 @@ const Timeline = props => {
           onPress={recalculateProjectPlan}
         />
       </View>
-      {/* <CustomButton
-        title={strings.updateProjectPlan}
-        textStyle={styles.buttonText}
-        style={styles.button}
-        onPress={updateProjectPlan}
-      /> */}
-      <View style={styles.buttonContainer}>
+      {+order === 3 ? (
+        <View style={styles.buttonContainer}>
+          <CustomButton
+            title="Call Customer"
+            onPress={callCustomer}
+            style={styles.callButton}
+            textStyle={styles.recalculateButtonText}
+          />
+          <CustomButton
+            title="Update Project"
+            style={styles.updateButton}
+            textStyle={styles.buttonText}
+            onPress={updateProjectPlan}
+          />
+        </View>
+      ) : (
         <CustomButton
-          title="Call Customer"
-          onPress={callCustomer}
-          style={styles.callButton}
-          textStyle={styles.recalculateButtonText}
-        />
-        <CustomButton
-          title="Update Project"
-          style={styles.updateButton}
+          title={strings.updateProjectPlan}
           textStyle={styles.buttonText}
+          style={styles.button}
           onPress={updateProjectPlan}
         />
-      </View>
+      )}
     </View>
   );
 };
