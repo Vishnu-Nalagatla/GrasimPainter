@@ -12,6 +12,7 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 // import data from './data.json';
 import {connect} from 'react-redux';
+import UTIL from '../../util';
 
 const Timeline = props => {
   const {myDay} = props;
@@ -191,6 +192,10 @@ const Timeline = props => {
     setTimeLineData(updatedSequence.reverse());
   };
 
+  const callCustomer = () => {
+    UTIL.connectThroughCall('9876543210');
+  };
+
   const getPopupContent = () => {
     if (!popup) {
       return null;
@@ -280,12 +285,26 @@ const Timeline = props => {
           onPress={recalculateProjectPlan}
         />
       </View>
-      <CustomButton
+      {/* <CustomButton
         title={strings.updateProjectPlan}
         textStyle={styles.buttonText}
         style={styles.button}
         onPress={updateProjectPlan}
-      />
+      /> */}
+      <View style={styles.buttonContainer}>
+        <CustomButton
+          title="Call Customer"
+          onPress={callCustomer}
+          style={styles.callButton}
+          textStyle={styles.recalculateButtonText}
+        />
+        <CustomButton
+          title="Update Project"
+          style={styles.updateButton}
+          textStyle={styles.buttonText}
+          onPress={updateProjectPlan}
+        />
+      </View>
     </View>
   );
 };
@@ -295,3 +314,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, null)(Timeline);
+
+// Submitted By TL
+// Confirmed By Consumer
+// Confirmed By TL

@@ -137,6 +137,27 @@ const styles = StyleSheet.create({
     height: 324 * vh,
     padding: 16 * vh,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginBottom: 10 * vh,
+  },
+  callButton: {
+    width: 156 * vw,
+    height: 42 * vh,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#2C4DAE',
+    marginRight: 10 * vw,
+  },
+  updateButton: {
+    width: 156 * vw,
+    height: 42 * vh,
+    borderRadius: 8,
+    backgroundColor: '#2C4DAE',
+    borderWidth: 1,
+    borderColor: '#2C4DAE',
+  },
 });
 
 export default styles;
