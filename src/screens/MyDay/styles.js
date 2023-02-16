@@ -88,6 +88,10 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingHorizontal: 16 * vh,
   },
+  popupStyle: {
+    flex: 1,
+    width: 360 * vw,
+  },
 });
 
 export default styles;

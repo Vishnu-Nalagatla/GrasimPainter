@@ -393,7 +393,7 @@
           "order": "1",
           "title": "Create Project Plan",
           "ctaLabel": "Create Now",
-          "confirmMessage": "Plan created and shared with customer"
+          // "confirmMessage": "Plan created and shared with customer"
       }
       },
       {
@@ -477,7 +477,7 @@
           "order": "2",
           "title": "Confirm Crew Allocation",
           "ctaLabel": "Confirm",
-          "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
+          // "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
       }
       },
       {
@@ -1836,6 +1836,7 @@
           "code": "3",
           "title": "Confirm updated plan",
           "eventTitle": "View requested timeline",
+          "ctaLabel": "Create Now",
           "statusDescription": "<p>Updated plan is confirmed</p>\n"
         }
       },

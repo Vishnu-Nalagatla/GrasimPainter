@@ -20,7 +20,7 @@ export interface Props {
 }
 
 const StandardPopup = ({
-  message,
+  message = 'Something went wrong. Please try  opening the app again.',
   heading,
   headingImage,
   buttons,
@@ -55,9 +55,7 @@ const StandardPopup = ({
         <Text style={styles.errorHeading} />
       )}
 
-      <Text style={[styles.errorTxt, messageStyle]}>
-        {message || 'somethingWentWrong'}
-      </Text>
+      <Text style={[styles.errorTxt, messageStyle]}>{message}</Text>
       {buttons ? (
         <View style={styles.buttonContainer}>{buttonViews}</View>
       ) : null}

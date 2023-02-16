@@ -17,6 +17,10 @@ import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
 import Success from '../../components/Common/Success/index.js';
 import errorIcon from '../../assets/images/naColor/image.png';
+import errorImg from '../../assets/images/error/image.png';
+
+
+
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 import CustomButton from '../../components/Button';
 import {Image} from 'native-base';
@@ -24,6 +28,7 @@ import TimePicker from '../../components/TimePicker';
 import SwitchButtons from '../../components/SwitchButtons';
 import {setMyDayData} from '../../store/actions';
 import strings from '../../globalization';
+import moment from 'moment';
 
 export interface Props {
   props: String;
@@ -75,10 +80,11 @@ class MyDay extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    this.fetchMyDayInfo();
   }
 
   showSpinner = () => {
+    console.info(' this.showSpinner();...');
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
@@ -98,10 +104,11 @@ class MyDay extends React.Component<Props, State> {
       .then(response => {
         const {data} = response;
         const myDayInfo = data.response;
+        console.info('myDayInfo..', myDayInfo.today[0]);
         this.closePopup();
-        this.setState({
-          myDayInfo,
-        });
+        // this.setState({
+        //   myDayInfo,
+        // });
       })
       .catch(error => {
         this.setState({
@@ -135,23 +142,29 @@ class MyDay extends React.Component<Props, State> {
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
+    const date = moment(new Date()).format('YYYY-MM-DD');
     const request = {
-      organizationId: 'organizationID',
-      scheduleId: 'scheduleID',
+      QC_Allocated_Date__c: date,
+      QC_Check_Status__c: 'Requested',
     };
-    API.requestForQualityCheck(request)
+    const projectId = 'a061y000000EvblAAC';
+    console.info('request: ', request);
+    SFDC_API.requestForQualityCheck(projectId, request)
       .then(res => {
+        console.info('res: ', res);
         this.setState({
           popup: undefined,
         });
       })
       .catch(error => {
+        console.info('error: ', error);
         this.setState({
           popup: {
             type: POPUP_CONSTANTS.ERROR_POPUP,
             heading: 'Network Error',
             message: error.message,
-            headingImage: errorIcon,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
             buttons: [
               {
                 title: 'TryAgain',
@@ -172,16 +185,17 @@ class MyDay extends React.Component<Props, State> {
     });
     const request = {
       hpId: '0031y00000RNstfAAD',
-      projectID: Id,
+      projectID: 'a061y000000Ew41AAC',
     };
-    API.assignCrewToProject(request)
+    console.info('assignCrewToProject request..', request);
+    SFDC_API.assignCrewToProject(request)
       .then(res => {
-        console.info('res', res);
         this.setState({
           popup: undefined,
         });
       })
       .catch(error => {
+        console.info('assignCrewToProject.......', error);
         this.setState({
           popup: {
             type: POPUP_CONSTANTS.CREW_OCCUPIED,
@@ -202,11 +216,22 @@ class MyDay extends React.Component<Props, State> {
 
   scheduleSiteVisit = project => {
     const {Id} = project;
-    this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
-    });
+
+    this.setState(
+      {
+        popup: undefined,
+      },
+      () => {
+        this.showSpinner();
+      },
+    );
+
+    // 2 days before..
+    //  start Date : StartDateTime +  1day,
+    //  EndDateTime: start Date + 30 min.
+
     const request = {
-      OwnerId: '0051y000000NpxWAAS',
+      OwnerId: '0051y000000NpxWAAS', // loggedin UserId
       WhatId: Id,
       StartDateTime: '2023-01-04T14:00:00Z',
       EndDateTime: '2023-01-04T14:30:00Z',
@@ -226,7 +251,8 @@ class MyDay extends React.Component<Props, State> {
             type: POPUP_CONSTANTS.ERROR_POPUP,
             heading: 'Network Error',
             message: error.message,
-            headingImage: errorIcon,
+            headingImage: errorImg,
+            popupStyle: styles.popupStyle,
             buttons: [
               {
                 title: 'TryAgain',
@@ -400,7 +426,12 @@ class MyDay extends React.Component<Props, State> {
 const CrewOccupied = ({onPress}) => {
   return (
     <View style={styles.crewContainer}>
-      <Image source={errorIcon} style={styles.errorIcon} resizeMode="contain" />
+      <Image
+        source={errorIcon}
+        style={styles.errorIcon}
+        resizeMode="contain"
+        alt=""
+      />
       <Text style={styles.headerMessage}>{strings.crewOccupiedMessage}</Text>
       <Text style={styles.textInfo}>{strings.selectDifferentCrew}</Text>
       <CustomButton

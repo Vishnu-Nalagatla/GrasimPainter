@@ -34,44 +34,54 @@ class Requests {
 
   // MY DAY
 
-  getMyDayInfo = body => this.axios.post(URLs.myDayInfo, body);
+  getMyDayInfo = body => {
+    console.info('key...123', this.axios.defaults.headers.common);
+    return this.axios.post(URLs.myDayInfo, body);
+  };
   requestForQualityCheck = body =>
     this.axios.post(URLs.requestForQualityCheck, body);
-  assignCrewToProject = body => this.axios.post(URLs.assignCrewToProject, body);
+
   updateLeftMaterial = body => this.axios.post(URLs.updateLeftMaterial, body);
 
   // MY DAY
 }
 class SfdcAPI {
   constructor() {
-    this.axios = Axios.create({
+    this.instance = Axios.create({
       // baseURL: Config.API_BASE_URL,
+      // 00D1y0000008pqe!ARgAQCqrzgqHPiGpnZdPoELBaU3udVlGZk1F0_gdUV6kjwNaIQW3H3VBvnEXI123Cg.CA7TCYIwE1c.lB5zMOIP9SRiMJA6U
       baseURL: 'https://grasimpaints-api.azure-api.net',
     });
   }
 
   setBuildURL = url => {
-    this.axios.baseURL = url;
+    this.instance.baseURL = url;
   };
 
   setBearerToken = token => {
-    this.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+    console.info('token..', token);
+    this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
   setHeaders = subscriptionKey => {
-    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+    this.instance.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
       subscriptionKey;
   };
 
-  accessToken = body => this.axios.post(URLs.accessToken, body);
+  accessToken = body => this.instance.post(URLs.accessToken, body);
 
-  assignCrewToProject = body => this.axios.post(URLs.assignCrewToProject, body);
-
-  qualityCheckRequest = (projectId, body) => {
-    return this.axios.get(`${URLs.qualityCheckRequest}${projectId}`, body);
+  assignCrewToProject = body => {
+    return this.instance.post(URLs.assignCrewToProject, body);
   };
 
-  scheduleSiteVisit = body => this.axios.post(URLs.scheduleSiteVisit, body);
+  requestForQualityCheck = (projectId, body) =>
+    this.instance.patch(`${URLs.qualityCheckRequest}${projectId}`, body);
+
+  // scheduleSiteVisit = body => {
+  //   return this.instance.post(URLs.scheduleSiteVisit, body);
+  // };
+
+  scheduleSiteVisit = body => this.instance.post(URLs.scheduleSiteVisit, body);
 
   qualityCheckRequest;
 }

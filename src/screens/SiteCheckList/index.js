@@ -1,5 +1,5 @@
 import {ScrollView, Text} from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import {View} from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import CustomButton from '../../components/Button';
@@ -10,15 +10,8 @@ const SiteCheckList = () => {
   const lable1 = 'Ensure following items are right';
   const lable2 = 'Let’s check few more items';
   const btnlabel = 'Save Checklist';
-  const onPress = () => {
-    console.info('onPress..');
-  };
 
-  const onToggle = index => {
-    console.info('onToggle..', index);
-  };
-
-  const response = [
+  const checkList = [
     {
       question:
         'Will customer vacate the space and move personal items for job execution?',
@@ -38,7 +31,7 @@ const SiteCheckList = () => {
     },
     {
       question: 'Availability of electricity',
-      status: true,
+      status: false,
       index: 4,
     },
     {
@@ -52,7 +45,7 @@ const SiteCheckList = () => {
       index: 6,
     },
   ];
-  const checkList = [
+  const moreCheckList = [
     {
       question: 'Is the customer aligned with the current project start date?',
       status: true,
@@ -75,8 +68,19 @@ const SiteCheckList = () => {
     },
   ];
 
+  const [checkList1, siteCheckList1] = useState(checkList);
+  const [checkList2, siteCheckList2] = useState(moreCheckList);
+  const onPress = () => {
+    console.info('onPress..');
+  };
+
+  const onToggle = (index, status) => {
+    console.info('onToggle..', index, status);
+  };
+
   const Item = ({data, isLast}) => {
     const {question, index, status} = data;
+    console.info('status...', status);
     return (
       <View style={isLast ? styles.itemNoHr : styles.item}>
         <Text style={styles.question}> {question}</Text>
@@ -106,8 +110,8 @@ const SiteCheckList = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CheckList data={response} lable={lable1} />
-      <CheckList data={checkList} lable={lable2} />
+      <CheckList data={checkList1} lable={lable1} />
+      <CheckList data={checkList2} lable={lable2} />
       <CustomButton
         title={btnlabel}
         textStyle={[styles.btnTxt]}

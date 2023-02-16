@@ -6,12 +6,11 @@ const {vw, vh} = ViewPort;
 
 const styles = StyleSheet.create({
   popup: {
-    minHeight: 600 * vh,
-    minWidth: 900 * vw,
-    maxWidth: '80%',
+    height: 600 * vh,
+    width: 340 * vw,
     alignItems: 'center',
     padding: 20 * vh,
-    borderRadius: 5,
+    borderRadius: 8 * vh,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
   },
@@ -22,20 +21,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   errorIcon: {
-    width: 120 * vw,
-    height: 120 * vh,
+    width: 190 * vw,
+    height: 190 * vh,
     marginVertical: 20 * vh,
   },
   errorHeading: {
-    fontSize: 42 * vh,
+    fontSize: 28 * vh,
     fontWeight: 'bold',
     marginBottom: 20 * vh,
+    color: colors.black,
+    fontFamily: 'Lato',
   },
   errorTxt: {
-    fontSize: 36 * vh,
-    color: colors.error,
+    fontSize: 16 * vh,
     marginBottom: 30 * vh,
     textAlign: 'center',
+    color: colors.black,
+    width: 264 * vw,
   },
   errorBtn: {
     height: 32 * vh,
@@ -44,8 +46,8 @@ const styles = StyleSheet.create({
     marginRight: 20 * vh,
   },
   btnTxt: {
-    fontSize: 42 * vh,
-    color: colors.primary,
+    fontSize: 16 * vh,
+    color: colors.white,
     letterSpacing: 0.8,
     fontWeight: '500',
     paddingHorizontal: 16 * vh,
@@ -53,12 +55,10 @@ const styles = StyleSheet.create({
 
   button: {
     borderColor: colors.primary,
-    minWidth: 300 * vw,
-	// minHeight: 30 * vh,
+    width: 296 * vw,
     borderWidth: 2,
-    // borderRadius: 20 * vh,
-    // marginTop: 40 * vh,
-    // backgroundColor: colors.white,
+    marginTop: 40 * vh,
+    backgroundColor: colors.primary,
   },
 });
 
