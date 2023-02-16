@@ -137,6 +137,7 @@ const ProjectTimeLine = (props: Props) => {
             source={calendar}
             style={styles.calendar}
             resizeMode="contain"
+            alt=""
           />
           <Text style={styles.viewCrewCalendar}>{viewCrewCalendarLabel}</Text>
         </TouchableOpacity>
@@ -181,6 +182,24 @@ const ProjectTimeLine = (props: Props) => {
       console.info('erroe', error);
     });
   };
+  const getButton = () => {
+    const buttonInfo =
+      +order === 2 ? (
+        showCewCalendar()
+      ) : (
+        <View>
+          <CustomButton
+            disabled={activeTabIndex !== 1}
+            title={ctaLabel}
+            textStyle={[styles.btnTxt]}
+            style={[styles.button]}
+            onPress={() => onClick(data)}
+          />
+        </View>
+      );
+    const resp = confirmMessage ? null : buttonInfo;
+    return resp;
+  };
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -190,6 +209,7 @@ const ProjectTimeLine = (props: Props) => {
               source={ellipse}
               style={styles.ellipse}
               resizeMode="contain"
+              alt=""
             />
           </View>
           <Text style={styles.projectName}> {Name}</Text>
@@ -203,29 +223,24 @@ const ProjectTimeLine = (props: Props) => {
       <View style={styles.bodyContainer}>
         <Text style={styles.status}> {title}</Text>
         <Text style={styles.date}> {prepareDate()}</Text>
-        <View style={styles.confirmMessageView}>
-          <Image source={check} style={styles.check} resizeMode="contain" />
-          <Text style={styles.confirmMessage}> {confirmMessage}</Text>
-        </View>
+        {confirmMessage ? (
+          <View style={styles.confirmMessageView}>
+            <Image
+              source={check}
+              style={styles.check}
+              resizeMode="contain"
+              alt=""
+            />
+            <Text style={styles.confirmMessage}> {confirmMessage}</Text>
+          </View>
+        ) : null}
 
         {+order === 4 ? (
           <TouchableOpacity style={styles.callNumer} onPress={callNumber}>
             <Text style={styles.viewDetailsText}> {'Call Mr. Rajesh'}</Text>
           </TouchableOpacity>
         ) : null}
-        {+order === 2 ? (
-          showCewCalendar()
-        ) : (
-          <View>
-            <CustomButton
-              disabled={activeTabIndex !== 1}
-              title={ctaLabel}
-              textStyle={[styles.btnTxt]}
-              style={[styles.button]}
-              onPress={() => onClick(data)}
-            />
-          </View>
-        )}
+        {getButton()}
       </View>
       <View style={styles.sraitLine} />
     </View>
