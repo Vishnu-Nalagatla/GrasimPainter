@@ -80,7 +80,7 @@ class MyDay extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.fetchMyDayInfo();
+    // this.fetchMyDayInfo();
   }
 
   showSpinner = () => {
@@ -227,7 +227,7 @@ class MyDay extends React.Component<Props, State> {
     );
 
     // 2 days before..
-    //  start Date : StartDateTime +  1day,
+    //  start Date : today +  1day,
     //  EndDateTime: start Date + 30 min.
 
     const request = {

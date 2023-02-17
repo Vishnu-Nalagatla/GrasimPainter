@@ -554,7 +554,7 @@
           "order": "3",
           "title": "Confirm updated plan",
           "ctaLabel": "View requested timeline",
-          "confirmMessage": "<p>Updated plan is confirmed</p>\n"
+          // "confirmMessage": "<p>Updated plan is confirmed</p>\n"
       }
       },
       {
@@ -631,7 +631,7 @@
           "order": "4",
           "title": "Visit Project Site",
           "ctaLabel": "Schedule a time",
-          "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
+          // "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
       }
       },
       {
@@ -782,7 +782,7 @@
           "order": "6",
           "title": "Check updates",
           "ctaLabel": "Check now",
-          "confirmMessage": "<p>Updates are checked</p>\n"
+          // "confirmMessage": "<p>Updates are checked</p>\n"
       }
       },
       {

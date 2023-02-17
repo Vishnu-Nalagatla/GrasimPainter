@@ -80,10 +80,14 @@ const styles = StyleSheet.create({
     width: 28 * vw,
     marginRight: 17 * vh,
   },
+  applyImg: {
+    height: 42 * vh,
+    width: 60 * vw,
+  },
   leavesLabel: {
     fontFamily: 'Lato',
     fontStyle: 'normal',
-    width: '100%',
+    // width: '100%',
     paddingLeft: 16 * vh,
     marginTop: 39 * vh,
     fontSize: 16 * vh,
@@ -91,6 +95,13 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontWeight: '700',
     marginBottom: 30 * vh,
+  },
+  leaceRow: {
+    width: 328 * vw,
+    flexDirection: 'row',
+    // backgroundColor: colors.error,
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   leavesWrapper: {
     width: '100%',
