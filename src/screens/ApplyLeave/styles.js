@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
+import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 
 const {vh, vw} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     backgroundColor: '#DCE3F8',
   },
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
     width: '44%',
   },
   marginBtm: {
-    marginTop: 0,
+    marginTop: 0 * vh,
   },
   marginRgt: {
     marginRight: '2%',
@@ -76,15 +77,16 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     backgroundColor: '#e7ebf6',
-    width: 30 * vw,
-    height: 30 * vh,
+    width: 24 * vw,
+    height: 24 * vh,
     borderRadius: 8 * vh,
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 16 * vw,
   },
   imgStyle: {
-    width: 30 * vw,
-    height: 30 * vh,
+    width: 24 * vw,
+    height: 24 * vh,
   },
   buttonText: {
     fontSize: 14 * vh,
@@ -110,6 +112,13 @@ const styles = StyleSheet.create({
     lineHeight: 24 * vh,
     color: '#000000',
     fontFamily: 'Karla-Bold',
+  },
+  showFromDayCalendar: {
+    backgroundColor: colors.white,
+    width: 328 * vw,
+    height: 324 * vh,
+    borderRadius: 8 * vh,
+    marginTop: 12 * vh,
   },
 });
 

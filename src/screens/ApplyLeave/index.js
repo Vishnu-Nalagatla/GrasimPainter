@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
@@ -10,8 +17,9 @@ import strings from '../../constants/strings';
 import CustomButton from '../../components/Button';
 import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import colors from '../../constants/colors';
-import { SFDC_API } from '../../requests';
+import {SFDC_API} from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
+import {ScrollView} from 'native-base';
 
 const leaveTypes = [
   {label: 'Sick', value: '1'},
@@ -36,6 +44,9 @@ const ApplyLeave = () => {
   const [selectedFromDate, setSelectedFromDate] = useState('');
   const [selectedToDate, setSelectedToDate] = useState('');
   const [popup, setPopup] = useState(undefined);
+
+  const [showFromDayCalendar, setFromDayCalendar] = useState(false);
+  const [showToDayCalendar, setToDayCalendar] = useState(false);
 
   const renderLabel = () => {
     if (leaveType) {
@@ -71,7 +82,7 @@ const ApplyLeave = () => {
       ' ' +
       selectedDate.getFullYear();
     setSelectedFromDate(formatDate);
-    setPopup(undefined);
+    setFromDayCalendar(false);
   };
 
   const onEndDateChange = date => {
@@ -83,13 +94,15 @@ const ApplyLeave = () => {
       ' ' +
       selectedDate.getFullYear();
     setSelectedToDate(formatDate);
-    setPopup(undefined);
+    setToDayCalendar(false);
   };
 
   const showCalendar = openStartDate => {
-    if (openStartDate)
-      setPopup({type: POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR});
-    else setPopup({type: POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR});
+    if (openStartDate) {
+      setFromDayCalendar(true);
+    } else {
+      setToDayCalendar(true);
+    }
   };
 
   const getPopupContent = () => {
@@ -100,32 +113,6 @@ const ApplyLeave = () => {
       case POPUP_CONSTANTS.SPINNER_POPUP:
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
-        );
-      case POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR:
-        return (
-          <CalendarPicker
-            onDateChange={date => onStartDateChange(date)}
-            previousComponent={getPreviousComponent()}
-            nextComponent={getNextComponent()}
-            startFromMonday={true}
-            showDayStragglers={true}
-            selectedDayColor="#2C4DAE"
-            textStyle={styles.textStyle}
-            weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
-          />
-        );
-      case POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR:
-        return (
-          <CalendarPicker
-            onDateChange={date => onEndDateChange(date)}
-            previousComponent={getPreviousComponent()}
-            nextComponent={getNextComponent()}
-            startFromMonday={true}
-            showDayStragglers={true}
-            selectedDayColor="#2C4DAE"
-            textStyle={styles.textStyle}
-            weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
-          />
         );
     }
   };
@@ -154,20 +141,19 @@ const ApplyLeave = () => {
     );
   };
 
-  const getPopupStyle = () => {
-    let popupStyle = {};
-    if (
-      popup &&
-      (popup.type === POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR ||
-        popup.type === POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR)
-    ) {
-      popupStyle = styles.calendarStyle;
-    }
-    return popupStyle;
-  };
+  // const getPopupStyle = () => {
+  //   let popupStyle = {};
+  //   if (
+  //     popup &&
+  //     (popup.type === POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR ||
+  //       popup.type === POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR)
+  //   ) {
+  //     popupStyle = styles.calendarStyle;
+  //   }
+  //   return popupStyle;
+  // };
 
   const invokeApplyLeave = () => {
-
     const request = {
       leaveType,
       description,
@@ -199,12 +185,10 @@ const ApplyLeave = () => {
         setPopup(popupInfo);
       });
   };
-
+  const customDatesStyles = [{style: {with: 300}}];
   return (
-    <View style={styles.container}>
-      <Popup visible={!!popup} popupStyle={getPopupStyle()}>
-        {getPopupContent()}
-      </Popup>
+    <ScrollView contentContainerStyle={styles.container}>
+      <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {renderLabel()}
       <Dropdown
         style={[styles.dropdown, {borderColor: 'blue'}]}
@@ -273,6 +257,21 @@ const ApplyLeave = () => {
           />
         </View>
       </View>
+      {showFromDayCalendar ? (
+        <View style={styles.showFromDayCalendar}>
+          <CalendarPicker
+            onDateChange={date => onStartDateChange(date)}
+            previousComponent={getPreviousComponent()}
+            nextComponent={getNextComponent()}
+            startFromMonday={true}
+            showDayStragglers={true}
+            selectedDayColor="#2C4DAE"
+            textStyle={styles.textStyle}
+            customDatesStyles={customDatesStyles}
+            weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
+          />
+        </View>
+      ) : null}
       <View style={styles.fromContainer}>
         <TouchableOpacity
           style={styles.startDate}
@@ -312,13 +311,28 @@ const ApplyLeave = () => {
           />
         </View>
       </View>
+      {showToDayCalendar ? (
+        <View style={styles.showFromDayCalendar}>
+          <CalendarPicker
+            onDateChange={date => onEndDateChange(date)}
+            previousComponent={getPreviousComponent()}
+            nextComponent={getNextComponent()}
+            startFromMonday={true}
+            showDayStragglers={true}
+            selectedDayColor="#2C4DAE"
+            textStyle={styles.textStyle}
+            customDatesStyles={customDatesStyles}
+            weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
+          />
+        </View>
+      ) : null}
       <CustomButton
         title={strings.applyLeave}
         textStyle={styles.buttonText}
         style={styles.button}
         onPress={invokeApplyLeave}
       />
-    </View>
+    </ScrollView>
   );
 };
 

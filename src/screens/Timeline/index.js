@@ -212,10 +212,6 @@ const Timeline = props => {
       })
       .catch(error => {
         setPopup(undefined);
-        // this.setState({
-        //   validationMsg: 'Error invoking Send OTP API',
-        //   popup: undefined,
-        // });
         console.log('send otp error', error);
       });
   };
