@@ -8,8 +8,7 @@ Axios.defaults.headers.common['Content-Type'] = 'application/json';
 class Requests {
   constructor() {
     this.axios = Axios.create({
-      // baseURL: Config.API_BASE_URL,
-      baseURL: 'https://grasim-nprd-webapp.azurewebsites.net',
+      baseURL: Config.API_BASE_URL,
     });
   }
 
@@ -21,9 +20,9 @@ class Requests {
     this.axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
-  setHeaders = subscriptionKey => {
+  setHeaders = () => {
     this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
-      subscriptionKey;
+      Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
   };
 
   sendOTP = body => this.axios.post(URLs.sendOTP, body);
@@ -35,7 +34,6 @@ class Requests {
   // MY DAY
 
   getMyDayInfo = body => {
-    console.info('key...123', this.axios.defaults.headers.common);
     return this.axios.post(URLs.myDayInfo, body);
   };
   requestForQualityCheck = body =>
@@ -48,9 +46,8 @@ class Requests {
 class SfdcAPI {
   constructor() {
     this.instance = Axios.create({
-      // baseURL: Config.API_BASE_URL,
+      baseURL: Config.API_BASE_URL,
       // 00D1y0000008pqe!ARgAQCqrzgqHPiGpnZdPoELBaU3udVlGZk1F0_gdUV6kjwNaIQW3H3VBvnEXI123Cg.CA7TCYIwE1c.lB5zMOIP9SRiMJA6U
-      baseURL: 'https://grasimpaints-api.azure-api.net',
     });
   }
 
@@ -59,16 +56,26 @@ class SfdcAPI {
   };
 
   setBearerToken = token => {
-    console.info('token..', token);
     this.instance.defaults.headers.common.Authorization = `Bearer ${token}`;
   };
 
-  setHeaders = subscriptionKey => {
+  setHeaders = () => {
     this.instance.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
-      subscriptionKey;
+      Config.SFDC_SUBSCRIPTION_KEY;
   };
 
-  accessToken = body => this.instance.post(URLs.accessToken, body);
+  accessToken = () => {
+    this.instance
+      .post(URLs.accessToken, Config.SFDC_SUBSCRIPTION_KEY)
+      .then(res => {
+        const {access_token} = res.data;
+        console.info('access_token: ', access_token);
+        SFDC_API.setBearerToken(access_token);
+      })
+      .catch(err => {
+        console.log('access token error', err);
+      });
+  };
 
   assignCrewToProject = body => {
     return this.instance.post(URLs.assignCrewToProject, body);
@@ -82,8 +89,17 @@ class SfdcAPI {
   // };
 
   scheduleSiteVisit = body => this.instance.post(URLs.scheduleSiteVisit, body);
-
-  qualityCheckRequest;
+  // a061y000000EvVzAAK
+  updateDatesWithoutRoomSequence = (projectId, body) => {
+    console.info(
+      'updateDatesWithoutRoomSequence...',
+      `${URLs.updateDatesWithoutRoomSequence}${projectId}`,
+    );
+    return this.instance.patch(
+      `${URLs.updateDatesWithoutRoomSequence}${projectId}`,
+      body,
+    );
+  };
 }
 
 export const API = new Requests();

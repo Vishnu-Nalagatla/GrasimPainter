@@ -1,4 +1,10 @@
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  ActivityIndicator,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import ellipse from '../../assets/images/ellipse/image.png';
 import hamburger from '../../assets/images/timeline/reorder.png';
@@ -13,6 +19,8 @@ import POPUP_CONSTANTS from '../../enums/popup';
 // import data from './data.json';
 import {connect} from 'react-redux';
 import UTIL from '../../util';
+import {API, SFDC_API} from '../../requests';
+import colors from '../../constants/colors';
 
 const Timeline = props => {
   const {myDay} = props;
@@ -184,8 +192,33 @@ const Timeline = props => {
       </TouchableOpacity>
     );
   };
-
-  const updateProjectPlan = () => {};
+  const showSpinner = () => {
+    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+  };
+  const updateProjectPlan = () => {
+    const request = [
+      {
+        StartDate: '2022-11-28',
+        EndDate: '2022-11-29',
+        RoomList: null,
+      },
+    ];
+    showSpinner();
+    SFDC_API.updateDatesWithoutRoomSequence('a061y000000EvVzAAK', request)
+      .then(response => {
+        setPopup(undefined);
+        const {data} = response;
+        console.info('data...', data);
+      })
+      .catch(error => {
+        setPopup(undefined);
+        // this.setState({
+        //   validationMsg: 'Error invoking Send OTP API',
+        //   popup: undefined,
+        // });
+        console.log('send otp error', error);
+      });
+  };
 
   const recalculateProjectPlan = () => {};
 
@@ -230,6 +263,10 @@ const Timeline = props => {
             weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
             minDate={new Date(projectStartDate)}
           />
+        );
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
         );
     }
   };

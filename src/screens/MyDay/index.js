@@ -18,8 +18,7 @@ import Popup from '../../components/Popup/index.js';
 import Success from '../../components/Common/Success/index.js';
 import errorIcon from '../../assets/images/naColor/image.png';
 import errorImg from '../../assets/images/error/image.png';
-
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 import CustomButton from '../../components/Button';
@@ -71,7 +70,7 @@ class MyDay extends React.Component<Props, State> {
           status: false,
         },
       ],
-      myDayInfo: data.response,
+      myDayInfo: [],
       activeTabIndex: 1,
       successScreen: undefined,
       showTime: false,
@@ -80,7 +79,7 @@ class MyDay extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    this.fetchMyDayInfo();
   }
 
   showSpinner = () => {
@@ -98,17 +97,17 @@ class MyDay extends React.Component<Props, State> {
     const request = {
       userId: '0051y000000NpxWAAS',
       role: 'TeamLeadId',
+      territoryid: 'T1',
     };
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
         const {data} = response;
         const myDayInfo = data.response;
-        console.info('myDayInfo..', myDayInfo.today[0]);
         this.closePopup();
-        // this.setState({
-        //   myDayInfo,
-        // });
+        this.setState({
+          myDayInfo,
+        });
       })
       .catch(error => {
         this.setState({
@@ -395,6 +394,18 @@ class MyDay extends React.Component<Props, State> {
     const {firstName = ''} = loginInfo;
     const {buttons, popup, successScreen} = this.state;
     const {style = {}} = popup || {};
+    const date = new Date();
+    const currentDate =
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+    AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
+      AsyncStorage.getItem('loggedInUserFirstName_' + currentDate).then(
+        users => {
+          this.firstName = users;
+        },
+      );
+    });
+    console.info('name...', this.firstName);
     return (
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
