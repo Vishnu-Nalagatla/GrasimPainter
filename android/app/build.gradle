@@ -87,8 +87,10 @@ apply from: "../../node_modules/react-native/react.gradle"
 project.ext.envConfigFiles = [
         devdebug: ".env",
         devrelease:".env",
-        stagedebug: ".env.staging",
-        stagerelease: ".env.staging",
+        qadebug: ".env.qa",
+        qarelease: ".env.qa",
+        uatdebug: ".env.uat",
+        uatrelease: ".env.uat",
         proddebug: ".env.production",
         prodrelease: ".env.production"
 ]

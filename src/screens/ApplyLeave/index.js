@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, TouchableOpacity, Image} from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
@@ -9,6 +9,9 @@ import POPUP_CONSTANTS from '../../enums/popup';
 import strings from '../../constants/strings';
 import CustomButton from '../../components/Button';
 import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
+import colors from '../../constants/colors';
+import { SFDC_API } from '../../requests';
+import errorImg from '../../assets/images/error/image.png';
 
 const leaveTypes = [
   {label: 'Sick', value: '1'},
@@ -94,6 +97,10 @@ const ApplyLeave = () => {
       return null;
     }
     switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
       case POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR:
         return (
           <CalendarPicker
@@ -159,7 +166,39 @@ const ApplyLeave = () => {
     return popupStyle;
   };
 
-  const invokeApplyLeave = () => {};
+  const invokeApplyLeave = () => {
+
+    const request = {
+      leaveType,
+      description,
+      fromHalfDay,
+      toHalfDay,
+      selectedFromDate,
+      selectedToDate,
+    };
+    console.info('invokeApplyLeave...', request);
+    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+    SFDC_API.assignCrewToProject(request)
+      .then(res => {
+        setPopup(undefined);
+      })
+      .catch(error => {
+        const popupInfo = {
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          style: styles.popup,
+          heading: 'Network Error',
+          message: error.message,
+          headingImage: errorImg,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => this.closePopup(),
+            },
+          ],
+        };
+        setPopup(popupInfo);
+      });
+  };
 
   return (
     <View style={styles.container}>

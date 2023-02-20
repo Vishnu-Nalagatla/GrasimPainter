@@ -12,13 +12,22 @@ class SplashScreen extends React.Component {
   }
 
   componentDidMount = () => {
-    API.setHeaders('d03c44ae42da46aaa7b0b63555e54477');
+    API.setHeaders('ea33876c78b146d683ea6693ef421fa9');
+    API.accessToken('ea33876c78b146d683ea6693ef421fa9')
+      .then(res => {
+        const {access_token} = res.data;
+        console.info('access_token ', access_token);
+        API.setBearerToken(access_token);
+      })
+      .catch(err => {
+        console.log('access token error', err);
+      });
+
     SFDC_API.setHeaders('d03c44ae42da46aaa7b0b63555e54477');
     SFDC_API.accessToken('d03c44ae42da46aaa7b0b63555e54477')
       .then(res => {
         const {access_token} = res.data;
         console.info('access_token ', access_token);
-        API.setBearerToken(access_token);
         SFDC_API.setBearerToken(access_token);
       })
       .catch(err => {
