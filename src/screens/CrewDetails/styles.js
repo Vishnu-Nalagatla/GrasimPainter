@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12 * vh,
     lineHeight: 18 * vh,
+    color: colors.black,
   },
   crewCard: {
     width: 328 * vw,
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12 * vh,
     lineHeight: 18 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   viewProfile: {
     fontFamily: 'Karla',
@@ -125,6 +127,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12 * vh,
     lineHeight: 16 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
 });
 

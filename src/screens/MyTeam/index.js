@@ -205,7 +205,7 @@ const CrewCard = ({crew, onPress}) => {
               resizeMode="contain"
               alt=""
             />
-            <Text>{status}</Text>
+            <Text style={styles.status}>{status}</Text>
           </View>
           <Text style={styles.availablitylabel}>
             {'Available from 30 Oct 2022'}

@@ -30,6 +30,13 @@ const styles = StyleSheet.create({
     color: colors.black,
     paddingLeft: 17 * vh,
   },
+  status: {
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: 12 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
+  },
   hrLine: {
     width: 251 * vh,
     borderColor: '#A2ABC4',
@@ -68,6 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 14 * vh,
     lineHeight: 22 * vh,
     marginBottom: 12 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   crewCalendarLabel: {
     fontFamily: 'Karla',
@@ -98,6 +106,7 @@ const styles = StyleSheet.create({
     lineHeight: 12 * vh,
     paddingLeft: 22 * vw,
     marginTop: 4 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   skillsWrapper: {
     flexDirection: 'row',
@@ -114,6 +123,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 12 * vh,
     lineHeight: 16 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
 });
 
