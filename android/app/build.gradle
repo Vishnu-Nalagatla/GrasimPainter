@@ -79,7 +79,7 @@ import org.apache.tools.ant.taskdefs.condition.Os
  */
 
 project.ext.react = [
-    enableHermes: true,  // clean and rebuild if changing
+    enableHermes: false,  // clean and rebuild if changing
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -238,6 +238,7 @@ android {
             signingConfig signingConfigs.debug
         }
         release {
+             debuggable true
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
@@ -254,11 +255,17 @@ android {
             versionNameSuffix " - dev"
             resValue "string", "app_name", "@string/app_name_debug"
         }
-        stage {
+        qa {
             dimension "api"
-            applicationIdSuffix ".stage"
-            versionNameSuffix " - stage"
-            resValue "string", "app_name", "@string/app_name_stage"
+            applicationIdSuffix ".qa"
+            versionNameSuffix " - qa"
+            resValue "string", "app_name", "@string/app_name_qa"
+        }
+        uat {
+            dimension "api"
+            applicationIdSuffix ".uat"
+            versionNameSuffix " - uat"
+            resValue "string", "app_name", "@string/app_name_uat"
         }
         prod {
             dimension "api"
