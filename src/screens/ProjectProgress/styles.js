@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 12 * vh,
     padding: 8 * vh,
+    color: colors.black,
   },
   address: {
     fontSize: 12 * vh,
@@ -155,6 +156,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '700',
     fontSize: 12 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   constraintValue: {
     flex: 1,
@@ -165,6 +167,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: '700',
     fontSize: 12 * vh,
+    color: 'rgba(0, 0, 0, 0.6)',
   },
   tabView: {
     alignSelf: 'center',
