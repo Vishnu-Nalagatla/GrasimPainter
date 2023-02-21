@@ -25,9 +25,9 @@ class Requests {
       Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
   };
 
-  sendOTP = body => this.axios.post(URLs.sendOTP, body);
+  sendOTP = body => this.axios.post(URLs.validateMobile, body);
 
-  validateUser = body => this.axios.post(URLs.validateUser, body);
+  validateUser = body => this.axios.post(URLs.validateMobile, body);
 
   verifyOtp = body => this.axios.post(URLs.verifyOtp, body);
 

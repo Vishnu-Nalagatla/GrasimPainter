@@ -71,7 +71,7 @@ class Otp extends React.Component<Props, State> {
     // const userName = '6301451336';
     this.showSpinner();
     API.sendOTP({
-      msisdn: userName,
+      mobileNumber: userName,
     })
       .then(response => {
         const {data} = response;
@@ -147,7 +147,7 @@ class Otp extends React.Component<Props, State> {
         const {data} = response;
         if (data && data.statusCode && data.statusCode === 103) {
           this.setState({validationMsg: data.message});
-        } else if (data.statusCode && data.statusCode === 101) {
+        } else if (data.statusCode && data.statusCode === 200) {
           const date = new Date();
           const currentDate =
             date.getFullYear() +
