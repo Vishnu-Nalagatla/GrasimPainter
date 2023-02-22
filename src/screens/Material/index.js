@@ -20,6 +20,8 @@ const Material = props => {
   const sliderValue = '23 Ltr';
   // const leftOver = 'Leftover';
   const [popup, setPopup] = useState(undefined);
+  const [putty, setPutty] = useState(0);
+  const [paint, setPaint] = useState(0);
 
   const {
     material = [
@@ -76,8 +78,11 @@ const Material = props => {
     setPopup(undefined);
   };
 
-  const onPress = () => {
-    const request = {};
+  const updateLeftOverMaterial = () => {
+    const request = {
+      putty,
+      paint,
+    };
     showSpinner();
     API.updateLeftMaterial(request)
       .then(res => {
@@ -100,10 +105,15 @@ const Material = props => {
       });
   };
   const onValueChange = (name, value) => {
-    console.info('onValueChange.....', name, value);
+    if (name === 'Putty') {
+      setPutty(value);
+    } else {
+      setPaint(value);
+    }
   };
   const MaterialCard = ({item} = props) => {
     const {name, brand, totalQuantity} = item;
+    const value = name === 'Putty' ? putty : paint;
     return (
       <View style={styles.materialCard}>
         <View style={styles.headerView}>
@@ -117,10 +127,13 @@ const Material = props => {
         <View style={styles.leftOverWrapper}>
           <Text style={styles.leftOverLabel}> {strings.leftOver}</Text>
           <View style={styles.leftOverView}>
-            <Text style={styles.leftOverValue}> {sliderValue}</Text>
+            <Text style={styles.leftOverValue}> {value}</Text>
           </View>
         </View>
-        <ProgressSlider onValueChange={value => onValueChange(name, value)} />
+        <ProgressSlider
+          value={value}
+          onValueChange={sliderValue => onValueChange(name, sliderValue)}
+        />
       </View>
     );
   };
@@ -175,7 +188,7 @@ const Material = props => {
             title={strings.saveLabel}
             textStyle={[styles.btnTxt]}
             style={[styles.button]}
-            onPress={onPress}
+            onPress={updateLeftOverMaterial}
           />
         </View>
         <View style={styles.materialusedView}>

@@ -10,11 +10,9 @@ import colors from '../../constants/colors';
 const {vh, vw} = ViewPort;
 const windowWidth = Dimensions.get('window').width;
 
-const ProgressSlider = ({onValueChange}) => {
-  const [value, setState] = useState(0);
+const ProgressSlider = ({value, onValueChange}) => {
   const left = (value * (windowWidth - 190)) / 90;
   const onChange = data => {
-    setState(data);
     onValueChange(data[0]);
   };
   const viewStyle = {left: left};
