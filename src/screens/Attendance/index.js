@@ -116,7 +116,9 @@ const leaves = [
     index: 12,
   },
 ];
-const leave = 'Leaves';
+const leavesLable = 'Leaves';
+const balanceLabel = 'Balance';
+const balanceCount = 5;
 class Attendance extends React.Component<Props, State> {
   constructor(props) {
     super(props);
@@ -199,7 +201,14 @@ class Attendance extends React.Component<Props, State> {
           <Text style={styles.attendanceLabel}> {attendanceLabel}</Text>
         </TouchableOpacity>
         <View style={styles.leaceRow}>
-          <Text style={styles.leavesLabel}>{leave}</Text>
+          <Text style={styles.leavesLabel}>{leavesLable}</Text>
+          <View style={styles.balanceRow}>
+            <Text style={styles.balanceLabel}>{balanceLabel}</Text>
+            <Text style={styles.balanceLabel}>{balanceCount}</Text>
+          </View>
+        </View>
+        <View style={styles.leaceRow}>
+          <Text style={styles.allLabel}>{'All'}</Text>
           <TouchableOpacity onPress={this.applyLeave}>
             <Image
               source={applyLeave}
