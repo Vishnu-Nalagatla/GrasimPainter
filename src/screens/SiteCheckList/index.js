@@ -10,12 +10,11 @@ const SiteCheckList = () => {
   const lable1 = 'Ensure following items are right';
   const lable2 = 'Let’s check few more items';
   const btnlabel = 'Save Checklist';
-
-  const checkList = [
+  const checkList1 = [
     {
       question:
         'Will customer vacate the space and move personal items for job execution?',
-      status: true,
+      status: false,
       index: 1,
     },
     {
@@ -45,7 +44,8 @@ const SiteCheckList = () => {
       index: 6,
     },
   ];
-  const moreCheckList = [
+
+  const moreCheckList1 = [
     {
       question: 'Is the customer aligned with the current project start date?',
       status: true,
@@ -67,9 +67,9 @@ const SiteCheckList = () => {
       index: 103,
     },
   ];
+  const [checkList, setCheckList] = useState(checkList1);
+  const [moreCheckList, setMoreCheckList] = useState(checkList1);
 
-  const [checkList1, siteCheckList1] = useState(checkList);
-  const [checkList2, siteCheckList2] = useState(moreCheckList);
   const onPress = () => {
     console.info('onPress..');
   };
@@ -110,8 +110,8 @@ const SiteCheckList = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CheckList data={checkList1} lable={lable1} />
-      <CheckList data={checkList2} lable={lable2} />
+      <CheckList data={checkList} lable={lable1}  />
+      <CheckList data={moreCheckList} lable={lable2} />
       <CustomButton
         title={btnlabel}
         textStyle={[styles.btnTxt]}

@@ -1,16 +1,14 @@
-import {ScrollView} from 'native-base';
 import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
-import SwitchButtons from '../../components/SwitchButtons';
-import Accordion from 'react-native-collapsible/Accordion';
 
 import styles from './styles';
 import multiple from '../../assets/images/multiple/image.png';
 import locationImg from '../../assets/images/location/image.png';
+import Clipboard from '@react-native-community/clipboard';
 
 const ProjectInfo = props => {
   const {
-    Name = '12345',
+    projectId = '1234567',
     address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
   } = props;
   return (
@@ -20,12 +18,14 @@ const ProjectInfo = props => {
         <View style={styles.projectInfo}>
           <Text style={styles.projectId}>{'Project ID'}</Text>
           <View style={styles.projectIdRow}>
-            <Text style={styles.projectName}>{Name}</Text>
-            <Image
-              source={multiple}
-              style={styles.multiple}
-              resizeMode="contain"
-            />
+            <Text style={styles.projectName}>{projectId}</Text>
+            <TouchableOpacity onPress={() => Clipboard.setString(projectId)}>
+              <Image
+                source={multiple}
+                style={styles.multiple}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.hrLine} />
