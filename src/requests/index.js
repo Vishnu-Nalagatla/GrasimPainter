@@ -84,17 +84,12 @@ class SfdcAPI {
   requestForQualityCheck = (projectId, body) =>
     this.instance.patch(`${URLs.qualityCheckRequest}${projectId}`, body);
 
-  // scheduleSiteVisit = body => {
-  //   return this.instance.post(URLs.scheduleSiteVisit, body);
-  // };
-
   scheduleSiteVisit = body => this.instance.post(URLs.scheduleSiteVisit, body);
-  // a061y000000EvVzAAK
+  getCrewCalendar = territoryId => {
+    return this.instance.get(`${URLs.getCrewCalendar}${territoryId}`);
+  };
+
   updateDatesWithoutRoomSequence = (projectId, body) => {
-    console.info(
-      'updateDatesWithoutRoomSequence...',
-      `${URLs.updateDatesWithoutRoomSequence}${projectId}`,
-    );
     return this.instance.patch(
       `${URLs.updateDatesWithoutRoomSequence}${projectId}`,
       body,

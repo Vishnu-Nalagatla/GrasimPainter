@@ -14,6 +14,7 @@ import styles from './styles';
 import colors from '../../constants/colors';
 import Popup from '../../components/Popup';
 import StandardPopup from '../../components/Common/StandardPopup';
+import { SFDC_API } from '../../requests';
 
 const weekData = [
   {
@@ -123,12 +124,44 @@ class CrewCalendar extends React.Component<Props, State> {
     this.state = {
       popup: undefined,
       index: 1,
+      crewData,
     };
   }
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    this.getCrewCalendar();
   }
+
+  showSpinner = () => {
+    this.setState({
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+    });
+  };
+
+  closePopup = () => {
+    this.setState({popup: undefined});
+  };
+  getCrewCalendar = () => {
+    const territoryId = 'T1';
+    this.showSpinner();
+    SFDC_API.getCrewCalendar(territoryId)
+      .then(response => {
+        const {data} = response;
+        const crewInfo = data.records;
+        console.info('crewInfo... ', crewInfo);
+        this.setState({
+          crewData: crewInfo,
+        });
+        this.closePopup();
+      })
+      .catch(error => {
+        this.setState({
+          validationMsg: 'Error invoking Send OTP API',
+          popup: undefined,
+        });
+        console.log('send otp error', error);
+      });
+  };
 
   onSwipeLeft = gestureState => {
     const crewlength = crewData[0].crew.length - 4;

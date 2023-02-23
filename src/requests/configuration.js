@@ -10,6 +10,9 @@ export default {
   assignCrewToProject: '/sfdc/assign-crew-to-project/',
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event/',
+  getCrewCalendar: '/sfdc/get-crew-calendar/',
+
+
   accessToken: '/sfdc/access-token/',
   updateDatesWithoutRoomSequence:
     '/sfdc/update-room-project-dates-without-room-sequence/',
