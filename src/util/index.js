@@ -13,6 +13,23 @@ class UTIL {
     }
     Linking.openURL(phoneNumber);
   };
+  currentDate = () => {
+    const date = new Date();
+    return (
+      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+    );
+  };
+  prevDate = () => {
+    const date = new Date();
+    return (
+      date.getFullYear() +
+      '-' +
+      (date.getMonth() + 1) +
+      '-' +
+      date.getDate() -
+      1
+    );
+  };
 }
 
 export default new UTIL();

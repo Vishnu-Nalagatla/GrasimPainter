@@ -26,7 +26,7 @@ class MyTeam extends React.Component<Props, State> {
   crewCalendar = 'Crew Calendar';
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    // this.getMyTeam();
   }
 
   showSpinner = () => {
@@ -39,7 +39,7 @@ class MyTeam extends React.Component<Props, State> {
     this.setState({popup: undefined});
   };
 
-  fetchMyTeamInfo = () => {
+  getMyTeam = () => {
     const request = {
       userId: '0051y000000NpxWAAS',
       role: 'TeamLeadId',

@@ -14,6 +14,8 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
+import {API, SFDC_API} from '../../requests';
+import StandardPopup from '../../components/Common/StandardPopup';
 
 const PROJECT_DETAILS_NAVIGATION = {
   PROGRESS: 0,
@@ -37,8 +39,39 @@ class Projects extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    // this.getMyProjects();
   }
+
+  showSpinner = () => {
+    this.setState({
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+    });
+  };
+
+  closePopup = () => {
+    this.setState({popup: undefined});
+  };
+  getMyProjects = () => {
+    const request = {
+      TeamLeadId: '0051y000000NpxWAAS',
+    };
+    this.showSpinner();
+    SFDC_API.myProjectDetails(request)
+      .then(response => {
+        const {data} = response;
+        const ProjectList = data.ProjectList;
+        this.closePopup();
+        this.setState({
+          newProjects: ProjectList,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          validationMsg: 'Error invoking Send OTP API',
+          popup: undefined,
+        });
+      });
+  };
 
   onPress = () => {
     const {navigation} = this.props;
@@ -51,7 +84,6 @@ class Projects extends React.Component<Props, State> {
 
   getPopupContent = () => {
     const {popup} = this.state;
-
     if (!popup) {
       return null;
     }
@@ -60,6 +92,8 @@ class Projects extends React.Component<Props, State> {
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
         );
+      case POPUP_CONSTANTS.ERROR_POPUP:
+        return <StandardPopup {...popup} />;
     }
   };
 
@@ -94,12 +128,22 @@ const Project = ({project, label, index, onPress}) => {
         <Text style={styles.status}> {ProjectPlanStatus}</Text>
       </View>
       <View style={styles.dateInfo}>
-        <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
+        <Image
+          source={bellImg}
+          style={styles.flagImg}
+          resizeMode="contain"
+          alt=""
+        />
         <Text style={styles.name}> {'Starting in 20 days'}</Text>
       </View>
       <View style={styles.bottomInfo}>
         <Text style={styles.date}> {'30 Oct 2022'}</Text>
-        <Image source={bellImg} style={styles.flagImg} resizeMode="contain" />
+        <Image
+          source={bellImg}
+          style={styles.flagImg}
+          resizeMode="contain"
+          alt=""
+        />
       </View>
     </TouchableOpacity>
   );

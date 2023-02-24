@@ -28,6 +28,7 @@ import SwitchButtons from '../../components/SwitchButtons';
 import {setMyDayData} from '../../store/actions';
 import strings from '../../globalization';
 import moment from 'moment';
+import UTIL from '../../util/index';
 
 export interface Props {
   props: String;
@@ -75,15 +76,21 @@ class MyDay extends React.Component<Props, State> {
       successScreen: undefined,
       showTime: false,
       calendarCrewIndex: 1,
+      loggedInUser: {},
     };
   }
 
   componentDidMount() {
     this.fetchMyDayInfo();
+    const currentDate = UTIL.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      this.setState({
+        loggedInUser: JSON.parse(user),
+      });
+    });
   }
 
   showSpinner = () => {
-    console.info(' this.showSpinner();...');
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
@@ -94,10 +101,12 @@ class MyDay extends React.Component<Props, State> {
   };
 
   fetchMyDayInfo = () => {
+    const {loggedInUser} = this.state;
+    const {Id, territoryid = 'T1'} = loggedInUser;
     const request = {
-      userId: '0051y000000NpxWAAS',
+      userId: Id,
       role: 'TeamLeadId',
-      territoryid: 'T1',
+      territoryid,
     };
     this.showSpinner();
     API.getMyDayInfo(request)
@@ -134,10 +143,10 @@ class MyDay extends React.Component<Props, State> {
       buttons: buttonsChanged,
       activeTabIndex,
     });
-    // this.fetchMyDayInfo();
   };
 
   requestForQualityCheck = project => {
+    const {Id} = project;
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
@@ -146,17 +155,15 @@ class MyDay extends React.Component<Props, State> {
       QC_Allocated_Date__c: date,
       QC_Check_Status__c: 'Requested',
     };
-    const projectId = 'a061y000000EvblAAC';
-    console.info('request: ', request);
+    const projectId = Id;
+    this.showSpinner();
     SFDC_API.requestForQualityCheck(projectId, request)
       .then(res => {
-        console.info('res: ', res);
         this.setState({
           popup: undefined,
         });
       })
       .catch(error => {
-        console.info('error: ', error);
         this.setState({
           popup: {
             type: POPUP_CONSTANTS.ERROR_POPUP,
@@ -177,16 +184,17 @@ class MyDay extends React.Component<Props, State> {
 
   assignCrewToProject = project => {
     const {Id} = project;
+    const {loggedInUser} = this.state;
+    const {Id: userId} = loggedInUser;
     this.setState({
       popup: {
         type: POPUP_CONSTANTS.SPINNER_POPUP,
       },
     });
     const request = {
-      hpId: '0031y00000RNstfAAD',
-      projectID: 'a061y000000Ew41AAC',
+      hpId: userId,
+      projectID: Id,
     };
-    console.info('assignCrewToProject request..', request);
     SFDC_API.assignCrewToProject(request)
       .then(res => {
         this.setState({
@@ -194,7 +202,6 @@ class MyDay extends React.Component<Props, State> {
         });
       })
       .catch(error => {
-        console.info('assignCrewToProject.......', error);
         this.setState({
           popup: {
             type: POPUP_CONSTANTS.CREW_OCCUPIED,
@@ -214,6 +221,8 @@ class MyDay extends React.Component<Props, State> {
   };
 
   scheduleSiteVisit = project => {
+    const {loggedInUser} = this.state;
+    const {Id: userId} = loggedInUser;
     const {Id} = project;
 
     this.setState(
@@ -228,12 +237,14 @@ class MyDay extends React.Component<Props, State> {
     // 2 days before..
     //  start Date : today +  1day,
     //  EndDateTime: start Date + 30 min.
-
+    const today = new Date();
+    const StartDateTime = today.addDays(1);
+    const EndDateTime = new Date(StartDateTime.getTime() + 30 * 60000);
     const request = {
-      OwnerId: '0051y000000NpxWAAS', // loggedin UserId
+      OwnerId: userId, // loggedin UserId
       WhatId: Id,
-      StartDateTime: '2023-01-04T14:00:00Z',
-      EndDateTime: '2023-01-04T14:30:00Z',
+      StartDateTime,
+      EndDateTime,
       Type: 'TL Visit',
       Subject: 'TL Visit',
     };
@@ -390,22 +401,11 @@ class MyDay extends React.Component<Props, State> {
   render() {
     const {reduxProps} = this.props;
     const {login} = reduxProps;
-    const {loginInfo = {}} = login;
-    const {firstName = ''} = loginInfo;
-    const {buttons, popup, successScreen} = this.state;
+    console.info('login..', login);
+    const {buttons, popup, successScreen, loggedInUser} = this.state;
+    const {FirstName} = loggedInUser;
     const {style = {}} = popup || {};
-    const date = new Date();
-    const currentDate =
-      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-    AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
-      AsyncStorage.getItem('loggedInUserFirstName_' + currentDate).then(
-        users => {
-          this.firstName = users;
-        },
-      );
-    });
-    console.info('name...', this.firstName);
     return (
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
@@ -417,7 +417,7 @@ class MyDay extends React.Component<Props, State> {
           <View style={styles.bodyContainer}>
             <View style={styles.welcomeMessage}>
               <Text style={styles.welcomeText}>
-                Hi {firstName},{strings.goodMoringing}
+                Hi {FirstName}, {strings.goodMoringing}
               </Text>
             </View>
             <View style={styles.body}>
