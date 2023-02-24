@@ -83,11 +83,6 @@ class MyDay extends React.Component<Props, State> {
   componentDidMount() {
     this.fetchMyDayInfo();
     const currentDate = UTIL.currentDate();
-    AsyncStorage.getItem('loggedInUserFirstName_' + currentDate).then(user => {
-      this.setState({
-        firstName: user,
-      });
-    });
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
       this.setState({
         loggedInUser: JSON.parse(user),

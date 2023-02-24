@@ -53,7 +53,7 @@ function RootNavigator(props) {
   const setStorage = () => {
     const date = new Date();
     const currentDate = util.currentDate();
-    AsyncStorage.clear();
+    // AsyncStorage.clear();
     // this.userExists = {};
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
