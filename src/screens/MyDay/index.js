@@ -102,7 +102,7 @@ class MyDay extends React.Component<Props, State> {
 
   fetchMyDayInfo = () => {
     const {loggedInUser} = this.state;
-    const {Id, role, territoryid = 'T1'} = loggedInUser;
+    const {Id, territoryid = 'T1'} = loggedInUser;
     const request = {
       userId: Id,
       role: 'TeamLeadId',
@@ -146,6 +146,7 @@ class MyDay extends React.Component<Props, State> {
   };
 
   requestForQualityCheck = project => {
+    const {Id} = project;
     this.setState({
       popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
@@ -154,11 +155,10 @@ class MyDay extends React.Component<Props, State> {
       QC_Allocated_Date__c: date,
       QC_Check_Status__c: 'Requested',
     };
-    const projectId = 'a061y000000EvblAAC';
+    const projectId = Id;
     this.showSpinner();
     SFDC_API.requestForQualityCheck(projectId, request)
       .then(res => {
-        console.info('res: ', res);
         this.setState({
           popup: undefined,
         });
@@ -184,16 +184,17 @@ class MyDay extends React.Component<Props, State> {
 
   assignCrewToProject = project => {
     const {Id} = project;
+    const {loggedInUser} = this.state;
+    const {Id: userId} = loggedInUser;
     this.setState({
       popup: {
         type: POPUP_CONSTANTS.SPINNER_POPUP,
       },
     });
     const request = {
-      hpId: '0031y00000RNstfAAD',
-      projectID: 'a061y000000Ew41AAC',
+      hpId: userId,
+      projectID: Id,
     };
-    console.info('assignCrewToProject request..', request);
     SFDC_API.assignCrewToProject(request)
       .then(res => {
         this.setState({
@@ -201,7 +202,6 @@ class MyDay extends React.Component<Props, State> {
         });
       })
       .catch(error => {
-        console.info('assignCrewToProject.......', error);
         this.setState({
           popup: {
             type: POPUP_CONSTANTS.CREW_OCCUPIED,
@@ -221,6 +221,8 @@ class MyDay extends React.Component<Props, State> {
   };
 
   scheduleSiteVisit = project => {
+    const {loggedInUser} = this.state;
+    const {Id: userId} = loggedInUser;
     const {Id} = project;
 
     this.setState(
@@ -235,12 +237,14 @@ class MyDay extends React.Component<Props, State> {
     // 2 days before..
     //  start Date : today +  1day,
     //  EndDateTime: start Date + 30 min.
-
+    const today = new Date();
+    const StartDateTime = today.addDays(1);
+    const EndDateTime = new Date(StartDateTime.getTime() + 30 * 60000);
     const request = {
-      OwnerId: '0051y000000NpxWAAS', // loggedin UserId
+      OwnerId: userId, // loggedin UserId
       WhatId: Id,
-      StartDateTime: '2023-01-04T14:00:00Z',
-      EndDateTime: '2023-01-04T14:30:00Z',
+      StartDateTime,
+      EndDateTime,
       Type: 'TL Visit',
       Subject: 'TL Visit',
     };
