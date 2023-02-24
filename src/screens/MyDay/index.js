@@ -81,12 +81,16 @@ class MyDay extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.fetchMyDayInfo();
     const currentDate = UTIL.currentDate();
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
-      this.setState({
-        loggedInUser: JSON.parse(user),
-      });
+      this.setState(
+        {
+          loggedInUser: JSON.parse(user),
+        },
+        () => {
+          this.fetchMyDayInfo(JSON.parse(user));
+        },
+      );
     });
   }
 
@@ -100,13 +104,13 @@ class MyDay extends React.Component<Props, State> {
     this.setState({popup: undefined});
   };
 
-  fetchMyDayInfo = () => {
-    const {loggedInUser} = this.state;
-    const {Id, territoryid = 'T1'} = loggedInUser;
+  fetchMyDayInfo = user => {
+    const loggedInUser = JSON.parse(user);
+    const {Id, Territory__c} = loggedInUser;
     const request = {
       userId: Id,
       role: 'TeamLeadId',
-      territoryid,
+      territoryid: Territory__c,
     };
     this.showSpinner();
     API.getMyDayInfo(request)
@@ -276,9 +280,10 @@ class MyDay extends React.Component<Props, State> {
 
   viewCrewCalendar = () => {
     const {navigation} = this.props;
-    const {calendarCrewIndex} = this.state;
+    const {calendarCrewIndex, myDayInfo} = this.state;
     navigation.navigate(RouteConfig.CrewCalendar, {
       calendarCrewIndex: calendarCrewIndex,
+      crewList: myDayInfo.crewList,
     });
   };
 
@@ -401,7 +406,7 @@ class MyDay extends React.Component<Props, State> {
   render() {
     const {reduxProps} = this.props;
     const {login} = reduxProps;
-    console.info('login..', login);
+    // console.info('login..', login);
     const {buttons, popup, successScreen, loggedInUser} = this.state;
     const {FirstName} = loggedInUser;
     const {style = {}} = popup || {};
