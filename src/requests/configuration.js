@@ -11,6 +11,7 @@ export default {
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event/',
   getCrewCalendar: '/sfdc/get-crew-calendar/',
+  upsertUserLeaves: '/sfdc/upsert-user-leaves/',
 
 
   accessToken: '/sfdc/access-token/',

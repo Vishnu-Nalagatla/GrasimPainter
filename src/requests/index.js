@@ -95,6 +95,10 @@ class SfdcAPI {
       body,
     );
   };
+
+  upsertUserLeaves = body => {
+    return this.instance.post(URLs.upsertUserLeaves, body);
+  };
 }
 
 export const API = new Requests();

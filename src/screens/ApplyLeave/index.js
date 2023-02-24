@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -17,23 +17,24 @@ import strings from '../../constants/strings';
 import CustomButton from '../../components/Button';
 import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import colors from '../../constants/colors';
-import {SFDC_API} from '../../requests';
+import { SFDC_API } from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
-import {ScrollView} from 'native-base';
+import { ScrollView } from 'native-base';
+import moment from 'moment';
 
 const leaveTypes = [
-  {label: 'Sick', value: '1'},
-  {label: 'Casual', value: '2'},
-  {label: 'Vacation', value: '3'},
-  {label: 'Maternity', value: '4'},
-  {label: 'Paternity', value: '5'},
-  {label: 'Loss of Pay', value: '6'},
-  {label: 'Work from Home', value: '7'},
+  { label: 'Sick', value: '1' },
+  { label: 'Casual', value: '2' },
+  { label: 'Vacation', value: '3' },
+  { label: 'Maternity', value: '4' },
+  { label: 'Paternity', value: '5' },
+  { label: 'Loss of Pay', value: '6' },
+  { label: 'Work from Home', value: '7' },
 ];
 
 const halfDay = [
-  {label: '1st Half', value: '1'},
-  {label: '2nd Half', value: '2'},
+  { label: '1st Half', value: '1' },
+  { label: '2nd Half', value: '2' },
 ];
 
 const ApplyLeave = () => {
@@ -119,7 +120,7 @@ const ApplyLeave = () => {
 
   const getPreviousComponent = () => {
     return (
-      <View style={styles.buttonStyle}>
+      <View style={[styles.buttonStyle, { marginLeft: 10, margin: 0 }]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -131,7 +132,7 @@ const ApplyLeave = () => {
 
   const getNextComponent = () => {
     return (
-      <View style={styles.buttonStyle}>
+      <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -154,19 +155,34 @@ const ApplyLeave = () => {
   // };
 
   const invokeApplyLeave = () => {
-    const request = {
-      leaveType,
-      description,
-      fromHalfDay,
-      toHalfDay,
-      selectedFromDate,
-      selectedToDate,
-    };
+   
+   const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
+   const toDate = moment(selectedToDate).format('yyyy-MM-DD');
+    debugger
+
+    const request = [{
+      "OwnerId": "0051y000000NpxWAAS",
+      "WhatId": "",
+      "StartDateTime": fromDate,
+      "EndDateTime": toDate,
+      "IsAllDayEvent": true,
+      "Type": "Leave",
+      "Subject": "Leave",
+      "User_Id_And_Date__c": `0051y000000NpxWAAS-${fromDate}`,
+      "Operation_Type__c": "Leave",
+      "Leave_Description__c": description,
+      "Leave_Portion__c": fromHalfDay+"",
+      "Leave_Status__c": "Pending",
+      "Leave_Type__c": leaveType,
+      "Unique_ID__c": (new Date()).getMilliseconds()+"",
+      "Assigned_Approver__c": "0051y000000O5rkAAC"
+    }];
     console.info('invokeApplyLeave...', request);
-    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
-    SFDC_API.assignCrewToProject(request)
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+    SFDC_API.upsertUserLeaves(request)
       .then(res => {
-        setPopup(undefined);
+        console.log('leave apply resp->',res);
+        //setPopup(undefined);
       })
       .catch(error => {
         const popupInfo = {
@@ -185,13 +201,13 @@ const ApplyLeave = () => {
         setPopup(popupInfo);
       });
   };
-  const customDatesStyles = [{style: {with: 300}}];
+  const customDatesStyles = [{ style: { with: 300 } }];
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {renderLabel()}
       <Dropdown
-        style={[styles.dropdown, {borderColor: 'blue'}]}
+        style={[styles.dropdown, { borderColor: 'blue' }]}
         placeholderStyle={styles.selectedTextStyle}
         selectedTextStyle={styles.selectedTextStyle}
         inputSearchStyle={[styles.selectedTextStyle, styles.inputSearchStyle]}
@@ -242,7 +258,7 @@ const ApplyLeave = () => {
         <View style={styles.fromDateContainer}>
           {renderHalfDayLabel()}
           <Dropdown
-            style={[styles.dropdown, {width: '100%'}]}
+            style={[styles.dropdown, { width: '100%' }]}
             placeholderStyle={styles.selectedTextStyle}
             selectedTextStyle={styles.selectedTextStyle}
             data={halfDay}
@@ -265,7 +281,8 @@ const ApplyLeave = () => {
             nextComponent={getNextComponent()}
             startFromMonday={true}
             showDayStragglers={true}
-            selectedDayColor="#2C4DAE"
+            selectedDayTextColor="#FFF"
+            todayBackgroundColor='#2C4DAE'
             textStyle={styles.textStyle}
             customDatesStyles={customDatesStyles}
             weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
@@ -296,7 +313,7 @@ const ApplyLeave = () => {
         <View style={styles.fromDateContainer}>
           {renderHalfDayLabel()}
           <Dropdown
-            style={[styles.dropdown, {width: '100%'}]}
+            style={[styles.dropdown, { width: '100%' }]}
             placeholderStyle={styles.selectedTextStyle}
             selectedTextStyle={styles.selectedTextStyle}
             data={halfDay}
