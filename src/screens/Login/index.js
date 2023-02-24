@@ -63,10 +63,13 @@ class Login extends React.Component<Props, State> {
           this.setState({validationMsg: data.message, popup: undefined});
         } else if (data.code && data.code === 1701) {
           const parsedObject = JSON.parse(data.response);
+          console.info('parsedObject... ', parsedObject);
           this.closePopup();
           navigation.navigate(RouteConfig.Otp, {
             userName: userName,
             firstName: parsedObject ? parsedObject.firstName : '',
+            role: parsedObject ? parsedObject.role : '',
+            Id: parsedObject ? parsedObject.Id : '',
             lastName: parsedObject ? parsedObject.lastName : '',
           });
         }

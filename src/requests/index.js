@@ -10,6 +10,8 @@ class Requests {
     this.axios = Axios.create({
       baseURL: Config.API_BASE_URL,
     });
+    this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+      Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
   }
 
   setBuildURL = url => {
@@ -40,15 +42,15 @@ class Requests {
     this.axios.post(URLs.requestForQualityCheck, body);
 
   updateLeftMaterial = body => this.axios.post(URLs.updateLeftMaterial, body);
-
-  // MY DAY
 }
+
 class SfdcAPI {
   constructor() {
     this.instance = Axios.create({
       baseURL: Config.API_BASE_URL,
-      // 00D1y0000008pqe!ARgAQCqrzgqHPiGpnZdPoELBaU3udVlGZk1F0_gdUV6kjwNaIQW3H3VBvnEXI123Cg.CA7TCYIwE1c.lB5zMOIP9SRiMJA6U
     });
+    this.instance.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+      Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
   }
 
   setBuildURL = url => {
@@ -80,6 +82,8 @@ class SfdcAPI {
   assignCrewToProject = body => {
     return this.instance.post(URLs.assignCrewToProject, body);
   };
+
+  myProjectDetails = body => this.instance.post(URLs.myProjectDetails, body);
 
   requestForQualityCheck = (projectId, body) =>
     this.instance.patch(`${URLs.qualityCheckRequest}${projectId}`, body);

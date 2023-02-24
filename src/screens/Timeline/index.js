@@ -52,7 +52,7 @@ const Timeline = props => {
   };
 
   const getTimeLineSequence = () => {
-    const roomsList = myDayInfo.RoomList;
+    const roomsList = myDayInfo.RoomList || [];
     let sequencedArray = roomsList.sort(compare);
     const roomOrderedList = getCalculatedTimelineSequence(sequencedArray);
     setTimeLineData(roomOrderedList.reverse());

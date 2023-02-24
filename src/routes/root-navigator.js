@@ -21,6 +21,7 @@ import AttendanceNavigator from './attendance-navigator';
 import MyTeamNavigator from './myteam-navigator';
 import MyDayNavigator from './myday-navigator';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../util';
 
 const RootStack = createStackNavigator();
 
@@ -51,9 +52,9 @@ function RootNavigator(props) {
 
   const setStorage = () => {
     const date = new Date();
-    const currentDate =
-      date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-    // AsyncStorage.clear();
+    const currentDate = util.currentDate();
+    AsyncStorage.clear();
+    // this.userExists = {};
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
         this.userExists = true;

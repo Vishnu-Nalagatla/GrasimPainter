@@ -11,7 +11,7 @@ export default {
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event/',
   getCrewCalendar: '/sfdc/get-crew-calendar/',
-
+  myProjectDetails: '/sfdc/expose-project-details/',
 
   accessToken: '/sfdc/access-token/',
   updateDatesWithoutRoomSequence:

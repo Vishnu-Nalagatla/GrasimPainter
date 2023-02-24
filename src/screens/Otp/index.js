@@ -14,6 +14,7 @@ import colors from '../../constants/colors';
 import {setLoginData} from '../../store/actions';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UTIL from '../../util/index';
 
 export interface Props {
   navigation: Navigator;
@@ -130,7 +131,12 @@ class Otp extends React.Component<Props, State> {
     const {otp} = this.state;
     const {navigation, route, dispatchSetLoginData} = this.props;
     const {params} = route;
-    const {userName, firstName} = params;
+    const {userName, firstName, role, Id} = params;
+    const userInfo = {
+      firstName,
+      Id,
+      role,
+    };
     if (otp.length === 0) {
       this.setState({validationMsg: strings.emptyOtp});
       return;
@@ -148,20 +154,9 @@ class Otp extends React.Component<Props, State> {
         if (data && data.statusCode && data.statusCode === 103) {
           this.setState({validationMsg: data.message});
         } else if (data.statusCode && data.statusCode === 200) {
-          const date = new Date();
-          const currentDate =
-            date.getFullYear() +
-            '-' +
-            (date.getMonth() + 1) +
-            '-' +
-            date.getDate();
-          const prevDate =
-            date.getFullYear() +
-            '-' +
-            (date.getMonth() + 1) +
-            '-' +
-            date.getDate() -
-            1;
+          console.info('userInfo...', data.response);
+          const currentDate = UTIL.currentDate();
+          const prevDate = UTIL.prevDate();
           AsyncStorage.removeItem('loggedInUser_' + prevDate);
           AsyncStorage.removeItem('currentUser_' + prevDate);
           AsyncStorage.setItem('currentUser_' + currentDate, userName);
@@ -185,6 +180,10 @@ class Otp extends React.Component<Props, State> {
                   firstName,
                 );
                 AsyncStorage.setItem(
+                  'loggedInUser' + currentDate,
+                  JSON.stringify(data.response),
+                );
+                AsyncStorage.setItem(
                   'loggedInUser_' + currentDate,
                   JSON.stringify(updatedUser),
                 ).then(res => {
@@ -199,6 +198,10 @@ class Otp extends React.Component<Props, State> {
               AsyncStorage.setItem(
                 'loggedInUserFirstName_' + currentDate,
                 firstName,
+              );
+              AsyncStorage.setItem(
+                'loggedInUser' + currentDate,
+                JSON.stringify(data.response),
               );
               AsyncStorage.setItem(
                 'loggedInUser_' + currentDate,
