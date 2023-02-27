@@ -17,13 +17,14 @@ import ProgressPercentage from '../../components/ProgressPercentage';
 import RouteConfig from '../../constants/route-config';
 
 const ProjectProgress = props => {
-  const {project} = props;
+  const {project={}, loggedInUser = {}} = props;
   const {
     ProjectStartDate,
     ProjectEndDate,
     paymentInfo = '1st payment received',
     address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
   } = project || {};
+  const {roleKey = 'TeamLeadId'} = loggedInUser || {};
   const startDate = Moment(ProjectStartDate).format('DD MMM YYYY');
   const endDate = Moment(ProjectEndDate).format('DD MMM YYYY');
 

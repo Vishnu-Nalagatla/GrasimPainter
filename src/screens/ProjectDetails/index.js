@@ -28,22 +28,34 @@ const ProjectDetails = props => {
     {key: 'info', title: 'Info'},
   ]);
   const progressRoute = () => (
-    <ProjectProgress project={params.project} {...props} />
+    <ProjectProgress
+      project={params.project}
+      loggedInUser={params.loggedInUser}
+    />
   );
-  const materialRoute = () => <Material project={params.project} />;
-  const siteCheckListRoute = () => <SiteCheckList project={params.project} />;
-  const reportsRoute = () => <Reports project={params.project} />;
-  const infoRoute = () => <ProjectInfo project={params.project} />;
+  const materialRoute = () => (
+    <Material project={params.project} loggedInUser={params.loggedInUser} />
+  );
+  const siteCheckListRoute = () => (
+    <SiteCheckList
+      project={params.project}
+      loggedInUser={params.loggedInUser}
+    />
+  );
+  const reportsRoute = () => (
+    <Reports project={params.project} loggedInUser={params.loggedInUser} />
+  );
+  const infoRoute = () => (
+    <ProjectInfo project={params.project} loggedInUser={params.loggedInUser} />
+  );
 
-  const SecondRoute = () => (
-    // eslint-disable-next-line react-native/no-inline-styles
-    // <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-    <Timeline />
+  const timeLineRoute = () => (
+    <Timeline project={params.project} loggedInUser={params.loggedInUser} />
   );
 
   const renderScene = SceneMap({
     progress: progressRoute,
-    timeline: SecondRoute,
+    timeline: timeLineRoute,
     material: materialRoute,
     reports: reportsRoute,
     siteCheckList: siteCheckListRoute,

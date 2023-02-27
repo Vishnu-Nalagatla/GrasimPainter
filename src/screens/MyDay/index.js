@@ -71,7 +71,7 @@ class MyDay extends React.Component<Props, State> {
           status: false,
         },
       ],
-      myDayInfo: [],
+      myDayInfo: data.response,
       activeTabIndex: 1,
       successScreen: undefined,
       showTime: false,
@@ -88,7 +88,7 @@ class MyDay extends React.Component<Props, State> {
           loggedInUser: JSON.parse(user),
         },
         () => {
-          this.fetchMyDayInfo(JSON.parse(user));
+          // this.fetchMyDayInfo(JSON.parse(user));
         },
       );
     });
@@ -106,10 +106,11 @@ class MyDay extends React.Component<Props, State> {
 
   fetchMyDayInfo = user => {
     const loggedInUser = JSON.parse(user);
-    const {Id, Territory__c} = loggedInUser;
+    //FIXME:
+    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
     const request = {
       userId: Id,
-      role: 'TeamLeadId',
+      role: roleKey,
       territoryid: Territory__c,
     };
     this.showSpinner();
@@ -291,14 +292,16 @@ class MyDay extends React.Component<Props, State> {
     const {displayStatus} = project || {};
     const {order} = displayStatus || {};
     const {navigation, dispatchSetMyDayData} = this.props;
+    const {loggedInUser} = this.state;
     if (projectData) {
       dispatchSetMyDayData(projectData);
     }
     switch (+order) {
       case Priority.CREATE_PROJECT_PLAN:
         dispatchSetMyDayData(project);
-        navigation.navigate(RouteConfig.ProjectsDetails, {
+        navigation.navigate(RouteConfig.ProjectDetails, {
           project,
+          loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
         break;
@@ -307,8 +310,9 @@ class MyDay extends React.Component<Props, State> {
         break;
       case Priority.CONFIRM_UPDATED_PLAN:
         dispatchSetMyDayData(project);
-        navigation.navigate(RouteConfig.ProjectsDetails, {
+        navigation.navigate(RouteConfig.ProjectDetails, {
           project,
+          loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
         break;
@@ -327,14 +331,16 @@ class MyDay extends React.Component<Props, State> {
         navigation.navigate(RouteConfig.Approve);
         break;
       case Priority.UPDATE_LEFTOVER_MATERIAL:
-        navigation.navigate(RouteConfig.ProjectsDetails, {
+        navigation.navigate(RouteConfig.ProjectDetails, {
           project,
+          loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.MATERIAL,
         });
         break;
       default:
-        navigation.navigate(RouteConfig.ProjectsDetails, {
+        navigation.navigate(RouteConfig.ProjectDetails, {
           project,
+          loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
         });
         break;
@@ -408,7 +414,7 @@ class MyDay extends React.Component<Props, State> {
     const {login} = reduxProps;
     // console.info('login..', login);
     const {buttons, popup, successScreen, loggedInUser} = this.state;
-    const {FirstName} = loggedInUser;
+    const {FirstName = ''} = loggedInUser || {};
     const {style = {}} = popup || {};
 
     return (

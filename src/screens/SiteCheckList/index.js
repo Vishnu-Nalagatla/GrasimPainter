@@ -80,7 +80,6 @@ const SiteCheckList = () => {
 
   const Item = ({data, isLast}) => {
     const {question, index, status} = data;
-    console.info('status...', status);
     return (
       <View style={isLast ? styles.itemNoHr : styles.item}>
         <Text style={styles.question}> {question}</Text>
@@ -110,7 +109,7 @@ const SiteCheckList = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CheckList data={checkList} lable={lable1}  />
+      <CheckList data={checkList} lable={lable1} />
       <CheckList data={moreCheckList} lable={lable2} />
       <CustomButton
         title={btnlabel}

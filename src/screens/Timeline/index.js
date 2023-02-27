@@ -16,6 +16,7 @@ import CustomButton from '../../components/Button';
 import CalendarPicker from 'react-native-calendar-picker';
 import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
+import ROLES from '../../enums/roles';
 // import data from './data.json';
 import {connect} from 'react-redux';
 import UTIL from '../../util';
@@ -23,17 +24,15 @@ import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors';
 
 const Timeline = props => {
-  const {myDay} = props;
-  const {myDayInfo} = myDay;
+  const {project = {}, loggedInUser = {}} = props;
+  const {roleKey=''} = loggedInUser || {};
   const [timeLineData, setTimeLineData] = useState([]);
   const [projectStartDate, setProjectStartDate] = useState(
-    myDayInfo.ProjectStartDate,
+    project.ProjectStartDate,
   );
-  const [projectEndDate, setProjectEndDate] = useState(
-    myDayInfo.ProjectEndDate,
-  );
+  const [projectEndDate, setProjectEndDate] = useState(project.ProjectEndDate);
   const [popup, setPopup] = useState(undefined);
-  const {displayStatus} = myDayInfo || {};
+  const {displayStatus} = project || {};
   const {order} = displayStatus || {};
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const Timeline = props => {
   };
 
   const getTimeLineSequence = () => {
-    const roomsList = myDayInfo.RoomList || [];
+    const roomsList = project.RoomList || [];
     let sequencedArray = roomsList.sort(compare);
     const roomOrderedList = getCalculatedTimelineSequence(sequencedArray);
     setTimeLineData(roomOrderedList.reverse());
@@ -313,36 +312,40 @@ const Timeline = props => {
             // containerStyle={styles.listStyle}
           />
         </View>
-        <CustomButton
-          title={strings.recalculateProjectPlan}
-          textStyle={styles.recalculateButtonText}
-          style={styles.recalculateButton}
-          onPress={recalculateProjectPlan}
-        />
-      </View>
-      {+order === 3 ? (
-        <View style={styles.buttonContainer}>
+        {roleKey === ROLES.TEAM_LEAD ? (
           <CustomButton
-            title="Call Customer"
-            onPress={callCustomer}
-            style={styles.callButton}
+            title={strings.recalculateProjectPlan}
             textStyle={styles.recalculateButtonText}
+            style={styles.recalculateButton}
+            onPress={recalculateProjectPlan}
           />
+        ) : null}
+      </View>
+      {roleKey === ROLES.TEAM_LEAD ? (
+        +order === 3 ? (
+          <View style={styles.buttonContainer}>
+            <CustomButton
+              title="Call Customer"
+              onPress={callCustomer}
+              style={styles.callButton}
+              textStyle={styles.recalculateButtonText}
+            />
+            <CustomButton
+              title="Update Project"
+              style={styles.updateButton}
+              textStyle={styles.buttonText}
+              onPress={updateProjectPlan}
+            />
+          </View>
+        ) : (
           <CustomButton
-            title="Update Project"
-            style={styles.updateButton}
+            title={strings.updateProjectPlan}
             textStyle={styles.buttonText}
+            style={styles.button}
             onPress={updateProjectPlan}
           />
-        </View>
-      ) : (
-        <CustomButton
-          title={strings.updateProjectPlan}
-          textStyle={styles.buttonText}
-          style={styles.button}
-          onPress={updateProjectPlan}
-        />
-      )}
+        )
+      ) : null}
     </View>
   );
 };
