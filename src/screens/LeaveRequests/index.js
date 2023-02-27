@@ -1,14 +1,16 @@
-import {FlatList, Image, Text} from 'native-base';
-import React, {useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { FlatList, Image, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import bellImg from '../../assets/images/group/image.png';
 
 import approveImg from '../../assets/images/approve/image.png';
 
-import naImg from '../../assets/images/naColor/image.png';
+import naImg from '../../assets/images/leaveDecline/decline.png';
 import strings from '../../globalization';
 import styles from './styles';
+import { SFDC_API } from '../../requests';
+import POPUP_CONSTANTS from '../../enums/popup';
 
 const LeaveRequests = () => {
   const request = [
@@ -32,14 +34,43 @@ const LeaveRequests = () => {
     },
   ];
   const [leaves, setLeaves] = useState(request);
+  const [popup, setPopup] = useState(undefined);
 
   const leaveClick = () => {
     console.info('onClick...');
   };
 
+  useEffect(() => {
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+
+    SFDC_API.leaveApproveForTL('0051y000000NpxWAAS')
+      .then(res => {
+        debugger
+        console.log('leave list resp->',res);
+        setPopup(undefined);
+      })
+      .catch(error => {
+        debugger
+        const popupInfo = {
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          style: styles.popup,
+          heading: 'Network Error',
+          message: error.message,
+          headingImage: errorImg,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => this.closePopup(),
+            },
+          ],
+        };
+        setPopup(popupInfo);
+      });;
+  }, [])
+
   const approveLeave = data => {
     console.info('declineLeave...', data);
-    const {index} = data;
+    const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
         leave.status = strings.approved;
@@ -49,7 +80,7 @@ const LeaveRequests = () => {
     setLeaves(leavesUpdated);
   };
   const declineLeave = data => {
-    const {index} = data;
+    const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
         leave.status = strings.declined;
@@ -60,7 +91,7 @@ const LeaveRequests = () => {
   };
 
   const getExtraInfo = leaveInfo => {
-    const {description} = leaveInfo;
+    const { description } = leaveInfo;
     console.info('description....', description);
     return (
       <View>
@@ -79,7 +110,7 @@ const LeaveRequests = () => {
   };
 
   const getLeaveInfo = leaveInfo => {
-    const {description, status} = leaveInfo;
+    const { description, status } = leaveInfo;
     console.info('description....', description);
     return (
       <View>
@@ -97,8 +128,8 @@ const LeaveRequests = () => {
     );
   };
 
-  const LeaveRequest = ({data, onClick}) => {
-    const {profilePic, name, status} = data;
+  const LeaveRequest = ({ data, onClick }) => {
+    const { profilePic, name, status } = data;
     return (
       <View style={styles.leaveCard}>
         <View style={styles.headerInfo}>
@@ -107,6 +138,7 @@ const LeaveRequests = () => {
               source={bellImg}
               style={styles.profilePic}
               resizeMode="contain"
+              alt=''
             />
             <Text style={styles.name}> {name} </Text>
           </View>
@@ -117,6 +149,7 @@ const LeaveRequests = () => {
                   source={naImg}
                   style={styles.declineIcon}
                   resizeMode="contain"
+                  alt=''
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => approveLeave(data)}>
@@ -124,6 +157,7 @@ const LeaveRequests = () => {
                   source={approveImg}
                   style={styles.approveIcon}
                   resizeMode="contain"
+                  alt=''
                 />
               </TouchableOpacity>
             </View>
@@ -139,7 +173,7 @@ const LeaveRequests = () => {
       <FlatList
         data={leaves}
         keyExtractor={(item, index) => item.index}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <LeaveRequest data={item} onClick={leaveClick} />
         )}
       />

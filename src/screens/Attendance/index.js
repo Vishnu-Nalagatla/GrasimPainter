@@ -5,12 +5,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './styles';
 import Moment from 'moment';
-import bellImg from '../../assets/images/group/image.png';
+import attendanceIcon from '../../assets/images/attendence/attendance.png';
+import markedAttendanceIcon from '../../assets/images/attendence/markedAttendence.png';
 import applyLeave from '../../assets/images/addLeave/image.png';
-import {FlatList, Image} from 'native-base';
+import { FlatList, Image } from 'native-base';
 import RouteConfig from '../../constants/route-config';
 import strings from '../../globalization';
 import Popup from '../../components/Popup';
@@ -130,17 +131,17 @@ class Attendance extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    // this.fetchMyDayInfo();
+    
   }
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   onAttendance = () => {
@@ -150,17 +151,17 @@ class Attendance extends React.Component<Props, State> {
     });
   };
   onLeaveRequest = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.LeaveRequests);
   };
 
   applyLeave = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.ApplyLeave);
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -175,10 +176,12 @@ class Attendance extends React.Component<Props, State> {
     }
   };
   render() {
-    const {reduxProps} = this.props;
-    const {popup, attendance, attendanceLabel} = this.state;
-    const {style = {}} = popup || {};
+    const { reduxProps } = this.props;
+    const { popup, attendance, attendanceLabel } = this.state;
+    console.log('attendance->', attendance);
+    const { style = {} } = popup || {};
     return (
+
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
@@ -193,7 +196,8 @@ class Attendance extends React.Component<Props, State> {
           onPress={this.onAttendance}
           style={attendance ? styles.attendanceMarked : styles.attendance}>
           <Image
-            source={bellImg}
+            source={attendance ? markedAttendanceIcon : attendanceIcon}
+            key={this.state.attendance}
             style={styles.flagImg}
             alt=""
             resizeMode="contain"
@@ -222,7 +226,7 @@ class Attendance extends React.Component<Props, State> {
           <FlatList
             data={leaves}
             keyExtractor={(item, index) => item.index}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <LeaveCard leaveInfo={item} index={index} />
             )}
           />
@@ -232,8 +236,8 @@ class Attendance extends React.Component<Props, State> {
   }
 }
 
-const LeaveCard = ({leaveInfo}) => {
-  const {status, duration} = leaveInfo;
+const LeaveCard = ({ leaveInfo }) => {
+  const { status, duration } = leaveInfo;
   return (
     <View style={styles.leaveCard}>
       <View style={styles.leavesHeader}>

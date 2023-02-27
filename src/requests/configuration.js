@@ -13,6 +13,7 @@ export default {
   getCrewCalendar: '/sfdc/get-crew-calendar/',
   myProjectDetails: '/sfdc/expose-project-details/',
   upsertUserLeaves: '/sfdc/upsert-user-leaves/',
+  leaveApproveForTL: '/sfdc/leave-approvals-TL',
 
 
   accessToken: '/sfdc/access-token/',

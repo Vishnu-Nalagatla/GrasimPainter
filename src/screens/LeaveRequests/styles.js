@@ -33,12 +33,10 @@ const styles = StyleSheet.create({
   approveIcon: {
     height: 32 * vh,
     width: 32 * vw,
-    borderRadius: 16 * vh,
   },
   declineIcon: {
     height: 32 * vh,
     width: 32 * vw,
-    borderRadius: 16 * vh,
     marginRight: 12 * vw,
   },
   name: {
