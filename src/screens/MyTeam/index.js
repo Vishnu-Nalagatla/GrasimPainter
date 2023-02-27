@@ -3,6 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {API} from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
+import ROLES from '../../enums/roles';
 import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
 import styles from './styles';
@@ -13,6 +14,8 @@ import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
 import data from './data.json';
 import RouteConfig from '../../constants/route-config';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../../util';
 
 class MyTeam extends React.Component<Props, State> {
   constructor(props) {
@@ -26,7 +29,27 @@ class MyTeam extends React.Component<Props, State> {
   crewCalendar = 'Crew Calendar';
 
   componentDidMount() {
-    // this.getMyTeam();
+    const currentDate = util.currentDate();
+    //FIXME: Change route logic.
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      this.setState(
+        {
+          loggedInUser: JSON.parse(user),
+        },
+        () => {
+          const loggedInUser = JSON.parse(user);
+          const {navigation} = this.props;
+          const {roleKey = 'HeadPainterId'} = loggedInUser || {};
+          if (roleKey === ROLES.HEADPAINTER) {
+            navigation.navigate(RouteConfig.CrewDetails, {
+              data: [''],
+            });
+          } else {
+            // this.getMyTeam(JSON.parse(user));
+          }
+        },
+      );
+    });
   }
 
   showSpinner = () => {
@@ -39,10 +62,12 @@ class MyTeam extends React.Component<Props, State> {
     this.setState({popup: undefined});
   };
 
-  getMyTeam = () => {
+  getMyTeam = user => {
+    const loggedInUser = JSON.parse(user);
+    const {Id = '', roleKey = 'TeamLeadId'} = loggedInUser || {};
     const request = {
-      userId: '0051y000000NpxWAAS',
-      role: 'TeamLeadId',
+      userId: Id,
+      role: roleKey,
     };
     this.showSpinner();
     API.getMyDayInfo(request)
