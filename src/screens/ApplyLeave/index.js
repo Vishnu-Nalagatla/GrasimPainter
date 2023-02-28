@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -16,12 +16,15 @@ import POPUP_CONSTANTS from '../../enums/popup';
 import strings from '../../constants/strings';
 import CustomButton from '../../components/Button';
 import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
+import nextDateImg from '../../assets/images/calendar/calendarRightArrow.png';
 import leaveSuccesIcon from '../../assets/images/addLeave/leaveSuccesIcon.png';
 import colors from '../../constants/colors';
 import { SFDC_API } from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
 import { ScrollView } from 'native-base';
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../../util';
 
 const leaveTypes = [
   { label: 'Sick', value: '1' },
@@ -34,8 +37,8 @@ const leaveTypes = [
 ];
 
 const halfDay = [
-  { label: '1st Half', value: '1' },
-  { label: '2nd Half', value: '2' },
+  { label: 'First Half', value: '1' },
+  { label: 'Second Half', value: '2' },
 ];
 
 const ApplyLeave = () => {
@@ -50,6 +53,17 @@ const ApplyLeave = () => {
   const [showFromDayCalendar, setFromDayCalendar] = useState(false);
   const [showToDayCalendar, setToDayCalendar] = useState(false);
   const [leaveAppliedSuccess, setLeaveAppliedSuccess] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState();
+
+
+  useEffect(() => {
+    setLeaveAppliedSuccess(false);
+    const currentDate = util.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      console.log('loggedInUser->', JSON.parse(user))
+      setLoggedInUser(JSON.parse(user));
+    });
+  }, [leaveAppliedSuccess])
 
   const renderLabel = () => {
     if (leaveType) {
@@ -69,7 +83,7 @@ const ApplyLeave = () => {
     ) {
       return (
         <Text style={[styles.selectedTextStyle, styles.halfDayLabel]}>
-          Half Day
+          Half
         </Text>
       );
     }
@@ -136,7 +150,7 @@ const ApplyLeave = () => {
     return (
       <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
         <Image
-          source={prevDateImg}
+          source={nextDateImg}
           style={styles.imgStyle}
           resizeMode="contain"
         />
@@ -157,58 +171,95 @@ const ApplyLeave = () => {
   // };
 
   const invokeApplyLeave = () => {
-
-    const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
-    const toDate = moment(selectedToDate).format('yyyy-MM-DD');
-    const leave = leaveTypes.find(item => item.value == leaveType)
-    debugger
-
-    const request = [{
-      "OwnerId": "0051y000000NpxWAAS",
-      "WhatId": "",
-      "StartDateTime": fromDate,
-      "EndDateTime": toDate,
-      "IsAllDayEvent": true,
-      "Type": "Leave",
-      "Subject": "Leave",
-      "User_Id_And_Date__c": `0051y000000NpxWAAS-${(new Date()).getTime()}`,
-      "Operation_Type__c": "Leave",
-      "Leave_Description__c": description,
-      "Leave_Portion__c": fromHalfDay + "",
-      "Leave_Status__c": "Pending",
-      "Leave_Type__c": leave.label,
-      "Unique_ID__c": (new Date()).getTime() + "",
-      "Assigned_Approver__c": "0051y000000O5rkAAC"
-    }];
-    console.info('invokeApplyLeave...', request);
-    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
-    SFDC_API.upsertUserLeaves(request)
-      .then(res => {
+    if (description && selectedFromDate && selectedToDate && fromHalfDay && toHalfDay) {
+      const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
+      const toDate = moment(selectedToDate).format('yyyy-MM-DD');
+      let request = []
+      if (moment(selectedToDate).diff(moment(selectedFromDate), 'days') < 0) {
+        //To Do Need to add validation "to date should be getterthen from date"
+      } else if (moment(selectedToDate).diff(moment(selectedFromDate), 'days') == 0) {
         debugger
-        console.log('leave apply resp->', res);
-        setPopup(undefined);
-      })
-      .catch(error => {
-        debugger
-        const popupInfo = {
-          type: POPUP_CONSTANTS.ERROR_POPUP,
-          style: styles.popup,
-          heading: 'Network Error',
-          message: error.message,
-          headingImage: errorImg,
-          buttons: [
-            {
-              title: 'TryAgain',
-              onPress: () => this.closePopup(),
-            },
-          ],
-        };
-        setPopup(popupInfo);
-      });
+        let leavePortion = halfDay.find(item => item.value === fromHalfDay).label;
+        let toPortion = halfDay.find(item => item.value === toHalfDay).label;
+        let fromLeaveDate = prepareReqObj(fromDate, leavePortion)
+        let toLeaveDate = prepareReqObj(fromDate, toPortion)
+        request.push(fromLeaveDate);
+        request.push(toLeaveDate);
+      } else {
+        let daysDiff = moment(selectedToDate).diff(moment(selectedFromDate), 'days')
+        console.log(daysDiff)
+        let newDate = moment(selectedFromDate);
+        for (let i = 0; i <= daysDiff; i++) {
+          debugger
+          const fromDate = newDate.format('yyyy-MM-DD');
+          let leavePortion = "";
+          if (i == 0) {
+            leavePortion = halfDay.find(item => item.value === fromHalfDay).label;
+          } else if (i == daysDiff) {
+            leavePortion = halfDay.find(item => item.value === toHalfDay).label;
+          } else {
+            leavePortion = "Full Day"
+          }
+          let obj = prepareReqObj(fromDate, leavePortion)
+          request.push(obj);
+          newDate.add(1, 'days');
+        }
+      }
+      console.info('invokeApplyLeave...', request);
+
+      console.info('invokeApplyLeave...', request);
+      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+      SFDC_API.upsertUserLeaves(request)
+        .then(res => {
+          debugger
+          //console.log('leave apply resp->', res.data);
+          setPopup(undefined);
+          if (res.data === 'Success') {
+            setLeaveAppliedSuccess(true);
+          }
+        })
+        .catch(error => {
+          debugger
+          const popupInfo = {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            style: styles.popup,
+            heading: 'Network Error',
+            message: error.message,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          };
+          setPopup(popupInfo);
+        });
+    }
   };
+
+  const prepareReqObj = (date, leavePortion) => {
+    let userData = JSON.parse(loggedInUser);
+    let obj = {
+      "Crew_Member__c": JSON.parse(loggedInUser).Id,
+      "Date__c": date,
+      "Leave_Description__c": description,
+      "Leave_Portion__c": leavePortion,
+      "Leave_Status__c": "Pending",
+      "Leave_Type__c": "",
+      "Unique_ID__c": (new Date()).getTime() + "",
+      "Operation_Type__c": "Leave",
+      "Allocated_Project__c": "a061y000000EwQ5AAK",
+      "Assigned_approvar_for_HP__c": "",
+      "Assigned_approvar_for_painter__c": "",
+      "Crew_Id_And_Date__c": "0031y00000RNH0hAAH-2023-01-26"
+    }
+    return obj
+  }
+
   const customDatesStyles = [{ style: { with: 300 } }];
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {leaveAppliedSuccess ?
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -218,153 +269,155 @@ const ApplyLeave = () => {
           <Text style={styles.leaveSuccessLabel}>Your leave request has been sent for approval</Text>
         </View>
         :
-        <View>
-          {renderLabel()}
-          <Dropdown
-            style={[styles.dropdown, { borderColor: 'blue' }]}
-            placeholderStyle={styles.selectedTextStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={[styles.selectedTextStyle, styles.inputSearchStyle]}
-            data={leaveTypes}
-            search
-            labelField="label"
-            valueField="value"
-            placeholder={'Select leave type'}
-            searchPlaceholder="Search..."
-            value={leaveType}
-            onChange={item => {
-              setLeaveType(item.value);
-            }}
-          />
-          <View style={styles.dropdown}>
-            <Text style={[styles.selectedTextStyle, styles.descText]}>
-              Description
-            </Text>
-            <TextInput
-              style={styles.selectedTextStyle}
-              onChangeText={data => setDescription(data)}
-              value={description}
-              placeholder="Enter Description"
-              placeholderTextColor="#949DB6"
+        <ScrollView>
+          <View>
+            {/* {renderLabel()}
+            <Dropdown
+              style={[styles.dropdown, { borderColor: 'blue' }]}
+              placeholderStyle={styles.selectedTextStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={[styles.selectedTextStyle, styles.inputSearchStyle]}
+              data={leaveTypes}
+              search
+              labelField="label"
+              valueField="value"
+              placeholder={'Select leave type'}
+              searchPlaceholder="Search..."
+              value={leaveType}
+              onChange={item => {
+                setLeaveType(item.value);
+              }}
+            /> */}
+            <View style={styles.dropdown}>
+              <Text style={[styles.selectedTextStyle, styles.descText]}>
+                Description
+              </Text>
+              <TextInput
+                style={styles.selectedTextStyle}
+                onChangeText={data => setDescription(data)}
+                value={description}
+                placeholder="Enter Description"
+                placeholderTextColor="#949DB6"
+              />
+            </View>
+            <View style={styles.fromContainer}>
+              <TouchableOpacity
+                style={[styles.startDate, { flex: 1 }]}
+                onPress={() => showCalendar(true)}>
+                <Text
+                  style={[
+                    styles.selectedTextStyle,
+                    styles.descText,
+                    styles.marginBtm,
+                  ]}>
+                  From
+                </Text>
+                <Text
+                  style={[
+                    styles.selectedTextStyle,
+                    styles.descText,
+                    styles.marginBtm,
+                  ]}>
+                  {selectedFromDate ? selectedFromDate : 'Select From Date'}
+                </Text>
+              </TouchableOpacity>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+                {renderHalfDayLabel()}
+                <Dropdown
+                  style={[styles.dropdown, { width: '100%' }]}
+                  placeholderStyle={styles.selectedTextStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  data={halfDay}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={'Select half day'}
+                  value={fromHalfDay}
+                  onChange={item => {
+                    console.log('half day on change', item);
+                    setFromHalfDay(item.value);
+                  }}
+                />
+              </View>
+            </View>
+            {showFromDayCalendar ? (
+              <View style={styles.showFromDayCalendar}>
+                <CalendarPicker
+                  onDateChange={date => onStartDateChange(date)}
+                  previousComponent={getPreviousComponent()}
+                  nextComponent={getNextComponent()}
+                  startFromMonday={true}
+                  showDayStragglers={true}
+                  selectedDayTextColor="#FFF"
+                  todayBackgroundColor='#2C4DAE'
+                  textStyle={styles.textStyle}
+                  customDatesStyles={customDatesStyles}
+                  weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
+                />
+              </View>
+            ) : null}
+            <View style={[styles.fromContainer]}>
+              <TouchableOpacity
+                style={[styles.startDate, { flex: 1 }]}
+                onPress={() => showCalendar()}>
+                <Text
+                  style={[
+                    styles.selectedTextStyle,
+                    styles.descText,
+                    styles.marginBtm,
+                  ]}>
+                  To
+                </Text>
+                <Text
+                  style={[
+                    styles.selectedTextStyle,
+                    styles.descText,
+                    styles.marginBtm,
+                  ]}>
+                  {selectedToDate ? selectedToDate : 'Select To Date'}
+                </Text>
+              </TouchableOpacity>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+                {renderHalfDayLabel()}
+                <Dropdown
+                  style={[styles.dropdown, { width: '100%' }]}
+                  placeholderStyle={styles.selectedTextStyle}
+                  selectedTextStyle={styles.selectedTextStyle}
+                  data={halfDay}
+                  labelField="label"
+                  valueField="value"
+                  placeholder={'Select half day'}
+                  value={toHalfDay}
+                  onChange={item => {
+                    console.log('half day on change', item);
+                    setToHalfDay(item.value);
+                  }}
+                />
+              </View>
+            </View>
+            {showToDayCalendar ? (
+              <View style={styles.showFromDayCalendar}>
+                <CalendarPicker
+                  onDateChange={date => onEndDateChange(date)}
+                  previousComponent={getPreviousComponent()}
+                  nextComponent={getNextComponent()}
+                  startFromMonday={true}
+                  showDayStragglers={true}
+                  selectedDayColor="#2C4DAE"
+                  textStyle={styles.textStyle}
+                  customDatesStyles={customDatesStyles}
+                  weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
+                />
+              </View>
+            ) : null}
+            <CustomButton
+              title={strings.applyLeave}
+              textStyle={styles.buttonText}
+              style={styles.button}
+              onPress={invokeApplyLeave}
             />
           </View>
-          <View style={styles.fromContainer}>
-            <TouchableOpacity
-              style={[styles.startDate,{flex:1}]}
-              onPress={() => showCalendar(true)}>
-              <Text
-                style={[
-                  styles.selectedTextStyle,
-                  styles.descText,
-                  styles.marginBtm,
-                ]}>
-                From
-              </Text>
-              <Text
-                style={[
-                  styles.selectedTextStyle,
-                  styles.descText,
-                  styles.marginBtm,
-                ]}>
-                {selectedFromDate ? selectedFromDate : 'Select From Date'}
-              </Text>
-            </TouchableOpacity>
-            <View style={[styles.fromDateContainer,{flex:1}]}>
-              {renderHalfDayLabel()}
-              <Dropdown
-                style={[styles.dropdown, { width: '100%' }]}
-                placeholderStyle={styles.selectedTextStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                data={halfDay}
-                labelField="label"
-                valueField="value"
-                placeholder={'Select half day'}
-                value={fromHalfDay}
-                onChange={item => {
-                  console.log('half day on change', item);
-                  setFromHalfDay(item.value);
-                }}
-              />
-            </View>
-          </View>
-          {showFromDayCalendar ? (
-            <View style={styles.showFromDayCalendar}>
-              <CalendarPicker
-                onDateChange={date => onStartDateChange(date)}
-                previousComponent={getPreviousComponent()}
-                nextComponent={getNextComponent()}
-                startFromMonday={true}
-                showDayStragglers={true}
-                selectedDayTextColor="#FFF"
-                todayBackgroundColor='#2C4DAE'
-                textStyle={styles.textStyle}
-                customDatesStyles={customDatesStyles}
-                weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
-              />
-            </View>
-          ) : null}
-          <View style={[styles.fromContainer]}>
-            <TouchableOpacity
-              style={[styles.startDate,{flex:1}]}
-              onPress={() => showCalendar()}>
-              <Text
-                style={[
-                  styles.selectedTextStyle,
-                  styles.descText,
-                  styles.marginBtm,
-                ]}>
-                To
-              </Text>
-              <Text
-                style={[
-                  styles.selectedTextStyle,
-                  styles.descText,
-                  styles.marginBtm,
-                ]}>
-                {selectedToDate ? selectedToDate : 'Select To Date'}
-              </Text>
-            </TouchableOpacity>
-            <View style={[styles.fromDateContainer,{flex:1}]}>
-              {renderHalfDayLabel()}
-              <Dropdown
-                style={[styles.dropdown, { width: '100%' }]}
-                placeholderStyle={styles.selectedTextStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                data={halfDay}
-                labelField="label"
-                valueField="value"
-                placeholder={'Select half day'}
-                value={toHalfDay}
-                onChange={item => {
-                  console.log('half day on change', item);
-                  setToHalfDay(item.value);
-                }}
-              />
-            </View>
-          </View>
-          {showToDayCalendar ? (
-            <View style={styles.showFromDayCalendar}>
-              <CalendarPicker
-                onDateChange={date => onEndDateChange(date)}
-                previousComponent={getPreviousComponent()}
-                nextComponent={getNextComponent()}
-                startFromMonday={true}
-                showDayStragglers={true}
-                selectedDayColor="#2C4DAE"
-                textStyle={styles.textStyle}
-                customDatesStyles={customDatesStyles}
-                weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
-              />
-            </View>
-          ) : null}
-          <CustomButton
-            title={strings.applyLeave}
-            textStyle={styles.buttonText}
-            style={styles.button}
-            onPress={invokeApplyLeave}
-          />
-        </View>}
-    </ScrollView>
+        </ScrollView>}
+    </View>
   );
 };
 

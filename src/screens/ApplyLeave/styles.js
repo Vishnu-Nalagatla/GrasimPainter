@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: '#DCE3F8',
+    padding: 10 * vh
   },
   dropdown: {
     width: 328 * vw,
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   showFromDayCalendar: {
     backgroundColor: colors.white,
     width: 328 * vw,
-    height: 324 * vh,
+    //height: 324 * vh,
     borderRadius: 8 * vh,
     marginTop: 12 * vh,
   },

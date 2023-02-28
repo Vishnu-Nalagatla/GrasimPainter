@@ -42,11 +42,11 @@ const LeaveRequests = () => {
 
   useEffect(() => {
     setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
-
+    debugger
     SFDC_API.leaveApproveForTL('0051y000000NpxWAAS')
       .then(res => {
         debugger
-        console.log('leave list resp->',res);
+        console.log('leave list resp->',res.data);
         setPopup(undefined);
       })
       .catch(error => {
