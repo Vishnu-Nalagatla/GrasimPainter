@@ -16,9 +16,9 @@ import colors from '../../constants/colors';
 import strings from '../../globalization';
 
 const Material = props => {
-  const {BOMList} = project || {};
+  const {BOMList = []} = project || {};
   // const materialLeft = 'Let’s check quantity of material left';
-  // const materialUsedLabel = 'Here is the list of material used';
+  // const materialUsedLabel = 'Here is the list of Pmaterial used';
   const {project = {}, loggedInUser = {}} = props;
   const {roleKey = 'HeadPainterId'} = loggedInUser || {};
   const sliderValue = '23 Ltr';
@@ -137,7 +137,7 @@ const Material = props => {
     //     });
     //   });
   };
-  
+
   const onValueChange = (MaterialName, value) => {
     if (MaterialName === 'Putty') {
       setPutty(value);

@@ -12,38 +12,38 @@ import Drawer from '../../../components/Drawer';
 const Header = (props: StackHeaderProps) => {
   const {options, navigation, toggleDrawer} = props;
   const {title = undefined, showBackIcon = true} = options;
-  const [popup, setPopup] = useState(undefined);
+  // const [popup, setPopup] = useState(undefined);
 
-  const getPopupStyle = () => {
-    let popupStyle = {};
-    if (popup && popup.type === POPUP_CONSTANTS.TOGGLE_DRAWER) {
-      popupStyle = styles.toggleDrawerStyle;
-    }
-    return popupStyle;
-  };
+  // const getPopupStyle = () => {
+  //   let popupStyle = {};
+  //   if (popup && popup.type === POPUP_CONSTANTS.TOGGLE_DRAWER) {
+  //     popupStyle = styles.toggleDrawerStyle;
+  //   }
+  //   return popupStyle;
+  // };
 
-  const closePopup = () => {
-      setPopup(undefined);
-  };
+  // const closePopup = () => {
+  //     setPopup(undefined);
+  // };
 
-  const getPopupContent = () => {
-    if (!popup) {
-      return null;
-    }
-    switch (popup.type) {
-      case POPUP_CONSTANTS.TOGGLE_DRAWER:
-        // return <Drawer />;
-        return null;
-      default:
-        break;
-    }
-  };
+  // const getPopupContent = () => {
+  //   if (!popup) {
+  //     return null;
+  //   }
+  //   switch (popup.type) {
+  //     case POPUP_CONSTANTS.TOGGLE_DRAWER:
+  //       // return <Drawer />;
+  //       return null;
+  //     default:
+  //       break;
+  //   }
+  // };
   const style = styles.popupStyle;
   return (
     <View style={styles.container}>
-      <Popup popupStyle={style} visible={!!popup} onPress={closePopup}>
+      {/* <Popup popupStyle={style} visible={!!popup} onPress={closePopup}>
         {getPopupContent()}
-      </Popup>
+      </Popup> */}
       <View style={styles.headerTitle}>
         {showBackIcon ? (
           <TouchableOpacity

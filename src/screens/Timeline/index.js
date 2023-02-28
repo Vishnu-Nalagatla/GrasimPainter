@@ -24,8 +24,6 @@ import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors';
 
 const Timeline = props => {
-  const {myDayInfo} = props;
-  // const {myDayInfo} = myDay;
   const {project = {}, loggedInUser = {}} = props;
   const {roleKey=''} = loggedInUser || {};
   const [timeLineData, setTimeLineData] = useState([]);

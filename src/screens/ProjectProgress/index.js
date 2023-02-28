@@ -21,7 +21,7 @@ const ProjectProgress = props => {
   const {
     ProjectStartDate,
     ProjectEndDate,
-    CompletionPercentage,
+    CompletionPercentage='40.00',
     Address,
     paymentInfo = '1st payment received',
     SiteMaterialStorage,
@@ -163,7 +163,7 @@ const ProjectProgress = props => {
     );
   };
   const onTabPress = item => {
-    // alert(JSON.stringify(item));
+    //  alert(JSON.stringify(item));
   };
   const getTabs = () => {
     return (

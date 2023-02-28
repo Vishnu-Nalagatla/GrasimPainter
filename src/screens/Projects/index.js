@@ -15,6 +15,8 @@ import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
 import {API, SFDC_API} from '../../requests';
 import StandardPopup from '../../components/Common/StandardPopup';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import UTIL from '../../util/index';
 
 const PROJECT_DETAILS_NAVIGATION = {
   PROGRESS: 0,
@@ -38,7 +40,19 @@ class Projects extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    this.getMyProjects();
+    const currentDate = UTIL.currentDate();
+
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      this.setState(
+        {
+          loggedInUser: JSON.parse(user),
+        },
+        () => {
+          // this.fetchMyDayInfo(JSON.parse(user));
+          this.getMyProjects(JSON.parse(user));
+        },
+      );
+    });
   }
 
   showSpinner = () => {
@@ -50,9 +64,12 @@ class Projects extends React.Component<Props, State> {
   closePopup = () => {
     this.setState({popup: undefined});
   };
-  getMyProjects = () => {
+  getMyProjects = user => {
+    // alert(user)
+    const loggedInUser = JSON.parse(user);
+    const {Id, Territory__c, roleKey} = loggedInUser || {};
     const request = {
-      TeamLeadId: '0051y000000NpxWAAS',
+      TeamLeadId: Id,
     };
     this.showSpinner();
     SFDC_API.myProjectDetails(request)
@@ -77,7 +94,7 @@ class Projects extends React.Component<Props, State> {
 
   onPress = (item, index) => {
     const {navigation} = this.props;
-    navigation.navigate(RouteConfig.ProjectsDetails, {
+    navigation.navigate(RouteConfig.ProjectDetails, {
       index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
       ProjectDetailsData: item,
     });

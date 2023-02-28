@@ -36,10 +36,10 @@ const ProjectDetails = props => {
   const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData} />;
   const reportsRoute = () => <Reports project={params.ProjectDetailsData} />;
   const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} />;
-  const SecondRoute = () => (
+  const timeLineRoute = () => (
     // eslint-disable-next-line react-native/no-inline-styles
     // <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-    <Timeline myDayInfo={params.ProjectDetailsData}/>
+    <Timeline project={params.ProjectDetailsData}/>
   );
 
   const renderScene = SceneMap({
