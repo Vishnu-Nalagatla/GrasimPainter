@@ -16,7 +16,7 @@ import colors from '../../constants/colors';
 import strings from '../../globalization';
 
 const Material = props => {
-  const {BOMList} = project || {};
+  const {BOMList=[]} = project || {};
   // const materialLeft = 'Let’s check quantity of material left';
   // const materialUsedLabel = 'Here is the list of material used';
   const {project = {}, loggedInUser = {}} = props;

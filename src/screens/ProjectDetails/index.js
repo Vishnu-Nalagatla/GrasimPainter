@@ -29,18 +29,17 @@ const ProjectDetails = props => {
   const progressRoute = () => (
     <ProjectProgress
       project={params.ProjectDetailsData}
-      {...props}
-    />
+      onTabChange={onTabChange}
+      {...props} />
   );
-  const materialRoute = () => <Material project={params.ProjectDetailsData} />;
-  const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData} />;
-  const reportsRoute = () => <Reports project={params.ProjectDetailsData} />;
-  const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} />;
-  const SecondRoute = () => (
-    // eslint-disable-next-line react-native/no-inline-styles
-    // <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-    <Timeline myDayInfo={params.ProjectDetailsData}/>
-  );
+  const onTabChange = (index)=>{
+    setIndex(index);
+  }
+  const materialRoute = () => <Material project={params.ProjectDetailsData} onTabChange={onTabChange}/>;
+  const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
+  const reportsRoute = () => <Reports project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
+  const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} onTabChange={onTabChange}/>;
+  const timeLineRoute = () => <Timeline myDayInfo={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
 
   const renderScene = SceneMap({
     progress: progressRoute,
