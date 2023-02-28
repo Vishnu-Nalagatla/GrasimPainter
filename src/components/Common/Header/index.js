@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {StackHeaderProps} from '@react-navigation/stack';
 import styles from './styles.js';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
@@ -10,10 +10,9 @@ import POPUP_CONSTANTS from '../../../enums/popup';
 import Drawer from '../../../components/Drawer';
 
 const Header = (props: StackHeaderProps) => {
+  // const [popup, setPopup] = useState(undefined);
   const {options, navigation, toggleDrawer} = props;
   const {title = undefined, showBackIcon = true} = options;
-  // const [popup, setPopup] = useState(undefined);
-
   // const getPopupStyle = () => {
   //   let popupStyle = {};
   //   if (popup && popup.type === POPUP_CONSTANTS.TOGGLE_DRAWER) {
@@ -49,7 +48,7 @@ const Header = (props: StackHeaderProps) => {
           <TouchableOpacity
             style={styles.menuImg}
             onPress={() => {
-              // setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER});
+              setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER});
               if (toggleDrawer) {
                 toggleDrawer();
               } else {
