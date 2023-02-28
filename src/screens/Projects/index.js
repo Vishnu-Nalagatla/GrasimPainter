@@ -76,8 +76,8 @@ class Projects extends React.Component<Props, State> {
   onPress = () => {
     const {navigation} = this.props;
     console.info('onPress...');
-    navigation.navigate(RouteConfig.ProjectsDetails);
-    navigation.navigate(RouteConfig.ProjectsDetails, {
+    // navigation.navigate(RouteConfig.ProjectDetails);
+    navigation.navigate(RouteConfig.ProjectDetails, {
       index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
     });
   };

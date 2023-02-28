@@ -19,7 +19,7 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="MyDay" component={MyDay} />
       <MyDayStack.Screen name="Benefits" component={Benefits} />
       <MyDayStack.Screen name="CrewCalendar" component={CrewCalendar} />
-      <MyDayStack.Screen name="ProjectsDetails" component={ProjectDetails} />
+      <MyDayStack.Screen name="ProjectDetails" component={ProjectDetails} />
       <MyDayStack.Screen name="LeaveRequests" component={LeaveRequests} />
       <MyDayStack.Screen name="Approve" component={Approve} />
       <MyDayStack.Screen name="ClinetInfo" component={ClinetInfo} />

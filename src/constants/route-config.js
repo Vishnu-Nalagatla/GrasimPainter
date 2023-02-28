@@ -3,7 +3,7 @@ const RouteConfig = {
   LoginNavigator: 'LoginNavigator',
   Otp: 'Otp',
   Help: 'Help',
-  ProjectsDetails: 'ProjectsDetails',
+  ProjectDetails: 'ProjectDetails',
   Projects: 'Projects',
   MyTeam: 'MyTeam',
   Attendance: 'Attendance',

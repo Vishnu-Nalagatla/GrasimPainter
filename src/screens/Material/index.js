@@ -5,6 +5,7 @@ import CustomButton from '../../components/Button';
 import ProgressSlider from '../../components/ProgressSlider';
 import {API} from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
+import ROLES from '../../enums/roles';
 
 import errorIcon from '../../assets/images/naColor/image.png';
 
@@ -17,11 +18,14 @@ import strings from '../../globalization';
 const Material = props => {
   // const materialLeft = 'Let’s check quantity of material left';
   // const materialUsedLabel = 'Here is the list of material used';
+  const {project = {}, loggedInUser = {}} = props;
+  const {roleKey = 'HeadPainterId'} = loggedInUser || {};
   const sliderValue = '23 Ltr';
   // const leftOver = 'Leftover';
   const [popup, setPopup] = useState(undefined);
   const [putty, setPutty] = useState(0);
   const [paint, setPaint] = useState(0);
+  const {popupStyle = {}} = popup || {};
 
   const {
     material = [
@@ -104,6 +108,36 @@ const Material = props => {
         });
       });
   };
+
+  const raiseMaterialRequest = () => {
+    console.info('raiseMaterialRequest..');
+    closePopup();
+    // const request = {
+    //   putty,
+    //   paint,
+    // };
+    // showSpinner();
+    // API.updateLeftMaterial(request)
+    //   .then(res => {
+    //     console.info('res', res);
+    //     setPopup(undefined);
+    //   })
+    //   .catch(error => {
+    //     setPopup({
+    //       type: POPUP_CONSTANTS.ERROR_POPUP,
+    //       heading: 'Network Error',
+    //       message: error.message,
+    //       headingImage: errorIcon,
+    //       buttons: [
+    //         {
+    //           title: 'TryAgain',
+    //           onPress: () => closePopup(),
+    //         },
+    //       ],
+    //     });
+    //   });
+  };
+
   const onValueChange = (name, value) => {
     if (name === 'Putty') {
       setPutty(value);
@@ -111,6 +145,14 @@ const Material = props => {
       setPaint(value);
     }
   };
+  const raiseMaterialConfirmation = () => {
+    console.info('raiseMaterialRequest...');
+    setPopup({
+      type: POPUP_CONSTANTS.RAISE_MATERIAL_REQUEST,
+      popupStyle: styles.confirmPopup,
+    });
+  };
+
   const MaterialCard = ({item} = props) => {
     const {name, brand, totalQuantity} = item;
     const value = name === 'Putty' ? putty : paint;
@@ -160,7 +202,34 @@ const Material = props => {
       </View>
     );
   };
-
+  const RaiseMaterialRequest = () => {
+    return (
+      <View style={styles.confirmPopup}>
+        <Text style={styles.header}>
+          {'You are about to raise a material request'}
+        </Text>
+        <Text style={styles.message}>
+          {
+            'The request will be sent to Service Partner. Please let your Service Partner or Team Lead know about the specifications.'
+          }
+        </Text>
+        <View style={styles.buttonWrapper}>
+          <CustomButton
+            title={strings.cancelLabel}
+            textStyle={styles.cancelBtnTxt}
+            style={styles.cancelBtn}
+            onPress={raiseMaterialRequest}
+          />
+          <CustomButton
+            title={strings.saveLabel}
+            textStyle={[styles.btnTxt]}
+            style={[styles.raiseRequestBtn]}
+            onPress={closePopup}
+          />
+        </View>
+      </View>
+    );
+  };
   const getPopupContent = () => {
     if (!popup) {
       return null;
@@ -172,12 +241,17 @@ const Material = props => {
         );
       case POPUP_CONSTANTS.ERROR_POPUP:
         return <StandardPopup {...popup} />;
+
+      case POPUP_CONSTANTS.RAISE_MATERIAL_REQUEST:
+        return <RaiseMaterialRequest {...popup} />;
     }
   };
 
   return (
     <View style={styles.container}>
-      <Popup visible={!!popup}>{getPopupContent()}</Popup>
+      <Popup popupStyle={popupStyle} visible={!!popup}>
+        {getPopupContent()}
+      </Popup>
       <ScrollView>
         <View style={styles.materialLeftView}>
           <Text style={styles.materialLabel}> {strings.materialLeft}</Text>
@@ -206,6 +280,24 @@ const Material = props => {
             ))}
           </View>
         </View>
+        {roleKey === ROLES.HEADPAINTER ? (
+          <View style={styles.raiseMaterialRequest}>
+            <Text style={styles.raiseMaterialLabel}>
+              {'Running out of material?'}
+            </Text>
+            <Text style={styles.raiseMaterialInfo}>
+              {
+                'Let PaintCraft know that you need more material to execute this site'
+              }
+            </Text>
+            <CustomButton
+              title={strings.raiseMaterialRequest}
+              textStyle={[styles.btnTxt]}
+              style={[styles.raiseMaterialButton]}
+              onPress={raiseMaterialConfirmation}
+            />
+          </View>
+        ) : null}
       </ScrollView>
     </View>
   );
