@@ -99,6 +99,13 @@ class SfdcAPI {
       body,
     );
   };
+
+  upsertUserLeaves = body => {
+    return this.instance.patch(URLs.upsertUserLeaves, body);
+  };
+  leaveApproveForTL = tlId => {
+    return this.instance.get(`${URLs.leaveApproveForTL}${tlId}`);
+  };
 }
 
 export const API = new Requests();
