@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import data from './data.json';
 import {FlatList, Image, ScrollView} from 'native-base';
 import styles from './styles';
 import bellImg from '../../assets/images/group/image.png';
@@ -28,18 +27,18 @@ const PROJECT_DETAILS_NAVIGATION = {
 
 class Projects extends React.Component<Props, State> {
   constructor(props) {
-    const {response = {}} = data;
-    const {newProjects, ongoingProjects} = response;
+    // const {response = {}} = data;
+    // const {newProjects, ongoingProjects} = response;
     super(props);
     this.state = {
       popup: undefined,
-      newProjects: newProjects,
-      ongoingProjects: ongoingProjects,
+      newProjects: [],
+      ongoingProjects: [],
     };
   }
 
   componentDidMount() {
-    // this.getMyProjects();
+    this.getMyProjects();
   }
 
   showSpinner = () => {
@@ -58,11 +57,14 @@ class Projects extends React.Component<Props, State> {
     this.showSpinner();
     SFDC_API.myProjectDetails(request)
       .then(response => {
-        const {data} = response;
-        const ProjectList = data.ProjectList;
+        // const {data} = response;
+        const ProjectList = response.data.ProjectList;
+        let newProj = ProjectList.filter(item => item.Status == 'New');
+        let onGoingProj = ProjectList.filter(item => item.Status != 'New');
         this.closePopup();
         this.setState({
-          newProjects: ProjectList,
+          newProjects: newProj,
+          ongoingProjects: onGoingProj,
         });
       })
       .catch(error => {
@@ -73,12 +75,11 @@ class Projects extends React.Component<Props, State> {
       });
   };
 
-  onPress = () => {
+  onPress = (item, index) => {
     const {navigation} = this.props;
-    console.info('onPress...');
-    navigation.navigate(RouteConfig.ProjectsDetails);
     navigation.navigate(RouteConfig.ProjectsDetails, {
       index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
+      ProjectDetailsData: item,
     });
   };
 
@@ -102,30 +103,43 @@ class Projects extends React.Component<Props, State> {
     return (
       <ScrollView style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
-        <ProjectList
-          projects={newProjects}
-          label={'New'}
-          onPress={this.onPress}
-        />
-        <ProjectList
-          projects={ongoingProjects}
-          label={'Ongoing'}
-          onPress={this.onPress}
-        />
+        {newProjects.length > 0 ? (
+          <ProjectList
+            projects={newProjects}
+            label={'New'}
+            onPress={this.onPress}
+          />
+        ) : null}
+        {ongoingProjects.length > 0 ? (
+          <ProjectList
+            projects={ongoingProjects}
+            label={'Ongoing'}
+            onPress={this.onPress}
+          />
+        ) : null}
       </ScrollView>
     );
   }
 }
 
 export default Projects;
-
+import Moment from 'moment';
 const Project = ({project, label, index, onPress}) => {
-  const {Name, ProjectPlanStatus} = project;
+  const {Name, ProjectPlanStatus, ProjectStartDate, ProjectEndDate} = project;
+  const date = Moment(new Date()).format('DD MMM YYYY');
+  const startingDiff =
+    new Date(ProjectStartDate).getTime() - new Date().getTime();
+  const endingDiff = new Date(ProjectEndDate).getTime() - new Date().getTime();
+  const daysTill30June2035 = val => {
+    return Math.floor(val / (1000 * 60 * 60 * 24));
+  };
   return (
     <TouchableOpacity style={styles.projectsCard} onPress={onPress}>
       <View style={styles.headerInfo}>
-        <Text style={styles.name}> {Name}</Text>
-        <Text style={styles.status}> {ProjectPlanStatus}</Text>
+        {!!Name ? <Text style={styles.name}>{Name}</Text> : null}
+        {!!ProjectPlanStatus ? (
+          <Text style={styles.status}>{ProjectPlanStatus}</Text>
+        ) : null}
       </View>
       <View style={styles.dateInfo}>
         <Image
@@ -134,10 +148,18 @@ const Project = ({project, label, index, onPress}) => {
           resizeMode="contain"
           alt=""
         />
-        <Text style={styles.name}> {'Starting in 20 days'}</Text>
+        {label == 'Ongoing' ? (
+          <Text style={styles.name}>{`Ending in ${daysTill30June2035(
+            endingDiff,
+          )} days`}</Text>
+        ) : (
+          <Text style={styles.name}>{`Starting in ${daysTill30June2035(
+            startingDiff,
+          )} days`}</Text>
+        )}
       </View>
       <View style={styles.bottomInfo}>
-        <Text style={styles.date}> {'30 Oct 2022'}</Text>
+        <Text style={styles.date}>{date}</Text>
         <Image
           source={bellImg}
           style={styles.flagImg}
@@ -161,7 +183,9 @@ const ProjectList = ({projects, label, onPress}) => {
             project={item}
             label={label}
             index={index}
-            onPress={onPress}
+            onPress={() => {
+              onPress(item, index);
+            }}
           />
         )}
       />

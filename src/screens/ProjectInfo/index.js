@@ -7,10 +7,8 @@ import locationImg from '../../assets/images/location/image.png';
 import Clipboard from '@react-native-community/clipboard';
 
 const ProjectInfo = props => {
-  const {
-    projectId = '1234567',
-    address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
-  } = props;
+  const {project} = props;
+  const {ProjectId, Address} = project || {};
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
@@ -18,8 +16,8 @@ const ProjectInfo = props => {
         <View style={styles.projectInfo}>
           <Text style={styles.projectId}>{'Project ID'}</Text>
           <View style={styles.projectIdRow}>
-            <Text style={styles.projectName}>{projectId}</Text>
-            <TouchableOpacity onPress={() => Clipboard.setString(projectId)}>
+            <Text style={styles.projectName}>{ProjectId}</Text>
+            <TouchableOpacity onPress={() => Clipboard.setString(ProjectId)}>
               <Image
                 source={multiple}
                 style={styles.multiple}
@@ -35,7 +33,7 @@ const ProjectInfo = props => {
             style={styles.locationIcon}
             resizeMode="contain"
           />
-          <Text style={styles.address}> {address}</Text>
+          <Text style={styles.address}>{Address}</Text>
         </View>
       </View>
     </View>

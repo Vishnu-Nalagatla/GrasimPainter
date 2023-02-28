@@ -2,4 +2,5 @@
     <string name="app_name_prod">GrasimPainter</string>
     <string name="app_name_debug">GrasimPainter (D)</string>
     <string name="app_name_stage">GrasimPainter (S)</string>
+    <string name="app_name_qa">GrasimPainter (Q)</string>
 </resources>

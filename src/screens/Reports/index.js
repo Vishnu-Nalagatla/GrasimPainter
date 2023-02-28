@@ -1,5 +1,5 @@
 import {ScrollView} from 'native-base';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
 import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
@@ -13,146 +13,11 @@ const report = {
   PAINTING_REPORT: 1,
   QC_REPORT: 2,
 };
-
-const roomsData = [
-  {
-    name: 'Namita Bedroom',
-    walls: [
-      {
-        name: 'Wall 1',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 2',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 3',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 4',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 5',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-    ],
-  },
-  {
-    name: 'Living Room',
-    walls: [
-      {
-        name: 'Wall 1',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 2',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 3',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-    ],
-  },
-  {
-    name: 'Kitchen',
-    walls: [
-      {
-        name: 'Wall 1',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 2',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 3',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 4',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 5',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 6',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-      {
-        name: 'Wall 7',
-        paintingSystem: [
-          'FS Premium  Emulsion (Acry P)',
-          'Birla White Wall Care Putty',
-        ],
-        addOns: ['Water Proofing', 'Design Finish'],
-      },
-    ],
-  },
-];
-
-const Reports = () => {
+const Reports = props => {
+  const {project} = props;
+  const {
+    RoomList
+  } = project || {};
   const buttons = [
     {
       label: 'Project Report',
@@ -165,7 +30,6 @@ const Reports = () => {
       status: false,
     },
   ];
-
   const [state, setTabState] = useState(buttons);
   const [activeTab, setActiveTab] = useState(1);
   const [activeRooms, setActiveRooms] = useState([]);
@@ -186,8 +50,8 @@ const Reports = () => {
   };
 
   const renderHeader = wall => {
-    const {name} = wall;
-    const index = name.split(' ')[1];
+    const {Name} = wall;
+    const index = Name.split(' ')[1];
     const activeRoom = activeRooms[0] + 1;
     const isActiveRoom = +index === +activeRoom;
     return (
@@ -195,15 +59,15 @@ const Reports = () => {
         style={
           isActiveRoom ? styles.activeHeaderContainer : styles.headerContainer
         }>
-        <Text style={styles.roomName}>{wall.name}</Text>
+        <Text style={styles.roomName}>{wall.Name}</Text>
         <Image source={downImg} style={styles.accordionImg} />
       </View>
     );
   };
 
   const renderContent = wall => {
-    const {name} = wall;
-    const index = name.split(' ')[1];
+    const {Name} = wall;
+    const index = Name.split(' ')[1];
     const activeRoom = activeRooms[0] + 1;
     const isActiveRoom = +index === +activeRoom;
     const wallStyles = isActiveRoom
@@ -252,14 +116,14 @@ const Reports = () => {
   };
 
   const RoomInfo = ({room}) => {
-    const {name} = room;
+    const {Name} = room;
     return (
       <View>
-        <Text style={styles.roomInfo}>{name}</Text>
+        <Text style={styles.roomInfo}>{Name}</Text>
         <View>
           <Accordion
             activeSections={activeRooms}
-            sections={room.walls}
+            sections={room?.WallList}
             touchableComponent={TouchableOpacity}
             renderHeader={renderHeader}
             renderContent={renderContent}
@@ -285,7 +149,7 @@ const Reports = () => {
     return (
       <ScrollView style={styles.accordionContainer}>
         <Text style={styles.heading}>Product and Colors</Text>
-        {roomsData.map(room => {
+        {project?.RoomList.map(room => {
           return <RoomInfo room={room} />;
         })}
       </ScrollView>

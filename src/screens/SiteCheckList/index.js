@@ -1,12 +1,32 @@
 import {ScrollView, Text} from 'native-base';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {View} from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import CustomButton from '../../components/Button';
 
 import styles from './styles';
 
-const SiteCheckList = () => {
+const SiteCheckList = props => {
+  const {project} = props;
+  const {
+    SiteAddress,
+    SiteCleaningChangingArea,
+    SiteIDRequirement,
+    SiteId,
+    SiteLighting,
+    SiteMaterialStorage,
+    SiteName,
+    SiteOccupancy,
+    SitePowerAvailability,
+    SitePreJobStatus,
+    SiteServiceLift,
+    SiteSize,
+    SiteStartDateAlignment,
+    SiteWaterAvailability,
+    SiteWashroomFacility,
+    SiteWorkPermit,
+  } = project || {};
+
   const lable1 = 'Ensure following items are right';
   const lable2 = 'Let’s check few more items';
   const btnlabel = 'Save Checklist';
@@ -18,8 +38,8 @@ const SiteCheckList = () => {
       index: 1,
     },
     {
-      question: 'Does the site have ample storage space for material?',
-      status: true,
+      question: 'Does the site have sample storage space for material?',
+      status: SiteMaterialStorage == 'Yes' ? true : false,
       index: 2,
     },
     {
@@ -30,7 +50,7 @@ const SiteCheckList = () => {
     },
     {
       question: 'Availability of electricity',
-      status: false,
+      status: SitePowerAvailability == 'Yes' ? true : false,
       index: 4,
     },
     {
@@ -40,7 +60,7 @@ const SiteCheckList = () => {
     },
     {
       question: 'Availability of washroom facility for painting crew',
-      status: true,
+      status: SiteWashroomFacility == 'Yes' ? true : false,
       index: 6,
     },
   ];
@@ -58,7 +78,7 @@ const SiteCheckList = () => {
     },
     {
       question: 'Any work permit required from premisis?',
-      status: true,
+      status: SiteWorkPermit == 'Yes' ? true : false,
       index: 102,
     },
     {
@@ -83,7 +103,7 @@ const SiteCheckList = () => {
     console.info('status...', status);
     return (
       <View style={isLast ? styles.itemNoHr : styles.item}>
-        <Text style={styles.question}> {question}</Text>
+        <Text style={styles.question}>{question}</Text>
         <ToggleSwitch
           isOn={status}
           onColor="#2C4DAE"
@@ -110,7 +130,7 @@ const SiteCheckList = () => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <CheckList data={checkList} lable={lable1}  />
+      <CheckList data={checkList} lable={lable1} />
       <CheckList data={moreCheckList} lable={lable2} />
       <CustomButton
         title={btnlabel}

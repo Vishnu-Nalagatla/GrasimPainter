@@ -18,7 +18,6 @@ const ProjectDetails = props => {
   const {params} = route;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(params.index);
-
   const [routes] = useState([
     {key: 'progress', title: 'Progress'},
     {key: 'timeline', title: 'Timeline'},
@@ -28,17 +27,19 @@ const ProjectDetails = props => {
     {key: 'info', title: 'Info'},
   ]);
   const progressRoute = () => (
-    <ProjectProgress project={params.project} {...props} />
+    <ProjectProgress
+      project={params.ProjectDetailsData}
+      {...props}
+    />
   );
-  const materialRoute = () => <Material project={params.project} />;
-  const siteCheckListRoute = () => <SiteCheckList project={params.project} />;
-  const reportsRoute = () => <Reports project={params.project} />;
-  const infoRoute = () => <ProjectInfo project={params.project} />;
-
+  const materialRoute = () => <Material project={params.ProjectDetailsData} />;
+  const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData} />;
+  const reportsRoute = () => <Reports project={params.ProjectDetailsData} />;
+  const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} />;
   const SecondRoute = () => (
     // eslint-disable-next-line react-native/no-inline-styles
     // <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-    <Timeline />
+    <Timeline myDayInfo={params.ProjectDetailsData}/>
   );
 
   const renderScene = SceneMap({

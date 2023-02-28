@@ -23,8 +23,8 @@ import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors';
 
 const Timeline = props => {
-  const {myDay} = props;
-  const {myDayInfo} = myDay;
+  const {myDayInfo} = props;
+  // const {myDayInfo} = myDay;
   const [timeLineData, setTimeLineData] = useState([]);
   const [projectStartDate, setProjectStartDate] = useState(
     myDayInfo.ProjectStartDate,
@@ -296,7 +296,7 @@ const Timeline = props => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container}>   
       <Popup visible={!!popup} popupStyle={getPopupStyle()}>
         {getPopupContent()}
       </Popup>

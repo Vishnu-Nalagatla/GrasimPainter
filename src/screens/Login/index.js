@@ -57,7 +57,7 @@ class Login extends React.Component<Props, State> {
     this.showSpinner();
     API.validateUser(request)
       .then(response => {
-        console.info('response..', response);
+        console.info('Login response..', response);
         const {data} = response;
         if (data && data.code && data.code === 401) {
           this.setState({validationMsg: data.message, popup: undefined});

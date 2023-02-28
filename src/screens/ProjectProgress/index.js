@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Container, Content, FlatList, ScrollView} from 'native-base';
 import {Image, View, Text, TouchableOpacity} from 'react-native';
 import styles from './styles';
@@ -21,8 +21,11 @@ const ProjectProgress = props => {
   const {
     ProjectStartDate,
     ProjectEndDate,
+    CompletionPercentage,
+    Address,
     paymentInfo = '1st payment received',
-    address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
+    SiteMaterialStorage,
+    SiteWaterAvailability,
   } = project || {};
   const startDate = Moment(ProjectStartDate).format('DD MMM YYYY');
   const endDate = Moment(ProjectEndDate).format('DD MMM YYYY');
@@ -37,38 +40,43 @@ const ProjectProgress = props => {
   const constraints = [
     {
       key: 'Space required for material movement',
-      value: 'Available',
+      value: SiteMaterialStorage == 'Yes' ? 'Available' : 'Not Available',
     },
     {
       key: 'Access to washroom',
-      value: 'Yes',
+      value: SiteWaterAvailability,
     },
   ];
-
   const tabList = [
     {
       key: 'material',
       value: 'Material',
+      tabIndex: 2,
     },
     {
       key: 'crewDetails',
       value: 'Crew Details',
+      tabIndex: 0,
     },
     {
       key: 'siteChecklist',
       value: 'Site Checklist',
+      tabIndex: 4,
     },
     {
       key: 'timeline',
       value: 'Timeline',
+      tabIndex: 1,
     },
     {
       key: 'reports',
       value: 'Reports',
+      tabIndex: 3,
     },
     {
       key: 'projectInfo',
       value: 'Project Info',
+      tabIndex: 5,
     },
   ];
 
@@ -78,7 +86,7 @@ const ProjectProgress = props => {
     return (
       <View style={styles.progressInfo}>
         <View style={styles.header}>
-          <Text style={styles.label}> Project Palnning</Text>
+          <Text style={styles.label}>Project Palnning</Text>
           <TouchableOpacity onPress={viewCustomerProfile}>
             <Image
               source={profileImg}
@@ -87,7 +95,7 @@ const ProjectProgress = props => {
             />
           </TouchableOpacity>
         </View>
-        <ProgressPercentage value={63} />
+        <ProgressPercentage value={CompletionPercentage.split('.')[0]} />
         <View style={styles.duration}>
           <View style={styles.startDate}>
             <Image
@@ -95,7 +103,7 @@ const ProjectProgress = props => {
               style={styles.profileIcon}
               resizeMode="contain"
             />
-            <Text> {startDate} </Text>
+            <Text>{startDate} </Text>
           </View>
           <Text style={styles.dotted}> </Text>
           <Text style={styles.dotted}> </Text>
@@ -111,7 +119,7 @@ const ProjectProgress = props => {
               style={styles.profileIcon}
               resizeMode="contain"
             />
-            <Text> {endDate} </Text>
+            <Text>{endDate} </Text>
           </View>
         </View>
         <View style={styles.paymentInfo}>
@@ -130,7 +138,7 @@ const ProjectProgress = props => {
             style={styles.locationIcon}
             resizeMode="contain"
           />
-          <Text style={styles.address}> {address}</Text>
+          <Text style={styles.address}>{Address}</Text>
         </View>
       </View>
     );
@@ -145,15 +153,17 @@ const ProjectProgress = props => {
             index % 2 === 0 ? styles.constraintInfo : styles.constraintInfoOdd;
           return (
             <View style={styleInfo}>
-              <Text style={styles.constraintKey}>{info.key} </Text>
-              <Text style={styles.constraintValue}>{info.value} </Text>
+              <Text style={styles.constraintKey}>{info.key}</Text>
+              <Text style={styles.constraintValue}>{info.value}</Text>
             </View>
           );
         })}
       </View>
     );
   };
-
+  const onTabPress = item => {
+    // alert(JSON.stringify(item));
+  };
   const getTabs = () => {
     return (
       <SafeAreaView style={styles.tabView}>
@@ -162,14 +172,18 @@ const ProjectProgress = props => {
           contentContainerStyle={styles.itemView}
           keyExtractor={(item, index) => item.key}
           renderItem={({item}) => (
-            <View style={styles.navitem}>
+            <TouchableOpacity
+              onPress={() => {
+                onTabPress(item);
+              }}
+              style={styles.navitem}>
               <Text style={styles.tabItem}>{item.value}</Text>
               <Image
                 source={rightArrowImg}
                 style={styles.arrowIcon}
                 resizeMode="contain"
               />
-            </View>
+            </TouchableOpacity>
           )}
         />
       </SafeAreaView>

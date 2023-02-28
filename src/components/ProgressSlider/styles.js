@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   },
   textValue: {
     width: 70 * vw,
-    height: 15 * vh,
+    height: 20 * vh,
     textAlign: 'center',
     color: colors.primary,
     fontSize: 16 * vh,
