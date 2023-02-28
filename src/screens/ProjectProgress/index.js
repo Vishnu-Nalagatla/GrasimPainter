@@ -17,7 +17,7 @@ import ProgressPercentage from '../../components/ProgressPercentage';
 import RouteConfig from '../../constants/route-config';
 
 const ProjectProgress = props => {
-  const {project} = props;
+  const {project={}, loggedInUser = {}} = props;
   const {
     ProjectStartDate,
     ProjectEndDate,
@@ -27,6 +27,7 @@ const ProjectProgress = props => {
     SiteMaterialStorage,
     SiteWaterAvailability,
   } = project || {};
+  const {roleKey = 'TeamLeadId'} = loggedInUser || {};
   const startDate = Moment(ProjectStartDate).format('DD MMM YYYY');
   const endDate = Moment(ProjectEndDate).format('DD MMM YYYY');
 

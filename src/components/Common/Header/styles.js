@@ -54,6 +54,13 @@ const styles = StyleSheet.create({
     left: 0,
     overflow: 'hidden',
   },
+  popupStyle: {
+    flex: 1,
+    // marginLeft: 12 * vw,
+    // backgroundColor: 'red',
+    width: '99%',
+    height: 736 * vh,
+  },
 });
 
 export default styles;

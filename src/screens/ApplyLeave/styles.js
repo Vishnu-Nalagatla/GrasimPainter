@@ -6,9 +6,10 @@ const {vh, vw} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 1,
     alignItems: 'center',
     backgroundColor: '#DCE3F8',
+    padding: 10 * vh
   },
   dropdown: {
     width: 328 * vw,
@@ -116,9 +117,23 @@ const styles = StyleSheet.create({
   showFromDayCalendar: {
     backgroundColor: colors.white,
     width: 328 * vw,
-    height: 324 * vh,
+    //height: 324 * vh,
     borderRadius: 8 * vh,
     marginTop: 12 * vh,
+  },
+  imgLeaveSuccessStyle: {
+    width: 64 * vw,
+    height: 64 * vh,
+  },
+  leaveSuccessLabel: {
+    color: '#000000',
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: 14 * vh,
+    lineHeight: 22 * vh,
+    paddingLeft: 48 * vh,
+    paddingRight: 48 * vh,
   },
 });
 

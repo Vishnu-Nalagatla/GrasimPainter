@@ -44,7 +44,7 @@ const ProjectDetails = props => {
 
   const renderScene = SceneMap({
     progress: progressRoute,
-    timeline: SecondRoute,
+    timeline: timeLineRoute,
     material: materialRoute,
     reports: reportsRoute,
     siteCheckList: siteCheckListRoute,

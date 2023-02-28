@@ -100,7 +100,6 @@ const SiteCheckList = props => {
 
   const Item = ({data, isLast}) => {
     const {question, index, status} = data;
-    console.info('status...', status);
     return (
       <View style={isLast ? styles.itemNoHr : styles.item}>
         <Text style={styles.question}>{question}</Text>

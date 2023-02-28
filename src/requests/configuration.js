@@ -12,6 +12,10 @@ export default {
   scheduleSiteVisit: '/sfdc/create-event/',
   getCrewCalendar: '/sfdc/get-crew-calendar/',
   myProjectDetails: '/sfdc/expose-project-details/',
+  //upsertUserLeaves: '/sfdc/upsert-user-leaves/',
+  upsertUserLeaves: '/sfdc/upsert-leaves-or-attendance/',
+  leaveApproveForTL: '/sfdc/leave-approvals-TL/',
+
 
   accessToken: '/sfdc/access-token/',
   updateDatesWithoutRoomSequence:

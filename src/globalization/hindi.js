@@ -10,6 +10,7 @@ export default {
   todayLabel: 'Today',
   tomorrowLabel: 'Tomorrow',
   saveLabel: 'Save',
+  cancelLabel: 'Cancel',
   paintingMaterial: 'Painting Material',
   accessoriesEquipments: 'Accessories & Equipments',
   totalQuantity: 'Total Quantity',
@@ -20,4 +21,5 @@ export default {
   approved: 'APPROVED',
   getExtraInfo: 'getExtraInfo',
   description: 'Description',
+  raiseMaterialRequest: 'Raise material request',
 };

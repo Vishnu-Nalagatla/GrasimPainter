@@ -4,9 +4,13 @@ const {vw, vh} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
+    // flex: 1,
+    // marginTop: 256 * vh,
     paddingHorizontal: 10 * vh,
     paddingVertical: 10 * vh,
-    height: 736 * vh,
+    // height: 680 * vh,
+    // width: 302 * vw,
+    // marginRight: 58 * vw,
     backgroundColor: '#2C4DAE',
   },
   initContainer: {

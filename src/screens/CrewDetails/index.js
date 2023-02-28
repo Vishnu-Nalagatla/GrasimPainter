@@ -144,7 +144,6 @@ class CrewDetails extends React.Component<Props, State> {
     const {login} = reduxProps;
     const {loginInfo = {}} = login;
     const {firstName = ''} = loginInfo;
-    console.info('firstName...', firstName);
     const {popup} = this.state;
     const {style = {}} = popup || {};
     const crewList = data;

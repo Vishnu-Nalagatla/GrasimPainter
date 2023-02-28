@@ -12,25 +12,25 @@ import RouteConfig from '../../constants/route-config';
 const Drawer = props => {
   const {navigation, firstName, lastName, role, closePopup} = props;
   const onMyProfile = () => {
-    // navigation.navigate(RouteConfig.Profile);
+    navigation.navigate(RouteConfig.Profile);
   };
 
   const onLogout = () => {};
 
   const onMyProjects = () => {
-    // navigation.navigate(RouteConfig.MyProjectsList);
+    navigation.navigate(RouteConfig.MyProjectsList);
   };
 
   const onMyTrainings = () => {
-    // navigation.navigate(RouteConfig.Trainings);
+    navigation.navigate(RouteConfig.Trainings);
   };
 
   const onBenefits = () => {
-    // navigation.navigate(RouteConfig.Benefits);
+    navigation.navigate(RouteConfig.Benefits);
   };
 
   const onHelpSupport = () => {
-    // navigation.navigate(RouteConfig.HelpSupport);
+    navigation.navigate(RouteConfig.HelpSupport);
   };
 
   const onAppFeatures = () => {

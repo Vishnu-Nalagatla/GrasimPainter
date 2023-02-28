@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {StackHeaderProps} from '@react-navigation/stack';
 import styles from './styles.js';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
@@ -11,10 +11,8 @@ import Drawer from '../../../components/Drawer';
 
 const Header = (props: StackHeaderProps) => {
   const {options, navigation, toggleDrawer} = props;
-  console.info('props.....', props);
   const {title = undefined, showBackIcon = true} = options;
-  // const [popup, setPopup] = useState(undefined);
-  const popup = {};
+  const [popup, setPopup] = useState(undefined);
 
   const getPopupStyle = () => {
     let popupStyle = {};
@@ -24,9 +22,9 @@ const Header = (props: StackHeaderProps) => {
     return popupStyle;
   };
 
-  // const closePopup = () => {
-  //     setPopup(undefined);
-  // };
+  const closePopup = () => {
+      setPopup(undefined);
+  };
 
   const getPopupContent = () => {
     if (!popup) {
@@ -34,15 +32,16 @@ const Header = (props: StackHeaderProps) => {
     }
     switch (popup.type) {
       case POPUP_CONSTANTS.TOGGLE_DRAWER:
-        return <Drawer navigation={navigation} />;
+        // return <Drawer />;
+        return null;
       default:
         break;
     }
   };
-
+  const style = styles.popupStyle;
   return (
     <View style={styles.container}>
-      <Popup visible={!!popup} popupStyle={getPopupStyle()}>
+      <Popup popupStyle={style} visible={!!popup} onPress={closePopup}>
         {getPopupContent()}
       </Popup>
       <View style={styles.headerTitle}>
@@ -50,6 +49,7 @@ const Header = (props: StackHeaderProps) => {
           <TouchableOpacity
             style={styles.menuImg}
             onPress={() => {
+              // setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER});
               if (toggleDrawer) {
                 toggleDrawer();
               } else {
@@ -70,7 +70,7 @@ const Header = (props: StackHeaderProps) => {
         <TouchableOpacity
           style={styles.bellIcon}
           onPress={() => {
-            navigation.navigate(RouteConfig.Notifications);
+            return navigation.navigate(RouteConfig.Notifications);
           }}>
           <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
         </TouchableOpacity>
