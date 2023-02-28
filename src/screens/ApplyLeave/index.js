@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import {Dropdown} from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -19,26 +19,26 @@ import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import nextDateImg from '../../assets/images/calendar/calendarRightArrow.png';
 import leaveSuccesIcon from '../../assets/images/addLeave/leaveSuccesIcon.png';
 import colors from '../../constants/colors';
-import { SFDC_API } from '../../requests';
+import {SFDC_API} from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
-import { ScrollView } from 'native-base';
+import {ScrollView} from 'native-base';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
 
 const leaveTypes = [
-  { label: 'Sick', value: '1' },
-  { label: 'Casual', value: '2' },
-  { label: 'Vacation', value: '3' },
-  { label: 'Maternity', value: '4' },
-  { label: 'Paternity', value: '5' },
-  { label: 'Loss of Pay', value: '6' },
-  { label: 'Work from Home', value: '7' },
+  {label: 'Sick', value: '1'},
+  {label: 'Casual', value: '2'},
+  {label: 'Vacation', value: '3'},
+  {label: 'Maternity', value: '4'},
+  {label: 'Paternity', value: '5'},
+  {label: 'Loss of Pay', value: '6'},
+  {label: 'Work from Home', value: '7'},
 ];
 
 const halfDay = [
-  { label: 'First Half', value: '1' },
-  { label: 'Second Half', value: '2' },
+  {label: 'First Half', value: '1'},
+  {label: 'Second Half', value: '2'},
 ];
 
 const ApplyLeave = () => {
@@ -55,15 +55,14 @@ const ApplyLeave = () => {
   const [leaveAppliedSuccess, setLeaveAppliedSuccess] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState();
 
-
   useEffect(() => {
     setLeaveAppliedSuccess(false);
     const currentDate = util.currentDate();
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
-      console.log('loggedInUser->', JSON.parse(user))
+      console.log('loggedInUser->', JSON.parse(user));
       setLoggedInUser(JSON.parse(user));
     });
-  }, [leaveAppliedSuccess])
+  }, [leaveAppliedSuccess]);
 
   const renderLabel = () => {
     if (leaveType) {
@@ -136,7 +135,7 @@ const ApplyLeave = () => {
 
   const getPreviousComponent = () => {
     return (
-      <View style={[styles.buttonStyle, { marginLeft: 10, margin: 0 }]}>
+      <View style={[styles.buttonStyle, {marginLeft: 10, margin: 0}]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -148,7 +147,7 @@ const ApplyLeave = () => {
 
   const getNextComponent = () => {
     return (
-      <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
+      <View style={[styles.buttonStyle, {marginRight: 10, margin: 0}]}>
         <Image
           source={nextDateImg}
           style={styles.imgStyle}
@@ -171,36 +170,51 @@ const ApplyLeave = () => {
   // };
 
   const invokeApplyLeave = () => {
-    if (description && selectedFromDate && selectedToDate && fromHalfDay && toHalfDay) {
+    if (
+      description &&
+      selectedFromDate &&
+      selectedToDate &&
+      fromHalfDay &&
+      toHalfDay
+    ) {
       const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
       const toDate = moment(selectedToDate).format('yyyy-MM-DD');
-      let request = []
+      let request = [];
       if (moment(selectedToDate).diff(moment(selectedFromDate), 'days') < 0) {
         //To Do Need to add validation "to date should be getterthen from date"
-      } else if (moment(selectedToDate).diff(moment(selectedFromDate), 'days') == 0) {
-        debugger
-        let leavePortion = halfDay.find(item => item.value === fromHalfDay).label;
+      } else if (
+        moment(selectedToDate).diff(moment(selectedFromDate), 'days') === 0
+      ) {
+        debugger;
+        let leavePortion = halfDay.find(
+          item => item.value === fromHalfDay,
+        ).label;
         let toPortion = halfDay.find(item => item.value === toHalfDay).label;
-        let fromLeaveDate = prepareReqObj(fromDate, leavePortion)
-        let toLeaveDate = prepareReqObj(fromDate, toPortion)
+        let fromLeaveDate = prepareReqObj(fromDate, leavePortion);
+        let toLeaveDate = prepareReqObj(fromDate, toPortion);
         request.push(fromLeaveDate);
         request.push(toLeaveDate);
       } else {
-        let daysDiff = moment(selectedToDate).diff(moment(selectedFromDate), 'days')
-        console.log(daysDiff)
+        let daysDiff = moment(selectedToDate).diff(
+          moment(selectedFromDate),
+          'days',
+        );
+        console.log(daysDiff);
         let newDate = moment(selectedFromDate);
         for (let i = 0; i <= daysDiff; i++) {
-          debugger
+          debugger;
           const fromDate = newDate.format('yyyy-MM-DD');
-          let leavePortion = "";
+          let leavePortion = '';
           if (i == 0) {
-            leavePortion = halfDay.find(item => item.value === fromHalfDay).label;
+            leavePortion = halfDay.find(
+              item => item.value === fromHalfDay,
+            ).label;
           } else if (i == daysDiff) {
             leavePortion = halfDay.find(item => item.value === toHalfDay).label;
           } else {
-            leavePortion = "Full Day"
+            leavePortion = 'Full Day';
           }
-          let obj = prepareReqObj(fromDate, leavePortion)
+          let obj = prepareReqObj(fromDate, leavePortion);
           request.push(obj);
           newDate.add(1, 'days');
         }
@@ -208,10 +222,10 @@ const ApplyLeave = () => {
       console.info('invokeApplyLeave...', request);
 
       console.info('invokeApplyLeave...', request);
-      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
       SFDC_API.upsertUserLeaves(request)
         .then(res => {
-          debugger
+          debugger;
           //console.log('leave apply resp->', res.data);
           setPopup(undefined);
           if (res.data === 'Success') {
@@ -219,7 +233,7 @@ const ApplyLeave = () => {
           }
         })
         .catch(error => {
-          debugger
+          debugger;
           const popupInfo = {
             type: POPUP_CONSTANTS.ERROR_POPUP,
             style: styles.popup,
@@ -241,34 +255,38 @@ const ApplyLeave = () => {
   const prepareReqObj = (date, leavePortion) => {
     let userData = JSON.parse(loggedInUser);
     let obj = {
-      "Crew_Member__c": JSON.parse(loggedInUser).Id,
-      "Date__c": date,
-      "Leave_Description__c": description,
-      "Leave_Portion__c": leavePortion,
-      "Leave_Status__c": "Pending",
-      "Leave_Type__c": "",
-      "Unique_ID__c": (new Date()).getTime() + "",
-      "Operation_Type__c": "Leave",
-      "Allocated_Project__c": "a061y000000EwQ5AAK",
-      "Assigned_approvar_for_HP__c": "",
-      "Assigned_approvar_for_painter__c": "",
-      "Crew_Id_And_Date__c": "0031y00000RNH0hAAH-2023-01-26"
-    }
-    return obj
-  }
+      Crew_Member__c: JSON.parse(loggedInUser).Id,
+      Date__c: date,
+      Leave_Description__c: description,
+      Leave_Portion__c: leavePortion,
+      Leave_Status__c: 'Pending',
+      Leave_Type__c: '',
+      Unique_ID__c: new Date().getTime() + '',
+      Operation_Type__c: 'Leave',
+      Allocated_Project__c: 'a061y000000EwQ5AAK',
+      Assigned_approvar_for_HP__c: '',
+      Assigned_approvar_for_painter__c: '',
+      Crew_Id_And_Date__c: '0031y00000RNH0hAAH-2023-01-26',
+    };
+    return obj;
+  };
 
-  const customDatesStyles = [{ style: { with: 300 } }];
+  const customDatesStyles = [{style: {with: 300}}];
   return (
     <View style={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
-      {leaveAppliedSuccess ?
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Image source={leaveSuccesIcon}
+      {leaveAppliedSuccess ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image
+            source={leaveSuccesIcon}
             style={styles.imgLeaveSuccessStyle}
-            resizeMode='contain' />
-          <Text style={styles.leaveSuccessLabel}>Your leave request has been sent for approval</Text>
+            resizeMode="contain"
+          />
+          <Text style={styles.leaveSuccessLabel}>
+            Your leave request has been sent for approval
+          </Text>
         </View>
-        :
+      ) : (
         <ScrollView>
           <View>
             {/* {renderLabel()}
@@ -302,7 +320,7 @@ const ApplyLeave = () => {
             </View>
             <View style={styles.fromContainer}>
               <TouchableOpacity
-                style={[styles.startDate, { flex: 1 }]}
+                style={[styles.startDate, {flex: 1}]}
                 onPress={() => showCalendar(true)}>
                 <Text
                   style={[
@@ -321,10 +339,10 @@ const ApplyLeave = () => {
                   {selectedFromDate ? selectedFromDate : 'Select From Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+              <View style={[styles.fromDateContainer, {flex: 1}]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, { width: '100%' }]}
+                  style={[styles.dropdown, {width: '100%'}]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -348,7 +366,7 @@ const ApplyLeave = () => {
                   startFromMonday={true}
                   showDayStragglers={true}
                   selectedDayTextColor="#FFF"
-                  todayBackgroundColor='#2C4DAE'
+                  todayBackgroundColor="#2C4DAE"
                   textStyle={styles.textStyle}
                   customDatesStyles={customDatesStyles}
                   weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
@@ -357,7 +375,7 @@ const ApplyLeave = () => {
             ) : null}
             <View style={[styles.fromContainer]}>
               <TouchableOpacity
-                style={[styles.startDate, { flex: 1 }]}
+                style={[styles.startDate, {flex: 1}]}
                 onPress={() => showCalendar()}>
                 <Text
                   style={[
@@ -376,10 +394,10 @@ const ApplyLeave = () => {
                   {selectedToDate ? selectedToDate : 'Select To Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+              <View style={[styles.fromDateContainer, {flex: 1}]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, { width: '100%' }]}
+                  style={[styles.dropdown, {width: '100%'}]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -416,7 +434,8 @@ const ApplyLeave = () => {
               onPress={invokeApplyLeave}
             />
           </View>
-        </ScrollView>}
+        </ScrollView>
+      )}
     </View>
   );
 };

@@ -17,7 +17,16 @@ import ProgressPercentage from '../../components/ProgressPercentage';
 import RouteConfig from '../../constants/route-config';
 
 const ProjectProgress = props => {
-  const {project={}, loggedInUser = {}} = props;
+  const PROJECT_DETAILS_NAVIGATION = {
+    PROGRESS: 0,
+    TIMELINE: 1,
+    MATERIAL: 2,
+    REPORTS: 3,
+    CHECKLIST: 4,
+    INFO: 5,
+  };
+  
+  const {project={}, loggedInUser = {},onTabChange, navigation} = props;
   const {
     ProjectStartDate,
     ProjectEndDate,
@@ -164,6 +173,8 @@ const ProjectProgress = props => {
   };
   const onTabPress = item => {
     //  alert(JSON.stringify(item));
+    const { tabIndex } = item;
+    onTabChange(tabIndex);
   };
   const getTabs = () => {
     return (
