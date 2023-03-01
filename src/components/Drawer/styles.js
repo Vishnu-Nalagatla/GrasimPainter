@@ -1,32 +1,35 @@
 import {StyleSheet, Platform} from 'react-native';
+import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 const {vw, vh} = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // marginTop: 256 * vh,
+    flex: 1,
+    padding: 16 * vh,
     paddingHorizontal: 10 * vh,
     paddingVertical: 10 * vh,
-    // height: 680 * vh,
-    // width: 302 * vw,
-    // marginRight: 58 * vw,
+    left: 0,
     backgroundColor: '#2C4DAE',
   },
   initContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    marginLeft: 16 * vw,
     alignItems: 'center',
-    borderColor: '#97979750',
-    borderWidth: 0,
-    borderBottomWidth: 1,
     paddingVertical: 20 * vh,
-    marginBottom: 20 * vh,
+  },
+  hrLine: {
+    borderColor: colors.sliderTrack,
+    borderBottomWidth: 1 * vh,
+    width: 238 * vw,
+    marginLeft: 16 * vw,
+    marginBottom: 42 * vh,
   },
   initalsWrapper: {
     width: 50 * vh,
     height: 50 * vh,
     borderRadius: 25 * vh,
+    marginRight: 12 * vw,
     backgroundColor: '#399555',
     justifyContent: 'center',
   },
@@ -37,13 +40,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   name: {
-    fontSize: 16 * vh,
+    fontSize: 12 * vh,
+    fontStyle: 'normal',
     textAlign: 'center',
     fontWeight: '700',
-    color: '#000',
-    textTransform: 'uppercase',
+    color: colors.white,
   },
-  phone: {fontSize: 12 * vh, textAlign: 'center', color: '#999999'},
+  phone: {
+    fontSize: 12 * vh,
+     textAlign: 'center', 
+     color: colors.white,
+    },
 
   langPrefWrapper: {
     flexDirection: 'row',
@@ -79,7 +86,6 @@ const styles = StyleSheet.create({
   profileIcon: {
     width: 56 * vw,
     height: 56 * vh,
-    left: 16 * vw,
   },
   itemWrapper: {
     flexDirection: 'row',
@@ -98,6 +104,11 @@ const styles = StyleSheet.create({
     width: 24 * vw,
     height: 24 * vh,
     marginRight: 16 * vw,
+  },
+  closeImg: {
+    width: 24 * vw,
+    height: 24 * vh,
+    margin: 16 * vw,
   },
   logoutText: {
     color: '#91A9F9',

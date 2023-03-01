@@ -8,6 +8,14 @@ import CrewCalendar from '../screens/CrewCalendar';
 import ClinetInfo from '../screens/ClinetInfo';
 import Notifications from '../screens/Notifications';
 import Benefits from '../screens/Benefits';
+import ProfileNavigator from './profile-navigator';
+import Trainings from '../screens/Trainings';
+import Help from '../screens/Help';
+import ProfileProjects from '../screens/ProfileProjects';
+import OnboardingNavigator from './onboarding-navigator';
+
+
+
 
 const MyDayStack = createStackNavigator();
 
@@ -24,6 +32,11 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="Approve" component={Approve} />
       <MyDayStack.Screen name="ClinetInfo" component={ClinetInfo} />
       <MyDayStack.Screen name="Notifications" component={Notifications} />
+      <MyDayStack.Screen name="Trainings" component={Trainings} />
+      <MyDayStack.Screen name="Help" component={Help} />
+      <MyDayStack.Screen name="ProfileProjects" component={ProfileProjects} />
+      <MyDayStack.Screen name="ProfileNavigator" component={ProfileNavigator} />
+      
     </MyDayStack.Navigator>
   );
 }
