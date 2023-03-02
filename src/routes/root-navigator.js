@@ -7,13 +7,20 @@ import OnboardingNavigator from './onboarding-navigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, NativeBaseProvider, View } from 'native-base';
+import { Button, NativeBaseProvider, Text, View } from 'native-base';
 import { Image } from 'react-native';
 
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
+import paintRoller from '../assets/images/paintRoller/image.png';
 import teamColor from '../assets/images/teamColor/image.png';
+import team from '../assets/images/team/image.png';
 import myDayColor from '../assets/images/myDayColor/image.png';
+import myDay from '../assets/images/myDay/image.png';
 import attendanceColor from '../assets/images/attendanceColor/image.png';
+import attendance from '../assets/images/attendance/image.png';
+
+import menuImg from '../assets/images/menu/image.png';
+import bellImg from '../assets/images/bell/image.png';
 
 import Header from '../components/Common/Header';
 import ProjectsNavigator from './projects-navigator';
@@ -26,8 +33,6 @@ import Popup from '../components/Popup';
 import POPUP_CONSTANTS from '../enums/popup';
 import Drawer from '../components/Drawer';
 
-import menuImg from '../assets/images/menu/image.png';
-import bellImg from '../assets/images/bell/image.png';
 
 import ViewPort from '../constants/view-port';
 import colors from '../constants/colors';
@@ -54,7 +59,7 @@ function RootNavigator(props) {
   const [popup, setPopup] = useState(undefined);
   const [showNotifications, setNotifications] = useState(undefined);
 
-  
+
   const { login } = reduxProps;
   const { isLoggedIn, loginInfo = {} } = login;
   const { showOnboarding = false } = loginInfo;
@@ -66,7 +71,7 @@ function RootNavigator(props) {
     }
     switch (popup.type) {
       case POPUP_CONSTANTS.TOGGLE_DRAWER:
-        return <Drawer closePopup={closePopup} navigation={popup.navigation}/>;
+        return <Drawer closePopup={closePopup} navigation={popup.navigation} />;
       default:
         break;
     }
@@ -89,7 +94,6 @@ function RootNavigator(props) {
     const date = new Date();
     const currentDate = util.currentDate();
     AsyncStorage.clear();
-    // this.userExists = {};
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
         this.userExists = true;
@@ -101,7 +105,7 @@ function RootNavigator(props) {
     setPopup(undefined);
   };
 
-  const headerOptions = (navigation, name,imgSource)=>{
+  const headerOptions = (navigation, name, imgSource, onPress) => {
     return ({
       showNotifications,
       headerTintColor: colors.white,
@@ -114,7 +118,7 @@ function RootNavigator(props) {
         <TouchableOpacity
           style={styles.menuImg}
           onPress={() => {
-            setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER , navigation});
+            setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation });
           }}>
           <Image
             source={menuImg}
@@ -126,11 +130,11 @@ function RootNavigator(props) {
       headerRight: () => (
         <TouchableOpacity
           style={styles.bellIcon}
-          onPress={()=>  navigation.navigate(RouteConfig.Notifications)  }>
+          onPress={() => navigation.navigate(RouteConfig.Notifications)}>
           <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
         </TouchableOpacity>
       ),
-      tabBarIcon: ({color, size}) => (
+      tabBarIcon: ({ color, size }) => (
         <Image style={styles.icon} source={imgSource} />
       ),
     })
@@ -145,37 +149,60 @@ function RootNavigator(props) {
         </Popup>
         <Tab.Navigator
           initialRouteName="MyDayNavigator"
-          screenOptions={{
+          screenOptions={({ route }) => ({
             tabBarActiveTintColor: '#2C4DAE',
-          }}>
+            tabBarStyle: styles.tabBarStyle,
+            tabBarLabel: ({ tintColor, focused, item }) => {
+              const style = focused ? styles.tabActiveStyles : styles.tabStyles;
+              const hrStyle = focused ? styles.hrLine : null;
+              return <View style={styles.tabStyle}>
+                <Text style={style} >{route.name}</Text>
+                <View style={hrStyle}></View>
+              </View>
+            },
+          })}>
           <Tab.Screen
             name="MyDay"
             component={MyDayNavigator}
-            options={({navigation }) => headerOptions(navigation, 'MyDay', teamColor)}
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? myDayColor : myDay;
+              return headerOptions(navigation, 'MyDay', imgSrc)
+            }}
+
           />
 
           <Tab.Screen
             name="Projects"
             component={ProjectsNavigator}
-            options={({navigation }) => headerOptions(navigation, 'Projects', paintRollerColor)}
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? paintRollerColor : paintRoller;
+              return headerOptions(navigation, 'Projects', imgSrc)
+            }}
           />
 
           <Tab.Screen
-            name="My Team"
+            name="MyTeam"
             component={MyTeamNavigator}
-            options={({navigation }) => headerOptions(navigation, 'My Team', teamColor)}
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? teamColor : team;
+              return headerOptions(navigation, 'My Team', imgSrc)
+            }}
           />
 
           <Tab.Screen
             name="Attendance"
             component={AttendanceNavigator}
-            options={({navigation }) => headerOptions(navigation, 'Attendance', attendanceColor)}
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? attendanceColor : attendance;
+              return headerOptions(navigation, 'Attendance', imgSrc)
+            }}
           />
         </Tab.Navigator>
       </View>
     );
   };
   const getScreen = () => {
+    // this.userExists || isLoggedIn
     if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
@@ -216,14 +243,22 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 10,
   },
-  popupStyle:{
-    flex:1,
+  tabBarStyle: {
+    textDecorationLine: 'underline',
+  },
+  popupStyle: {
+    flex: 1,
     height: 670 * vh,
     width: 302 * vw,
     marginRight: 58 * vw,
     marginBottom: 46 * vw,
   },
-  icon: { width: 20, height: 20, marginTop: 15, marginBottom: 5 },
+  icon: {
+    width: 18 * vw,
+    height: 18 * vh,
+    marginTop: 15 * vh,
+    marginBottom: 7 * vh,
+  },
   menuImg: {
     height: 24 * vh,
     width: 24 * vw,
@@ -238,6 +273,42 @@ const styles = StyleSheet.create({
     height: 24 * vh,
     width: 24 * vw,
     marginRight: 16 * vw,
+  },
+  tabStyles: {
+    color: colors.primary,
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 12 * vh,
+    lineHeight: 12 * vh,
+    paddingHorizontal: 4 * vh,
+    marginBottom: 1 * vw,
+  },
+  tabActiveStyles: {
+    color: colors.primary,
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: 12 * vh,
+    lineHeight: 12 * vh,
+    paddingTop: 6 * vh,
+    marginBottom: 1 * vw,
+  },
+  hrLine: {
+    borderColor: colors.primary,
+    borderBottomWidth: 3 * vh,
+    marginTop: 4 * vw,
+    marginBottom: 1 * vw,
+    width: 70 * vw,
+  },
+  tabStyle: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    width: 90 * vw,
+    height: 56 * vh,
+    // backgroundColor: 'red',
+    alignItems: 'center',
   },
 });
 
