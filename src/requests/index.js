@@ -33,6 +33,8 @@ class Requests {
 
   verifyOtp = body => this.axios.post(URLs.verifyOtp, body);
 
+  getCrewCalendar = body => this.axios.post(URLs.getCrewCalendar, body);
+
   // MY DAY
 
   getMyDayInfo = body => {
@@ -89,9 +91,6 @@ class SfdcAPI {
     this.instance.patch(`${URLs.qualityCheckRequest}${projectId}`, body);
 
   scheduleSiteVisit = body => this.instance.post(URLs.scheduleSiteVisit, body);
-  getCrewCalendar = territoryId => {
-    return this.instance.get(`${URLs.getCrewCalendar}${territoryId}`);
-  };
 
   updateDatesWithoutRoomSequence = (projectId, body) => {
     return this.instance.patch(

@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     height: 40 * vh,
-    // backgroundColor: 'green',
     marginBottom: 23 * vh,
   },
   sraitLine: {
@@ -116,7 +115,6 @@ const styles = StyleSheet.create({
   },
   timeLineRowInActive: {
     width: 12 * vw,
-    // color: 'red',
     backgroundColor: colors.primary,
     alignSelf: 'center',
     height: 221 * vh,

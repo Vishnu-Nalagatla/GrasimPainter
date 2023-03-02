@@ -228,7 +228,7 @@ class Otp extends React.Component<Props, State> {
       })
       .catch(error => {
         this.setState({validationMsg: 'Error invoking validate user API'});
-        console.log('validateUser error', error);
+        console.log('verifyOtp error', error);
       });
   };
 

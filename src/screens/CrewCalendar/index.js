@@ -1,122 +1,20 @@
-import {Text} from 'native-base';
-import React, {useState} from 'react';
-import {View, ScrollView, ActivityIndicator} from 'react-native';
-import {Image} from 'native-base';
+import { Text } from 'native-base';
+import React, { useState } from 'react';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { Image } from 'native-base';
 import ellipse from '../../assets/images/ellipse/image.png';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
-import crewData from './data.json';
+import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures';
+// import crewData from './data.json';
 import POPUP_CONSTANTS from '../../enums/popup';
 
 import ViewPort from '../../constants/view-port';
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 import styles from './styles';
 import colors from '../../constants/colors';
 import Popup from '../../components/Popup';
 import StandardPopup from '../../components/Common/StandardPopup';
-import { SFDC_API } from '../../requests';
-
-const weekData = [
-  {
-    date: 'Today',
-    index: 1,
-    crew: [
-      {c1: 'occupied'},
-      {c2: 'leave'},
-      {c3: 'occupied'},
-      {c4: 'occupied'},
-      {c5: 'occupied'},
-    ],
-  },
-  {
-    date: '02 Sep',
-    index: 2,
-    crew: [
-      {c1: 'occupied'},
-      {c2: 'notOccupied'},
-      {c3: 'leave'},
-      {c4: 'notOccupied'},
-      {c5: 'occupied'},
-    ],
-  },
-  {
-    date: '03 Sep',
-    index: 3,
-    crew: [
-      {c1: 'notOccupied'},
-      {c2: 'notOccupied'},
-      {c3: 'leave'},
-      {c4: 'occupied'},
-      {c5: 'occupied'},
-    ],
-  },
-  {
-    date: '04 Sep',
-    index: 4,
-    crew: [
-      {c1: 'occupied'},
-      {c2: 'leave'},
-      {c3: 'notOccupied'},
-      {c4: 'occupied'},
-      {c5: 'notOccupied'},
-    ],
-  },
-  {
-    date: '05 Sep',
-    index: 5,
-    crew: [
-      {c1: 'notOccupied'},
-      {c2: 'notOccupied'},
-      {c3: 'notOccupied'},
-      {c4: 'notOccupied'},
-      {c5: 'leave'},
-    ],
-  },
-  {
-    date: '06 Sep',
-    index: 6,
-    crew: [
-      {c1: 'leave'},
-      {c2: 'notOccupied'},
-      {c3: 'notOccupied'},
-      {c4: 'notOccupied'},
-      {c5: 'notOccupied'},
-    ],
-  },
-  {
-    date: '07 Sep',
-    index: 4,
-    crew: [
-      {c1: 'occupied'},
-      {c2: 'leave'},
-      {c3: 'notOccupied'},
-      {c4: 'occupied'},
-      {c5: 'notOccupied'},
-    ],
-  },
-  {
-    date: '08 Sep',
-    index: 5,
-    crew: [
-      {c1: 'notOccupied'},
-      {c2: 'notOccupied'},
-      {c3: 'notOccupied'},
-      {c4: 'notOccupied'},
-      {c5: 'leave'},
-    ],
-  },
-  {
-    date: '09 Sep',
-    index: 6,
-    crew: [
-      {c1: 'leave'},
-      {c2: 'notOccupied'},
-      {c3: 'notOccupied'},
-      {c4: 'notOccupied'},
-      {c5: 'notOccupied'},
-    ],
-  },
-];
+import { API, SFDC_API } from '../../requests';
 
 class CrewCalendar extends React.Component<Props, State> {
   constructor(props) {
@@ -124,7 +22,7 @@ class CrewCalendar extends React.Component<Props, State> {
     this.state = {
       popup: undefined,
       index: 1,
-      crewData,
+      crewData: [],
     };
   }
 
@@ -134,23 +32,24 @@ class CrewCalendar extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
   getCrewCalendar = () => {
-    const territoryId = 'T1';
+    const request = {
+      territoryid: "T1"
+    }
     this.showSpinner();
-    SFDC_API.getCrewCalendar(territoryId)
+    API.getCrewCalendar(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const crewInfo = data.records;
-        console.info('crewInfo... ', crewInfo);
         this.setState({
-          crewData: crewInfo,
+          crewData: data,
         });
         this.closePopup();
       })
@@ -164,13 +63,14 @@ class CrewCalendar extends React.Component<Props, State> {
   };
 
   onSwipeLeft = gestureState => {
+    const { crewData } = this.state;
     const crewlength = crewData[0].crew.length - 4;
-    const {index} = this.state;
+    const { index } = this.state;
     if (index < crewlength) {
       let that = this;
       this.setState({
         index: index + 1,
-        popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+        popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
       });
       setTimeout(function () {
         that.setState({
@@ -181,12 +81,12 @@ class CrewCalendar extends React.Component<Props, State> {
   };
 
   onSwipeRight = gestureState => {
-    const {index} = this.state;
+    const { index } = this.state;
     if (index > 1) {
       let that = this;
       this.setState({
         index: index - 1,
-        popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+        popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
       });
       setTimeout(function () {
         that.setState({
@@ -197,7 +97,7 @@ class CrewCalendar extends React.Component<Props, State> {
   };
 
   showCrewRow = () => {
-    const {index} = this.state;
+    const { index } = this.state;
     return (
       <View style={styles.crewWrapper}>
         <Text style={styles.crewName}>{'C' + index}</Text>
@@ -214,7 +114,7 @@ class CrewCalendar extends React.Component<Props, State> {
     directionalOffsetThreshold: 30,
   };
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -229,8 +129,8 @@ class CrewCalendar extends React.Component<Props, State> {
     }
   };
   render() {
-    const {popup, index} = this.state;
-    const {style = {}} = popup || {};
+    const { popup, index, crewData } = this.state;
+    const { style = {} } = popup || {};
     return (
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
@@ -262,9 +162,10 @@ class CrewCalendar extends React.Component<Props, State> {
             </View>
           </View>
           <ScrollView contentContainerStyle={styles.timeLineContainer}>
-            {crewData.map(item => (
-              <TimeLine item={item} index={index} />
-            ))}
+            {crewData.map(item => {
+              return <TimeLine item={item} index={index} />
+            }
+            )}
           </ScrollView>
         </View>
       </View>
@@ -272,13 +173,14 @@ class CrewCalendar extends React.Component<Props, State> {
   }
 }
 
-const TimeLine = ({item, index}) => {
-  const {date, crew} = item;
+const TimeLine = ({ item, index }) => {
+  const { date, crew } = item;
   const lastIndex = index + 4;
   const currentCrewData = crew.filter(cr => {
-    const {Title} = cr;
-    const currentIndex = Title.replace('c', '');
+    const { Title } = cr;
+    const currentIndex = Title.replace('C', '');
     if (currentIndex >= index && currentIndex <= lastIndex) {
+      // console.info('currentIndex..', currentIndex, index, cr);
       return cr;
     }
   });
@@ -297,11 +199,11 @@ const TimeLine = ({item, index}) => {
       <View style={styles.crewWrapper}>
         {currentCrewData.map((crewDay, index) => {
           // console.info('crewDay...', crewDay);
-          const cIndex = index + 1;
+          // const cIndex = index + 1;
           // const onLeave = crewDay['c' + cIndex] === 'leave';
           // const occupied = crewDay['c' + cIndex] === 'occupied';
-          const onLeave = crewDay.Status === 'leave';
-          const occupied = crewDay.Status === 'assingned';
+          const onLeave = crewDay.Status === 'Leave';
+          const available = crewDay.Status === 'Available';
           // console.info('crewDay', crewDay, onLeave);
           return (
             <View style={styles.timeLineView}>
@@ -312,7 +214,7 @@ const TimeLine = ({item, index}) => {
               ) : (
                 <Text
                   style={
-                    occupied ? styles.timeLineRow : styles.timeLineNotOccupied
+                    available ? styles.timeLineNotOccupied : styles.timeLineRow
                   }
                 />
               )}
