@@ -152,7 +152,7 @@ function RootNavigator(props) {
           screenOptions={({ route }) => ({
             tabBarActiveTintColor: '#2C4DAE',
             tabBarStyle: styles.tabBarStyle,
-            tabBarLabel: ({ tintColor, focused, item }) => {
+            tabBarLabel: ({ focused }) => {
               const style = focused ? styles.tabActiveStyles : styles.tabStyles;
               const hrStyle = focused ? styles.hrLine : null;
               return <View style={styles.tabStyle}>
@@ -296,10 +296,10 @@ const styles = StyleSheet.create({
   },
   hrLine: {
     borderColor: colors.primary,
-    borderBottomWidth: 3 * vh,
+    borderBottomWidth: 4 * vh,
     marginTop: 4 * vw,
     marginBottom: 1 * vw,
-    width: 70 * vw,
+    width: 80 * vw,
   },
   tabStyle: {
     flex: 1,
@@ -307,7 +307,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 90 * vw,
     height: 56 * vh,
-    // backgroundColor: 'red',
     alignItems: 'center',
   },
 });

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -19,27 +19,29 @@ import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import nextDateImg from '../../assets/images/calendar/calendarRightArrow.png';
 import leaveSuccesIcon from '../../assets/images/addLeave/leaveSuccesIcon.png';
 import colors from '../../constants/colors';
-import {SFDC_API} from '../../requests';
+import { SFDC_API } from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
-import {ScrollView} from 'native-base';
+import { ScrollView } from 'native-base';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
 
 const leaveTypes = [
-  {label: 'Sick', value: '1'},
-  {label: 'Casual', value: '2'},
-  {label: 'Vacation', value: '3'},
-  {label: 'Maternity', value: '4'},
-  {label: 'Paternity', value: '5'},
-  {label: 'Loss of Pay', value: '6'},
-  {label: 'Work from Home', value: '7'},
+  { label: 'Sick', value: '1' },
+  { label: 'Casual', value: '2' },
+  { label: 'Vacation', value: '3' },
+  { label: 'Maternity', value: '4' },
+  { label: 'Paternity', value: '5' },
+  { label: 'Loss of Pay', value: '6' },
+  { label: 'Work from Home', value: '7' },
 ];
 
 const halfDay = [
-  {label: 'First Half', value: '1'},
-  {label: 'Second Half', value: '2'},
+  { label: 'First Half', value: '1' },
+  { label: 'Second Half', value: '2' },
 ];
+
+// “First Half/Second Half/Full Day”,
 
 const ApplyLeave = () => {
   const [leaveType, setLeaveType] = useState(null);
@@ -135,7 +137,7 @@ const ApplyLeave = () => {
 
   const getPreviousComponent = () => {
     return (
-      <View style={[styles.buttonStyle, {marginLeft: 10, margin: 0}]}>
+      <View style={[styles.buttonStyle, { marginLeft: 10, margin: 0 }]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -147,7 +149,7 @@ const ApplyLeave = () => {
 
   const getNextComponent = () => {
     return (
-      <View style={[styles.buttonStyle, {marginRight: 10, margin: 0}]}>
+      <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
         <Image
           source={nextDateImg}
           style={styles.imgStyle}
@@ -168,6 +170,56 @@ const ApplyLeave = () => {
   //   }
   //   return popupStyle;
   // };
+  const applyLeave = () => {
+    if (
+      description &&
+      selectedFromDate &&
+      selectedToDate &&
+      fromHalfDay &&
+      toHalfDay
+    ) {
+      const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
+      const toDate = moment(selectedToDate).format('yyyy-MM-DD');
+      const timeNow = newDate.format('yyyy-MM-DD-h:mm');
+      const request = {
+        OwnerId: "0051y000000NpxWAAS",
+        Type: "Leave",
+        Subject: "Leave",
+        Operation_Type__c: "Leave",
+        Leave_Description__c: description,
+        Leave_Type__c: "Leave",
+        StartDateTime: fromDate,
+        EndDateTime: toDate,
+        Start_Leave_Portion__c: fromHalfDay,
+        End_Leave_Portion__c: toHalfDay,
+        Unique_ID__c: timeNow,
+      }
+      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+      SFDC_API.upsertUserLeaves(request)
+        .then(res => {
+          setPopup(undefined);
+          if (res.data === 'Success') {
+            setLeaveAppliedSuccess(true);
+          }
+        })
+        .catch(error => {
+          const popupInfo = {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            style: styles.popup,
+            heading: 'Network Error',
+            message: error.message,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          };
+          setPopup(popupInfo);
+        });
+    }
+  }
 
   const invokeApplyLeave = () => {
     if (
@@ -203,7 +255,7 @@ const ApplyLeave = () => {
         let newDate = moment(selectedFromDate);
         for (let i = 0; i <= daysDiff; i++) {
           debugger;
-          const fromDate = newDate.format('yyyy-MM-DD');
+          const fromDate = newDate.format('yyyy-MM-DD-h:mm:ss');
           let leavePortion = '';
           if (i == 0) {
             leavePortion = halfDay.find(
@@ -222,11 +274,9 @@ const ApplyLeave = () => {
       console.info('invokeApplyLeave...', request);
 
       console.info('invokeApplyLeave...', request);
-      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
       SFDC_API.upsertUserLeaves(request)
         .then(res => {
-          debugger;
-          //console.log('leave apply resp->', res.data);
           setPopup(undefined);
           if (res.data === 'Success') {
             setLeaveAppliedSuccess(true);
@@ -271,12 +321,12 @@ const ApplyLeave = () => {
     return obj;
   };
 
-  const customDatesStyles = [{style: {with: 300}}];
+  const customDatesStyles = [{ style: { with: 300 } }];
   return (
     <View style={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {leaveAppliedSuccess ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={leaveSuccesIcon}
             style={styles.imgLeaveSuccessStyle}
@@ -320,7 +370,7 @@ const ApplyLeave = () => {
             </View>
             <View style={styles.fromContainer}>
               <TouchableOpacity
-                style={[styles.startDate, {flex: 1}]}
+                style={[styles.startDate, { flex: 1 }]}
                 onPress={() => showCalendar(true)}>
                 <Text
                   style={[
@@ -339,10 +389,10 @@ const ApplyLeave = () => {
                   {selectedFromDate ? selectedFromDate : 'Select From Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, {flex: 1}]}>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, {width: '100%'}]}
+                  style={[styles.dropdown, { width: '100%' }]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -375,7 +425,7 @@ const ApplyLeave = () => {
             ) : null}
             <View style={[styles.fromContainer]}>
               <TouchableOpacity
-                style={[styles.startDate, {flex: 1}]}
+                style={[styles.startDate, { flex: 1 }]}
                 onPress={() => showCalendar()}>
                 <Text
                   style={[
@@ -394,10 +444,10 @@ const ApplyLeave = () => {
                   {selectedToDate ? selectedToDate : 'Select To Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, {flex: 1}]}>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, {width: '100%'}]}
+                  style={[styles.dropdown, { width: '100%' }]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -431,7 +481,7 @@ const ApplyLeave = () => {
               title={strings.applyLeave}
               textStyle={styles.buttonText}
               style={styles.button}
-              onPress={invokeApplyLeave}
+              onPress={applyLeave}
             />
           </View>
         </ScrollView>
