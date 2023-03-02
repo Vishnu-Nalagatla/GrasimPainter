@@ -12,7 +12,7 @@ import styles from './styles';
 import { SFDC_API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 
-const LeaveRequests = () => {
+const LeaveRequests = (props) => {
   const request = [
     {
       name: 'Ram Prakash',
@@ -37,7 +37,7 @@ const LeaveRequests = () => {
   const [popup, setPopup] = useState(undefined);
 
   const leaveClick = () => {
-    console.info('onClick...');
+    console.info('onClick...', props);
   };
 
   useEffect(() => {
@@ -68,8 +68,46 @@ const LeaveRequests = () => {
       });;
   }, [])
 
+
+  updateLeaveStatus = () => {
+    const { loggedInUser } = this.state;
+    //FIXME:
+    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const request = {
+      userId: Id,
+      role: roleKey,
+      territoryid: Territory__c,
+    };
+    this.showSpinner();
+    API.getMyDayInfo(request)
+      .then(response => {
+        console.info('response', response);
+        this.setState({
+          attendance: true,
+          attendanceLabel: 'Marked',
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
   const approveLeave = data => {
-    console.info('declineLeave...', data);
+    console.info('approveLeave: ', props);
     const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
@@ -80,6 +118,7 @@ const LeaveRequests = () => {
     setLeaves(leavesUpdated);
   };
   const declineLeave = data => {
+    console.info('declineLeave: ', props);
     const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
@@ -92,7 +131,6 @@ const LeaveRequests = () => {
 
   const getExtraInfo = leaveInfo => {
     const { description } = leaveInfo;
-    console.info('description....', description);
     return (
       <View>
         <Text style={styles.leaveInfo}>{strings.getExtraInfo}</Text>

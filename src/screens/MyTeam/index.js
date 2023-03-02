@@ -1,7 +1,7 @@
-import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
+import { View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {connect} from 'react-redux';
-import {API} from '../../requests';
+import { connect } from 'react-redux';
+import { API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ROLES from '../../enums/roles';
 import colors from '../../constants/colors';
@@ -9,7 +9,7 @@ import StandardPopup from '../../components/Common/StandardPopup';
 import styles from './styles';
 import Popup from '../../components/Popup';
 import errorIcon from '../../assets/images/naColor/image.png';
-import {Image, ScrollView} from 'native-base';
+import { Image, ScrollView } from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
 import data from './data.json';
@@ -22,6 +22,7 @@ class MyTeam extends React.Component<Props, State> {
     super(props);
     this.state = {
       popup: undefined,
+      roleKey: undefined,
     };
   }
   available = 'Available';
@@ -38,15 +39,11 @@ class MyTeam extends React.Component<Props, State> {
         },
         () => {
           const loggedInUser = JSON.parse(user);
-          const {navigation} = this.props;
-          const {roleKey = 'HeadPainterId'} = loggedInUser || {};
-          if (roleKey === ROLES.HEADPAINTER) {
-            navigation.navigate(RouteConfig.CrewDetails, {
-              data: [''],
-            });
-          } else {
-            // this.getMyTeam(JSON.parse(user));
-          }
+          const { navigation } = this.props;
+          const { roleKey = 'TeamLeadId' } = loggedInUser || {};
+          this.setState({
+            roleKey
+          });
         },
       );
     });
@@ -54,17 +51,17 @@ class MyTeam extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   getMyTeam = user => {
     const loggedInUser = JSON.parse(user);
-    const {Id = '', roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const { Id = '', roleKey = 'HeadPainterId' } = loggedInUser || {};
     const request = {
       userId: Id,
       role: roleKey,
@@ -72,7 +69,7 @@ class MyTeam extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -89,10 +86,10 @@ class MyTeam extends React.Component<Props, State> {
   };
 
   onClick = event => {
-    const {buttons} = this.state;
+    const { buttons } = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const {index} = button;
+      const { index } = button;
       if (event.index === index && !event.status) {
         button.status = true;
       } else {
@@ -110,7 +107,7 @@ class MyTeam extends React.Component<Props, State> {
   requestForQualityCheck = project => {
     console.info('project...', project);
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
     const request = {
       organizationId: 'organizationID',
@@ -142,7 +139,7 @@ class MyTeam extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -157,41 +154,53 @@ class MyTeam extends React.Component<Props, State> {
     }
   };
   viewCrewDetails = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.CrewDetails, {
       data: [''],
     });
   };
-
+  renderData = () => {
+    const { roleKey } = this.state;
+    if(roleKey){
+    const { navigation } = this.props;
+    console.info('renderData.....1');
+   navigation.navigate(RouteConfig.CrewDetails, {
+      data: [],
+    });
+    }
+  }
   render() {
-    const {popup} = this.state;
-    const {style = {}} = popup || {};
+    const { popup, roleKey } = this.state;
+    const { style = {} } = popup || {};
     const availableCrew = [data[0]];
     const occupiedCrew = data;
+    console.info('roleKey..', roleKey);
     return (
-      <View style={styles.container}>
-        <Popup popupStyle={style} visible={!!popup}>
-          {this.getPopupContent()}
-        </Popup>
+      <View style={{flex:1}}>
+        {roleKey && roleKey === ROLES.TEAM_LEAD ? (<View style={styles.container}>
+          <Popup popupStyle={style} visible={!!popup}>
+            {this.getPopupContent()}
+          </Popup>
 
-        <ScrollView style={styles.crewWrapper}>
-          <CrewList
-            title={this.available}
-            crewList={availableCrew}
-            onPress={this.viewCrewDetails}
-          />
-          <CrewList
-            title={this.occupied}
-            crewList={occupiedCrew}
-            onPress={this.viewCrewDetails}
-          />
-        </ScrollView>
+          <ScrollView style={styles.crewWrapper}>
+            <CrewList
+              title={this.available}
+              crewList={availableCrew}
+              onPress={this.viewCrewDetails}
+            />
+            <CrewList
+              title={this.occupied}
+              crewList={occupiedCrew}
+              onPress={this.viewCrewDetails}
+            />
+          </ScrollView>
+        </View>) : this.renderData()}
       </View>
     );
   }
 }
 
-const CrewList = ({title, crewList, onPress}) => {
+const CrewList = ({ title, crewList, onPress }) => {
   const hrStyle = title === 'Available' ? styles.hrLine : styles.hrLineO;
   const showCrewCalendar = title === 'Available' ? false : true;
   return (
@@ -210,8 +219,8 @@ const CrewList = ({title, crewList, onPress}) => {
   );
 };
 
-const CrewCard = ({crew, onPress}) => {
-  const {name, img = groupIcon, status, skills} = crew;
+const CrewCard = ({ crew, onPress }) => {
+  const { name, img = groupIcon, status, skills } = crew;
   return (
     <TouchableOpacity onPress={onPress} style={styles.crewCard}>
       <View style={styles.crewInfo}>
