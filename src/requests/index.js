@@ -52,7 +52,7 @@ class SfdcAPI {
       baseURL: Config.API_BASE_URL,
     });
     this.instance.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
-      Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
+      Config.SFDC_SUBSCRIPTION_KEY;
   }
 
   setBuildURL = url => {
@@ -111,6 +111,13 @@ class SfdcAPI {
   };
   updateLeftMaterial = (projectId,body) => 
   this.instance.patch(`${URLs.updateLeftMaterial}${projectId}`, body);
+
+  getNotifications = tlId => {
+    console.info('getNotifications..', tlId);
+    console.info('getNotifications..', URLs.getNotifications);
+    return this.instance.get(`${URLs.getNotifications}${tlId}`);
+  };
+
 
 }
 

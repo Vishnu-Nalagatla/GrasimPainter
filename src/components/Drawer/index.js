@@ -16,6 +16,7 @@ import Popup from '../Popup';
 import colors from '../../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
+import StandardPopup from '../Common/StandardPopup';
 
 const Drawer = props => {
   const [popup, setPopup] = useState(undefined);
@@ -45,19 +46,17 @@ const Drawer = props => {
       })
       .catch(error => {
         this.setState({
-          popup: {
-            type: POPUP_CONSTANTS.ERROR_POPUP,
-            heading: 'Network Error',
-            message: error.message,
-            popupStyle: styles.popupStyle,
-            headingImage: errorImg,
-            buttons: [
-              {
-                title: 'TryAgain',
-                onPress: () => closePopup(),
-              },
-            ],
-          },
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          heading: 'Network Error',
+          message: error.message,
+          popupStyle: styles.popupStyle,
+          headingImage: errorImg,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => this.closePopup(),
+            },
+          ],
         });
       });
   };
@@ -71,6 +70,8 @@ const Drawer = props => {
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
         );
+        case POPUP_CONSTANTS.ERROR_POPUP:
+          return <StandardPopup {...popup} />;
     }
   };
 

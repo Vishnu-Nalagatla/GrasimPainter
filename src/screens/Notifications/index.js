@@ -1,6 +1,6 @@
-import {FlatList, Image, ScrollView, Text} from 'native-base';
-import React from 'react';
-import {View} from 'react-native';
+import { FlatList, Image, ScrollView, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 import complaintsImg from '../../assets/images/complaints/image.png';
 import crewMemberImg from '../../assets/images/crewMember/image.png';
@@ -13,15 +13,66 @@ import siteVisitImg from '../../assets/images/siteVisit/image.png';
 
 import timeLineUpdateImg from '../../assets/images/timeLineUpdate/image.png';
 import updatesImg from '../../assets/images/updates/image.png';
+import colors from '../../constants/colors';
+import { SFDC_API } from '../../requests';
+import POPUP_CONSTANTS from '../../enums/popup';
 
 
 
 
 
 import styles from './styles';
+import StandardPopup from '../../components/Common/StandardPopup';
 
 const Notifications = () => {
-  const notifications = [
+  const [popup, setPopup] = useState(undefined);
+  const [notifications, setNotifications] = useState();
+
+  useEffect(() => {
+    getNotifications();
+  }, []);
+
+
+  const getPopupContent = () => {
+    if (!popup) {
+      return null;
+    }
+    switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
+      case POPUP_CONSTANTS.ERROR_POPUP:
+        return <StandardPopup {...popup} />;
+    }
+  };
+
+  const getNotifications = () => {
+    const userId = '0051y00000MZkuVAAT';
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+    console.info('getNotifications...:123 ');
+    SFDC_API.getNotifications(userId)
+      .then(res => {
+        console.info('getNotifications...: ', res.data);
+      })
+      .catch(error => {
+        console.info('error...: ', error);
+        setPopup({
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          heading: 'Network Error',
+          message: error.message,
+          popupStyle: styles.popupStyle,
+          headingImage: errorImg,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => this.closePopup(),
+            },
+          ],
+        });
+      });
+  }
+  const notifications1 = [
     {
       type: 'complaint',
       message:
@@ -91,13 +142,11 @@ const Notifications = () => {
     ["siteVisit", siteVisitImg],
     ["timeLineChange", timeLineUpdateImg],
     ["projectUpdate", updatesImg],
-
-    
   ]);
 
-  const Notification = ({notification}) => {
-    const {type, message} = notification;
-    const imageSrc =  imagesMap.get(type);
+  const Notification = ({ notification }) => {
+    const { type, message } = notification;
+    const imageSrc = imagesMap.get(type);
     return (
       <View style={styles.notificationCard}>
         <View style={styles.notification}>
@@ -119,7 +168,7 @@ const Notifications = () => {
         <FlatList
           data={notifications}
           keyExtractor={(item, index) => item.index}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <Notification notification={item} index={index} />
           )}
         />
