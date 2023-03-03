@@ -94,8 +94,8 @@ class Trainings extends React.Component {
         </View>
         <View style={styles.circularProgress}>
           <AnimatedCircularProgress
-            size={55 * vh}
-            width={8 * vw}
+            size={50 * vh}
+            width={4 * vw}
             fill={75}
             rotation={-360}
             tintColor="#3C58B5"

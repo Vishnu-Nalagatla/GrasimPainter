@@ -27,7 +27,7 @@ class ProfileProjectDetails extends React.Component {
         </View>
         <View style={[styles.even, styles.column]}>
           <Text style={styles.category}>Product Category</Text>
-          {project.productCategory.map(category => {
+          {project.productCategory?.map(category => {
             return <Text style={styles.category}>{category} </Text>;
           })}
         </View>

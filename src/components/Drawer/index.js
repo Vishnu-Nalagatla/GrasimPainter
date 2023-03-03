@@ -1,5 +1,5 @@
-import React from 'react';
-import {TouchableOpacity, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import {Text, View} from 'native-base';
 import packageImg from '../../assets/images/drawer/package.png';
 import shieldImg from '../../assets/images/drawer/shield.png';
@@ -8,9 +8,72 @@ import closeImg from '../../assets/images/drawer/x.png';
 import zapImg from '../../assets/images/drawer/zap.png';
 import styles from './styles';
 import RouteConfig from '../../constants/route-config';
+import OnboardingNavigator from '../../routes/onboarding-navigator';
+import { createStackNavigator } from '@react-navigation/stack';
+import { API, SFDC_API } from '../../requests';
+import POPUP_CONSTANTS from '../../enums/popup';
+import Popup from '../Popup';
+import colors from '../../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../../util';
 
 const Drawer = props => {
-  const {navigation, firstName, lastName, role, closePopup} = props;
+  const [popup, setPopup] = useState(undefined);
+  const [userProfile, setUserProfile] = useState({});
+
+  const RootStack = createStackNavigator();
+  const {navigation, firstName='Mukesh', lastName="soni", role='Team Lead', closePopup} = props;
+  useEffect(() => {
+    const currentDate = util.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      console.info('user...', user);
+    });
+    getUserProfile();
+  }, []);
+
+  const getUserProfile = () => {
+
+    const phone = '7207440195';
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+    SFDC_API.getUserProfile(phone)
+      .then(res => {
+        const {data:{records}} =  res
+      //   const {FirstName, LastName} =  records[0];
+      //  console.info('res.....', FirstName, LastName);
+       setUserProfile(res.data);
+       setPopup(undefined);
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
+  const getPopupContent = () => {
+    if (!popup) {
+      return null;
+    }
+    switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
+    }
+  };
+
   const onMyProfile = () => {
     navigation.navigate(RouteConfig.Profile);
   };
@@ -18,24 +81,37 @@ const Drawer = props => {
   const onLogout = () => {};
 
   const onMyProjects = () => {
-    navigation.navigate(RouteConfig.MyProjectsList);
+    closePopup && closePopup();
+    navigation.navigate(RouteConfig.ProfileProjects);
   };
 
   const onMyTrainings = () => {
+    closePopup && closePopup();
     navigation.navigate(RouteConfig.Trainings);
   };
 
   const onBenefits = () => {
+    closePopup && closePopup();
     navigation.navigate(RouteConfig.Benefits);
   };
 
   const onHelpSupport = () => {
-    navigation.navigate(RouteConfig.HelpSupport);
+    closePopup && closePopup();
+    navigation.navigate(RouteConfig.Help);
   };
 
   const onAppFeatures = () => {
     closePopup && closePopup();
-    navigation.navigate(RouteConfig.Onboarding);
+    navigation.navigate('OnboardingNavigator');
+    // return (
+    //     <RootStack.Navigator
+    //       headerMode="none"
+    //       screenOptions={{
+    //         gestureEnabled: false,
+    //       }}>
+    //       <RootStack.Screen name="OnboardingNavigator" component={OnboardingNavigator} />
+    //     </RootStack.Navigator>
+    //   );
   };
 
   const onClose = () => {
@@ -44,19 +120,20 @@ const Drawer = props => {
 
   return (
     <View style={styles.container}>
+      <Popup visible={!!popup}>{getPopupContent()}</Popup>
       <TouchableOpacity onPress={onClose}>
-        <Image source={closeImg} style={styles.itemIconStyle} />
+        <Image source={closeImg} style={styles.closeImg} />
       </TouchableOpacity>
       <View style={styles.initContainer} onPress={onMyProfile}>
         <View style={styles.initalsWrapper}>
           <Image source={shieldImg} styles={styles.profileIcon} />
         </View>
         <View>
-          <Text style={styles.name}>{`${firstName} \n ${lastName}`}</Text>
+          <Text style={styles.name}>{`${firstName}  ${lastName}`}</Text>
           <Text style={styles.phone}>{`${role}`}</Text>
         </View>
       </View>
-
+      <View style={styles.hrLine} />
       <TouchableOpacity style={styles.itemWrapper} onPress={onMyProjects}>
         <Image source={paintRollerImg} style={styles.itemIconStyle} />
         <Text style={styles.itemText}>My Projects</Text>

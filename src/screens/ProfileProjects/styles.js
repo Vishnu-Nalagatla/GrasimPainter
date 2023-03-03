@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   dropdown: {
-    width: 126 * vw,
-    height: 36 * vh,
+    width: 90 * vw,
+    height: 26 * vh,
     backgroundColor: '#2C4DAE',
     borderRadius: 8 * vh,
     position: 'absolute',
@@ -116,6 +116,11 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     textAlign: 'center',
   },
+  flaskImg: {
+    width: 16 * vw,
+    height: 16 * vh,
+    marginRight: 10 * vw,
+  }
 });
 
 export default styles;

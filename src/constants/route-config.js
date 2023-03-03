@@ -19,6 +19,10 @@ const RouteConfig = {
   CrewDetails: 'CrewDetails',
   CrewProfile: 'CrewProfile',
   Insights:'Insights',
+  Trainings: 'Trainings',
+  Benefits: 'Benefits',
+  ProfileProjects: 'ProfileProjects',
+  ProfileProjectDetails: 'ProfileProjectDetails',
 };
 
 export default RouteConfig;

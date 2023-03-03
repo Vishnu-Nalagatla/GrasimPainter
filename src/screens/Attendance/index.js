@@ -18,6 +18,9 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
+import util from '../../util';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { API } from '../../requests';
 
 export interface Props {
   props: String;
@@ -26,11 +29,6 @@ export interface Props {
 const leaveRequests = 'Leave Requests';
 const count = 98;
 const date = Moment(new Date()).format('DD MMM YYYY');
-// const [attendance, setAttendance] = useState(false);
-// const attendanceLabel = attendance ? 'Marked' : 'Mark attendance';
-
-// const approved = 'APPROVED';
-// const declined = 'DECLINED';
 const leaves = [
   {
     date: '',
@@ -67,55 +65,6 @@ const leaves = [
     duration: 'Half Day',
     index: 5,
   },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Full Day',
-    index: 6,
-  },
-  {
-    date: '',
-    status: 'DECLINED',
-    type: '',
-    duration: 'Half Day',
-    index: 7,
-  },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Full Day',
-    index: 8,
-  },
-  {
-    date: '',
-    status: 'DECLINED',
-    type: '',
-    duration: 'Half Day',
-    index: 9,
-  },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Full Day',
-    index: 10,
-  },
-  {
-    date: '',
-    status: 'DECLINED',
-    type: '',
-    duration: 'Full Day',
-    index: 11,
-  },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Half Day',
-    index: 12,
-  },
 ];
 const leavesLable = 'Leaves';
 const balanceLabel = 'Balance';
@@ -131,8 +80,55 @@ class Attendance extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    
+    const currentDate = util.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      this.setState(
+        {
+          loggedInUser: JSON.parse(user),
+        },
+        () => {
+          // this.fetchAttendanceInfo(JSON.parse(user));
+        },
+      );
+    });
   }
+  fetchAttendanceInfo = user => {
+    const loggedInUser = JSON.parse(user);
+    //FIXME:
+    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const request = {
+      userId: Id,
+      role: roleKey,
+      territoryid: Territory__c,
+    };
+    this.showSpinner();
+    API.getMyDayInfo(request)
+      .then(response => {
+        const {data} = response;
+        const myDayInfo = data.response;
+        this.closePopup();
+        this.setState({
+          myDayInfo,
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
 
   showSpinner = () => {
     this.setState({
@@ -144,12 +140,43 @@ class Attendance extends React.Component<Props, State> {
     this.setState({ popup: undefined });
   };
 
-  onAttendance = () => {
-    this.setState({
-      attendance: true,
-      attendanceLabel: 'Marked',
-    });
+  updateAttendance = () => {
+    const { loggedInUser } = this.state;
+    //FIXME:
+    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const request = {
+      userId: Id,
+      role: roleKey,
+      territoryid: Territory__c,
+    };
+    this.showSpinner();
+    API.getMyDayInfo(request)
+      .then(response => {
+        console.info('response', response);
+        this.setState({
+          attendance: true,
+          attendanceLabel: 'Marked',
+        });
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => this.closePopup(),
+              },
+            ],
+          },
+        });
+      });
   };
+
   onLeaveRequest = () => {
     const { navigation } = this.props;
     navigation.navigate(RouteConfig.LeaveRequests);
@@ -193,7 +220,7 @@ class Attendance extends React.Component<Props, State> {
         <Text style={styles.date}>{date} </Text>
         <TouchableOpacity
           disabled={attendance}
-          onPress={this.onAttendance}
+          onPress={this.updateAttendance}
           style={attendance ? styles.attendanceMarked : styles.attendance}>
           <Image
             source={attendance ? markedAttendanceIcon : attendanceIcon}
@@ -206,10 +233,11 @@ class Attendance extends React.Component<Props, State> {
         </TouchableOpacity>
         <View style={styles.leaceRow}>
           <Text style={styles.leavesLabel}>{leavesLable}</Text>
-          <View style={styles.balanceRow}>
+          {/* NOTE: balanceCount not required: Figma updated  */}
+          {/* <View style={styles.balanceRow}>
             <Text style={styles.balanceLabel}>{balanceLabel}</Text>
             <Text style={styles.balanceLabel}>{balanceCount}</Text>
-          </View>
+          </View> */}
         </View>
         <View style={styles.leaceRow}>
           <Text style={styles.allLabel}>{'All'}</Text>

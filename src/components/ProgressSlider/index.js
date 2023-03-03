@@ -4,7 +4,7 @@ import {Slider} from '@miblanchard/react-native-slider';
 import styles from './styles';
 import {Dimensions} from 'react-native';
 import ViewPort from '../../constants/view-port';
-import rollerIcon from '../../assets/images/roller/image.png';
+import rollerIcon from '../../assets/images/paintRoller/image.png';
 import colors from '../../constants/colors';
 
 const {vh, vw} = ViewPort;

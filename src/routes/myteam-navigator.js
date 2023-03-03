@@ -5,6 +5,7 @@ import SendUpdates from '../screens/SendUpdates';
 import CapturePics from '../screens/CapturePics';
 import CrewDetails from '../screens/CrewDetails';
 import CrewProfile from '../screens/CrewProfile';
+import ProfileNavigator from './profile-navigator';
 
 const MyTeamStack = createStackNavigator();
 
@@ -18,6 +19,7 @@ function MyTeamNavigator() {
       <MyTeamStack.Screen name="CrewProfile" component={CrewProfile} />
       <MyTeamStack.Screen name="SendUpdates" component={SendUpdates} />
       <MyTeamStack.Screen name="CapturePics" component={CapturePics} />
+      <MyTeamStack.Screen name="ProfileNavigator" component={ProfileNavigator} />
     </MyTeamStack.Navigator>
   );
 }

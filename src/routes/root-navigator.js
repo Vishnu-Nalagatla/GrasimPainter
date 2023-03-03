@@ -7,13 +7,20 @@ import OnboardingNavigator from './onboarding-navigator';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, NativeBaseProvider, View } from 'native-base';
+import { Button, NativeBaseProvider, Text, View } from 'native-base';
 import { Image } from 'react-native';
 
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
+import paintRoller from '../assets/images/paintRoller/image.png';
 import teamColor from '../assets/images/teamColor/image.png';
+import team from '../assets/images/team/image.png';
 import myDayColor from '../assets/images/myDayColor/image.png';
+import myDay from '../assets/images/myDay/image.png';
 import attendanceColor from '../assets/images/attendanceColor/image.png';
+import attendance from '../assets/images/attendance/image.png';
+
+import menuImg from '../assets/images/menu/image.png';
+import bellImg from '../assets/images/bell/image.png';
 
 import Header from '../components/Common/Header';
 import ProjectsNavigator from './projects-navigator';
@@ -26,14 +33,11 @@ import Popup from '../components/Popup';
 import POPUP_CONSTANTS from '../enums/popup';
 import Drawer from '../components/Drawer';
 
-import menuImg from '../assets/images/menu/image.png';
-import bellImg from '../assets/images/bell/image.png';
 
 import ViewPort from '../constants/view-port';
 import colors from '../constants/colors';
 
 import { createNavigationContainerRef } from '@react-navigation/native';
-import Notifications from '../screens/Notifications';
 import RouteConfig from '../constants/route-config';
 
 export const navigationRef = createNavigationContainerRef()
@@ -51,12 +55,11 @@ function onBackButtonPressed() {
 }
 
 function RootNavigator(props) {
-  console.info('props..', props);
   const reduxProps = useSelector(state => state);
   const [popup, setPopup] = useState(undefined);
   const [showNotifications, setNotifications] = useState(undefined);
 
-  
+
   const { login } = reduxProps;
   const { isLoggedIn, loginInfo = {} } = login;
   const { showOnboarding = false } = loginInfo;
@@ -68,7 +71,7 @@ function RootNavigator(props) {
     }
     switch (popup.type) {
       case POPUP_CONSTANTS.TOGGLE_DRAWER:
-        return <Drawer closePopup={closePopup} />;
+        return <Drawer closePopup={closePopup} navigation={popup.navigation} />;
       default:
         break;
     }
@@ -91,7 +94,6 @@ function RootNavigator(props) {
     const date = new Date();
     const currentDate = util.currentDate();
     AsyncStorage.clear();
-    // this.userExists = {};
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
         this.userExists = true;
@@ -103,93 +105,96 @@ function RootNavigator(props) {
     setPopup(undefined);
   };
 
+  const headerOptions = (navigation, name, imgSource, onPress) => {
+    return ({
+      showNotifications,
+      headerTintColor: colors.white,
+      tabBarLabelStyle: styles.tablelabelStyle,
+      headerTitle: name,
+      headerStyle: {
+        backgroundColor: colors.primary,
+      },
+      headerLeft: () => (
+        <TouchableOpacity
+          style={styles.menuImg}
+          onPress={() => {
+            setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation });
+          }}>
+          <Image
+            source={menuImg}
+            style={styles.menuImg}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      ),
+      headerRight: () => (
+        <TouchableOpacity
+          style={styles.bellIcon}
+          onPress={() => navigation.navigate(RouteConfig.Notifications)}>
+          <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
+        </TouchableOpacity>
+      ),
+      tabBarIcon: ({ color, size }) => (
+        <Image style={styles.icon} source={imgSource} />
+      ),
+    })
+  }
 
   // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
     return (
       <View style={{ flex: 1 }}>
-        <Popup visible={!!popup}>
+        <Popup popupStyle={styles.popupStyle} visible={!!popup}>
           {getPopupContent()}
         </Popup>
         <Tab.Navigator
           initialRouteName="MyDayNavigator"
-          screenOptions={{
+          screenOptions={({ route }) => ({
             tabBarActiveTintColor: '#2C4DAE',
-          }}>
+            tabBarStyle: styles.tabBarStyle,
+            tabBarLabel: ({ focused }) => {
+              const style = focused ? styles.tabActiveStyles : styles.tabStyles;
+              const hrStyle = focused ? styles.hrLine : null;
+              return <View style={styles.tabStyle}>
+                <Text style={style} >{route.name}</Text>
+                <View style={hrStyle}></View>
+              </View>
+            },
+          })}>
           <Tab.Screen
             name="MyDay"
             component={MyDayNavigator}
-            options={({navigation }) =>({
-              // header: Header,
-              showNotifications,
-              headerTintColor: colors.white,
-              tabBarLabelStyle: styles.tablelabelStyle,
-              headerTitle: 'My Day',
-              headerStyle: {
-                backgroundColor: colors.primary,
-              },
-              headerLeft: () => (
-                <TouchableOpacity
-                  style={styles.menuImg}
-                  onPress={() => {
-                    setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER });
-                  }}>
-                  <Image
-                    source={menuImg}
-                    style={styles.menuImg}
-                    resizeMode="contain"
-                  />
-                </TouchableOpacity>
-              ),
-              headerRight: () => (
-                <TouchableOpacity
-                  style={styles.bellIcon}
-                  onPress={()=>  navigation.navigate(RouteConfig.Notifications)  }>
-                  <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
-                </TouchableOpacity>
-              ),
-              tabBarIcon: ({color, size}) => (
-                <Image style={styles.icon} source={teamColor} />
-              ),
-            })}
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? myDayColor : myDay;
+              return headerOptions(navigation, 'MyDay', imgSrc)
+            }}
+
           />
+
           <Tab.Screen
             name="Projects"
             component={ProjectsNavigator}
-            options={{
-              header: Header,
-              tabBarLabelStyle: styles.tablelabelStyle,
-              title: 'Projects',
-              tabBarIcon: ({ color, size }) => (
-                <Image style={styles.icon} source={paintRollerColor} />
-              ),
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? paintRollerColor : paintRoller;
+              return headerOptions(navigation, 'Projects', imgSrc)
             }}
           />
+
           <Tab.Screen
-            name="My Team"
+            name="MyTeam"
             component={MyTeamNavigator}
-            options={{
-              header: Header,
-              tabBarLabelStyle: styles.tablelabelStyle,
-              title: 'My Team',
-              headerStyle: {
-                backgroundColor: colors.primary,
-              },
-              tabBarIcon: ({ color, size }) => (
-                <Image style={styles.icon} source={teamColor} />
-              ),
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? teamColor : team;
+              return headerOptions(navigation, 'My Team', imgSrc)
             }}
           />
+
           <Tab.Screen
             name="Attendance"
             component={AttendanceNavigator}
-            options={{
-              header: Header,
-              tabBarLabelStyle: styles.tablelabelStyle,
-              title: 'Attendance',
-              tabBarIcon: ({ color, size }) => (
-                <Image style={styles.icon} source={attendanceColor} />
-              ),
+            options={({ navigation }) => {
+              const imgSrc = navigation.isFocused() ? attendanceColor : attendance;
+              return headerOptions(navigation, 'Attendance', imgSrc)
             }}
           />
         </Tab.Navigator>
@@ -197,19 +202,20 @@ function RootNavigator(props) {
     );
   };
   const getScreen = () => {
+    // this.userExists || isLoggedIn
     if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
-      return getTabs();
-      // return (
-      //   <RootStack.Navigator
-      //     headerMode="none"
-      //     screenOptions={{
-      //       gestureEnabled: false,
-      //     }}>
-      //     <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-      //   </RootStack.Navigator>
-      // );
+      // return getTabs();
+      return (
+        <RootStack.Navigator
+          headerMode="none"
+          screenOptions={{
+            gestureEnabled: false,
+          }}>
+          <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+        </RootStack.Navigator>
+      );
     }
   };
 
@@ -237,12 +243,28 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     marginBottom: 10,
   },
-  icon: { width: 20, height: 20, marginTop: 15, marginBottom: 5 },
+  tabBarStyle: {
+    textDecorationLine: 'underline',
+  },
+  popupStyle: {
+    flex: 1,
+    height: 670 * vh,
+    width: 302 * vw,
+    marginRight: 58 * vw,
+    marginBottom: 46 * vw,
+  },
+  icon: {
+    width: 18 * vw,
+    height: 18 * vh,
+    marginTop: 15 * vh,
+    marginBottom: 7 * vh,
+  },
   menuImg: {
     height: 24 * vh,
     width: 24 * vw,
     backgroundColor: colors.primary,
-    marginLeft: 16 * vw,
+    marginLeft: 8 * vw,
+    marginRight: 32 * vw,
   },
   bellIcon: {
     alignItems: 'flex-end',
@@ -250,6 +272,42 @@ const styles = StyleSheet.create({
   bellImg: {
     height: 24 * vh,
     width: 24 * vw,
+    marginRight: 16 * vw,
+  },
+  tabStyles: {
+    color: colors.primary,
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '500',
+    fontSize: 12 * vh,
+    lineHeight: 12 * vh,
+    paddingHorizontal: 4 * vh,
+    marginBottom: 1 * vw,
+  },
+  tabActiveStyles: {
+    color: colors.primary,
+    fontFamily: 'Karla',
+    fontStyle: 'normal',
+    fontWeight: '700',
+    fontSize: 12 * vh,
+    lineHeight: 12 * vh,
+    paddingTop: 6 * vh,
+    marginBottom: 1 * vw,
+  },
+  hrLine: {
+    borderColor: colors.primary,
+    borderBottomWidth: 4 * vh,
+    marginTop: 4 * vw,
+    marginBottom: 1 * vw,
+    width: 80 * vw,
+  },
+  tabStyle: {
+    flex: 1,
+    display: 'flex',
+    justifyContent: 'center',
+    width: 90 * vw,
+    height: 56 * vh,
+    alignItems: 'center',
   },
 });
 
