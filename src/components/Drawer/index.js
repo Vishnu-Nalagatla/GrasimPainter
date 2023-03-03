@@ -1,5 +1,5 @@
-import React from 'react';
-import {TouchableOpacity, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import {Text, View} from 'native-base';
 import packageImg from '../../assets/images/drawer/package.png';
 import shieldImg from '../../assets/images/drawer/shield.png';
@@ -10,10 +10,70 @@ import styles from './styles';
 import RouteConfig from '../../constants/route-config';
 import OnboardingNavigator from '../../routes/onboarding-navigator';
 import { createStackNavigator } from '@react-navigation/stack';
+import { API, SFDC_API } from '../../requests';
+import POPUP_CONSTANTS from '../../enums/popup';
+import Popup from '../Popup';
+import colors from '../../constants/colors';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../../util';
 
 const Drawer = props => {
+  const [popup, setPopup] = useState(undefined);
+  const [userProfile, setUserProfile] = useState({});
+
   const RootStack = createStackNavigator();
   const {navigation, firstName='Mukesh', lastName="soni", role='Team Lead', closePopup} = props;
+  useEffect(() => {
+    const currentDate = util.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      console.info('user...', user);
+    });
+    getUserProfile();
+  }, []);
+
+  const getUserProfile = () => {
+
+    const phone = '7207440195';
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+    SFDC_API.getUserProfile(phone)
+      .then(res => {
+        const {data:{records}} =  res
+      //   const {FirstName, LastName} =  records[0];
+      //  console.info('res.....', FirstName, LastName);
+       setUserProfile(res.data);
+       setPopup(undefined);
+      })
+      .catch(error => {
+        this.setState({
+          popup: {
+            type: POPUP_CONSTANTS.ERROR_POPUP,
+            heading: 'Network Error',
+            message: error.message,
+            popupStyle: styles.popupStyle,
+            headingImage: errorImg,
+            buttons: [
+              {
+                title: 'TryAgain',
+                onPress: () => closePopup(),
+              },
+            ],
+          },
+        });
+      });
+  };
+
+  const getPopupContent = () => {
+    if (!popup) {
+      return null;
+    }
+    switch (popup.type) {
+      case POPUP_CONSTANTS.SPINNER_POPUP:
+        return (
+          <ActivityIndicator size="large" color={colors.primary} animating />
+        );
+    }
+  };
+
   const onMyProfile = () => {
     navigation.navigate(RouteConfig.Profile);
   };
@@ -60,6 +120,7 @@ const Drawer = props => {
 
   return (
     <View style={styles.container}>
+      <Popup visible={!!popup}>{getPopupContent()}</Popup>
       <TouchableOpacity onPress={onClose}>
         <Image source={closeImg} style={styles.closeImg} />
       </TouchableOpacity>

@@ -15,6 +15,7 @@ export default {
   //upsertUserLeaves: '/sfdc/upsert-user-leaves/',
   upsertUserLeaves: '/sfdc/upsert-leaves-or-attendance/',
   leaveApproveForTL: '/sfdc/leave-approvals-TL/',
+  getUserProfile: '/sfdc/expose-user/',
 
 
   accessToken: '/sfdc/access-token/',

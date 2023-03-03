@@ -105,6 +105,10 @@ class SfdcAPI {
   leaveApproveForTL = tlId => {
     return this.instance.get(`${URLs.leaveApproveForTL}${tlId}`);
   };
+
+  getUserProfile = phone => {
+    return this.instance.get(`${URLs.getUserProfile}${phone}`);
+  };
 }
 
 export const API = new Requests();
