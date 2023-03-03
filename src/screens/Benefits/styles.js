@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 24 * vh,
     borderRadius: 8 * vh,
+    marginBottom: 18 * vh,
   },
   SalarySlipContainer: {
     width: 328 * vw,

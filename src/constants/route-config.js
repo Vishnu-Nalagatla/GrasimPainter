@@ -21,6 +21,7 @@ const RouteConfig = {
   Trainings: 'Trainings',
   Benefits: 'Benefits',
   ProfileProjects: 'ProfileProjects',
+  ProfileProjectDetails: 'ProfileProjectDetails',
 };
 
 export default RouteConfig;

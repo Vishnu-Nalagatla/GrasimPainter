@@ -1,7 +1,22 @@
 import {FlatList, Image, ScrollView, Text} from 'native-base';
 import React from 'react';
 import {View} from 'react-native';
+
 import complaintsImg from '../../assets/images/complaints/image.png';
+import crewMemberImg from '../../assets/images/crewMember/image.png';
+import leaveRequestImg from '../../assets/images/leaveRequest/image.png';
+import materialRequestImg from '../../assets/images/materialRequest/image.png';
+
+import newProjectAllocatedImg from '../../assets/images/newProjectAllocated/image.png';
+import paymentsImg from '../../assets/images/payments/image.png';
+import siteVisitImg from '../../assets/images/siteVisit/image.png';
+
+import timeLineUpdateImg from '../../assets/images/timeLineUpdate/image.png';
+import updatesImg from '../../assets/images/updates/image.png';
+
+
+
+
 
 import styles from './styles';
 
@@ -13,7 +28,12 @@ const Notifications = () => {
         'Ravi Kumar from The Mehtas has requested to change project timeline',
     },
     {
-      type: 'complaint',
+      type: 'paymentUpdate',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+    {
+      type: 'projectUpdate',
       message:
         'The Mehtas are now have a updated timeline. Please check what are next items.',
     },
@@ -31,17 +51,17 @@ const Notifications = () => {
       message: 'Leave request from Painter Ravi Verma for 3 days',
     },
     {
-      type: 'siteVisit',
+      type: 'complaint',
       message:
         'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
     },
     {
-      type: 'siteVisit',
+      type: 'materialUpdates',
       message:
         'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
     },
     {
-      type: 'leaveRequest',
+      type: 'newCrewMember',
       message: 'Leave request from Painter Ravi Verma for 3 days',
     },
     {
@@ -54,18 +74,35 @@ const Notifications = () => {
         'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
     },
     {
-      type: 'siteVisit',
+      type: 'timeLineChange',
       message:
         'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
     },
   ];
+  const imagesMap = new Map([
+    ["complaint", complaintsImg],
+    ["newCrewMember", crewMemberImg],
+    ["leaveRequest", leaveRequestImg],
+
+    ["materialUpdates", materialRequestImg],
+    ["newProject", newProjectAllocatedImg],
+    ["paymentUpdate", paymentsImg],
+
+    ["siteVisit", siteVisitImg],
+    ["timeLineChange", timeLineUpdateImg],
+    ["projectUpdate", updatesImg],
+
+    
+  ]);
+
   const Notification = ({notification}) => {
     const {type, message} = notification;
+    const imageSrc =  imagesMap.get(type);
     return (
       <View style={styles.notificationCard}>
         <View style={styles.notification}>
           <Image
-            source={complaintsImg}
+            source={imageSrc}
             style={styles.notifiaftionImg}
             resizeMode="contain"
           />

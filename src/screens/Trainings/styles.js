@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     borderRadius: 4 * vh,
   },
   circularProgress: {
-    padding: 10 * vh,
+    marginRight: 20 * vw,
+    marginTop:22 * vh,
   },
   percentage: {
     fontFamily: 'Lato',

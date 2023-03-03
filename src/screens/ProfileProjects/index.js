@@ -7,6 +7,7 @@ import {Dropdown} from 'react-native-element-dropdown';
 import checkImg from '../../assets/images/myProjects/check.png';
 import flagImg from '../../assets/images/timeline/flag.png';
 import projectImg from '../../assets/images/myProjects/projectImg.png';
+import flaskImg from '../../assets/images/flask/image.png';
 import RouteConfig from '../../constants/route-config';
 
 const statuses = [
@@ -76,7 +77,11 @@ class ProfileProjects extends React.Component {
               this.setStatus(item.value);
             }}
             renderRightIcon={() => {
-              return <></>;
+              return <Image
+              source={flaskImg}
+              style={styles.flaskImg}
+              resizeMode="contain"
+            />;
             }}
             value={() => {
               return <Text>Filter</Text>;

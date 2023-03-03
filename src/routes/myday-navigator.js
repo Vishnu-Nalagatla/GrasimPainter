@@ -11,8 +11,10 @@ import Benefits from '../screens/Benefits';
 import ProfileNavigator from './profile-navigator';
 import Trainings from '../screens/Trainings';
 import Help from '../screens/Help';
+import ProfileProjectDetails from '../screens/ProfileProjectDetails';
 import ProfileProjects from '../screens/ProfileProjects';
 import OnboardingNavigator from './onboarding-navigator';
+
 
 
 
@@ -35,7 +37,12 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="Trainings" component={Trainings} />
       <MyDayStack.Screen name="Help" component={Help} />
       <MyDayStack.Screen name="ProfileProjects" component={ProfileProjects} />
+      <MyDayStack.Screen name="ProfileProjectDetails" component={ProfileProjectDetails} />
+
+      
       <MyDayStack.Screen name="ProfileNavigator" component={ProfileNavigator} />
+
+
       
     </MyDayStack.Navigator>
   );
