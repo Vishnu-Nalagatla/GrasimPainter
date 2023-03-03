@@ -25,6 +25,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 24 * vh,
   },
+  cardContainer:{
+    borderRadius: 15 ,
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    padding: 16 * vh,
+    marginBottom: 10 * vh,
+    marginTop: 10 * vh,
+    alignSelf: 'center',
+  },
   projectName: {
     fontFamily: 'Lato-Bold',
     fontSize: 16 * vh,

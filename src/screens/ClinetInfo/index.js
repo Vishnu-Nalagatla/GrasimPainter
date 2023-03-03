@@ -1,23 +1,25 @@
 import {Image, Text} from 'native-base';
 import React from 'react';
-import {View} from 'react-native';
+import {View, Platform, TouchableOpacity, Linking} from 'react-native';
 
 import phoneBlack from '../../assets/images/phoneBlack/image.png';
 
 import styles from './styles';
 
 const ClinetInfo = props => {
+  const {route} = props;
+  const {params} = route;
+  const {project} = params;
+  const {CustomerName, CustomerPhone, EmailId, RoomList} = project || {};
   const {
-    Name = 'Rajesh Kumar',
-    address = '101 Dr V B Gandhi Marg Hutatma Chowk, Mumbai, 400023',
     data = [
       {
         property: 'Key Decision Maker',
-        value: 'Rajesh Kumar',
+        value: CustomerName,
       },
       {
         property: 'Site Area',
-        value: '1000 sqft',
+        value: `${RoomList[0].WallList[0].TotalArea} sqft`,
       },
       {
         property: 'Painting System',
@@ -43,21 +45,31 @@ const ClinetInfo = props => {
       </View>
     );
   };
+  const dialCall = () => {
+    let phoneNumber = '';
+    if (Platform.OS === 'android') {
+      phoneNumber = `tel:${CustomerPhone}`;
+    } else {
+      phoneNumber = `telprompt:${CustomerPhone}`;
+    }
+    Linking.openURL(phoneNumber);
+  };
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>
         <View style={styles.header}>
-          <Text style={styles.name}>{Name}</Text>
-          <Image
-            source={phoneBlack}
-            style={styles.phoneIcon}
-            resizeMode="contain"
-          />
+          <Text style={styles.name}>{CustomerName}</Text>
+          <TouchableOpacity onPress={dialCall}>
+            <Image
+              source={phoneBlack}
+              style={styles.phoneIcon}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
-
         <View style={styles.clinetInfo}>
           {data.map((info, index) => (
-            <InfoRow info={info} index={index}/>
+            <InfoRow info={info} index={index} />
           ))}
         </View>
       </View>

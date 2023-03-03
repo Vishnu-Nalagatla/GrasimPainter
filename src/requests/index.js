@@ -106,6 +106,9 @@ class SfdcAPI {
   leaveApproveForTL = tlId => {
     return this.instance.get(`${URLs.leaveApproveForTL}${tlId}`);
   };
+  updateLeftMaterial = (projectId,body) => 
+  this.instance.patch(`${URLs.updateLeftMaterial}${projectId}`, body);
+
 }
 
 export const API = new Requests();

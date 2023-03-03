@@ -90,19 +90,30 @@ const InsightCard = props => {
           />
         </View>
       ) : (
-        <View style={[styles.innerContainer, styles.innerContainerHeight]}>
-          <View style={styles.headerContainer}>
-            <Text style={styles.projectName}>{project.Name}</Text>
-            <Text style={styles.projectStatus}>{project.Status}</Text>
-            <TouchableOpacity onPress={eachProject => toggleExpand(project)}>
-              <Image
-                source={expandImg}
-                style={styles.expandImgStyle}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-          </View>
+        <View style={styles.cardContainer}>
+          <Text style={styles.projectName}>{project.Name}</Text>
+          <Text style={styles.projectStatus}>{project.Status}</Text>
+          <TouchableOpacity onPress={eachProject => toggleExpand(project)}>
+            <Image
+              source={expandImg}
+              style={styles.expandImgStyle}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
+        // <View style={[styles.innerContainer, styles.innerContainerHeight]}>
+        //   <View style={styles.headerContainer}>
+        //     <Text style={styles.projectName}>{project.Name}</Text>
+        //     <Text style={styles.projectStatus}>{project.Status}</Text>
+        // <TouchableOpacity onPress={eachProject => toggleExpand(project)}>
+        //   <Image
+        //     source={expandImg}
+        //     style={styles.expandImgStyle}
+        //     resizeMode="contain"
+        //   />
+        // </TouchableOpacity>
+        //   </View>
+        // </View>
       )}
     </View>
   );

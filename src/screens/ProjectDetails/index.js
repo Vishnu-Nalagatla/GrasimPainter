@@ -39,7 +39,7 @@ const ProjectDetails = props => {
   const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
   const reportsRoute = () => <Reports project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
   const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} onTabChange={onTabChange}/>;
-  const timeLineRoute = () => <Timeline myDayInfo={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
+  const timeLineRoute = () => <Timeline project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
 
   const renderScene = SceneMap({
     progress: progressRoute,

@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
+  rowStyles:{
+    flexDirection:'row'
+  },
   status: {
     backgroundColor: colors.ultraMass,
     borderRadius: 8 * vh,
@@ -50,6 +53,17 @@ const styles = StyleSheet.create({
     height: 16 * vh,
     width: 16 * vw,
     marginRight: 20 * vh,
+  },
+  barChartImg: {
+    height: 16 * vh,
+    width: 16 * vw,
+    marginRight: 6 * vh,
+  },
+  onGoingStyles: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   bottomInfo: {
     flexDirection: 'row',

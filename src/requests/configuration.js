@@ -5,8 +5,7 @@ export default {
   verifyOtp: '/node/painter/validate-otp/',
   myDayInfo: '/node/user/myday-info/',
   requestForQualityCheck: '/api/user/requestForQualityCheck',
-  updateLeftMaterial: '/api/user/updateLeftMaterial',
-
+  updateLeftMaterial:'/sfdc/update-leftover-materials-BOM/',
   assignCrewToProject: '/sfdc/assign-crew-to-project/',
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event/',

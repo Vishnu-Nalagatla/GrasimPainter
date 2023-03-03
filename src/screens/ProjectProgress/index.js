@@ -25,12 +25,12 @@ const ProjectProgress = props => {
     CHECKLIST: 4,
     INFO: 5,
   };
-  
-  const {project={}, loggedInUser = {},onTabChange, navigation} = props;
+
+  const {project = {}, loggedInUser = {}, onTabChange, navigation} = props;
   const {
     ProjectStartDate,
     ProjectEndDate,
-    CompletionPercentage='40.00',
+    CompletionPercentage = '40.00',
     Address,
     paymentInfo = '1st payment received',
     SiteMaterialStorage,
@@ -45,7 +45,9 @@ const ProjectProgress = props => {
   };
   const viewCustomerProfile = () => {
     const {navigation} = props;
-    navigation.navigate(RouteConfig.ClinetInfo);
+    navigation.navigate(RouteConfig.ClinetInfo, {
+      project: project,
+    });
   };
   const constraints = [
     {
@@ -172,8 +174,7 @@ const ProjectProgress = props => {
     );
   };
   const onTabPress = item => {
-    //  alert(JSON.stringify(item));
-    const { tabIndex } = item;
+    const {tabIndex} = item;
     onTabChange(tabIndex);
   };
   const getTabs = () => {

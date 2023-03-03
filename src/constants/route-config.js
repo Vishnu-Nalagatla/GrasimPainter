@@ -18,6 +18,7 @@ const RouteConfig = {
   Notifications: 'Notifications',
   CrewDetails: 'CrewDetails',
   CrewProfile: 'CrewProfile',
+  Insights:'Insights',
 };
 
 export default RouteConfig;

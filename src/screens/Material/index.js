@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {ActivityIndicator, SafeAreaView, View} from 'react-native';
 import CustomButton from '../../components/Button';
 import ProgressSlider from '../../components/ProgressSlider';
-import {API} from '../../requests';
+import {SFDC_API, API} from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ROLES from '../../enums/roles';
 
@@ -85,13 +85,23 @@ const Material = props => {
 
   const updateLeftOverMaterial = () => {
     const request = {
-      putty,
-      paint,
+      UpdateLeftOverDate: '2023-01-25',
+      MaterialDetails: [
+        {
+          Id: 'a0K1y0000009O0EEAU',
+          Leftover_Quantity__c: 24,
+        },
+        {
+          Id: 'a0K1y0000009NzQEAU',
+          Leftover_Quantity__c: 24,
+        },
+      ],
     };
+    const projectId='a061y000000ECXLAA4';
     showSpinner();
-    API.updateLeftMaterial(request)
+    SFDC_API.updateLeftMaterial(projectId, request)
       .then(res => {
-        console.info('res', res);
+        console.info('updateLeftMaterial res---->', res);
         setPopup(undefined);
       })
       .catch(error => {

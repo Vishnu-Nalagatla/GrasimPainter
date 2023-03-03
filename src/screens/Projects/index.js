@@ -9,6 +9,7 @@ import React from 'react';
 import {FlatList, Image, ScrollView} from 'native-base';
 import styles from './styles';
 import bellImg from '../../assets/images/group/image.png';
+import barchart from '../../assets/images/barchart/image.png';
 import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
@@ -41,7 +42,6 @@ class Projects extends React.Component<Props, State> {
 
   componentDidMount() {
     const currentDate = UTIL.currentDate();
-
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
       this.setState(
         {
@@ -65,7 +65,7 @@ class Projects extends React.Component<Props, State> {
     this.setState({popup: undefined});
   };
   getMyProjects = user => {
-    // alert(user)
+    //  alert(user)
     const loggedInUser = JSON.parse(user);
     const {Id, Territory__c, roleKey} = loggedInUser || {};
     const request = {
@@ -76,6 +76,7 @@ class Projects extends React.Component<Props, State> {
       .then(response => {
         // const {data} = response;
         const ProjectList = response.data.ProjectList;
+        console.log('ProjectList--->', ProjectList);
         let newProj = ProjectList.filter(item => item.Status == 'New');
         let onGoingProj = ProjectList.filter(item => item.Status != 'New');
         this.closePopup();
@@ -114,7 +115,10 @@ class Projects extends React.Component<Props, State> {
         return <StandardPopup {...popup} />;
     }
   };
-
+  insights = () => {
+    const {navigation} = this.props;
+    navigation.navigate(RouteConfig.Insights);
+  };
   render() {
     const {ongoingProjects, newProjects, popup} = this.state;
     return (
@@ -125,6 +129,7 @@ class Projects extends React.Component<Props, State> {
             projects={newProjects}
             label={'New'}
             onPress={this.onPress}
+            onInsightsPress={this.insights}
           />
         ) : null}
         {ongoingProjects.length > 0 ? (
@@ -132,6 +137,7 @@ class Projects extends React.Component<Props, State> {
             projects={ongoingProjects}
             label={'Ongoing'}
             onPress={this.onPress}
+            onInsightsPress={this.insights}
           />
         ) : null}
       </ScrollView>
@@ -188,10 +194,29 @@ const Project = ({project, label, index, onPress}) => {
   );
 };
 
-const ProjectList = ({projects, label, onPress}) => {
+const ProjectList = ({projects, label, onPress, onInsightsPress}) => {
   return (
     <SafeAreaView style={styles.projectsWrapper}>
-      <Text style={styles.label}>{label}</Text>
+      {label == 'Ongoing' ? (
+        <View
+          style={styles.onGoingStyles}>
+          <Text>{label}</Text>
+          <TouchableOpacity
+            style={styles.rowStyles}
+            onPress={onInsightsPress}>
+            <Image
+              source={barchart}
+              style={styles.barChartImg}
+              resizeMode="contain"
+              alt=""
+            />
+            <Text style={{color: '#3C58B5'}}>Insights</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <Text style={styles.label}>{label}</Text>
+      )}
+
       <FlatList
         data={projects}
         keyExtractor={(item, index) => item.Id}
