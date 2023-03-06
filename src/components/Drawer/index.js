@@ -98,7 +98,7 @@ const Drawer = props => {
 
   const onHelpSupport = () => {
     closePopup && closePopup();
-    navigation.navigate(RouteConfig.Help);
+    navigation.navigate(RouteConfig.HelpAndSupport);
   };
 
   const onAppFeatures = () => {

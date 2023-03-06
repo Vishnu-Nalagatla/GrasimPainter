@@ -23,6 +23,7 @@ const RouteConfig = {
   Benefits: 'Benefits',
   ProfileProjects: 'ProfileProjects',
   ProfileProjectDetails: 'ProfileProjectDetails',
+  HelpAndSupport: 'HelpAndSupport',
 };
 
 export default RouteConfig;

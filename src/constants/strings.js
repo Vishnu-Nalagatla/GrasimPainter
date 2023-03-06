@@ -13,4 +13,6 @@ export default {
   updateProjectPlan: 'Update Project Plan',
   applyLeave: 'Apply Leave',
   recalculateProjectPlan: 'Recalculate Project Plan',
+
+  getInTouch: 'Get in touch with',
 }
