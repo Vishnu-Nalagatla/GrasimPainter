@@ -113,12 +113,10 @@ class SfdcAPI {
   this.instance.patch(`${URLs.updateLeftMaterial}${projectId}`, body);
 
   getNotifications = tlId => {
-    console.info('getNotifications..', tlId);
-    console.info('getNotifications..', URLs.getNotifications);
     return this.instance.get(`${URLs.getNotifications}${tlId}`);
   };
 
-
+  updateNotification = (id, body) => this.instance.post(`${URLs.updateNotification}${id}`, body);
 }
 
 export const API = new Requests();

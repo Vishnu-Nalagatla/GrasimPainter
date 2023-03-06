@@ -1,6 +1,6 @@
 import { FlatList, Image, ScrollView, Text } from 'native-base';
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
 
 import complaintsImg from '../../assets/images/complaints/image.png';
 import crewMemberImg from '../../assets/images/crewMember/image.png';
@@ -23,8 +23,83 @@ import POPUP_CONSTANTS from '../../enums/popup';
 
 import styles from './styles';
 import StandardPopup from '../../components/Common/StandardPopup';
+import Popup from '../../components/Popup';
+import RouteConfig from '../../constants/route-config';
 
-const Notifications = () => {
+const Notifications = (props) => {
+
+
+  const notifications1 = [
+    {
+      type: 'complaint',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Ravi Kumar from The Mehtas has requested to change project timeline',
+    },
+    {
+      type: 'paymentUpdate',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+    {
+      type: 'projectUpdate',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'The Mehtas are now have a updated timeline. Please check what are next items.',
+    },
+    {
+      type: 'newProject',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'New Project “The Mehtas” has been assigned to you. Tap to view the details',
+    },
+    {
+      type: 'leaveRequest', 
+       id: '0051y00000MZkuVAAT',
+      message: 'Leave request from Painter Ravi Verma for 3 days',
+    },
+    {
+      type: 'leaveRequest',
+      id: '0051y00000MZkuVAAT',
+      message: 'Leave request from Painter Ravi Verma for 3 days',
+    },
+    {
+      type: 'complaint',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+    {
+      type: 'materialUpdates',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+    {
+      type: 'newCrewMember',
+      id: '0051y00000MZkuVAAT',
+      message: 'Leave request from Painter Ravi Verma for 3 days',
+    },
+    {
+      type: 'leaveRequest',
+      id: '0051y00000MZkuVAAT',
+      message: 'Leave request from Painter Ravi Verma for 3 days',
+    },
+    {
+      type: 'siteVisit',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+    {
+      type: 'timeLineChange',
+      id: '0051y00000MZkuVAAT',
+      message:
+        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
+    },
+  ];
+
   const [popup, setPopup] = useState(undefined);
   const [notifications, setNotifications] = useState();
 
@@ -47,6 +122,10 @@ const Notifications = () => {
     }
   };
 
+  const closePopup = () => {
+    setPopup(undefined);
+  };
+
   const getNotifications = () => {
     const userId = '0051y00000MZkuVAAT';
     setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
@@ -66,70 +145,43 @@ const Notifications = () => {
           buttons: [
             {
               title: 'TryAgain',
-              onPress: () => this.closePopup(),
+              onPress: () => closePopup(),
             },
           ],
         });
       });
   }
-  const notifications1 = [
-    {
-      type: 'complaint',
-      message:
-        'Ravi Kumar from The Mehtas has requested to change project timeline',
-    },
-    {
-      type: 'paymentUpdate',
-      message:
-        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
-    },
-    {
-      type: 'projectUpdate',
-      message:
-        'The Mehtas are now have a updated timeline. Please check what are next items.',
-    },
-    {
-      type: 'newProject',
-      message:
-        'New Project “The Mehtas” has been assigned to you. Tap to view the details',
-    },
-    {
-      type: 'leaveRequest',
-      message: 'Leave request from Painter Ravi Verma for 3 days',
-    },
-    {
-      type: 'leaveRequest',
-      message: 'Leave request from Painter Ravi Verma for 3 days',
-    },
-    {
-      type: 'complaint',
-      message:
-        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
-    },
-    {
-      type: 'materialUpdates',
-      message:
-        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
-    },
-    {
-      type: 'newCrewMember',
-      message: 'Leave request from Painter Ravi Verma for 3 days',
-    },
-    {
-      type: 'leaveRequest',
-      message: 'Leave request from Painter Ravi Verma for 3 days',
-    },
-    {
-      type: 'siteVisit',
-      message:
-        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
-    },
-    {
-      type: 'timeLineChange',
-      message:
-        'Team Lead Mukesh soni has asked to retake few images for The Mehtas - Living Room',
-    },
-  ];
+
+ const updateNotification= (notification) => {
+  const { id = 'a0x1y000000EYZsAAO'} = notification;
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+  const request = {
+      Is_Read__c: true,
+    };
+    SFDC_API.updateNotification(request, id)
+      .then(res => {
+        const { type } = notification;
+        const { navigation} = props;
+        const route = routeMap.get(type);
+        navigation.navigate(route);
+      })
+      .catch(error => {
+        setPopup({
+          type: POPUP_CONSTANTS.ERROR_POPUP,
+          heading: 'Network Error',
+          message: error.message,
+          popupStyle: styles.popupStyle,
+          headingImage: errorImg,
+          buttons: [
+            {
+              title: 'TryAgain',
+              onPress: () => closePopup(),
+            },
+          ],
+        });
+      });
+  }
+
   const imagesMap = new Map([
     ["complaint", complaintsImg],
     ["newCrewMember", crewMemberImg],
@@ -143,12 +195,25 @@ const Notifications = () => {
     ["timeLineChange", timeLineUpdateImg],
     ["projectUpdate", updatesImg],
   ]);
+  const routeMap = new Map([
+    ["complaint", RouteConfig.MyDay],
+    ["newCrewMember",  RouteConfig.MyDay],
+    ["leaveRequest",  RouteConfig.LeaveRequests],
 
-  const Notification = ({ notification }) => {
+    ["materialUpdates",  RouteConfig.ProfileProjects],
+    ["newProject", newProjectAllocatedImg],
+    ["paymentUpdate", paymentsImg],
+
+    ["siteVisit", RouteConfig.MyDay],
+    ["timeLineChange",  RouteConfig.LeaveRequests],
+    ["projectUpdate", RouteConfig.LeaveRequests],
+  ]);
+
+  const Notification = ({ notification, onPress }) => {
     const { type, message } = notification;
     const imageSrc = imagesMap.get(type);
     return (
-      <View style={styles.notificationCard}>
+      <TouchableOpacity style={styles.notificationCard} onPress={()=> onPress(notification)}>
         <View style={styles.notification}>
           <Image
             source={imageSrc}
@@ -158,18 +223,21 @@ const Notifications = () => {
           <Text style={styles.notifiaftionLable}>{message}</Text>
         </View>
         <Text style={styles.time}>{'9 hours ago'}</Text>
-      </View>
+      </TouchableOpacity>
     );
   };
 
   return (
     <View style={styles.container}>
+       <Popup visible={!!popup} onPress={closePopup}>
+        {getPopupContent()}
+      </Popup>
       <ScrollView contentContainerStyle={styles.bodyContainer}>
         <FlatList
           data={notifications}
           keyExtractor={(item, index) => item.index}
           renderItem={({ item, index }) => (
-            <Notification notification={item} index={index} />
+            <Notification notification={item} onPress={updateNotification} index={index} />
           )}
         />
       </ScrollView>

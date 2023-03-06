@@ -16,6 +16,7 @@ export default {
   leaveApproveForTL: '/sfdc/leave-approvals-TL/',
   getUserProfile: '/sfdc/expose-user/',
   getNotifications: '/sfdc/expose-user-notifications/',
+  updateNotification: '/sfdc/update-notification/',
 
 
   accessToken: '/sfdc/access-token/',
