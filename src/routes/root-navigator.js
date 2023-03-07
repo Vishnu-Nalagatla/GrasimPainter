@@ -96,7 +96,7 @@ function RootNavigator(props) {
     // AsyncStorage.clear();
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
-        // this.userExists = true;
+         this.userExists = true;
       }
     });
   };
@@ -202,20 +202,20 @@ function RootNavigator(props) {
     );
   };
   const getScreen = () => {
-    // this.userExists || isLoggedIn
-    if (isLoggedIn) {
+    // if(isLoggedIn)
+    if (this.userExists || isLoggedIn) {
       return getTabs();
     } else {
-      return getTabs();
-      // return (
-      //   <RootStack.Navigator
-      //     headerMode="none"
-      //     screenOptions={{
-      //       gestureEnabled: false,
-      //     }}>
-      //     <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
-      //   </RootStack.Navigator>
-      // );
+     // return getTabs();
+      return (
+        <RootStack.Navigator
+          headerMode="none"
+          screenOptions={{
+            gestureEnabled: false,
+          }}>
+          <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
+        </RootStack.Navigator>
+      );
     }
   };
 
