@@ -24,6 +24,7 @@ const RouteConfig = {
   ProfileProjects: 'ProfileProjects',
   ProfileProjectDetails: 'ProfileProjectDetails',
   HelpAndSupport: 'HelpAndSupport',
+  EnterOTP: 'EnterOTP',
 };
 
 export default RouteConfig;
