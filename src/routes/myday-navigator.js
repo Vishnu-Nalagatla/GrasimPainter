@@ -15,6 +15,9 @@ import ProfileProjectDetails from '../screens/ProfileProjectDetails';
 import ProfileProjects from '../screens/ProfileProjects';
 import OnboardingNavigator from './onboarding-navigator';
 import HelpAndSupport from '../screens/HelpAndSupport';
+import EnterOTP from '../screens/EnterOTP';
+
+
 
 
 
@@ -39,6 +42,7 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="Help" component={Help} />
       <MyDayStack.Screen name="ProfileProjects" component={ProfileProjects} />
       <MyDayStack.Screen name="HelpAndSupport" component={HelpAndSupport} />
+      <MyDayStack.Screen name="EnterOTP" component={EnterOTP} />
       
       <MyDayStack.Screen name="ProfileProjectDetails" component={ProfileProjectDetails} />
       <MyDayStack.Screen name="ProfileNavigator" component={ProfileNavigator} />
