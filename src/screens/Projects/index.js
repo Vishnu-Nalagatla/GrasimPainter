@@ -65,7 +65,6 @@ class Projects extends React.Component<Props, State> {
     this.setState({popup: undefined});
   };
   getMyProjects = user => {
-    //  alert(user)
     const loggedInUser = JSON.parse(user);
     const {Id, Territory__c, roleKey} = loggedInUser || {};
     const request = {
@@ -79,7 +78,7 @@ class Projects extends React.Component<Props, State> {
         console.log('ProjectList--->', ProjectList);
         let newProj = ProjectList.filter(item => item.Status == 'New');
         let onGoingProj = ProjectList.filter(item => item.Status != 'New');
-        this.closePopup();
+      this.closePopup();
         this.setState({
           newProjects: newProj,
           ongoingProjects: onGoingProj,
@@ -123,7 +122,13 @@ class Projects extends React.Component<Props, State> {
     const {ongoingProjects, newProjects, popup} = this.state;
     return (
       <ScrollView style={styles.container}>
-        <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
+        <Popup
+          popupStyle={{
+             borderRadius: 20,
+          }}
+          visible={!!popup}>
+          {this.getPopupContent()}
+        </Popup>
         {newProjects.length > 0 ? (
           <ProjectList
             projects={newProjects}
@@ -198,12 +203,9 @@ const ProjectList = ({projects, label, onPress, onInsightsPress}) => {
   return (
     <SafeAreaView style={styles.projectsWrapper}>
       {label == 'Ongoing' ? (
-        <View
-          style={styles.onGoingStyles}>
+        <View style={styles.onGoingStyles}>
           <Text>{label}</Text>
-          <TouchableOpacity
-            style={styles.rowStyles}
-            onPress={onInsightsPress}>
+          <TouchableOpacity style={styles.rowStyles} onPress={onInsightsPress}>
             <Image
               source={barchart}
               style={styles.barChartImg}

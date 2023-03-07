@@ -88,7 +88,7 @@ class MyDay extends React.Component<Props, State> {
           loggedInUser: JSON.parse(user),
         },
         () => {
-          // this.fetchMyDayInfo(JSON.parse(user));
+           this.fetchMyDayInfo(JSON.parse(user));
         },
       );
     });

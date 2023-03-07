@@ -44,6 +44,11 @@ class Requests {
     this.axios.post(URLs.requestForQualityCheck, body);
 
   updateLeftMaterial = body => this.axios.post(URLs.updateLeftMaterial, body);
+  getSiteCheckListData = () => {
+    return this.axios.get(
+      'https://publish-p94810-e861269.adobeaemcloud.com/bin/api/getFragmentNoKeys?path=/content/dam/grasim-com/app-core/painter-details/painter-site-checklist',
+    );
+  };
 }
 
 class SfdcAPI {
@@ -105,18 +110,18 @@ class SfdcAPI {
   leaveApproveForTL = tlId => {
     return this.instance.get(`${URLs.leaveApproveForTL}${tlId}`);
   };
-
   getUserProfile = phone => {
     return this.instance.get(`${URLs.getUserProfile}${phone}`);
   };
-  updateLeftMaterial = (projectId,body) => 
-  this.instance.patch(`${URLs.updateLeftMaterial}${projectId}`, body);
+  updateLeftMaterial = (projectId, body) =>
+    this.instance.patch(`${URLs.updateLeftMaterial}${projectId}`, body);
 
   getNotifications = tlId => {
     return this.instance.get(`${URLs.getNotifications}${tlId}`);
   };
 
-  updateNotification = (id, body) => this.instance.post(`${URLs.updateNotification}${id}`, body);
+  updateNotification = (id, body) =>
+    this.instance.post(`${URLs.updateNotification}${id}`, body);
 }
 
 export const API = new Requests();
