@@ -1,5 +1,5 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import MyDay from '../screens/MyDay';
 import ProjectDetails from '../screens/ProjectDetails';
 import LeaveRequests from '../screens/LeaveRequests';
@@ -28,7 +28,7 @@ const MyDayStack = createStackNavigator();
 function MyDayNavigator() {
   return (
     <MyDayStack.Navigator
-      screenOptions={{headerShown: false}}
+      screenOptions={{ headerShown: false }}
       initialRouteName="MyDay">
       <MyDayStack.Screen name="MyDay" component={MyDay} />
       <MyDayStack.Screen name="Benefits" component={Benefits} />
@@ -43,12 +43,8 @@ function MyDayNavigator() {
       <MyDayStack.Screen name="ProfileProjects" component={ProfileProjects} />
       <MyDayStack.Screen name="HelpAndSupport" component={HelpAndSupport} />
       <MyDayStack.Screen name="EnterOTP" component={EnterOTP} />
-      
       <MyDayStack.Screen name="ProfileProjectDetails" component={ProfileProjectDetails} />
       <MyDayStack.Screen name="ProfileNavigator" component={ProfileNavigator} />
-
-
-      
     </MyDayStack.Navigator>
   );
 }

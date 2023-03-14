@@ -3,9 +3,9 @@
  * @flow
  */
 
-import {combineReducers} from 'redux';
-import loginReducer from './login';
-import myDayReducer from './myDay';
+import { combineReducers } from 'redux';
+import loginReducer from '../login/loginReducer';
+import myDayReducer from '../myDay/myDayReducer';
 
 export interface ReduxState {
   login: StateType;
@@ -13,8 +13,8 @@ export interface ReduxState {
 
 // eslint-disable-next-line prettier/prettier
 const rootReducer = combineReducers < ReduxState > ({
-  login: loginReducer,
-  myDay: myDayReducer,
+  loginReducer,
+  myDayReducer,
 });
 
 export default rootReducer;

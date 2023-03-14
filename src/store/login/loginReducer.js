@@ -1,8 +1,9 @@
 import { ActionTypes } from '../constants';
 
-const defaults = {
+const initialState = {
     loginInfo: {},
     isLoggedIn: false,
+    userRole: ""
 };
 
 export interface ActionType {
@@ -10,7 +11,7 @@ export interface ActionType {
     payload: any;
 }
 
-export default (state = defaults, action: ActionType) => {
+export default loginReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case ActionTypes.SET_LOGIN_DATA: {
             return {
@@ -24,6 +25,12 @@ export default (state = defaults, action: ActionType) => {
                 ...state,
                 loginInfo: null,
                 isLoggedIn: false,
+            };
+        }
+        case ActionTypes.USER_ROLE: {
+            return {
+                ...state,
+                userRole: action.payload
             };
         }
         default:

@@ -15,6 +15,10 @@
     "android:qa": "react-native run-android --variant=qaDebug",
     "android:uat": "react-native run-android --variant=uatDebug",
     "android:prod": "react-native run-android --variant=productionDebug",
+    "build:dev": "cd android && ./gradlew clean && ./gradlew -stop && ./gradlew assembleDevRelease",
+    "build:qa": "cd android && ./gradlew clean && ./gradlew -stop && ./gradlew assembleQaRelease",
+    "build:uat": "cd android && ./gradlew clean && ./gradlew -stop && ./gradlew assembleUatRelease",
+    "build:prod": "cd android && ./gradlew clean && ./gradlew -stop && ./gradlew assembleProdRelease",
     "update-version": "npx react-native-version --never-amend",
     "devtools": "react-devtools"
   },

@@ -1,14 +1,14 @@
-import {View, Text, ActivityIndicator, TouchableOpacity} from 'react-native';
+import { View, Text, ActivityIndicator, TouchableOpacity } from 'react-native';
 import React from 'react';
-import {connect} from 'react-redux';
-import {API} from '../../requests';
+import { connect } from 'react-redux';
+import { API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
 import styles from './styles';
 import Popup from '../../components/Popup';
 import errorIcon from '../../assets/images/naColor/image.png';
-import {Image, ScrollView} from 'native-base';
+import { Image, ScrollView } from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import calendar from '../../assets/images/calendar/image.png';
 import RouteConfig from '../../constants/route-config.js';
@@ -31,12 +31,12 @@ class CrewDetails extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   fetchMyTeamInfo = () => {
@@ -47,7 +47,7 @@ class CrewDetails extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -64,10 +64,10 @@ class CrewDetails extends React.Component<Props, State> {
   };
 
   onClick = event => {
-    const {buttons} = this.state;
+    const { buttons } = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const {index} = button;
+      const { index } = button;
       if (event.index === index && !event.status) {
         button.status = true;
       } else {
@@ -85,7 +85,7 @@ class CrewDetails extends React.Component<Props, State> {
   requestForQualityCheck = project => {
     console.info('project...', project);
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
     const request = {
       organizationId: 'organizationID',
@@ -117,7 +117,7 @@ class CrewDetails extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -132,7 +132,7 @@ class CrewDetails extends React.Component<Props, State> {
     }
   };
   viewCrewProfile = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
 
     navigation.navigate(RouteConfig.CrewProfile, {
       profile: {},
@@ -140,12 +140,10 @@ class CrewDetails extends React.Component<Props, State> {
   };
 
   render() {
-    const {reduxProps} = this.props;
-    const {login} = reduxProps;
-    const {loginInfo = {}} = login;
-    const {firstName = ''} = loginInfo;
-    const {popup} = this.state;
-    const {style = {}} = popup || {};
+    const { getLoginInfo = {} } = this.props;
+    const { firstName = '' } = getLoginInfo;
+    const { popup } = this.state;
+    const { style = {} } = popup || {};
     const crewList = data;
     const crewName = 'Bandra Crew 1';
     const crewInfo =
@@ -172,7 +170,7 @@ class CrewDetails extends React.Component<Props, State> {
   }
 }
 
-const CrewList = ({title, crewList, onPress}) => {
+const CrewList = ({ title, crewList, onPress }) => {
   return (
     <ScrollView style={styles.crewContainer}>
       {crewList.map(crew => {
@@ -182,8 +180,8 @@ const CrewList = ({title, crewList, onPress}) => {
   );
 };
 
-const CrewCard = ({crew, onPress}) => {
-  const {name, profilePic = groupIcon, status, skills = []} = crew;
+const CrewCard = ({ crew, onPress }) => {
+  const { name, profilePic = groupIcon, status, skills = [] } = crew;
   return (
     <View style={styles.crewCard}>
       <View style={styles.header}>
@@ -212,10 +210,11 @@ const CrewCard = ({crew, onPress}) => {
     </View>
   );
 };
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
-
+const mapStateToProps = (state) => {
+  return {
+    getLoginInfo: state.loginReducer.loginInfo,
+  };
+};
 const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(CrewDetails);

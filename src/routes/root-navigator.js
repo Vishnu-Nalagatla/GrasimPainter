@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
-import {BackHandler, StyleSheet, TouchableOpacity} from 'react-native';
-import {useSelector} from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
+import { useSelector } from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
 import OnboardingNavigator from './onboarding-navigator';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Button, NativeBaseProvider, Text, View} from 'native-base';
-import {Image} from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Button, NativeBaseProvider, Text, View } from 'native-base';
+import { Image } from 'react-native';
 
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
 import paintRoller from '../assets/images/paintRoller/image.png';
@@ -35,12 +35,12 @@ import Drawer from '../components/Drawer';
 import ViewPort from '../constants/view-port';
 import colors from '../constants/colors';
 
-import {createNavigationContainerRef} from '@react-navigation/native';
+import { createNavigationContainerRef } from '@react-navigation/native';
 import RouteConfig from '../constants/route-config';
 
 export const navigationRef = createNavigationContainerRef();
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const RootStack = createStackNavigator();
 
@@ -51,12 +51,12 @@ function onBackButtonPressed() {
 }
 
 function RootNavigator(props) {
-  const reduxProps = useSelector(state => state);
+  const reduxProps = useSelector(state => state.loginReducer);
   const [popup, setPopup] = useState(undefined);
   const [showNotifications, setNotifications] = useState(undefined);
 
-  const {login} = reduxProps;
-  const {isLoggedIn, loginInfo = {}} = login;
+
+  const { isLoggedIn, loginInfo = {} } = reduxProps;
   // const {showOnboarding = false} = loginInfo;
   const showOnboarding = loginInfo?.showOnboarding;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
@@ -113,7 +113,7 @@ function RootNavigator(props) {
         <TouchableOpacity
           style={styles.menuImg}
           onPress={() => {
-            setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation});
+            setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation });
           }}>
           <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
         </TouchableOpacity>
@@ -125,7 +125,7 @@ function RootNavigator(props) {
           <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
         </TouchableOpacity>
       ),
-      tabBarIcon: ({color, size}) => (
+      tabBarIcon: ({ color, size }) => (
         <Image style={styles.icon} source={imgSource} />
       ),
     };
@@ -134,7 +134,7 @@ function RootNavigator(props) {
   // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <Popup
           onPress={closePopup}
           popupStyle={styles.popupStyle}
@@ -143,10 +143,10 @@ function RootNavigator(props) {
         </Popup>
         <Tab.Navigator
           initialRouteName="MyDayNavigator"
-          screenOptions={({route}) => ({
+          screenOptions={({ route }) => ({
             tabBarActiveTintColor: '#2C4DAE',
             tabBarStyle: styles.tabBarStyle,
-            tabBarLabel: ({focused}) => {
+            tabBarLabel: ({ focused }) => {
               const style = focused ? styles.tabActiveStyles : styles.tabStyles;
               const hrStyle = focused ? styles.hrLine : null;
               return (
@@ -160,7 +160,7 @@ function RootNavigator(props) {
           <Tab.Screen
             name="MyDay"
             component={MyDayNavigator}
-            options={({navigation}) => {
+            options={({ navigation }) => {
               const imgSrc = navigation.isFocused() ? myDayColor : myDay;
               return headerOptions(navigation, 'MyDay', imgSrc);
             }}
@@ -169,7 +169,7 @@ function RootNavigator(props) {
           <Tab.Screen
             name="Projects"
             component={ProjectsNavigator}
-            options={({navigation}) => {
+            options={({ navigation }) => {
               const imgSrc = navigation.isFocused()
                 ? paintRollerColor
                 : paintRoller;
@@ -180,7 +180,7 @@ function RootNavigator(props) {
           <Tab.Screen
             name="MyTeam"
             component={MyTeamNavigator}
-            options={({navigation}) => {
+            options={({ navigation }) => {
               const imgSrc = navigation.isFocused() ? teamColor : team;
               return headerOptions(navigation, 'My Team', imgSrc);
             }}
@@ -188,7 +188,7 @@ function RootNavigator(props) {
           <Tab.Screen
             name="Attendance"
             component={AttendanceNavigator}
-            options={({navigation}) => {
+            options={({ navigation }) => {
               const imgSrc = navigation.isFocused()
                 ? attendanceColor
                 : attendance;

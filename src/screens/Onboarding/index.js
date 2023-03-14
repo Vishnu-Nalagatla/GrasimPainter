@@ -1,19 +1,19 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux';
+import { View, Image, Text, TouchableOpacity } from 'react-native';
 import onboardingIcon from '../../assets/images/onboarding/onboardingIcon.png';
 import Onboarding from 'react-native-onboarding-swiper';
 import rightArrow from '../../assets/images/onboarding/arrow-right.png';
 import styles from './styles';
 import ViewPort from '../../constants/view-port';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {setLoginData} from '../../store/actions';
+import { setLoginData } from '../../store/login/loginActions';
 
-const {vh} = ViewPort;
+const { vh } = ViewPort;
 
 class OnboardingScreen extends React.Component {
   onDone = () => {
-    const {dispatchSetLoginData} = this.props;
+    const { dispatchSetLoginData } = this.props;
     const date = new Date();
     const currentDate =
       date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -28,7 +28,7 @@ class OnboardingScreen extends React.Component {
           'loggedInUser_' + currentDate,
           JSON.stringify(updatedUsers),
         ).then(res => {
-          dispatchSetLoginData({userName: user, showOnboarding: false});
+          dispatchSetLoginData({ userName: user, showOnboarding: false });
         });
       });
     });
@@ -44,10 +44,8 @@ class OnboardingScreen extends React.Component {
   };
 
   render() {
-    const {reduxProps} = this.props;
-    const {login} = reduxProps;
-    const {loginInfo = {}} = login;
-    const {firstName = ''} = loginInfo;
+    const { getLoginInfo = {} } = this.props;
+    const { firstName = '' } = getLoginInfo;
     return (
       <Onboarding
         showSkip={false}
@@ -140,9 +138,11 @@ class OnboardingScreen extends React.Component {
   }
 }
 
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
+const mapStateToProps = (state) => {
+  return {
+    getLoginInfo: state.loginReducer.loginInfo,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   dispatchSetLoginData: payload => {

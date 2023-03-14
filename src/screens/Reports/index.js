@@ -1,6 +1,6 @@
-import {ScrollView} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import { ScrollView } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 import SwitchButtons from '../../components/SwitchButtons';
 import Accordion from 'react-native-collapsible/Accordion';
 import styles from './styles';
@@ -14,7 +14,7 @@ const report = {
   QC_REPORT: 2,
 };
 const Reports = props => {
-  const {project} = props;
+  const { project } = props;
   const {
     RoomList
   } = project || {};
@@ -38,7 +38,7 @@ const Reports = props => {
   const onClick = event => {
     setActiveTab(event.id);
     const buttonsChanged = state.map(button => {
-      const {id} = button;
+      const { id } = button;
       if (event.id === id && !event.status) {
         button.status = true;
       } else {
@@ -50,7 +50,7 @@ const Reports = props => {
   };
 
   const renderHeader = wall => {
-    const {Name} = wall;
+    const { Name } = wall;
     const index = Name.split(' ')[1];
     const activeRoom = activeRooms[0] + 1;
     const isActiveRoom = +index === +activeRoom;
@@ -66,7 +66,7 @@ const Reports = props => {
   };
 
   const renderContent = wall => {
-    const {Name} = wall;
+    const { Name } = wall;
     const index = Name.split(' ')[1];
     const activeRoom = activeRooms[0] + 1;
     const isActiveRoom = +index === +activeRoom;
@@ -115,8 +115,8 @@ const Reports = props => {
     );
   };
 
-  const RoomInfo = ({room}) => {
-    const {Name} = room;
+  const RoomInfo = ({ room }) => {
+    const { Name } = room;
     return (
       <View>
         <Text style={styles.roomInfo}>{Name}</Text>
@@ -149,7 +149,7 @@ const Reports = props => {
     return (
       <ScrollView style={styles.accordionContainer}>
         <Text style={styles.heading}>Product and Colors</Text>
-        {project?.RoomList.map(room => {
+        {project?.RoomList?.map(room => {
           return <RoomInfo room={room} />;
         })}
       </ScrollView>
