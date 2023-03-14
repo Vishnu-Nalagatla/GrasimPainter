@@ -42,15 +42,15 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 12 * vh,
     fontStyle: 'normal',
-    textAlign: 'center',
+    // textAlign: 'center',
     fontWeight: '700',
     color: colors.white,
   },
   phone: {
     fontSize: 12 * vh,
-     textAlign: 'center', 
-     color: colors.white,
-    },
+    textAlign: 'center',
+    color: colors.white,
+  },
 
   langPrefWrapper: {
     flexDirection: 'row',

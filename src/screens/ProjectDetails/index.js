@@ -12,9 +12,10 @@ import Reports from '../Reports';
 const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
 import ProjectInfo from '../ProjectInfo';
+import {connect} from 'react-redux';
 
 const ProjectDetails = props => {
-  const {route} = props;
+  const {route, reduxProps} = props;
   const {params} = route;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(params.index);
@@ -30,16 +31,33 @@ const ProjectDetails = props => {
     <ProjectProgress
       project={params.ProjectDetailsData}
       onTabChange={onTabChange}
-      {...props} />
+      {...props}
+    />
   );
-  const onTabChange = (index)=>{
+  const onTabChange = index => {
     setIndex(index);
-  }
-  const materialRoute = () => <Material project={params.ProjectDetailsData} onTabChange={onTabChange}/>;
-  const siteCheckListRoute = () => <SiteCheckList project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
-  const reportsRoute = () => <Reports project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
-  const infoRoute = () => <ProjectInfo project={params.ProjectDetailsData} onTabChange={onTabChange}/>;
-  const timeLineRoute = () => <Timeline project={params.ProjectDetailsData}  onTabChange={onTabChange}/>;
+  };
+  const materialRoute = () => (
+    <Material project={params.ProjectDetailsData} onTabChange={onTabChange} />
+  );
+  const siteCheckListRoute = () => (
+    <SiteCheckList
+      project={params.ProjectDetailsData}
+      onTabChange={onTabChange}
+    />
+  );
+  const reportsRoute = () => (
+    <Reports project={params.ProjectDetailsData} onTabChange={onTabChange} />
+  );
+  const infoRoute = () => (
+    <ProjectInfo
+      project={params.ProjectDetailsData}
+      onTabChange={onTabChange}
+    />
+  );
+  const timeLineRoute = () => (
+    <Timeline project={params.ProjectDetailsData} onTabChange={onTabChange} />
+  );
 
   const renderScene = SceneMap({
     progress: progressRoute,
@@ -79,5 +97,8 @@ const ProjectDetails = props => {
     />
   );
 };
+const mapStateToProps = reduxProps => ({
+  reduxProps,
+});
 
-export default ProjectDetails;
+export default connect(mapStateToProps, null)(ProjectDetails);

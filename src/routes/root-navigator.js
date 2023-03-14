@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { BackHandler, StyleSheet, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {BackHandler, StyleSheet, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
 import LoginNavigator from './login-navigator';
 import SplashNavigator from './splash-navigator';
 import OnboardingNavigator from './onboarding-navigator';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, NativeBaseProvider, Text, View } from 'native-base';
-import { Image } from 'react-native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {Button, NativeBaseProvider, Text, View} from 'native-base';
+import {Image} from 'react-native';
 
 import paintRollerColor from '../assets/images/paintRollerColor/image.png';
 import paintRoller from '../assets/images/paintRoller/image.png';
@@ -32,19 +32,15 @@ import util from '../util';
 import Popup from '../components/Popup';
 import POPUP_CONSTANTS from '../enums/popup';
 import Drawer from '../components/Drawer';
-
-
 import ViewPort from '../constants/view-port';
 import colors from '../constants/colors';
 
-import { createNavigationContainerRef } from '@react-navigation/native';
+import {createNavigationContainerRef} from '@react-navigation/native';
 import RouteConfig from '../constants/route-config';
 
-export const navigationRef = createNavigationContainerRef()
+export const navigationRef = createNavigationContainerRef();
 
-const { vh, vw } = ViewPort;
-
-
+const {vh, vw} = ViewPort;
 
 const RootStack = createStackNavigator();
 
@@ -59,12 +55,12 @@ function RootNavigator(props) {
   const [popup, setPopup] = useState(undefined);
   const [showNotifications, setNotifications] = useState(undefined);
 
-
-  const { login } = reduxProps;
-  const { isLoggedIn, loginInfo = {} } = login;
-  const { showOnboarding = false } = loginInfo;
+  const {login} = reduxProps;
+  const {isLoggedIn, loginInfo = {}} = login;
+  // const {showOnboarding = false} = loginInfo;
+  const showOnboarding = loginInfo?.showOnboarding;
   const [showSplashScreen, setShowSplashScreen] = useState(true);
-
+  const [userExist, setUserExists] = useState(false);
   const getPopupContent = () => {
     if (!popup) {
       return null;
@@ -76,7 +72,6 @@ function RootNavigator(props) {
         break;
     }
   };
-
 
   // TODO: Revisit the logic
   useEffect(() => {
@@ -96,8 +91,8 @@ function RootNavigator(props) {
     // AsyncStorage.clear();
     AsyncStorage.getItem('currentUser_' + currentDate).then(user => {
       if (user) {
-         this.userExists = true;
-      }
+        setUserExists(true);
+      } else setUserExists(false);
     });
   };
 
@@ -106,7 +101,7 @@ function RootNavigator(props) {
   };
 
   const headerOptions = (navigation, name, imgSource, onPress) => {
-    return ({
+    return {
       showNotifications,
       headerTintColor: colors.white,
       tabBarLabelStyle: styles.tablelabelStyle,
@@ -118,13 +113,9 @@ function RootNavigator(props) {
         <TouchableOpacity
           style={styles.menuImg}
           onPress={() => {
-            setPopup({ type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation });
+            setPopup({type: POPUP_CONSTANTS.TOGGLE_DRAWER, navigation});
           }}>
-          <Image
-            source={menuImg}
-            style={styles.menuImg}
-            resizeMode="contain"
-          />
+          <Image source={menuImg} style={styles.menuImg} resizeMode="contain" />
         </TouchableOpacity>
       ),
       headerRight: () => (
@@ -134,79 +125,85 @@ function RootNavigator(props) {
           <Image source={bellImg} style={styles.bellImg} resizeMode="contain" />
         </TouchableOpacity>
       ),
-      tabBarIcon: ({ color, size }) => (
+      tabBarIcon: ({color, size}) => (
         <Image style={styles.icon} source={imgSource} />
       ),
-    })
-  }
+    };
+  };
 
   // TODO: Revisit the logic use tablist as Array List
   const getTabs = () => {
     return (
-      <View style={{ flex: 1 }}>
-        <Popup popupStyle={styles.popupStyle} visible={!!popup}>
+      <View style={{flex: 1}}>
+        <Popup
+          onPress={closePopup}
+          popupStyle={styles.popupStyle}
+          visible={!!popup}>
           {getPopupContent()}
         </Popup>
         <Tab.Navigator
           initialRouteName="MyDayNavigator"
-          screenOptions={({ route }) => ({
+          screenOptions={({route}) => ({
             tabBarActiveTintColor: '#2C4DAE',
             tabBarStyle: styles.tabBarStyle,
-            tabBarLabel: ({ focused }) => {
+            tabBarLabel: ({focused}) => {
               const style = focused ? styles.tabActiveStyles : styles.tabStyles;
               const hrStyle = focused ? styles.hrLine : null;
-              return <View style={styles.tabStyle}>
-                <Text style={style} >{route.name}</Text>
-                <View style={hrStyle}></View>
-              </View>
+              return (
+                <View style={styles.tabStyle}>
+                  <Text style={style}>{route.name}</Text>
+                  <View style={hrStyle}></View>
+                </View>
+              );
             },
           })}>
           <Tab.Screen
             name="MyDay"
             component={MyDayNavigator}
-            options={({ navigation }) => {
+            options={({navigation}) => {
               const imgSrc = navigation.isFocused() ? myDayColor : myDay;
-              return headerOptions(navigation, 'MyDay', imgSrc)
+              return headerOptions(navigation, 'MyDay', imgSrc);
             }}
-
           />
 
           <Tab.Screen
             name="Projects"
             component={ProjectsNavigator}
-            options={({ navigation }) => {
-              const imgSrc = navigation.isFocused() ? paintRollerColor : paintRoller;
-              return headerOptions(navigation, 'Projects', imgSrc)
+            options={({navigation}) => {
+              const imgSrc = navigation.isFocused()
+                ? paintRollerColor
+                : paintRoller;
+              return headerOptions(navigation, 'Projects', imgSrc);
             }}
           />
 
           <Tab.Screen
             name="MyTeam"
             component={MyTeamNavigator}
-            options={({ navigation }) => {
+            options={({navigation}) => {
               const imgSrc = navigation.isFocused() ? teamColor : team;
-              return headerOptions(navigation, 'My Team', imgSrc)
+              return headerOptions(navigation, 'My Team', imgSrc);
             }}
           />
-
           <Tab.Screen
             name="Attendance"
             component={AttendanceNavigator}
-            options={({ navigation }) => {
-              const imgSrc = navigation.isFocused() ? attendanceColor : attendance;
-              return headerOptions(navigation, 'Attendance', imgSrc)
+            options={({navigation}) => {
+              const imgSrc = navigation.isFocused()
+                ? attendanceColor
+                : attendance;
+              return headerOptions(navigation, 'Attendance', imgSrc);
             }}
           />
         </Tab.Navigator>
       </View>
     );
   };
-  const getScreen = () => {
-    // if(isLoggedIn)
-    if (this.userExists || isLoggedIn) {
+  const getScreen = userExist => {
+    if (userExist || isLoggedIn) {
       return getTabs();
     } else {
-     // return getTabs();
+      //  return getTabs();
       return (
         <RootStack.Navigator
           headerMode="none"
@@ -229,8 +226,12 @@ function RootNavigator(props) {
         <NavigationContainer independent={true}>
           <OnboardingNavigator />
         </NavigationContainer>
+      ) : isLoggedIn == false ? (
+        <NavigationContainer independent={true}>
+          <LoginNavigator />
+        </NavigationContainer>
       ) : (
-        getScreen()
+        getScreen(userExist)
       )}
     </NativeBaseProvider>
   );

@@ -44,11 +44,6 @@ class Requests {
     this.axios.post(URLs.requestForQualityCheck, body);
 
   updateLeftMaterial = body => this.axios.post(URLs.updateLeftMaterial, body);
-  getSiteCheckListData = () => {
-    return this.axios.get(
-      'https://publish-p94810-e861269.adobeaemcloud.com/bin/api/getFragmentNoKeys?path=/content/dam/grasim-com/app-core/painter-details/painter-site-checklist',
-    );
-  };
 }
 
 class SfdcAPI {
@@ -122,7 +117,25 @@ class SfdcAPI {
 
   updateNotification = (id, body) =>
     this.instance.post(`${URLs.updateNotification}${id}`, body);
+
+  updateSiteChecklist = (id, body) =>
+    this.instance.patch(`${URLs.updateSiteChecklist}${id}`, body);
+}
+
+class AemAPI {
+  constructor() {
+    this.axios = Axios.create({
+      baseURL: Config.AEM_BASE_URL,
+    });
+    // this.axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] =
+    // Config.MIDDLE_WARE_SUBSCRIPTION_KEY;
+  }
+
+  getSiteCheckListData = () => {
+    return this.axios.get(`${URLs.getSiteCheckList}`);
+  };
 }
 
 export const API = new Requests();
 export const SFDC_API = new SfdcAPI();
+export const AEM_API = new AemAPI();

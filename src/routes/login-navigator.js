@@ -11,7 +11,7 @@ const LoginStack = createStackNavigator();
 function LoginNavigator() {
   return (
     <NavigationContainer independent={true}>
-      <LoginStack.Navigator headerMode="none">
+      <LoginStack.Navigator headerMode="none"  initialRouteName="Login">
         <LoginStack.Screen name="Login" component={Login} />
         <LoginStack.Screen name="Otp" component={Otp} />
         <LoginStack.Screen name="Help" component={Help} />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, Image, ActivityIndicator} from 'react-native';
 import {Text, View} from 'native-base';
 import packageImg from '../../assets/images/drawer/package.png';
@@ -9,40 +9,49 @@ import zapImg from '../../assets/images/drawer/zap.png';
 import styles from './styles';
 import RouteConfig from '../../constants/route-config';
 import OnboardingNavigator from '../../routes/onboarding-navigator';
-import { createStackNavigator } from '@react-navigation/stack';
-import { API, SFDC_API } from '../../requests';
+import {createStackNavigator} from '@react-navigation/stack';
+import {API, SFDC_API} from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import Popup from '../Popup';
 import colors from '../../constants/colors';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
 import StandardPopup from '../Common/StandardPopup';
+import LoginNavigator from '../../routes/login-navigator';
+import Login from '../../screens/Login';
+// const RootStack = createStackNavigator();
+import {connect} from 'react-redux';
+import {setLoginData, logoutAction} from '../../store/actions';
 
 const Drawer = props => {
+  const {reduxProps, closePopup, navigation, dispatchSetLoginData} = props;
+  const {login} = reduxProps;
+  const {loginInfo = {}} = login;
+  const {firstName = '', lastName = '', role = 'Team Lead'} = loginInfo;
   const [popup, setPopup] = useState(undefined);
   const [userProfile, setUserProfile] = useState({});
-
   const RootStack = createStackNavigator();
-  const {navigation, firstName='Mukesh', lastName="soni", role='Team Lead', closePopup} = props;
   useEffect(() => {
     const currentDate = util.currentDate();
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
       console.info('user...', user);
     });
     getUserProfile();
+    console.log('Drawer props---->', props);
   }, []);
 
   const getUserProfile = () => {
-
     const phone = '7207440195';
-    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
     SFDC_API.getUserProfile(phone)
       .then(res => {
-        const {data:{records}} =  res
-      //   const {FirstName, LastName} =  records[0];
-      //  console.info('res.....', FirstName, LastName);
-       setUserProfile(res.data);
-       setPopup(undefined);
+        const {
+          data: {records},
+        } = res;
+        //   const {FirstName, LastName} =  records[0];
+        //  console.info('res.....', FirstName, LastName);
+        setUserProfile(res.data);
+        setPopup(undefined);
       })
       .catch(error => {
         this.setState({
@@ -70,8 +79,8 @@ const Drawer = props => {
         return (
           <ActivityIndicator size="large" color={colors.primary} animating />
         );
-        case POPUP_CONSTANTS.ERROR_POPUP:
-          return <StandardPopup {...popup} />;
+      case POPUP_CONSTANTS.ERROR_POPUP:
+        return <StandardPopup {...popup} />;
     }
   };
 
@@ -79,7 +88,11 @@ const Drawer = props => {
     navigation.navigate(RouteConfig.Profile);
   };
 
-  const onLogout = () => {};
+  const onLogout = () => {
+    AsyncStorage.clear();
+    closePopup && closePopup();
+    dispatchSetLoginData({isLoggedIn: false});
+  };
 
   const onMyProjects = () => {
     closePopup && closePopup();
@@ -130,7 +143,7 @@ const Drawer = props => {
           <Image source={shieldImg} styles={styles.profileIcon} />
         </View>
         <View>
-          <Text style={styles.name}>{`${firstName}  ${lastName}`}</Text>
+          <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
           <Text style={styles.phone}>{`${role}`}</Text>
         </View>
       </View>
@@ -163,5 +176,14 @@ const Drawer = props => {
     </View>
   );
 };
+const mapStateToProps = reduxProps => ({
+  reduxProps,
+});
 
-export default Drawer;
+const mapDispatchToProps = dispatch => ({
+  dispatchSetLoginData: payload => {
+    dispatch(logoutAction(payload));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Drawer);

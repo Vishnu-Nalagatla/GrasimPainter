@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, ActivityIndicator} from 'react-native';
+import {Image, Text, ActivityIndicator, BackHandler} from 'react-native';
 import {Input, View} from 'native-base';
 import {connect} from 'react-redux';
 import strings from '../../constants/strings';
@@ -31,23 +31,27 @@ class Otp extends React.Component<Props, State> {
     this.state = {
       otp: '',
       validationMsg: '',
-      count: 5,
+      count: 120,
       showResend: false,
       resendCount: 0,
+      clearInput: false,
     };
   }
 
   componentDidMount = () => {
     this.setResendInterval();
   };
-
   setResendInterval = () => {
+    this.setState({
+      showResend: false,
+    });
     const {resendCount} = this.state;
     const interval = setInterval(() => {
       this.setState(
         prevState => {
           return {
             count: prevState.count - 1,
+            clearInput: false,
           };
         },
         () => {
@@ -62,9 +66,13 @@ class Otp extends React.Component<Props, State> {
         },
       );
     }, 1000);
+    // this.setState({clearInput: false});
   };
 
   resendOtp = () => {
+    this.setState({clearInput: true});
+    this.setState({validationMsg: ''});
+    this.setState({otp: ''});
     const {route} = this.props;
     const {params} = route;
     const {userName} = params;
@@ -80,7 +88,7 @@ class Otp extends React.Component<Props, State> {
           this.setState(
             {
               popup: undefined,
-              count: 5,
+              count: 120,
               showResend: false,
               resendCount: resendCount + 1,
             },
@@ -91,9 +99,9 @@ class Otp extends React.Component<Props, State> {
         } else {
           this.setState(
             {
-              validationMsg: data.message,
+              //validationMsg: data.message,
               popup: undefined,
-              count: 5,
+              count: 120,
               showResend: false,
               resendCount: resendCount + 1,
             },
@@ -151,9 +159,7 @@ class Otp extends React.Component<Props, State> {
     API.verifyOtp(request)
       .then(response => {
         const {data} = response;
-        if (data && data.statusCode && data.statusCode === 103) {
-          this.setState({validationMsg: data.message});
-        } else if (data.statusCode && data.statusCode === 200) {
+        if (data.statusCode && data.statusCode === 200) {
           console.info('userInfo...', data.response);
           const currentDate = UTIL.currentDate();
           const prevDate = UTIL.prevDate();
@@ -223,6 +229,8 @@ class Otp extends React.Component<Props, State> {
           //     });
           //Here data.response has multiple records, which one to consider
           // dispatchSetLoginData(userData.records);
+        } else {
+          this.setState({validationMsg: data.message});
         }
         this.closePopup();
       })
@@ -257,8 +265,6 @@ class Otp extends React.Component<Props, State> {
     const {route} = this.props;
     const {params} = route;
     const {userName, firstName} = params;
-    // const userName = '987654321';
-    // const firstName = 'Snigdha';
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
@@ -270,10 +276,22 @@ class Otp extends React.Component<Props, State> {
           />
           <View style={styles.inputWrapper}>
             <Text style={styles.userText}>
-              Hi {firstName}, please enter the OTP sent to {userName}{' '}
+              Hi {firstName}, please enter the OTP sent to{' '}
+              {userName.replace(/./g, function (character, index) {
+                if (index > 1 && index < 8) return '*';
+                return character;
+              })}{' '}
             </Text>
-            <Text style={styles.userName}>{userName}</Text>
+            <Text style={styles.userName}>
+              {userName.replace(/./g, function (character, index) {
+                if (index > 1 && index < 8) return '*';
+                return character;
+              })}
+            </Text>
             <OTPInputView
+              editable
+              code={this.state.otp}
+              clearInputs={this.state.clearInput}
               style={styles.otpInput}
               pinCount={4}
               autoFocusOnLoad
@@ -294,8 +312,11 @@ class Otp extends React.Component<Props, State> {
                       styles.underlineStyleHighLighted,
                     ]
               }
-              autofillFromClipboard={false}
+              autofillFromClipboard={true}
               onCodeFilled={code => this.onOtpChange(code)}
+              onCodeChanged={otp => {
+                this.setState({otp});
+              }}
             />
             {validationMsg ? (
               <Text style={styles.errorText}>{validationMsg}</Text>

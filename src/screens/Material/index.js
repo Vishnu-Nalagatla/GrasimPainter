@@ -1,6 +1,6 @@
 import {FlatList, ScrollView, Text} from 'native-base';
-import React, {useState} from 'react';
-import {ActivityIndicator, SafeAreaView, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, SafeAreaView, View, TextInput} from 'react-native';
 import CustomButton from '../../components/Button';
 import ProgressSlider from '../../components/ProgressSlider';
 import {SFDC_API, API} from '../../requests';
@@ -8,7 +8,7 @@ import POPUP_CONSTANTS from '../../enums/popup';
 import ROLES from '../../enums/roles';
 
 import errorIcon from '../../assets/images/naColor/image.png';
-
+import util from '../../util';
 import styles from './styles';
 import Popup from '../../components/Popup';
 import StandardPopup from '../../components/Common/StandardPopup';
@@ -16,64 +16,17 @@ import colors from '../../constants/colors';
 import strings from '../../globalization';
 
 const Material = props => {
-  const {BOMList = []} = project || {};
   // const materialLeft = 'Let’s check quantity of material left';
   // const materialUsedLabel = 'Here is the list of Pmaterial used';
   const {project = {}, loggedInUser = {}} = props;
+  const {BOMList = []} = project || {};
+  console.log('project from material---->', project);
   const {roleKey = 'HeadPainterId'} = loggedInUser || {};
-  const sliderValue = '23 Ltr';
   // const leftOver = 'Leftover';
   const [popup, setPopup] = useState(undefined);
   const [putty, setPutty] = useState(0);
   const [paint, setPaint] = useState(0);
   const {popupStyle = {}} = popup || {};
-
-  const {
-    material = [
-      {
-        name: 'Putty',
-        totalQuantity: '10 kg',
-        brand: 'Asain Paints',
-      },
-      {
-        name: 'Paint',
-        totalQuantity: '10 ltr',
-        brand: 'Asain Paints',
-      },
-    ],
-    materialUsed = {
-      painting: [
-        {
-          name: 'Shine',
-          cost: '8872',
-          quantity: '22 Ltr',
-        },
-        {
-          name: 'Royal paint',
-          cost: '8872',
-          quantity: '22 Ltr',
-        },
-      ],
-      accessories: [
-        {
-          name: 'Paint Roller',
-          value: '7 pcs',
-        },
-        {
-          name: 'Paint Brush',
-          value: '2 pcs',
-        },
-        {
-          name: 'Ladder',
-          value: '2 pcs',
-        },
-        {
-          name: 'Paint Spray Machine',
-          value: '2 pcs',
-        },
-      ],
-    },
-  } = props;
 
   const showSpinner = () => {
     setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
@@ -82,22 +35,18 @@ const Material = props => {
   const closePopup = () => {
     setPopup(undefined);
   };
-
   const updateLeftOverMaterial = () => {
+    const projectId = project && project?.Id;
+
     const request = {
-      UpdateLeftOverDate: '2023-01-25',
+      UpdateLeftOverDate: util.currentDate(),
       MaterialDetails: [
         {
-          Id: 'a0K1y0000009O0EEAU',
-          Leftover_Quantity__c: 24,
-        },
-        {
-          Id: 'a0K1y0000009NzQEAU',
+          Id: projectId,
           Leftover_Quantity__c: 24,
         },
       ],
     };
-    const projectId='a061y000000ECXLAA4';
     showSpinner();
     SFDC_API.updateLeftMaterial(projectId, request)
       .then(res => {
@@ -148,13 +97,6 @@ const Material = props => {
     //   });
   };
 
-  const onValueChange = (MaterialName, value) => {
-    if (MaterialName === 'Putty') {
-      setPutty(value);
-    } else {
-      setPaint(value);
-    }
-  };
   const raiseMaterialConfirmation = () => {
     console.info('raiseMaterialRequest...');
     setPopup({
@@ -172,6 +114,20 @@ const Material = props => {
       MaterialCategory,
     } = item;
     const value = MaterialName === 'Putty' ? putty : paint;
+    const [LeftQuantity, setLeftQuantity] = useState(LeftoverQuantity);
+    useEffect(() => {
+      setLeftQuantity(LeftoverQuantity);
+    }, []);
+
+    const onValueChange = (MaterialName, sliderValue) => {
+      if (MaterialName == 'Putty') {
+        setLeftQuantity(sliderValue);
+        // setPutty(sliderValue);
+      } else {
+        setLeftQuantity(sliderValue);
+        // setPaint(sliderValue);
+      }
+    };
     return (
       <View style={styles.materialCard}>
         <View style={styles.headerView}>
@@ -185,11 +141,23 @@ const Material = props => {
         <View style={styles.leftOverWrapper}>
           <Text style={styles.leftOverLabel}>{strings.leftOver}</Text>
           <View style={styles.leftOverView}>
-            <Text style={styles.leftOverValue}>{LeftoverQuantity}</Text>
+            <TextInput
+              style={{
+                color: 'black',
+                paddingRight: 5,
+                paddingLeft: 5,
+                fontSize: 18,
+                lineHeight: 23,
+                flex: 2,
+              }}
+              onChangeText={val => setLeftQuantity(val)}
+              value={LeftQuantity.toString()}
+              keyboardType="numeric"
+            />
           </View>
         </View>
         <ProgressSlider
-          value={LeftoverQuantity}
+          value={LeftQuantity}
           onValueChange={sliderValue =>
             onValueChange(MaterialName, sliderValue)
           }
@@ -275,9 +243,7 @@ const Material = props => {
       <ScrollView>
         <View style={styles.materialLeftView}>
           <Text style={styles.materialLabel}>{strings.materialLeft}</Text>
-          {BOMList.map(item => (
-            <MaterialCard item={item} />
-          ))}
+          {BOMList && BOMList.map(item => <MaterialCard item={item} />)}
           <CustomButton
             title={strings.saveLabel}
             textStyle={[styles.btnTxt]}
@@ -285,33 +251,38 @@ const Material = props => {
             onPress={updateLeftOverMaterial}
           />
         </View>
-        <View style={styles.materialusedView}>
-          {BOMList?.MaterialCategory == 'Material' ? (
-            <>
-              <Text style={styles.materialLabel2}>
-                {strings.materialUsedLabel}
-              </Text>
-              <Text style={styles.heading}>{strings.paintingMaterial}</Text>
-              <View style={styles.cardView}>
-                {BOMList.map((item, index) => (
-                  <MaterialUsedCard item={item} index={index} />
-                ))}
-              </View>
-            </>
-          ) : null}
-          {BOMList?.MaterialCategory == 'Asset' ? (
-            <>
-              <Text style={styles.heading}>
-                {strings.accessoriesEquipments}
-              </Text>
-              <View style={styles.cardView}>
-                {BOMList.map((item, index) => (
-                  <MaterialUsedCard item={item} index={index} />
-                ))}
-              </View>
-            </>
-          ) : null}
-        </View>
+        {(BOMList && BOMList?.MaterialCategory == 'Material') ||
+        (BOMList && BOMList?.MaterialCategory == 'Asset') ? (
+          <View style={styles.materialusedView}>
+            {BOMList && BOMList?.MaterialCategory == 'Material' ? (
+              <>
+                <Text style={styles.materialLabel2}>
+                  {strings.materialUsedLabel}
+                </Text>
+                <Text style={styles.heading}>{strings.paintingMaterial}</Text>
+                <View style={styles.cardView}>
+                  {BOMList &&
+                    BOMList.map((item, index) => (
+                      <MaterialUsedCard item={item} index={index} />
+                    ))}
+                </View>
+              </>
+            ) : null}
+            {BOMList && BOMList?.MaterialCategory == 'Asset' ? (
+              <>
+                <Text style={styles.heading}>
+                  {strings.accessoriesEquipments}
+                </Text>
+                <View style={styles.cardView}>
+                  {BOMList &&
+                    BOMList.map((item, index) => (
+                      <MaterialUsedCard item={item} index={index} />
+                    ))}
+                </View>
+              </>
+            ) : null}
+          </View>
+        ) : null}
         {roleKey === ROLES.HEADPAINTER ? (
           <View style={styles.raiseMaterialRequest}>
             <Text style={styles.raiseMaterialLabel}>

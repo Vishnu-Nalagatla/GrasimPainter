@@ -6,7 +6,7 @@ export default {
   myDayInfo: '/node/user/myday-info/',
   getCrewCalendar: '/node/painter-crew-calendar/',
   requestForQualityCheck: '/api/user/requestForQualityCheck',
-  updateLeftMaterial:'/sfdc/update-leftover-materials-BOM/',
+  updateLeftMaterial: '/sfdc/update-leftover-materials-BOM/',
   assignCrewToProject: '/sfdc/assign-crew-to-project/',
   qualityCheckRequest: '/sfdc/update-project-qc-request/',
   scheduleSiteVisit: '/sfdc/create-event/',
@@ -17,9 +17,10 @@ export default {
   getUserProfile: '/sfdc/expose-user/',
   getNotifications: '/sfdc/expose-user-notifications/',
   updateNotification: '/sfdc/update-notification/',
-
-
+  getSiteCheckList:
+    '/bin/api/getFragmentNoKeys?path=/content/dam/grasim-com/app-core/painter-details/painter-site-checklist',
   accessToken: '/sfdc/access-token/',
   updateDatesWithoutRoomSequence:
     '/sfdc/update-room-project-dates-without-room-sequence/',
+  updateSiteChecklist: 'sfdc/update-site-checklist/',
 };
