@@ -18,13 +18,14 @@ const RouteConfig = {
   Notifications: 'Notifications',
   CrewDetails: 'CrewDetails',
   CrewProfile: 'CrewProfile',
-  Insights:'Insights',
+  Insights: 'Insights',
   Trainings: 'Trainings',
   Benefits: 'Benefits',
   ProfileProjects: 'ProfileProjects',
   ProfileProjectDetails: 'ProfileProjectDetails',
   HelpAndSupport: 'HelpAndSupport',
   EnterOTP: 'EnterOTP',
+  Login: "Login"
 };
 
 export default RouteConfig;

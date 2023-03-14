@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Content} from 'native-base';
-import {Image, View, Text, useWindowDimensions} from 'react-native';
-import styles from './styles';
+import React, {useState} from 'react';
+import {useWindowDimensions} from 'react-native';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
@@ -12,10 +10,9 @@ import Reports from '../Reports';
 const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
 import ProjectInfo from '../ProjectInfo';
-import {connect} from 'react-redux';
 
 const ProjectDetails = props => {
-  const {route, reduxProps, navigation} = props;
+  const {route, navigation} = props;
   const {params} = route;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(params.index);
@@ -102,8 +99,5 @@ const ProjectDetails = props => {
     />
   );
 };
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
 
-export default connect(mapStateToProps, null)(ProjectDetails);
+export default ProjectDetails;

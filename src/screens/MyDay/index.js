@@ -6,13 +6,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import styles from './styles.js';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ProjectTimeLine from '../../components/Common/ProjectTimeLine/index.js';
 import data from './data.json';
 import RouteConfig from '../../constants/route-config.js';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
 import Success from '../../components/Common/Success/index.js';
@@ -22,10 +22,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import StandardPopup from '../../components/Common/StandardPopup/index.js';
 import CustomButton from '../../components/Button';
-import {Image} from 'native-base';
+import { Image } from 'native-base';
 import TimePicker from '../../components/TimePicker';
 import SwitchButtons from '../../components/SwitchButtons';
-import {setMyDayData} from '../../store/actions';
+import { setMyDayData } from '../../store/myDay/myDayActions';
 import strings from '../../globalization';
 import moment from 'moment';
 import UTIL from '../../util/index';
@@ -96,18 +96,18 @@ class MyDay extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   fetchMyDayInfo = user => {
     const loggedInUser = JSON.parse(user);
     //FIXME:
-    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const { Id, Territory__c, roleKey = 'TeamLeadId' } = loggedInUser || {};
     const request = {
       userId: Id,
       role: roleKey,
@@ -116,7 +116,7 @@ class MyDay extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -133,10 +133,10 @@ class MyDay extends React.Component<Props, State> {
   };
 
   onClick = event => {
-    const {buttons} = this.state;
+    const { buttons } = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const {index} = button;
+      const { index } = button;
       if (event.index === index && !event.status) {
         button.status = true;
       } else {
@@ -151,9 +151,9 @@ class MyDay extends React.Component<Props, State> {
   };
 
   requestForQualityCheck = project => {
-    const {Id} = project;
+    const { Id } = project;
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
     const date = moment(new Date()).format('YYYY-MM-DD');
     const request = {
@@ -188,9 +188,9 @@ class MyDay extends React.Component<Props, State> {
   };
 
   assignCrewToProject = project => {
-    const {Id} = project;
-    const {loggedInUser} = this.state;
-    const {Id: userId} = loggedInUser;
+    const { Id } = project;
+    const { loggedInUser } = this.state;
+    const { Id: userId } = loggedInUser;
     this.setState({
       popup: {
         type: POPUP_CONSTANTS.SPINNER_POPUP,
@@ -226,9 +226,9 @@ class MyDay extends React.Component<Props, State> {
   };
 
   scheduleSiteVisit = project => {
-    const {loggedInUser} = this.state;
-    const {Id: userId} = loggedInUser;
-    const {Id} = project;
+    const { loggedInUser } = this.state;
+    const { Id: userId } = loggedInUser;
+    const { Id } = project;
 
     this.setState(
       {
@@ -280,8 +280,8 @@ class MyDay extends React.Component<Props, State> {
   };
 
   viewCrewCalendar = () => {
-    const {navigation} = this.props;
-    const {calendarCrewIndex, myDayInfo} = this.state;
+    const { navigation } = this.props;
+    const { calendarCrewIndex, myDayInfo } = this.state;
     navigation.navigate(RouteConfig.CrewCalendar, {
       calendarCrewIndex: calendarCrewIndex,
       crewList: myDayInfo.crewList,
@@ -289,10 +289,10 @@ class MyDay extends React.Component<Props, State> {
   };
 
   projectClick = (project, projectData) => {
-    const {displayStatus} = project || {};
-    const {order} = displayStatus || {};
-    const {navigation, dispatchSetMyDayData} = this.props;
-    const {loggedInUser} = this.state;
+    const { displayStatus } = project || {};
+    const { order } = displayStatus || {};
+    const { navigation, dispatchSetMyDayData } = this.props;
+    const { loggedInUser } = this.state;
     if (projectData) {
       dispatchSetMyDayData(projectData);
     }
@@ -348,21 +348,21 @@ class MyDay extends React.Component<Props, State> {
   };
 
   approveProject = action => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.Approve);
   };
 
   getProjects = () => {
     // const {response} = data;
-    const {myDayInfo, activeTabIndex} = this.state;
-    const {today, crewList, tomorrow} = myDayInfo;
+    const { myDayInfo, activeTabIndex } = this.state;
+    const { today, crewList, tomorrow } = myDayInfo;
     const projects = activeTabIndex === 1 ? today : tomorrow;
     return (
       <SafeAreaView style={styles.projectsWrapper}>
         <FlatList
           data={projects}
           keyExtractor={(item, index) => item.Id + index}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <ProjectTimeLine
               data={item}
               activeTabIndex={activeTabIndex}
@@ -377,7 +377,7 @@ class MyDay extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -410,12 +410,12 @@ class MyDay extends React.Component<Props, State> {
   };
 
   render() {
-    const {reduxProps} = this.props;
-    const {login} = reduxProps;
+    const { getLoginInfo = {} } = this.props;
+    console.log('getLoginInfo', getLoginInfo)
     // console.info('login..', login);
-    const {buttons, popup, successScreen, loggedInUser} = this.state;
-    const {FirstName = ''} = loggedInUser || {};
-    const {style = {}} = popup || {};
+    const { buttons, popup, successScreen, loggedInUser } = this.state;
+    const { FirstName = '' } = loggedInUser || {};
+    const { style = {} } = popup || {};
 
     return (
       <View style={styles.container}>
@@ -445,7 +445,7 @@ class MyDay extends React.Component<Props, State> {
   }
 }
 
-const CrewOccupied = ({onPress}) => {
+const CrewOccupied = ({ onPress }) => {
   return (
     <View style={styles.crewContainer}>
       <Image
@@ -466,14 +466,19 @@ const CrewOccupied = ({onPress}) => {
   );
 };
 
+const mapStateToProps = (state) => {
+  console.log('state', state)
+  return {
+    getLoginInfo: state.loginReducer.loginInfo,
+  };
+};
+
 const mapDispatchToProps = dispatch => ({
   dispatchSetMyDayData: payload => {
     dispatch(setMyDayData(payload));
   },
 });
 
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyDay);

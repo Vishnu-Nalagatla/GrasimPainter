@@ -1,13 +1,13 @@
 import React from 'react';
-import {Image, Text, ActivityIndicator} from 'react-native';
-import {Input, View} from 'native-base';
+import { Image, Text, ActivityIndicator } from 'react-native';
+import { Input, View } from 'native-base';
 import strings from '../../constants/strings';
 import POPUP_CONSTANTS from '../../enums/popup';
 import styles from './styles';
 import RouteConfig from '../../constants/route-config';
 import CustomButton from '../../components/Button';
 import Popup from '../../components/Popup';
-import {API} from '../../requests';
+import { API } from '../../requests';
 import paintLogo from '../../assets/images/login/paintLogo.png';
 import colors from '../../constants/colors';
 
@@ -23,30 +23,34 @@ class Login extends React.Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
-      userName: '',
+      // userName: '8699225720', // HP - (Static - 1234)
+      userName: '7207440195', // TL - Mahender(Static - 1234)
+      // userName: '7075857857', // QA Login - Mohan(Dynamic)
+      // userName: '9440008794', // QA Login - Ram(Dynamic)
+      // userName: '',
       validationMsg: '',
     };
   }
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   onUserNameChange = value => {
-    this.setState({userName: value});
+    this.setState({ userName: value });
   };
 
   validateUser = async () => {
-    const {userName} = this.state;
-    const {navigation} = this.props;
+    const { userName } = this.state;
+    const { navigation } = this.props;
     if (userName.length === 0) {
-      this.setState({validationMsg: strings.emptyUserName});
+      this.setState({ validationMsg: strings.emptyUserName });
       return;
     }
     const request = {
@@ -58,9 +62,9 @@ class Login extends React.Component<Props, State> {
     API.validateUser(request)
       .then(response => {
         console.info('Login response..', response);
-        const {data} = response;
+        const { data } = response;
         if (data && data.code && data.code === 401) {
-          this.setState({validationMsg: data.message, popup: undefined});
+          this.setState({ validationMsg: data.message, popup: undefined });
         } else if (data.code && data.code === 1701) {
           const parsedObject = JSON.parse(data.response);
           console.info('parsedObject... ', parsedObject);
@@ -84,12 +88,12 @@ class Login extends React.Component<Props, State> {
   };
 
   invokeHelp = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.Help);
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -103,7 +107,7 @@ class Login extends React.Component<Props, State> {
   };
 
   render() {
-    const {popup, userName, validationMsg} = this.state;
+    const { popup, userName, validationMsg } = this.state;
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>

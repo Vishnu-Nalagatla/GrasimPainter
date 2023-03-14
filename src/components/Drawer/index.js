@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, Image, ActivityIndicator} from 'react-native';
-import {Text, View} from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import { Text, View } from 'native-base';
 import packageImg from '../../assets/images/drawer/package.png';
 import shieldImg from '../../assets/images/drawer/shield.png';
 import paintRollerImg from '../../assets/images/drawer/paintRoller.png';
@@ -9,8 +9,8 @@ import zapImg from '../../assets/images/drawer/zap.png';
 import styles from './styles';
 import RouteConfig from '../../constants/route-config';
 import OnboardingNavigator from '../../routes/onboarding-navigator';
-import {createStackNavigator} from '@react-navigation/stack';
-import {API, SFDC_API} from '../../requests';
+import { createStackNavigator } from '@react-navigation/stack';
+import { API, SFDC_API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import Popup from '../Popup';
 import colors from '../../constants/colors';
@@ -20,14 +20,12 @@ import StandardPopup from '../Common/StandardPopup';
 import LoginNavigator from '../../routes/login-navigator';
 import Login from '../../screens/Login';
 // const RootStack = createStackNavigator();
-import {connect} from 'react-redux';
-import {setLoginData, logoutAction} from '../../store/actions';
+import { connect } from 'react-redux';
+import { logoutAction } from '../../store/login/loginActions';
 
 const Drawer = props => {
-  const {reduxProps, closePopup, navigation, dispatchSetLoginData} = props;
-  const {login} = reduxProps;
-  const {loginInfo = {}} = login;
-  const {firstName = '', lastName = '', role = 'Team Lead'} = loginInfo;
+  const { getLoginInfo = {}, closePopup, navigation, dispatchSetLoginData } = props;
+  const { firstName = '', lastName = '', role = 'Team Lead' } = getLoginInfo;
   const [popup, setPopup] = useState(undefined);
   const [userProfile, setUserProfile] = useState({});
   const RootStack = createStackNavigator();
@@ -37,16 +35,16 @@ const Drawer = props => {
       console.info('user...', user);
     });
     getUserProfile();
-    console.log('Drawer props---->', props);
+    console.log('Drawer props----->', props);
   }, []);
 
   const getUserProfile = () => {
     const phone = '7207440195';
-    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
     SFDC_API.getUserProfile(phone)
       .then(res => {
         const {
-          data: {records},
+          data: { records },
         } = res;
         //   const {FirstName, LastName} =  records[0];
         //  console.info('res.....', FirstName, LastName);
@@ -91,7 +89,7 @@ const Drawer = props => {
   const onLogout = () => {
     AsyncStorage.clear();
     closePopup && closePopup();
-    dispatchSetLoginData({isLoggedIn: false});
+    dispatchSetLoginData({ isLoggedIn: false });
   };
 
   const onMyProjects = () => {
@@ -176,9 +174,11 @@ const Drawer = props => {
     </View>
   );
 };
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
+const mapStateToProps = (state) => {
+  return {
+    getLoginInfo: state.loginReducer.loginInfo,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   dispatchSetLoginData: payload => {

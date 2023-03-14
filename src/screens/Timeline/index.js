@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import ellipse from '../../assets/images/ellipse/image.png';
 import hamburger from '../../assets/images/timeline/reorder.png';
 import flagImg from '../../assets/images/timeline/flag.png';
@@ -18,9 +18,8 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ROLES from '../../enums/roles';
 // import data from './data.json';
-import {connect} from 'react-redux';
 import UTIL from '../../util';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
 
@@ -33,9 +32,9 @@ const Timeline = props => {
   );
   const [projectEndDate, setProjectEndDate] = useState(project.ProjectEndDate);
   const [popup, setPopup] = useState(undefined);
-  const {displayStatus} = project || {};
-  const {order} = displayStatus || {};
-  // const roleKey && roleKey = 'TeamLeadId';
+  const { displayStatus } = project || {};
+  const { order } = displayStatus || {};
+
   useEffect(() => {
     getTimeLineSequence();
     console.log('Timeline project---->', project);
@@ -146,15 +145,15 @@ const Timeline = props => {
 
   const showCalendar = index => {
     if (index === 0) {
-      setPopup({type: POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR});
+      setPopup({ type: POPUP_CONSTANTS.SHOW_END_DATE_CALENDAR });
     } else if (index === timeLineData.length - 1) {
-      setPopup({type: POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR});
+      setPopup({ type: POPUP_CONSTANTS.SHOW_START_DATE_CALENDAR });
     }
   };
 
   const renderItem = data => {
-    const {item, drag} = data;
-    const {totalTime = 0} = item;
+    const { item, drag } = data;
+    const { totalTime = 0 } = item;
     const index = data.getIndex();
     return (
       <TouchableOpacity style={styles.item} onLongPress={drag}>
@@ -194,7 +193,7 @@ const Timeline = props => {
     );
   };
   const showSpinner = () => {
-    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
   };
   const updateProjectPlan = () => {
     const request = [
@@ -227,7 +226,7 @@ const Timeline = props => {
       });
   };
 
-  const recalculateProjectPlan = () => {};
+  const recalculateProjectPlan = () => { };
 
   const setTimelineSequence = data => {
     const updatedSequence = getCalculatedTimelineSequence(data);
@@ -305,8 +304,9 @@ const Timeline = props => {
     }
     return popupStyle;
   };
-
+  console.log('roleKey', roleKey)
   return (
+    <View style={styles.container}>
     <View style={styles.container}>
       <Popup visible={!!popup} popupStyle={getPopupStyle()}>
         {getPopupContent()}
@@ -318,10 +318,10 @@ const Timeline = props => {
             data={timeLineData}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
-            onDragEnd={({data}) => {
+            onDragEnd={({ data }) => {
               setTimelineSequence(data);
             }}
-            // containerStyle={styles.listStyle}
+          // containerStyle={styles.listStyle}
           />
         </View>
         {roleKey && roleKey === ROLES.TEAM_LEAD ? (
@@ -363,10 +363,11 @@ const Timeline = props => {
 };
 
 function mapStateToProps(state) {
-  return {myDay: state.myDay};
+  return { myDay: state.myDay };
 }
 
-export default connect(mapStateToProps, null)(Timeline);
+
+export default Timeline;
 
 // Submitted By TL
 // Confirmed By Consumer

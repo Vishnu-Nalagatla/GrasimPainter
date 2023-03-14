@@ -1,18 +1,18 @@
-import {TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import { TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
 import styles from './styeles';
 import ellipse from '../../../assets/images/ellipse/image.png';
 import check from '../../../assets/images/check/image.png';
 import calendar from '../../../assets/images/calendar/image.png';
-import {Image} from 'react-native';
+import { Image } from 'react-native';
 import Moment from 'moment';
 import CustomButton from '../Button';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import call from 'react-native-phone-call';
-import {Text, View} from 'native-base';
+import { Text, View } from 'native-base';
 
 const ProjectTimeLine = (props: Props) => {
-  const {data, activeTabIndex, onClick, assignCrewToProject, viewCrewCalendar} =
+  const { data, activeTabIndex, onClick, assignCrewToProject, viewCrewCalendar } =
     props;
 
   const Priority = {
@@ -27,8 +27,8 @@ const ProjectTimeLine = (props: Props) => {
     ON_CREW_CONFIRMATION: 9,
   };
 
-  const {Name, AssetCheckStatus, ProjectStartDate, displayStatus} = data;
-  const {title, ctaLabel, order, confirmMessage = ''} = displayStatus;
+  const { Name, AssetCheckStatus, ProjectStartDate, displayStatus } = data;
+  const { title, ctaLabel, order, confirmMessage = '' } = displayStatus;
   const viewDetails = 'View Details';
   const viewCrewCalendarLabel = 'View Crew Calendar';
   const [crew, setCrew] = useState();
@@ -110,7 +110,7 @@ const ProjectTimeLine = (props: Props) => {
   };
 
   const renderItem = (item: any) => {
-    const {title, names} = item.value;
+    const { title, names } = item.value;
     return (
       <View style={styles.crewItem}>
         <View style={styles.crewInfo}>
@@ -197,7 +197,7 @@ const ProjectTimeLine = (props: Props) => {
           />
         </View>
       );
-    const resp = confirmMessage ? null : buttonInfo;
+    const resp = !confirmMessage ? null : buttonInfo;
     return resp;
   };
   return (

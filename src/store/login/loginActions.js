@@ -1,3 +1,5 @@
+
+
 import { ActionTypes } from '../constants';
 
 export function setLoginData(payload) {
@@ -10,6 +12,12 @@ export function setLoginData(payload) {
 export function logoutAction(payload) {
     return {
         type: ActionTypes.LOGOUT,
+        payload,
+    };
+}
+export function userRoleAction(payload) {
+    return {
+        type: ActionTypes.USER_ROLE,
         payload,
     };
 }

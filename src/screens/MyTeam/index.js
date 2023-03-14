@@ -161,12 +161,12 @@ class MyTeam extends React.Component<Props, State> {
   };
   renderData = () => {
     const { roleKey } = this.state;
-    if(roleKey){
-    const { navigation } = this.props;
-    console.info('renderData.....1');
-   navigation.navigate(RouteConfig.CrewDetails, {
-      data: [],
-    });
+    if (roleKey) {
+      const { navigation } = this.props;
+      console.info('renderData.....1');
+      navigation.navigate(RouteConfig.CrewDetails, {
+        data: [],
+      });
     }
   }
   render() {
@@ -176,7 +176,7 @@ class MyTeam extends React.Component<Props, State> {
     const occupiedCrew = data;
     console.info('roleKey..', roleKey);
     return (
-      <View style={{flex:1}}>
+      <View style={{ flex: 1 }}>
         {roleKey && roleKey === ROLES.TEAM_LEAD ? (<View style={styles.container}>
           <Popup popupStyle={style} visible={!!popup}>
             {this.getPopupContent()}
@@ -254,10 +254,10 @@ const CrewCard = ({ crew, onPress }) => {
     </TouchableOpacity>
   );
 };
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
+const mapStateToProps = (state) => {
+  return {
+    getLoginInfo: state.loginReducer.loginInfo,
+  };
+};
 
-const mapDispatchToProps = dispatch => ({});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyTeam);
+export default connect(mapStateToProps)(MyTeam);

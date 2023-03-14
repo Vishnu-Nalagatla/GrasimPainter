@@ -1,24 +1,23 @@
 import React from 'react';
-import {Image, Text, ActivityIndicator, BackHandler} from 'react-native';
-import {Input, View} from 'native-base';
-import {connect} from 'react-redux';
+import { Image, Text, ActivityIndicator, BackHandler } from 'react-native';
+import { Input, View } from 'native-base';
+import { connect } from 'react-redux';
 import strings from '../../constants/strings';
 import POPUP_CONSTANTS from '../../enums/popup';
 import styles from './styles';
 import RouteConfig from '../../constants/route-config';
 import CustomButton from '../../components/Button';
 import Popup from '../../components/Popup';
-import {API} from '../../requests';
+import { API } from '../../requests';
 import paintIcon from '../../assets/images/login/paintLogo.png';
 import colors from '../../constants/colors';
-import {setLoginData} from '../../store/actions';
+import { setLoginData } from '../../store/login/loginActions';
 import OTPInputView from '@twotalltotems/react-native-otp-input';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UTIL from '../../util/index';
 
 export interface Props {
   navigation: Navigator;
-  reduxProps: any;
 }
 
 export interface State {
@@ -45,7 +44,7 @@ class Otp extends React.Component<Props, State> {
     this.setState({
       showResend: false,
     });
-    const {resendCount} = this.state;
+    const { resendCount } = this.state;
     const interval = setInterval(() => {
       this.setState(
         prevState => {
@@ -70,20 +69,20 @@ class Otp extends React.Component<Props, State> {
   };
 
   resendOtp = () => {
-    this.setState({clearInput: true});
-    this.setState({validationMsg: ''});
-    this.setState({otp: ''});
-    const {route} = this.props;
-    const {params} = route;
-    const {userName} = params;
-    const {resendCount} = this.state;
+    this.setState({ clearInput: true });
+    this.setState({ validationMsg: '' });
+    this.setState({ otp: '' });
+    const { route } = this.props;
+    const { params } = route;
+    const { userName } = params;
+    const { resendCount } = this.state;
     // const userName = '6301451336';
     this.showSpinner();
     API.sendOTP({
       mobileNumber: userName,
     })
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         if (data && data.statusCode === 1701) {
           this.setState(
             {
@@ -122,34 +121,34 @@ class Otp extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   onOtpChange = value => {
-    this.setState({otp: value});
+    this.setState({ otp: value });
   };
 
   verifyOtp = async () => {
     this.showSpinner();
-    const {otp} = this.state;
-    const {navigation, route, dispatchSetLoginData} = this.props;
-    const {params} = route;
-    const {userName, firstName, role, Id} = params;
+    const { otp } = this.state;
+    const { navigation, route, dispatchSetLoginData } = this.props;
+    const { params } = route;
+    const { userName, firstName, role, Id } = params;
     const userInfo = {
       firstName,
       Id,
       role,
     };
     if (otp.length === 0) {
-      this.setState({validationMsg: strings.emptyOtp});
+      this.setState({ validationMsg: strings.emptyOtp });
       return;
     } else if (otp.length < 4) {
-      this.setState({validationMsg: strings.incompleteOtp});
+      this.setState({ validationMsg: strings.incompleteOtp });
       return;
     }
     const request = {
@@ -158,7 +157,7 @@ class Otp extends React.Component<Props, State> {
     };
     API.verifyOtp(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         if (data.statusCode && data.statusCode === 200) {
           console.info('userInfo...', data.response);
           const currentDate = UTIL.currentDate();
@@ -230,23 +229,23 @@ class Otp extends React.Component<Props, State> {
           //Here data.response has multiple records, which one to consider
           // dispatchSetLoginData(userData.records);
         } else {
-          this.setState({validationMsg: data.message});
+          this.setState({ validationMsg: data.message });
         }
         this.closePopup();
       })
       .catch(error => {
-        this.setState({validationMsg: 'Error invoking validate user API'});
+        this.setState({ validationMsg: 'Error invoking validate user API' });
         console.log('verifyOtp error', error);
       });
   };
 
   invokeHelp = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.Help);
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -260,11 +259,11 @@ class Otp extends React.Component<Props, State> {
   };
 
   render() {
-    const {popup, otp, validationMsg, count, showResend, resendCount} =
+    const { popup, otp, validationMsg, count, showResend, resendCount } =
       this.state;
-    const {route} = this.props;
-    const {params} = route;
-    const {userName, firstName} = params;
+    const { route } = this.props;
+    const { params } = route;
+    const { userName, firstName } = params;
     return (
       <View style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
@@ -303,19 +302,19 @@ class Otp extends React.Component<Props, State> {
               codeInputHighlightStyle={
                 validationMsg
                   ? [
-                      styles.underlineStyleBase,
-                      styles.underlineStyleHighLighted,
-                      styles.errorField,
-                    ]
+                    styles.underlineStyleBase,
+                    styles.underlineStyleHighLighted,
+                    styles.errorField,
+                  ]
                   : [
-                      styles.underlineStyleBase,
-                      styles.underlineStyleHighLighted,
-                    ]
+                    styles.underlineStyleBase,
+                    styles.underlineStyleHighLighted,
+                  ]
               }
               autofillFromClipboard={true}
               onCodeFilled={code => this.onOtpChange(code)}
               onCodeChanged={otp => {
-                this.setState({otp});
+                this.setState({ otp });
               }}
             />
             {validationMsg ? (
@@ -357,14 +356,10 @@ class Otp extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = reduxProps => ({
-  reduxProps,
-});
-
 const mapDispatchToProps = dispatch => ({
   dispatchSetLoginData: payload => {
     dispatch(setLoginData(payload));
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Otp);
+export default connect(null, mapDispatchToProps)(Otp);
