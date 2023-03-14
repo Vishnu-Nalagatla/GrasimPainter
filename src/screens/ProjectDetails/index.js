@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import { useWindowDimensions } from 'react-native';
-import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import React, {useState} from 'react';
+import {useWindowDimensions} from 'react-native';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import colors from '../../constants/colors';
 import ProjectProgress from '../ProjectProgress';
 import Material from '../Material';
 import ViewPort from '../../constants/view-port';
 import SiteCheckList from '../SiteCheckList';
 import Reports from '../Reports';
-const { vh, vw } = ViewPort;
+const {vh, vw} = ViewPort;
 import Timeline from '../Timeline';
 import ProjectInfo from '../ProjectInfo';
 
 const ProjectDetails = props => {
-  const { route } = props;
-  const { params } = route;
+  const {route, navigation} = props;
+  const {params} = route;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(params.index);
+  console.log('ProjectDetails params--->', params);
   const [routes] = useState([
-    { key: 'progress', title: 'Progress' },
-    { key: 'timeline', title: 'Timeline' },
-    { key: 'material', title: 'Material' },
-    { key: 'reports', title: 'Reports' },
-    { key: 'siteCheckList', title: 'Site Checklist' },
-    { key: 'info', title: 'Info' },
+    {key: 'progress', title: 'Progress'},
+    {key: 'timeline', title: 'Timeline'},
+    {key: 'material', title: 'Material'},
+    {key: 'reports', title: 'Reports'},
+    {key: 'siteCheckList', title: 'Site Checklist'},
+    {key: 'info', title: 'Info'},
   ]);
   const progressRoute = () => (
     <ProjectProgress
@@ -53,7 +54,11 @@ const ProjectDetails = props => {
     />
   );
   const timeLineRoute = () => (
-    <Timeline project={params.ProjectDetailsData} onTabChange={onTabChange} />
+    <Timeline
+      project={params.ProjectDetailsData}
+      onTabChange={onTabChange}
+      navigation={navigation}
+    />
   );
 
   const renderScene = SceneMap({
@@ -77,7 +82,7 @@ const ProjectDetails = props => {
         width: 'auto',
         paddingLeft: 20 * vw,
       }}
-      tabStyle={{ backgroundColor: colors.sliderTrack, width: 'auto' }}
+      tabStyle={{backgroundColor: colors.sliderTrack, width: 'auto'}}
     />
   );
 
@@ -86,14 +91,13 @@ const ProjectDetails = props => {
     <TabView
       scrollEnabled={true}
       swipeEnabled={false}
-      navigationState={{ index, routes }}
+      navigationState={{index, routes}}
       renderScene={renderScene}
       renderTabBar={renderTabBar}
       onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
+      initialLayout={{width: layout.width}}
     />
   );
 };
-
 
 export default ProjectDetails;
