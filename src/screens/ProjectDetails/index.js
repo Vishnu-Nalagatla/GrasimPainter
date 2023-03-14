@@ -15,10 +15,11 @@ import ProjectInfo from '../ProjectInfo';
 import {connect} from 'react-redux';
 
 const ProjectDetails = props => {
-  const {route, reduxProps} = props;
+  const {route, reduxProps, navigation} = props;
   const {params} = route;
   const layout = useWindowDimensions();
   const [index, setIndex] = useState(params.index);
+  console.log('ProjectDetails params--->', params);
   const [routes] = useState([
     {key: 'progress', title: 'Progress'},
     {key: 'timeline', title: 'Timeline'},
@@ -56,7 +57,11 @@ const ProjectDetails = props => {
     />
   );
   const timeLineRoute = () => (
-    <Timeline project={params.ProjectDetailsData} onTabChange={onTabChange} />
+    <Timeline
+      project={params.ProjectDetailsData}
+      onTabChange={onTabChange}
+      navigation={navigation}
+    />
   );
 
   const renderScene = SceneMap({

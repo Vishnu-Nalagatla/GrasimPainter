@@ -22,10 +22,11 @@ import {connect} from 'react-redux';
 import UTIL from '../../util';
 import {API, SFDC_API} from '../../requests';
 import colors from '../../constants/colors';
+import RouteConfig from '../../constants/route-config';
 
 const Timeline = props => {
-  const {project = {}, loggedInUser = {}} = props;
-  const {roleKey=''} = loggedInUser || {};
+  const {project = {}, loggedInUser = {}, navigation} = props;
+  const {roleKey = 'TeamLeadId'} = loggedInUser || {};
   const [timeLineData, setTimeLineData] = useState([]);
   const [projectStartDate, setProjectStartDate] = useState(
     project.ProjectStartDate,
@@ -34,9 +35,10 @@ const Timeline = props => {
   const [popup, setPopup] = useState(undefined);
   const {displayStatus} = project || {};
   const {order} = displayStatus || {};
-
+  // const roleKey && roleKey = 'TeamLeadId';
   useEffect(() => {
     getTimeLineSequence();
+    console.log('Timeline project---->', project);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -197,17 +199,27 @@ const Timeline = props => {
   const updateProjectPlan = () => {
     const request = [
       {
-        StartDate: '2022-11-28',
-        EndDate: '2022-11-29',
-        RoomList: null,
+        StartDate: projectStartDate, // '2022-11-28',
+        EndDate: projectEndDate, // '2022-11-29',
+        RoomList:
+          project &&
+          project?.RoomList.map((item, index) => {
+            const {Id, RoomSequence} = item;
+            return {
+              Roomid: Id,
+              RoomSequence: RoomSequence,
+              CustomerRoomSequence: 0,
+            };
+          }),
       },
     ];
     showSpinner();
-    SFDC_API.updateDatesWithoutRoomSequence('a061y000000EvVzAAK', request)
+    SFDC_API.updateDatesWithoutRoomSequence(project && project?.Id, request)
       .then(response => {
         setPopup(undefined);
         const {data} = response;
-        console.info('data...', data);
+        console.info('updateDatesWithoutRoomSequence...', data);
+        navigation.navigate(RouteConfig.MyDay);
       })
       .catch(error => {
         setPopup(undefined);
@@ -295,7 +307,7 @@ const Timeline = props => {
   };
 
   return (
-    <View style={styles.container}>   
+    <View style={styles.container}>
       <Popup visible={!!popup} popupStyle={getPopupStyle()}>
         {getPopupContent()}
       </Popup>
@@ -312,7 +324,7 @@ const Timeline = props => {
             // containerStyle={styles.listStyle}
           />
         </View>
-        {roleKey === ROLES.TEAM_LEAD ? (
+        {roleKey && roleKey === ROLES.TEAM_LEAD ? (
           <CustomButton
             title={strings.recalculateProjectPlan}
             textStyle={styles.recalculateButtonText}
@@ -321,7 +333,7 @@ const Timeline = props => {
           />
         ) : null}
       </View>
-      {roleKey === ROLES.TEAM_LEAD ? (
+      {roleKey && roleKey === ROLES.TEAM_LEAD ? (
         +order === 3 ? (
           <View style={styles.buttonContainer}>
             <CustomButton

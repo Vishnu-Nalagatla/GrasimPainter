@@ -88,7 +88,7 @@ class MyDay extends React.Component<Props, State> {
           loggedInUser: JSON.parse(user),
         },
         () => {
-           this.fetchMyDayInfo(JSON.parse(user));
+          this.fetchMyDayInfo(JSON.parse(user));
         },
       );
     });
@@ -300,7 +300,7 @@ class MyDay extends React.Component<Props, State> {
       case Priority.CREATE_PROJECT_PLAN:
         dispatchSetMyDayData(project);
         navigation.navigate(RouteConfig.ProjectDetails, {
-          project,
+          ProjectDetailsData: project,
           loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
@@ -311,7 +311,7 @@ class MyDay extends React.Component<Props, State> {
       case Priority.CONFIRM_UPDATED_PLAN:
         dispatchSetMyDayData(project);
         navigation.navigate(RouteConfig.ProjectDetails, {
-          project,
+          ProjectDetailsData: project,
           loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.TIMELINE,
         });
@@ -332,14 +332,14 @@ class MyDay extends React.Component<Props, State> {
         break;
       case Priority.UPDATE_LEFTOVER_MATERIAL:
         navigation.navigate(RouteConfig.ProjectDetails, {
-          project,
+          ProjectDetailsData: project,
           loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.MATERIAL,
         });
         break;
       default:
         navigation.navigate(RouteConfig.ProjectDetails, {
-          project,
+          ProjectDetailsData: project,
           loggedInUser,
           index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
         });
