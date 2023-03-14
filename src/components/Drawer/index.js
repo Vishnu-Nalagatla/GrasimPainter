@@ -35,7 +35,7 @@ const Drawer = props => {
       console.info('user...', user);
     });
     getUserProfile();
-    console.log('Drawer props---->', props);
+    console.log('Drawer props----->', props);
   }, []);
 
   const getUserProfile = () => {
