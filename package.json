@@ -8,6 +8,13 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "clean": "cd android && ./gradlew clean && ./gradlew -stop && npm cache clean --force",
+    "clean:ios": "cd ios && rm -rf build Pods Podfile.lock",
+    "uninstall": "cd android && ./gradlew uninstallAll",
+    "android:dev": "react-native run-android --variant=devDebug",
+    "android:qa": "react-native run-android --variant=qaDebug",
+    "android:uat": "react-native run-android --variant=uatDebug",
+    "android:prod": "react-native run-android --variant=productionDebug",
     "update-version": "npx react-native-version --never-amend",
     "devtools": "react-devtools"
   },
