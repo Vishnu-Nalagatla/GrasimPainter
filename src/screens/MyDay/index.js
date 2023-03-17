@@ -107,11 +107,13 @@ class MyDay extends React.Component<Props, State> {
   fetchMyDayInfo = user => {
     const loggedInUser = JSON.parse(user);
     //FIXME:
-    const { Id, Territory__c, roleKey = 'TeamLeadId' } = loggedInUser || {};
+    const { Id, infoId = "", Territory__c, roleKey = 'TeamLeadId' } = loggedInUser || {};
     const request = {
       userId: Id,
       role: roleKey,
       territoryid: Territory__c,
+      mockData: false,
+      infoId: infoId
     };
     this.showSpinner();
     API.getMyDayInfo(request)
@@ -190,18 +192,24 @@ class MyDay extends React.Component<Props, State> {
   assignCrewToProject = project => {
     const { Id } = project;
     const { loggedInUser } = this.state;
-    const { Id: userId } = loggedInUser;
+    const { Id: userId } = JSON.parse(loggedInUser);
     this.setState({
       popup: {
         type: POPUP_CONSTANTS.SPINNER_POPUP,
       },
     });
+
     const request = {
       hpId: userId,
-      projectID: Id,
+      projectID: "a061y000000Ew41AAC",
     };
+    // const request = {
+    //   "hpId": "0031y00000RNstfAAD",
+    //   "projectID": "a061y000000Ew41AAC" ///dfs
+    // }
     SFDC_API.assignCrewToProject(request)
       .then(res => {
+        console.log('res', res)
         this.setState({
           popup: undefined,
         });

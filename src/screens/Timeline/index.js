@@ -24,8 +24,8 @@ import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
 
 const Timeline = props => {
-  const {project = {}, loggedInUser = {}, navigation} = props;
-  const {roleKey = 'TeamLeadId'} = loggedInUser || {};
+  const { project = {}, loggedInUser = {}, navigation } = props;
+  const { roleKey = 'TeamLeadId' } = loggedInUser || {};
   const [timeLineData, setTimeLineData] = useState([]);
   const [projectStartDate, setProjectStartDate] = useState(
     project.ProjectStartDate,
@@ -192,18 +192,21 @@ const Timeline = props => {
       </TouchableOpacity>
     );
   };
+
   const showSpinner = () => {
     setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
   };
   const updateProjectPlan = () => {
+
+
     const request = [
       {
         StartDate: projectStartDate, // '2022-11-28',
         EndDate: projectEndDate, // '2022-11-29',
         RoomList:
           project &&
-          project?.RoomList.map((item, index) => {
-            const {Id, RoomSequence} = item;
+          project?.RoomList?.map((item, index) => {
+            const { Id, RoomSequence } = item;
             return {
               Roomid: Id,
               RoomSequence: RoomSequence,
@@ -216,9 +219,13 @@ const Timeline = props => {
     SFDC_API.updateDatesWithoutRoomSequence(project && project?.Id, request)
       .then(response => {
         setPopup(undefined);
-        const {data} = response;
+        const { data } = response;
         console.info('updateDatesWithoutRoomSequence...', data);
-        navigation.navigate(RouteConfig.MyDay);
+        navigation.navigate(RouteConfig.MyDay
+          // , {
+          // uniqueNumber: Date.now()
+          // }
+        );
       })
       .catch(error => {
         setPopup(undefined);
@@ -307,7 +314,6 @@ const Timeline = props => {
   console.log('roleKey', roleKey)
   return (
     <View style={styles.container}>
-    <View style={styles.container}>
       <Popup visible={!!popup} popupStyle={getPopupStyle()}>
         {getPopupContent()}
       </Popup>
@@ -361,11 +367,6 @@ const Timeline = props => {
     </View>
   );
 };
-
-function mapStateToProps(state) {
-  return { myDay: state.myDay };
-}
-
 
 export default Timeline;
 

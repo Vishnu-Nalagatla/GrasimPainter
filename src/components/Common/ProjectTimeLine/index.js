@@ -29,6 +29,7 @@ const ProjectTimeLine = (props: Props) => {
 
   const { Name, AssetCheckStatus, ProjectStartDate, displayStatus } = data;
   const { title, ctaLabel, order, confirmMessage = '' } = displayStatus;
+
   const viewDetails = 'View Details';
   const viewCrewCalendarLabel = 'View Crew Calendar';
   const [crew, setCrew] = useState();
@@ -182,6 +183,7 @@ const ProjectTimeLine = (props: Props) => {
       console.info('erroe', error);
     });
   };
+  console.log('order', +order)
   const getButton = () => {
     const buttonInfo =
       +order === 2 ? (
@@ -197,7 +199,7 @@ const ProjectTimeLine = (props: Props) => {
           />
         </View>
       );
-    const resp = !confirmMessage ? null : buttonInfo;
+    const resp = confirmMessage ? null : buttonInfo;
     return resp;
   };
   return (

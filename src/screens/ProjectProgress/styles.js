@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import ViewPort from '../../constants/view-port';
 import colors from '../../constants/colors';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
   },
   progressInfo: {
     width: 328 * vw,
-    height: 314 * vh,
     alignSelf: 'center',
     backgroundColor: colors.white,
     marginTop: 16 * vh,

@@ -24,10 +24,10 @@ class Login extends React.Component<Props, State> {
     super(props);
     this.state = {
       // userName: '8699225720', // HP - (Static - 1234)
-      userName: '7207440195', // TL - Mahender(Static - 1234)
+      // userName: '7207440195', // TL - Mahender(Static - 1234)
       // userName: '7075857857', // QA Login - Mohan(Dynamic)
       // userName: '9440008794', // QA Login - Ram(Dynamic)
-      // userName: '',
+      userName: '',
       validationMsg: '',
     };
   }
