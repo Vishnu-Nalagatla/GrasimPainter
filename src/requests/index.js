@@ -35,6 +35,14 @@ class Requests {
 
   getCrewCalendar = body => this.axios.post(URLs.getCrewCalendar, body);
 
+  markAttendance = body => this.axios.post(URLs.markAttendance, body);
+
+  applyLeave = body => this.axios.post(URLs.applyLeave, body);
+
+  getLeavesHistory = body => this.axios.post(URLs.leavesHistory, body);
+
+  getLeavesApproval = body => this.axios.post(URLs.leavesApproval, body);
+
   // MY DAY
 
   getMyDayInfo = body => {
@@ -72,7 +80,7 @@ class SfdcAPI {
     this.instance
       .post(URLs.accessToken, Config.SFDC_SUBSCRIPTION_KEY)
       .then(res => {
-        const { access_token } = res.data;
+        const {access_token} = res.data;
         console.info('access_token: ', access_token);
         SFDC_API.setBearerToken(access_token);
       })
@@ -117,6 +125,14 @@ class SfdcAPI {
 
   updateNotification = (id, body) =>
     this.instance.post(`${URLs.updateNotification}${id}`, body);
+
+  getTrainingsInfo = id => this.instance.get(`${URLs.teamLeadtraining}${id}`);
+
+  getCrewTrainingInfo = id => this.instance.get(`${URLs.crewTraining}${id}`);
+
+  upsertLeaves = body => {
+    return this.instance.patch(`${URLs.upsertLeaves}`, body);
+  };
 
   updateSiteChecklist = (id, body) =>
     this.instance.patch(`${URLs.updateSiteChecklist}${id}`, body);

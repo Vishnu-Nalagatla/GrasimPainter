@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     marginTop: 12 * vh,
     flexDirection: 'row',
+    alignItems:'center'
   },
   leaveRequestlabel: {
     fontFamily: 'Karla',
