@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
+import {Dropdown} from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -19,26 +19,18 @@ import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import nextDateImg from '../../assets/images/calendar/calendarRightArrow.png';
 import leaveSuccesIcon from '../../assets/images/addLeave/leaveSuccesIcon.png';
 import colors from '../../constants/colors';
-import { SFDC_API } from '../../requests';
+import {API, SFDC_API} from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
-import { ScrollView } from 'native-base';
+import {ScrollView} from 'native-base';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
 
-const leaveTypes = [
-  { label: 'Sick', value: '1' },
-  { label: 'Casual', value: '2' },
-  { label: 'Vacation', value: '3' },
-  { label: 'Maternity', value: '4' },
-  { label: 'Paternity', value: '5' },
-  { label: 'Loss of Pay', value: '6' },
-  { label: 'Work from Home', value: '7' },
-];
+
 
 const halfDay = [
-  { label: 'First Half', value: '1' },
-  { label: 'Second Half', value: '2' },
+  {label: 'First Half', value: '1'},
+  {label: 'Second Half', value: '2'},
 ];
 
 // “First Half/Second Half/Full Day”,
@@ -64,8 +56,15 @@ const ApplyLeave = () => {
       console.log('loggedInUser->', JSON.parse(user));
       setLoggedInUser(JSON.parse(user));
     });
-  }, [leaveAppliedSuccess]);
+  }, []);
+useEffect(()=>{
+  if(leaveAppliedSuccess){
+    setTimeout(() => {
+      setLeaveAppliedSuccess(false);
+    }, 2000);
+  }
 
+},[leaveAppliedSuccess])
   const renderLabel = () => {
     if (leaveType) {
       return (
@@ -137,7 +136,7 @@ const ApplyLeave = () => {
 
   const getPreviousComponent = () => {
     return (
-      <View style={[styles.buttonStyle, { marginLeft: 10, margin: 0 }]}>
+      <View style={[styles.buttonStyle, {marginLeft: 10, margin: 0}]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -149,7 +148,7 @@ const ApplyLeave = () => {
 
   const getNextComponent = () => {
     return (
-      <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
+      <View style={[styles.buttonStyle, {marginRight: 10, margin: 0}]}>
         <Image
           source={nextDateImg}
           style={styles.imgStyle}
@@ -178,29 +177,30 @@ const ApplyLeave = () => {
       fromHalfDay &&
       toHalfDay
     ) {
-      const fromDate = moment(selectedFromDate).format('yyyy-MM-DD');
-      const toDate = moment(selectedToDate).format('yyyy-MM-DD');
-      const timeNow = newDate.format('yyyy-MM-DD-h:mm');
+      const fromDate = moment(selectedFromDate).format('YYYY-MM-DD');
+      const toDate = moment(selectedToDate).format('YYYY-MM-DD');
+      const uniqueID = moment(new Date()).format('YYYY-MM-DD-HH:mm')
       const request = {
-        OwnerId: "0051y000000NpxWAAS",
-        Type: "Leave",
-        Subject: "Leave",
-        Operation_Type__c: "Leave",
+        OwnerId: JSON.parse(loggedInUser).Id,
+        Type: 'Leave',
+        Subject: 'Leave',
+        Operation_Type__c: 'Leave',
         Leave_Description__c: description,
-        Leave_Type__c: "Leave",
+        Leave_Type__c: 'Sick',
         StartDateTime: fromDate,
         EndDateTime: toDate,
         Start_Leave_Portion__c: fromHalfDay,
         End_Leave_Portion__c: toHalfDay,
-        Unique_ID__c: timeNow,
-      }
-      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
-      SFDC_API.upsertUserLeaves(request)
-        .then(res => {
-          setPopup(undefined);
-          if (res.data === 'Success') {
+        Unique_ID__c: uniqueID,
+        infoId: JSON.parse(loggedInUser).infoId,
+      };
+      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+      API.applyLeave(request)
+        .then(resp => {
+          if(resp.status == 200){
             setLeaveAppliedSuccess(true);
           }
+          setPopup(undefined);
         })
         .catch(error => {
           const popupInfo = {
@@ -217,9 +217,33 @@ const ApplyLeave = () => {
             ],
           };
           setPopup(popupInfo);
-        });
+        });;
+      // SFDC_API.upsertUserLeaves(request)
+      //   .then(res => {
+      //     setPopup(undefined);
+      //     console.log(res,'resp of apply leave')
+      //     if (res.data === 'Success') {
+      //       setLeaveAppliedSuccess(true);
+      //     }
+      //   })
+      //   .catch(error => {
+      //     const popupInfo = {
+      //       type: POPUP_CONSTANTS.ERROR_POPUP,
+      //       style: styles.popup,
+      //       heading: 'Network Error',
+      //       message: error.message,
+      //       headingImage: errorImg,
+      //       buttons: [
+      //         {
+      //           title: 'TryAgain',
+      //           onPress: () => this.closePopup(),
+      //         },
+      //       ],
+      //     };
+      //     setPopup(popupInfo);
+      //   });
     }
-  }
+  };
 
   const invokeApplyLeave = () => {
     if (
@@ -237,7 +261,7 @@ const ApplyLeave = () => {
       } else if (
         moment(selectedToDate).diff(moment(selectedFromDate), 'days') === 0
       ) {
-        debugger;
+        // debugger;
         let leavePortion = halfDay.find(
           item => item.value === fromHalfDay,
         ).label;
@@ -254,7 +278,7 @@ const ApplyLeave = () => {
         console.log(daysDiff);
         let newDate = moment(selectedFromDate);
         for (let i = 0; i <= daysDiff; i++) {
-          debugger;
+          // debugger;
           const fromDate = newDate.format('yyyy-MM-DD-h:mm:ss');
           let leavePortion = '';
           if (i == 0) {
@@ -274,7 +298,7 @@ const ApplyLeave = () => {
       console.info('invokeApplyLeave...', request);
 
       console.info('invokeApplyLeave...', request);
-      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
+      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
       SFDC_API.upsertUserLeaves(request)
         .then(res => {
           setPopup(undefined);
@@ -283,7 +307,7 @@ const ApplyLeave = () => {
           }
         })
         .catch(error => {
-          debugger;
+          // debugger;
           const popupInfo = {
             type: POPUP_CONSTANTS.ERROR_POPUP,
             style: styles.popup,
@@ -321,12 +345,12 @@ const ApplyLeave = () => {
     return obj;
   };
 
-  const customDatesStyles = [{ style: { with: 300 } }];
+  const customDatesStyles = [{style: {with: 300}}];
   return (
     <View style={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {leaveAppliedSuccess ? (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Image
             source={leaveSuccesIcon}
             style={styles.imgLeaveSuccessStyle}
@@ -341,36 +365,46 @@ const ApplyLeave = () => {
           <View>
             {/* {renderLabel()}
             <Dropdown
-              style={[styles.dropdown, { borderColor: 'blue' }]}
-              placeholderStyle={styles.selectedTextStyle}
+              style={[styles.dropdown, {borderRadius:8 }]}
+              // placeholderStyle={[styles.selectedTextStyle,{paddingLeft:0,borderColor:'red'}]}
               selectedTextStyle={styles.selectedTextStyle}
-              inputSearchStyle={[styles.selectedTextStyle, styles.inputSearchStyle]}
+              placeholderStyle={{backgroundColor:'red',color:'green',width:20}}
+              // inputSearchStyle={[styles.selectedTextStyle, styles.inputSearchStyle]}
               data={leaveTypes}
-              search
+              // search
               labelField="label"
               valueField="value"
-              placeholder={'Select leave type'}
-              searchPlaceholder="Search..."
+              placeholder={'Leave type'}
+              // searchPlaceholder="Search..."
               value={leaveType}
               onChange={item => {
                 setLeaveType(item.value);
               }}
+              iconStyle={{
+                height:30
+              }}
+              iconColor='#000000'
             /> */}
             <View style={styles.dropdown}>
               <Text style={[styles.selectedTextStyle, styles.descText]}>
                 Description
               </Text>
               <TextInput
-                style={styles.selectedTextStyle}
+                // style={styles.selectedTextStyle}
                 onChangeText={data => setDescription(data)}
                 value={description}
                 placeholder="Enter Description"
                 placeholderTextColor="#949DB6"
+                style={{
+                  color: '#949db6',
+                  fontSize: 14,
+                  fontFamily: 'Lato-Bold',
+                }}
               />
             </View>
             <View style={styles.fromContainer}>
               <TouchableOpacity
-                style={[styles.startDate, { flex: 1 }]}
+                style={[styles.startDate, {flex: 1}]}
                 onPress={() => showCalendar(true)}>
                 <Text
                   style={[
@@ -385,14 +419,19 @@ const ApplyLeave = () => {
                     styles.selectedTextStyle,
                     styles.descText,
                     styles.marginBtm,
+                    {
+                      color: '#949db6',
+                      fontSize: 14,
+                      fontFamily: 'Lato-Bold',
+                    },
                   ]}>
                   {selectedFromDate ? selectedFromDate : 'Select From Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+              <View style={[styles.fromDateContainer, {flex: 1}]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, { width: '100%' }]}
+                  style={[styles.dropdown, {width: '100%'}]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -402,7 +441,7 @@ const ApplyLeave = () => {
                   value={fromHalfDay}
                   onChange={item => {
                     console.log('half day on change', item);
-                    setFromHalfDay(item.value);
+                    setFromHalfDay(item.label);
                   }}
                 />
               </View>
@@ -420,12 +459,18 @@ const ApplyLeave = () => {
                   textStyle={styles.textStyle}
                   customDatesStyles={customDatesStyles}
                   weekdays={['M', 'T', 'W', 'T', 'F', 'S', 'S']}
+                  minDate={new Date()}
+                  dayLabelsWrapper={{
+                    borderBottomWidth: 0,
+                    borderTopWidth: 0,
+                    paddingLeft: 24,
+                  }}
                 />
               </View>
             ) : null}
             <View style={[styles.fromContainer]}>
               <TouchableOpacity
-                style={[styles.startDate, { flex: 1 }]}
+                style={[styles.startDate, {flex: 1}]}
                 onPress={() => showCalendar()}>
                 <Text
                   style={[
@@ -444,10 +489,10 @@ const ApplyLeave = () => {
                   {selectedToDate ? selectedToDate : 'Select To Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, { flex: 1 }]}>
+              <View style={[styles.fromDateContainer, {flex: 1}]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, { width: '100%' }]}
+                  style={[styles.dropdown, {width: '100%'}]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -457,7 +502,7 @@ const ApplyLeave = () => {
                   value={toHalfDay}
                   onChange={item => {
                     console.log('half day on change', item);
-                    setToHalfDay(item.value);
+                    setToHalfDay(item.label);
                   }}
                 />
               </View>

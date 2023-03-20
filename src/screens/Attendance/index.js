@@ -5,13 +5,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import styles from './styles';
 import Moment from 'moment';
 import attendanceIcon from '../../assets/images/attendence/attendance.png';
 import markedAttendanceIcon from '../../assets/images/attendence/markedAttendence.png';
 import applyLeave from '../../assets/images/addLeave/image.png';
-import { FlatList, Image } from 'native-base';
+import {FlatList, Image} from 'native-base';
 import RouteConfig from '../../constants/route-config';
 import strings from '../../globalization';
 import Popup from '../../components/Popup';
@@ -20,7 +20,10 @@ import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
 import util from '../../util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { API } from '../../requests';
+import {API, SFDC_API} from '../../requests';
+import ViewPort from '../../constants/view-port';
+import moment from 'moment';
+import {connect} from 'react-redux';
 
 export interface Props {
   props: String;
@@ -29,43 +32,6 @@ export interface Props {
 const leaveRequests = 'Leave Requests';
 const count = 98;
 const date = Moment(new Date()).format('DD MMM YYYY');
-const leaves = [
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Full Day',
-    index: 1,
-  },
-  {
-    date: '',
-    status: 'DECLINED',
-    type: '',
-    duration: 'Half Day',
-    index: 2,
-  },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Full Day',
-    index: 3,
-  },
-  {
-    date: '',
-    status: 'APPROVED',
-    type: '',
-    duration: 'Half Day',
-    index: 4,
-  },
-  {
-    date: '',
-    status: 'DECLINED',
-    type: '',
-    duration: 'Half Day',
-    index: 5,
-  },
-];
 const leavesLable = 'Leaves';
 const balanceLabel = 'Balance';
 const balanceCount = 5;
@@ -76,6 +42,7 @@ class Attendance extends React.Component<Props, State> {
       popup: undefined,
       attendance: false,
       attendanceLabel: 'Mark attendance',
+      leavesHistory: [],
     };
   }
 
@@ -87,7 +54,7 @@ class Attendance extends React.Component<Props, State> {
           loggedInUser: JSON.parse(user),
         },
         () => {
-          // this.fetchAttendanceInfo(JSON.parse(user));
+          this.fetchAttendanceInfo(JSON.parse(user));
         },
       );
     });
@@ -95,7 +62,28 @@ class Attendance extends React.Component<Props, State> {
   fetchAttendanceInfo = user => {
     const loggedInUser = JSON.parse(user);
     //FIXME:
-    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    this.showSpinner();
+    const {
+      Id,
+      Territory__c,
+      roleKey = 'TeamLeadId',
+      infoId,
+    } = loggedInUser || {};
+    const body = {
+      infoId: infoId,
+    };
+
+    API.getLeavesHistory(body)
+      .then(resp => {
+        this.setState({
+          leavesHistory: resp?.data,
+        });
+        this.closePopup();
+      })
+      .catch(er => {
+        console.log(er, 'er');
+        this.closePopup();
+      });
     const request = {
       userId: Id,
       role: roleKey,
@@ -132,31 +120,38 @@ class Attendance extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
+      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
     });
   };
 
   closePopup = () => {
-    this.setState({ popup: undefined });
+    this.setState({popup: undefined});
   };
 
   updateAttendance = () => {
-    const { loggedInUser } = this.state;
+    const {loggedInUser} = this.state;
     //FIXME:
-    const {Id, Territory__c, roleKey = 'TeamLeadId'} = loggedInUser || {};
+    const {
+      Id,
+      Territory__c,
+      roleKey = 'TeamLeadId',
+      infoId,
+    } = JSON.parse(loggedInUser) || {};
     const request = {
-      userId: Id,
-      role: roleKey,
-      territoryid: Territory__c,
+      OwnerId: Id,
+      Date__c: Moment(new Date()).format('YYYY-MM-DD'),
+      infoId: infoId,
     };
     this.showSpinner();
-    API.getMyDayInfo(request)
-      .then(response => {
-        console.info('response', response);
-        this.setState({
-          attendance: true,
-          attendanceLabel: 'Marked',
-        });
+    API.markAttendance(request)
+      .then(resp => {
+        if(resp.status == 200){
+          this.setState({
+            attendance: true,
+            attendanceLabel: 'Marked',
+          });
+        }
+        this.closePopup();
       })
       .catch(error => {
         this.setState({
@@ -174,21 +169,47 @@ class Attendance extends React.Component<Props, State> {
             ],
           },
         });
+        this.closePopup();
       });
+    // API.getMyDayInfo(request)
+    //   .then(response => {
+    //     console.info('response', response);
+    //     this.setState({
+    //       attendance: true,
+    //       attendanceLabel: 'Marked',
+    //     });
+    //   })
+    // .catch(error => {
+    //   this.setState({
+    //     popup: {
+    //       type: POPUP_CONSTANTS.ERROR_POPUP,
+    //       heading: 'Network Error',
+    //       message: error.message,
+    //       popupStyle: styles.popupStyle,
+    //       headingImage: errorImg,
+    //       buttons: [
+    //         {
+    //           title: 'TryAgain',
+    //           onPress: () => this.closePopup(),
+    //         },
+    //       ],
+    //     },
+    //   });
+    // });
   };
 
   onLeaveRequest = () => {
-    const { navigation } = this.props;
+    const {navigation} = this.props;
     navigation.navigate(RouteConfig.LeaveRequests);
   };
 
   applyLeave = () => {
-    const { navigation } = this.props;
+    const {navigation} = this.props;
     navigation.navigate(RouteConfig.ApplyLeave);
   };
 
   getPopupContent = () => {
-    const { popup } = this.state;
+    const {popup} = this.state;
 
     if (!popup) {
       return null;
@@ -203,12 +224,14 @@ class Attendance extends React.Component<Props, State> {
     }
   };
   render() {
-    const { reduxProps } = this.props;
-    const { popup, attendance, attendanceLabel } = this.state;
-    console.log('attendance->', attendance);
-    const { style = {} } = popup || {};
+    const {
+      popup,
+      attendance,
+      attendanceLabel,
+      leavesHistory,
+    } = this.state;
+    const {style = {}} = popup || {};
     return (
-
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
           {this.getPopupContent()}
@@ -252,9 +275,9 @@ class Attendance extends React.Component<Props, State> {
         </View>
         <ScrollView style={styles.leavesWrapper}>
           <FlatList
-            data={leaves}
+            data={leavesHistory?.LeavesHistory}
             keyExtractor={(item, index) => item.index}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <LeaveCard leaveInfo={item} index={index} />
             )}
           />
@@ -264,24 +287,42 @@ class Attendance extends React.Component<Props, State> {
   }
 }
 
-const LeaveCard = ({ leaveInfo }) => {
-  const { status, duration } = leaveInfo;
+const LeaveCard = ({leaveInfo}) => {
+  const {
+    Leave_Status__c,
+    LeaveDays,
+    StartDateTime,
+    EndDateTime,
+    LeaveStatus,
+  } = leaveInfo;
+  const startDate = moment(StartDateTime).format('ddd, D MMM');
+  const endDate = moment(EndDateTime).format('ddd, D MMM');
   return (
     <View style={styles.leaveCard}>
       <View style={styles.leavesHeader}>
-        <Text style={styles.duration}>{duration}</Text>
+        <Text style={styles.duration}>{LeaveDays}</Text>
         <Text
           style={
-            status === strings.approved ? styles.approved : styles.declined
+            Leave_Status__c === strings.approved
+              ? styles.approved
+              : styles.declined
           }>
-          {status}
+          {LeaveStatus}
         </Text>
       </View>
-
       <View style={styles.leavesBottom}>
-        <Text style={styles.dateRange}> {status}</Text>
+        {startDate == endDate ? (
+          <Text style={styles.dateRange}>{startDate}</Text>
+        ) : (
+          <Text style={styles.dateRange}>{`${startDate} - ${endDate}`}</Text>
+        )}
       </View>
     </View>
   );
 };
-export default Attendance;
+const mapStateToProps = state => {
+  return {
+    userInfo: state.login,
+  };
+};
+export default connect(mapStateToProps)(Attendance);

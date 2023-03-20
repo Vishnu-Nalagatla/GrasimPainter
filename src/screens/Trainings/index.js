@@ -8,6 +8,11 @@ import data from './data.json';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import ViewPort from '../../constants/view-port';
 import SwitchButtons from '../../components/SwitchButtons';
+import {SFDC_API} from '../../requests';
+import {connect} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import util from '../../util';
+import moment from 'moment';
 
 const {vh, vw} = ViewPort;
 
@@ -15,7 +20,8 @@ class Trainings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trainings: data,
+      trainings: [],
+      filteredData:[],
       buttons: [
         {
           label: 'All',
@@ -37,6 +43,42 @@ class Trainings extends React.Component {
     this.initialTrainings = data;
   }
 
+  componentDidMount() {
+    const currentDate = util.currentDate();
+    AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
+      this.setState(() => {
+        this.fetchTrainingInfo(JSON.parse(user));
+      });
+    });
+  }
+  fetchTrainingInfo = user => {
+    const loggedInUser = JSON.parse(user);
+    const {Id, Territory__c, roleKey = 'TeamLeadId',role} = loggedInUser || {};
+    if(role?.toLowerCase() == 'team lead'){
+      SFDC_API.getTrainingsInfo(Id)
+      .then(resp => {
+        if (resp?.status == 200) {
+          this.setState({
+            trainings: resp?.data?.records,
+            filteredData:resp?.data?.records
+          });
+        }
+      })
+      .catch(er => console.log(er, 'er'));
+    }else{
+      SFDC_API.getCrewTrainingInfo(Id)
+      .then(resp => {
+        if (resp?.status == 200) {
+          this.setState({
+            trainings: resp?.data?.records,
+            filteredData:resp?.data?.records
+          });
+        }
+      })
+      .catch(er => console.log(er, 'er'));
+    }
+   
+  };
   onClick = event => {
     let updatedTrainings = [];
     const {buttons} = this.state;
@@ -45,10 +87,13 @@ class Trainings extends React.Component {
       const {index} = button;
       if (event.index === index && !event.status) {
         if (event.index === 1) {
-          updatedTrainings = this.initialTrainings;
+          updatedTrainings = this.state.trainings;
         } else {
-          updatedTrainings = this.initialTrainings.filter(
-            each => each.Status === event.label,
+          updatedTrainings = this.state.trainings.filter(
+            obj => {
+              const currentDate = moment(new Date()).format('YYYY-MM-DD');
+              return event.index == 2? currentDate <= obj?.End_Date__c:currentDate > obj?.End_Date__c;
+            },
           );
         }
         button.status = true;
@@ -60,12 +105,12 @@ class Trainings extends React.Component {
     this.setState({
       buttons: buttonsChanged,
       activeTabIndex,
-      trainings: updatedTrainings,
+      filteredData: updatedTrainings,
     });
   };
 
   // eslint-disable-next-line prettier/prettier
-  renderItem = (item) => {
+  renderItem = item => {
     return (
       <View style={styles.innerContainer}>
         <View style={styles.container1}>
@@ -77,7 +122,7 @@ class Trainings extends React.Component {
                 style={styles.icon}
                 resizeMode="contain"
               />
-              <Text style={styles.startDateText}> {item.StartDate} </Text>
+              <Text style={styles.startDateText}> {item?.Start_Date__c} </Text>
             </View>
             <Text style={styles.dotted}> </Text>
             <Text style={styles.dotted}> </Text>
@@ -88,7 +133,7 @@ class Trainings extends React.Component {
                 style={styles.icon}
                 resizeMode="contain"
               />
-              <Text style={styles.startDateText}> {item.EndDate} </Text>
+              <Text style={styles.startDateText}> {item?.End_Date__c} </Text>
             </View>
           </View>
         </View>
@@ -96,13 +141,13 @@ class Trainings extends React.Component {
           <AnimatedCircularProgress
             size={50 * vh}
             width={4 * vw}
-            fill={75}
+            fill={item.Training_Score__c}
             rotation={-360}
             tintColor="#3C58B5"
             lineCap="round"
             backgroundColor="#D5DFFF">
             {() => (
-              <Text style={styles.percentage}>{item.PercentageCompletion}</Text>
+              <Text style={styles.percentage}>{item?.Training_Score__c}</Text>
             )}
           </AnimatedCircularProgress>
         </View>
@@ -111,7 +156,7 @@ class Trainings extends React.Component {
   };
 
   render() {
-    const {trainings, buttons} = this.state;
+    const {trainings, buttons,filteredData} = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
@@ -121,14 +166,19 @@ class Trainings extends React.Component {
           />
         </View>
         <FlatList
-          data={trainings}
+          data={filteredData}
           keyExtractor={(item, index) => index}
-          renderItem={({item}) => this.renderItem(item)}
+          renderItem={({item}) =>{
+           return filteredData?.length> 0 ?this.renderItem(item) : <Text>{'no data'}</Text>
+          } }
         />
       </View>
     );
   }
 }
-
-export default Trainings;
-
+const mapStateToProps = state => {
+  return {
+    userInfo: state.loginReducer.loginInfo,
+  };
+};
+export default connect(mapStateToProps)(Trainings);

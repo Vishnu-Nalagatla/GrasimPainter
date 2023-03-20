@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   label: {
     position: 'absolute',
-    left: 28 * vw,
+    left: 13 * vw,
     top: 25 * vh,
     zIndex: 999,
     paddingHorizontal: 5 * vh,
@@ -120,6 +120,7 @@ const styles = StyleSheet.create({
     //height: 324 * vh,
     borderRadius: 8 * vh,
     marginTop: 12 * vh,
+    padding:10
   },
   imgLeaveSuccessStyle: {
     width: 64 * vw,

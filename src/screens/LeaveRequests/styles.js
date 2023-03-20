@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   declineIcon: {
     height: 32 * vh,
     width: 32 * vw,
-    marginRight: 12 * vw,
+    // marginRight: 12 * vw,
   },
   name: {
     fontSize: 16 * vh,
@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   rightInfo: {
     flexDirection: 'row',
+    alignItems:'center'
   },
   leaveInfo: {
     fontFamily: 'Karla',
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Karla',
     fontStyle: 'normal',
     fontWeight: '700',
-    fontSize: 16 * vh,
+    fontSize: 14 * vh,
     color: 'rgba(0, 0, 0, 0.6)',
     paddingVertical: 8 * vh,
   },
