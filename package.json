@@ -11,7 +11,7 @@
     "clean": "cd android && ./gradlew clean && ./gradlew -stop && npm cache clean --force",
     "clean:ios": "cd ios && rm -rf build Pods Podfile.lock",
     "uninstall": "cd android && ./gradlew uninstallAll",
-    "android:dev": "react-native run-android --variant=devDebug",
+    "android:dev": "react-native run-android --variant=devDebug && adb reverse tcp:9090 tcp:9090",
     "android:qa": "react-native run-android --variant=qaDebug",
     "android:uat": "react-native run-android --variant=uatDebug",
     "android:prod": "react-native run-android --variant=productionDebug",

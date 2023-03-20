@@ -25,7 +25,7 @@ import { logoutAction } from '../../store/login/loginActions';
 
 const Drawer = props => {
   const { getLoginInfo = {}, closePopup, navigation, dispatchSetLoginData } = props;
-  const { firstName = '', lastName = '', role = 'Team Lead' } = getLoginInfo;
+  const { firstName = '', lastName = '', role = 'Team Lead' } = getLoginInfo || {};
   const [popup, setPopup] = useState(undefined);
   const [userProfile, setUserProfile] = useState({});
   const RootStack = createStackNavigator();

@@ -112,7 +112,7 @@ class MyDay extends React.Component<Props, State> {
       userId: Id,
       role: roleKey,
       territoryid: Territory__c,
-      mockData: false,
+      mockData: true,
       infoId: infoId
     };
     this.showSpinner();

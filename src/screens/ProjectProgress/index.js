@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
-import {Container, Content, FlatList, ScrollView} from 'native-base';
-import {Image, View, Text, TouchableOpacity} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Container, Content, FlatList, ScrollView } from 'native-base';
+import { Image, View, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 
 import bellImg from '../../assets/images/group/image.png';
@@ -11,7 +11,7 @@ import rightArrowImg from '../../assets/images/rightArrowBlack/image.png';
 import colors from '../../constants/colors';
 import Moment from 'moment';
 import CustomButton from '../../components/Button';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import ViewPort from '../../constants/view-port';
 import ProgressPercentage from '../../components/ProgressPercentage';
 import RouteConfig from '../../constants/route-config';
@@ -26,25 +26,26 @@ const ProjectProgress = props => {
     INFO: 5,
   };
 
-  const {project = {}, loggedInUser = {}, onTabChange, navigation} = props;
+  const { project = {}, loggedInUser = {}, onTabChange, navigation } = props;
   const {
     ProjectStartDate,
     ProjectEndDate,
     CompletionPercentage = '40.00',
     Address,
-    paymentInfo = '1st payment received',
+    displayStatus = {},
+    paymentInfo = displayStatus?.order == 1 ? '1st payment received' : "2nd payment received",
     SiteMaterialStorage,
     SiteWaterAvailability,
   } = project || {};
-  const {roleKey = 'TeamLeadId'} = loggedInUser || {};
+  const { roleKey = 'TeamLeadId' } = loggedInUser || {};
   const startDate = Moment(ProjectStartDate).format('DD MMM YYYY');
   const endDate = Moment(ProjectEndDate).format('DD MMM YYYY');
 
   const onPress = () => {
-    console.info('project..');
+    onTabChange(1)
   };
   const viewCustomerProfile = () => {
-    const {navigation} = props;
+    const { navigation } = props;
     navigation.navigate(RouteConfig.ClinetInfo, {
       project: project,
     });
@@ -137,12 +138,14 @@ const ProjectProgress = props => {
         <View style={styles.paymentInfo}>
           <Text style={styles.paymentInfoLabel}> {paymentInfo}</Text>
         </View>
-        <CustomButton
-          title={'Create Project plan'}
-          textStyle={[styles.btnTxt]}
-          style={[styles.button]}
-          onPress={onPress}
-        />
+        {displayStatus?.order == 1 &&
+          <CustomButton
+            title={'Create Project plan'}
+            textStyle={[styles.btnTxt]}
+            style={[styles.button]}
+            onPress={onPress}
+          />
+        }
         <View style={styles.hrLine} />
         <View style={styles.addressinfo}>
           <Image
@@ -174,7 +177,7 @@ const ProjectProgress = props => {
     );
   };
   const onTabPress = item => {
-    const {tabIndex} = item;
+    const { tabIndex } = item;
     onTabChange(tabIndex);
   };
   const getTabs = () => {
@@ -184,7 +187,7 @@ const ProjectProgress = props => {
           data={tabList}
           contentContainerStyle={styles.itemView}
           keyExtractor={(item, index) => item.key}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() => {
                 onTabPress(item);

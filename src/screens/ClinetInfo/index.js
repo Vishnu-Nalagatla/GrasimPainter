@@ -1,16 +1,16 @@
-import {Image, Text} from 'native-base';
+import { Image, Text } from 'native-base';
 import React from 'react';
-import {View, Platform, TouchableOpacity, Linking} from 'react-native';
+import { View, Platform, TouchableOpacity, Linking } from 'react-native';
 
 import phoneBlack from '../../assets/images/phoneBlack/image.png';
 
 import styles from './styles';
 
 const ClinetInfo = props => {
-  const {route} = props;
-  const {params} = route;
-  const {project} = params;
-  const {CustomerName, CustomerPhone, EmailId, RoomList} = project || {};
+  const { route } = props;
+  const { params } = route;
+  const { project } = params;
+  const { CustomerName, CustomerPhone, EmailId, RoomList } = project || {};
   const {
     data = [
       {
@@ -19,7 +19,7 @@ const ClinetInfo = props => {
       },
       {
         property: 'Site Area',
-        value: `${RoomList[0].WallList[0].TotalArea} sqft`,
+        value: `${RoomList?.[0]?.WallList?.[0].TotalArea} sqft`,
       },
       {
         property: 'Painting System',
@@ -35,8 +35,8 @@ const ClinetInfo = props => {
       },
     ],
   } = props;
-  const InfoRow = ({info, index}) => {
-    const {property, value} = info;
+  const InfoRow = ({ info, index }) => {
+    const { property, value } = info;
     const row = index % 2 === 0 ? styles.evenRow : styles.oddRow;
     return (
       <View style={row}>

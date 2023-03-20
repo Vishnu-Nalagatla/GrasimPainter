@@ -183,7 +183,7 @@ const ProjectTimeLine = (props: Props) => {
       console.info('erroe', error);
     });
   };
-  console.log('order', +order)
+
   const getButton = () => {
     const buttonInfo =
       +order === 2 ? (
@@ -192,7 +192,7 @@ const ProjectTimeLine = (props: Props) => {
         <View>
           <CustomButton
             disabled={activeTabIndex !== 1}
-            title={ctaLabel}
+            title={ctaLabel + " "} // change here
             textStyle={[styles.btnTxt]}
             style={[styles.button]}
             onPress={() => onClick(data)}

@@ -226,13 +226,15 @@ function RootNavigator(props) {
         <NavigationContainer independent={true}>
           <OnboardingNavigator />
         </NavigationContainer>
-      ) : isLoggedIn == false ? (
-        <NavigationContainer independent={true}>
-          <LoginNavigator />
-        </NavigationContainer>
-      ) : (
-        getScreen(userExist)
-      )}
+      )
+        //   : isLoggedIn == false ? (
+        // <NavigationContainer independent={true}>
+        //   <LoginNavigator />
+        // </NavigationContainer>
+        //   )
+        : (
+          getScreen(userExist)
+        )}
     </NativeBaseProvider>
   );
 }

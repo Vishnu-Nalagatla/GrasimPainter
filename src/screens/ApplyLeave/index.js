@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,7 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import styles from './styles';
 import ellipse from '../../assets/images/ellipse/image.png';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -19,9 +19,9 @@ import prevDateImg from '../../assets/images/attendanceColor/prevDate.png';
 import nextDateImg from '../../assets/images/calendar/calendarRightArrow.png';
 import leaveSuccesIcon from '../../assets/images/addLeave/leaveSuccesIcon.png';
 import colors from '../../constants/colors';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import errorImg from '../../assets/images/error/image.png';
-import {ScrollView} from 'native-base';
+import { ScrollView } from 'native-base';
 import moment from 'moment';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
@@ -29,8 +29,8 @@ import util from '../../util';
 
 
 const halfDay = [
-  {label: 'First Half', value: '1'},
-  {label: 'Second Half', value: '2'},
+  { label: 'First Half', value: '1' },
+  { label: 'Second Half', value: '2' },
 ];
 
 // “First Half/Second Half/Full Day”,
@@ -57,14 +57,14 @@ const ApplyLeave = () => {
       setLoggedInUser(JSON.parse(user));
     });
   }, []);
-useEffect(()=>{
-  if(leaveAppliedSuccess){
-    setTimeout(() => {
-      setLeaveAppliedSuccess(false);
-    }, 2000);
-  }
+  useEffect(() => {
+    if (leaveAppliedSuccess) {
+      setTimeout(() => {
+        setLeaveAppliedSuccess(false);
+      }, 2000);
+    }
 
-},[leaveAppliedSuccess])
+  }, [leaveAppliedSuccess])
   const renderLabel = () => {
     if (leaveType) {
       return (
@@ -136,7 +136,7 @@ useEffect(()=>{
 
   const getPreviousComponent = () => {
     return (
-      <View style={[styles.buttonStyle, {marginLeft: 10, margin: 0}]}>
+      <View style={[styles.buttonStyle, { marginLeft: 10, margin: 0 }]}>
         <Image
           source={prevDateImg}
           style={styles.imgStyle}
@@ -148,7 +148,7 @@ useEffect(()=>{
 
   const getNextComponent = () => {
     return (
-      <View style={[styles.buttonStyle, {marginRight: 10, margin: 0}]}>
+      <View style={[styles.buttonStyle, { marginRight: 10, margin: 0 }]}>
         <Image
           source={nextDateImg}
           style={styles.imgStyle}
@@ -194,13 +194,13 @@ useEffect(()=>{
         Unique_ID__c: uniqueID,
         infoId: JSON.parse(loggedInUser).infoId,
       };
-      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
       API.applyLeave(request)
         .then(resp => {
-          if(resp.status == 200){
+          if (resp.status == 200) {
             setLeaveAppliedSuccess(true);
           }
-          setPopup(undefined);
+          this.closePopup()
         })
         .catch(error => {
           const popupInfo = {
@@ -298,7 +298,7 @@ useEffect(()=>{
       console.info('invokeApplyLeave...', request);
 
       console.info('invokeApplyLeave...', request);
-      setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+      setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
       SFDC_API.upsertUserLeaves(request)
         .then(res => {
           setPopup(undefined);
@@ -345,12 +345,12 @@ useEffect(()=>{
     return obj;
   };
 
-  const customDatesStyles = [{style: {with: 300}}];
+  const customDatesStyles = [{ style: { with: 300 } }];
   return (
     <View style={styles.container}>
       <Popup visible={!!popup}>{getPopupContent()}</Popup>
       {leaveAppliedSuccess ? (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Image
             source={leaveSuccesIcon}
             style={styles.imgLeaveSuccessStyle}
@@ -404,7 +404,7 @@ useEffect(()=>{
             </View>
             <View style={styles.fromContainer}>
               <TouchableOpacity
-                style={[styles.startDate, {flex: 1}]}
+                style={[styles.startDate, { flex: 1 }]}
                 onPress={() => showCalendar(true)}>
                 <Text
                   style={[
@@ -428,10 +428,10 @@ useEffect(()=>{
                   {selectedFromDate ? selectedFromDate : 'Select From Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, {flex: 1}]}>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, {width: '100%'}]}
+                  style={[styles.dropdown, { width: '100%' }]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
@@ -470,7 +470,7 @@ useEffect(()=>{
             ) : null}
             <View style={[styles.fromContainer]}>
               <TouchableOpacity
-                style={[styles.startDate, {flex: 1}]}
+                style={[styles.startDate, { flex: 1 }]}
                 onPress={() => showCalendar()}>
                 <Text
                   style={[
@@ -489,10 +489,10 @@ useEffect(()=>{
                   {selectedToDate ? selectedToDate : 'Select To Date'}
                 </Text>
               </TouchableOpacity>
-              <View style={[styles.fromDateContainer, {flex: 1}]}>
+              <View style={[styles.fromDateContainer, { flex: 1 }]}>
                 {renderHalfDayLabel()}
                 <Dropdown
-                  style={[styles.dropdown, {width: '100%'}]}
+                  style={[styles.dropdown, { width: '100%' }]}
                   placeholderStyle={styles.selectedTextStyle}
                   selectedTextStyle={styles.selectedTextStyle}
                   data={halfDay}
