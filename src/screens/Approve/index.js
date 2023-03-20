@@ -11,20 +11,20 @@ import POPUP_CONSTANTS from '../../enums/popup';
 import RouteConfig from '../../constants/route-config.js';
 import bellImg from '../../assets/images/group/image.png';
 import multipleImg from '../../assets/images/multiple/image.png';
-import {API} from '../../requests';
+import { API } from '../../requests';
 import colors from '../../constants/colors.js';
 import Popup from '../../components/Popup/index.js';
-import {Checkbox, FlatList, Image, ScrollView} from 'native-base';
+import { Checkbox, FlatList, Image, ScrollView } from 'native-base';
 import Moment from 'moment';
 import ProgressPercentage from '../../components/ProgressPercentage/index.js';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import closeIcon from '../../assets/images/close/image.png';
 import CustomButton from '../../components/Button';
 import Slideshow from 'react-native-image-slider-show';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 import ViewPort from '../../constants/view-port';
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 export interface Props {
   props: String;
@@ -80,10 +80,10 @@ class Approve extends React.Component<Props, State> {
       roomInfo: this.roomInfo,
       resendInfo: this.resendInfo,
       images: [
-        {url: bellImg},
-        {url: groupIcon},
-        {url: bellImg},
-        {url: bellImg},
+        { url: bellImg },
+        { url: groupIcon },
+        { url: bellImg },
+        { url: bellImg },
       ],
       position: 1,
       showGallery: false,
@@ -91,29 +91,29 @@ class Approve extends React.Component<Props, State> {
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
   updateImage = () => {
     console.info('updateImage');
   };
 
   onPositionChange = index => {
-    this.setState({position: index});
+    this.setState({ position: index });
   };
 
   showgallery = wallPics => {
     this.setState({
       showGallery: true,
-      popup: {type: POPUP_CONSTANTS.SHOW_GALLERY},
+      popup: { type: POPUP_CONSTANTS.SHOW_GALLERY },
       position: 0,
       images: wallPics.map(img => {
         return {
@@ -124,8 +124,8 @@ class Approve extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
-    const {images, position} = this.state;
+    const { popup } = this.state;
+    const { images, position } = this.state;
     const count = position + 1 + '/' + images.length;
     if (!popup) {
       return null;
@@ -160,11 +160,11 @@ class Approve extends React.Component<Props, State> {
 
   //NOTE: change buttonLabel values based on logpressed wall images count.
   onImageLongPress = wallIndex => {
-    const {roomInfo, buttonLabel} = this.state;
-    const {gallery} = roomInfo;
+    const { roomInfo, buttonLabel } = this.state;
+    const { gallery } = roomInfo;
     console.info('onImageLongPress wallIndex...', wallIndex);
     const updatedGallery = gallery.map(img => {
-      const {showRetakeIcon} = img;
+      const { showRetakeIcon } = img;
       if (img.wallIndex === wallIndex) {
         return {
           ...img,
@@ -183,8 +183,8 @@ class Approve extends React.Component<Props, State> {
   };
 
   render() {
-    const {roomInfo, popup, resendInfo, buttonLabel} = this.state;
-    const {gallery, activity} = roomInfo;
+    const { roomInfo, popup, resendInfo, buttonLabel } = this.state;
+    const { gallery, activity } = roomInfo;
     return (
       <ScrollView style={styles.container}>
         <Popup visible={!!popup}>{this.getPopupContent()}</Popup>
@@ -215,8 +215,8 @@ class Approve extends React.Component<Props, State> {
   }
 }
 
-const ProgressInfo = ({roomInfo, resendInfo}) => {
-  const {roomName, date, updatedBy, activity} = roomInfo;
+const ProgressInfo = ({ roomInfo, resendInfo }) => {
+  const { roomName, date, updatedBy, activity } = roomInfo;
   const dateStr = Moment(date).format('DD MMM YYYY');
   return (
     <View style={styles.infoWrapper}>
@@ -263,7 +263,7 @@ const ProgressInfo = ({roomInfo, resendInfo}) => {
   );
 };
 
-const ImagesGallery = ({images, position = 1, onPositionChange}) => {
+const ImagesGallery = ({ images, position = 1, onPositionChange }) => {
   return (
     <Slideshow
       dataSource={images}
@@ -312,7 +312,7 @@ const ActivityInfo = ({
         contentContainerStyle={styles.wallImages}
         numColumns={3}
         keyExtractor={(item, index) => item.key}
-        renderItem={({item}) => {
+        renderItem={({ item }) => {
           const wallImgCount = item.images.length;
           const showRetakeIcon = item.showRetakeIcon;
           return (

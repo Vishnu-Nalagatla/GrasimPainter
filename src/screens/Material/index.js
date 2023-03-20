@@ -1,9 +1,9 @@
-import {FlatList, ScrollView, Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, SafeAreaView, View, TextInput} from 'react-native';
+import { FlatList, ScrollView, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, SafeAreaView, View, TextInput } from 'react-native';
 import CustomButton from '../../components/Button';
 import ProgressSlider from '../../components/ProgressSlider';
-import {SFDC_API, API} from '../../requests';
+import { SFDC_API, API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import ROLES from '../../enums/roles';
 
@@ -18,18 +18,18 @@ import strings from '../../globalization';
 const Material = props => {
   // const materialLeft = 'Let’s check quantity of material left';
   // const materialUsedLabel = 'Here is the list of Pmaterial used';
-  const {project = {}, loggedInUser = {}} = props;
-  const {BOMList = []} = project || {};
+  const { project = {}, loggedInUser = {} } = props;
+  const { BOMList = [] } = project || {};
   console.log('project from material---->', project);
-  const {roleKey = 'HeadPainterId'} = loggedInUser || {};
+  const { roleKey = 'HeadPainterId' } = loggedInUser || {};
   // const leftOver = 'Leftover';
   const [popup, setPopup] = useState(undefined);
   const [putty, setPutty] = useState(0);
   const [paint, setPaint] = useState(0);
-  const {popupStyle = {}} = popup || {};
+  const { popupStyle = {} } = popup || {};
 
   const showSpinner = () => {
-    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
   };
 
   const closePopup = () => {
@@ -105,7 +105,7 @@ const Material = props => {
     });
   };
 
-  const MaterialCard = ({item} = props) => {
+  const MaterialCard = ({ item } = props) => {
     const {
       MaterialName,
       MaterialQuantity,
@@ -166,8 +166,8 @@ const Material = props => {
     );
   };
 
-  const MaterialUsedCard = ({item, index} = props) => {
-    const {MaterialName, MaterialCode, MaterialPurchaseUOM, MaterialQuantity} =
+  const MaterialUsedCard = ({ item, index } = props) => {
+    const { MaterialName, MaterialCode, MaterialPurchaseUOM, MaterialQuantity } =
       item;
     return (
       <View
@@ -252,7 +252,7 @@ const Material = props => {
           />
         </View>
         {(BOMList && BOMList?.MaterialCategory == 'Material') ||
-        (BOMList && BOMList?.MaterialCategory == 'Asset') ? (
+          (BOMList && BOMList?.MaterialCategory == 'Asset') ? (
           <View style={styles.materialusedView}>
             {BOMList && BOMList?.MaterialCategory == 'Material' ? (
               <>

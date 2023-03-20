@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Text, View, Image} from 'react-native';
+import { Text, View, Image } from 'react-native';
 import styles from './styles';
 import CustomButton from '../Button';
 // import strings from '../../constants/english';

@@ -1,21 +1,21 @@
-import {View, Text} from 'react-native';
-import React, {useState} from 'react';
-import {Slider} from '@miblanchard/react-native-slider';
+import { View, Text } from 'react-native';
+import React, { useState } from 'react';
+import { Slider } from '@miblanchard/react-native-slider';
 import styles from './styles';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import ViewPort from '../../constants/view-port';
 import rollerIcon from '../../assets/images/paintRoller/image.png';
 import colors from '../../constants/colors';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 const windowWidth = Dimensions.get('window').width;
 
-const ProgressSlider = ({value, onValueChange}) => {
+const ProgressSlider = ({ value, onValueChange }) => {
   const left = (value * (windowWidth - 190)) / 90;
   const onChange = data => {
     onValueChange(data[0]);
   };
-  const viewStyle = {left: left};
+  const viewStyle = { left: left };
   return (
     <View style={styles.container}>
       <Text style={[styles.textValue, viewStyle]}>{value}</Text>
@@ -30,7 +30,7 @@ const ProgressSlider = ({value, onValueChange}) => {
         trackStyle={styles.trackStyle}
         thumbImage={rollerIcon}
         step={1}
-        thumbTouchSize={{width: 60 * vw, height: 60 * vh}}
+        thumbTouchSize={{ width: 60 * vw, height: 60 * vh }}
         thumbTintColor="#FFFF"
         onValueChange={data => onChange(data)}
       />

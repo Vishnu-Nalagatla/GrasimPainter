@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 
-const {vw, vh} = ViewPort;
+const { vw, vh } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {

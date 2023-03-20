@@ -1,7 +1,7 @@
-import {FlatList, Image, Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {TouchableOpacity, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { FlatList, Image, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import bellImg from '../../assets/images/group/image.png';
 
 import approveImg from '../../assets/images/approve/image.png';
@@ -9,7 +9,7 @@ import approveImg from '../../assets/images/approve/image.png';
 import naImg from '../../assets/images/leaveDecline/decline.png';
 import strings from '../../globalization';
 import styles from './styles';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import util from '../../util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -45,7 +45,7 @@ const LeaveRequests = props => {
   };
 
   useEffect(() => {
-    setPopup({type: POPUP_CONSTANTS.SPINNER_POPUP});
+    setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
     // debugger
     // SFDC_API.leaveApproveForTL('0051y000000NpxWAAS')
     //   .then(res => {
@@ -125,7 +125,7 @@ const LeaveRequests = props => {
 
   const approveLeave = data => {
     console.info('approveLeave: ', props);
-    const {index} = data;
+    const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
         leave.status = strings.approved;
@@ -136,7 +136,7 @@ const LeaveRequests = props => {
   };
   const declineLeave = data => {
     console.info('declineLeave: ', props);
-    const {index} = data;
+    const { index } = data;
     const leavesUpdated = leaves.map(leave => {
       if (leave.index === index) {
         leave.status = strings.declined;
@@ -146,7 +146,7 @@ const LeaveRequests = props => {
     setLeaves(leavesUpdated);
   };
 
-  const leaveAction = (status, Id,uniqueId) => {
+  const leaveAction = (status, Id, uniqueId) => {
     const currentDate = util.currentDate();
     AsyncStorage.getItem('loggedInUser' + currentDate).then(user => {
       const parsedData = JSON.parse(user);
@@ -209,7 +209,7 @@ const LeaveRequests = props => {
   };
 
   const getLeaveInfo = leaveInfo => {
-    const {description, status} = leaveInfo;
+    const { description, status } = leaveInfo;
     console.info('description....', description);
     return (
       <View>
@@ -227,7 +227,7 @@ const LeaveRequests = props => {
     );
   };
 
-  const LeaveRequest = ({data, onClick}) => {
+  const LeaveRequest = ({ data, onClick }) => {
     const {
       profilePic,
       name,
@@ -255,32 +255,32 @@ const LeaveRequests = props => {
           </View>
           {!status ? (
             <View
-            style={{
-              flexDirection:'row',
-              justifyContent:'center',
-              alignItems:'center'
-            }}
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
             >
               <TouchableOpacity
                 //  onPress={() => declineLeave(data)}
-                onPress={() => leaveAction('Declined', Crew_Member_Id,Unique_ID__c)}>
+                onPress={() => leaveAction('Declined', Crew_Member_Id, Unique_ID__c)}>
                 <Image
                   source={naImg}
                   style={{
                     // width:20,
                     // height:20,
-                    marginTop:-10,
-                    marginRight:12
+                    marginTop: -10,
+                    marginRight: 12
                   }}
                   // style={styles.declineIcon}
                   // resizeMode="contain"
                   alt=""
                 />
               </TouchableOpacity>
-              <TouchableOpacity 
-              // onPress={() => approveLeave(data)}
-              onPress={() => leaveAction('Approved', Crew_Member_Id,Unique_ID__c)}
-              
+              <TouchableOpacity
+                // onPress={() => approveLeave(data)}
+                onPress={() => leaveAction('Approved', Crew_Member_Id, Unique_ID__c)}
+
               >
                 <Image
                   source={approveImg}
@@ -302,7 +302,7 @@ const LeaveRequests = props => {
       <FlatList
         data={leaveApprovalsData}
         keyExtractor={(item, index) => item.index}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <LeaveRequest data={item} onClick={leaveClick} />
         )}
       />

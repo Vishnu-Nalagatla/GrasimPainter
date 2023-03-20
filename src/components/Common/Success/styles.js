@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../../constants/colors';
 import ViewPort from '../../../constants/view-port';
 
-const {vw, vh} = ViewPort;
+const { vw, vh } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   message: {
     paddingHorizontal: '10%',
     fontSize: 42 * vh,
-    textAlign:'center',
+    textAlign: 'center',
   },
 });
 

@@ -1,10 +1,10 @@
 
 
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 
-const {vw, vh} = ViewPort;
+const { vw, vh } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     lineHeight: 18 * vh,
     color: colors.black,
     paddingTop: 12 * vh,
-    paddingLeft:  12 * vw,
+    paddingLeft: 12 * vw,
   },
 });
 

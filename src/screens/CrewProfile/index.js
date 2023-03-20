@@ -1,13 +1,13 @@
-import {View, Text, ActivityIndicator} from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import React from 'react';
-import {API} from '../../requests';
+import { API } from '../../requests';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
 import styles from './styles';
 import Popup from '../../components/Popup';
 import errorIcon from '../../assets/images/naColor/image.png';
-import {Image, ScrollView} from 'native-base';
+import { Image, ScrollView } from 'native-base';
 import groupIcon from '../../assets/images/splash/paint_logo.png';
 import mobileBlack from '../../assets/images/mobileBlack/image.png';
 import calendar from '../../assets/images/calendar/image.png';
@@ -74,12 +74,12 @@ class CrewProfile extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   fetchMyTeamInfo = () => {
@@ -90,7 +90,7 @@ class CrewProfile extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -107,10 +107,10 @@ class CrewProfile extends React.Component<Props, State> {
   };
 
   onClick = event => {
-    const {buttons} = this.state;
+    const { buttons } = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const {index} = button;
+      const { index } = button;
       if (event.index === index && !event.status) {
         button.status = true;
       } else {
@@ -128,7 +128,7 @@ class CrewProfile extends React.Component<Props, State> {
   requestForQualityCheck = project => {
     console.info('project...', project);
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
     const request = {
       organizationId: 'organizationID',
@@ -160,7 +160,7 @@ class CrewProfile extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -181,8 +181,8 @@ class CrewProfile extends React.Component<Props, State> {
     // const {loginInfo = {}} = login;
     // const {firstName = ''} = loginInfo;
     // console.info('firstName...', firstName);
-    const {popup} = this.state;
-    const {style = {}} = popup || {};
+    const { popup } = this.state;
+    const { style = {} } = popup || {};
     const skills = ['Wall artist', 'Skill two', 'Skill three'];
 
     return (
@@ -218,7 +218,7 @@ class CrewProfile extends React.Component<Props, State> {
             {this.infoList.map((info, index) => {
               const styleRow =
                 index % 2 === 0 ? styles.infoRow : styles.infoRowOdd;
-              const {key, value} = info;
+              const { key, value } = info;
               return (
                 <View style={styleRow}>
                   <Text style={styles.key}>{key}</Text>
@@ -232,7 +232,7 @@ class CrewProfile extends React.Component<Props, State> {
           <Text style={styles.insightsLabel}>{'General Insights'}</Text>
           <View style={styles.insightsWrapper}>
             {this.iinsightsList.map((insight, index) => {
-              const {key, value} = insight;
+              const { key, value } = insight;
               return (
                 <View style={styles.insightCard}>
                   <Text style={styles.insightKey}>{key}</Text>

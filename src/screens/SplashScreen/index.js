@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image, View} from 'react-native';
+import { Image, View } from 'react-native';
 import paintLogo from '../../assets/images/splash/paint.png';
 import styles from './styles';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import languages from '../../enums/languages';
 import strings from '../../globalization';
 import Config from 'react-native-config';

@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     },
     info: {
         flexDirection: 'row',
-        justifyContent:'center',
+        justifyContent: 'center',
         marginBottom: 31 * vh,
     },
     getInTouch: {

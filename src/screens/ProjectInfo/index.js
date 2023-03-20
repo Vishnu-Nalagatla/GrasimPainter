@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
 
 import styles from './styles';
 import multiple from '../../assets/images/multiple/image.png';
@@ -7,8 +7,8 @@ import locationImg from '../../assets/images/location/image.png';
 import Clipboard from '@react-native-community/clipboard';
 
 const ProjectInfo = props => {
-  const {project} = props;
-  const {ProjectId, Address} = project || {};
+  const { project } = props;
+  const { ProjectId, Address } = project || {};
   return (
     <View style={styles.container}>
       <View style={styles.bodyContainer}>

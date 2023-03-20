@@ -1,44 +1,44 @@
 [
-    {
-        "order": "1",
-        "title": "Create Project Plan",
-        "ctaLabel": "Create Now",
-        "confirmMessage": "Plan created and shared with customer"
-    },
-    {
-        "order": "2",
-        "title": "Confirm Crew Allocation",
-        "ctaLabel": "Confirm",
-        "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
-    },
-    {
-        "order": "3",
-        "title": "Confirm updated plan",
-        "ctaLabel": "View requested timeline",
-        "confirmMessage": "<p>Updated plan is confirmed</p>\n"
-    },
-    {
-        "order": "4",
-        "title": "Visit Project Site",
-        "ctaLabel": "Schedule a time",
-        "confirmMessage": "Project site visit is scheduled at"
-    },
-    {
-        "order": "5",
-        "title": "Request for Quality Check",
-        "ctaLabel": "Request now",
-        "confirmMessage": "<p>Quality Check Requested</p>\n"
-    },
-    {
-        "order": "6",
-        "title": "Check updates",
-        "ctaLabel": "Check now",
-        "confirmMessage": "<p>Updates are checked</p>\n"
-    },
-    {
-        "order": "7",
-        "title": "Update leftover material",
-        "ctaLabel": "Update now",
-        "confirmMessage": "<p>Updates were made</p>\n"
-    }
+  {
+    "order": "1",
+    "title": "Create Project Plan",
+    "ctaLabel": "Create Now",
+    "confirmMessage": "Plan created and shared with customer"
+  },
+  {
+    "order": "2",
+    "title": "Confirm Crew Allocation",
+    "ctaLabel": "Confirm",
+    "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
+  },
+  {
+    "order": "3",
+    "title": "Confirm updated plan",
+    "ctaLabel": "View requested timeline",
+    "confirmMessage": "<p>Updated plan is confirmed</p>\n"
+  },
+  {
+    "order": "4",
+    "title": "Visit Project Site",
+    "ctaLabel": "Schedule a time",
+    "confirmMessage": "Project site visit is scheduled at"
+  },
+  {
+    "order": "5",
+    "title": "Request for Quality Check",
+    "ctaLabel": "Request now",
+    "confirmMessage": "<p>Quality Check Requested</p>\n"
+  },
+  {
+    "order": "6",
+    "title": "Check updates",
+    "ctaLabel": "Check now",
+    "confirmMessage": "<p>Updates are checked</p>\n"
+  },
+  {
+    "order": "7",
+    "title": "Update leftover material",
+    "ctaLabel": "Update now",
+    "confirmMessage": "<p>Updates were made</p>\n"
+  }
 ]

@@ -1,7 +1,7 @@
-import {Text} from 'native-base';
+import { Text } from 'native-base';
 import React from 'react';
-import {View, ScrollView} from 'react-native';
-import {Image} from 'native-base';
+import { View, ScrollView } from 'react-native';
+import { Image } from 'native-base';
 import ellipse from '../../assets/images/ellipse/image.png';
 
 import styles from './styles';
@@ -12,104 +12,104 @@ const CrewCalendar = () => {
       date: 'Today',
       index: 1,
       crew: [
-        {c1: 'occupied'},
-        {c2: 'leave'},
-        {c3: 'occupied'},
-        {c4: 'occupied'},
-        {c5: 'occupied'},
+        { c1: 'occupied' },
+        { c2: 'leave' },
+        { c3: 'occupied' },
+        { c4: 'occupied' },
+        { c5: 'occupied' },
       ],
     },
     {
       date: '02 Sep',
       index: 2,
       crew: [
-        {c1: 'occupied'},
-        {c2: 'notOccupied'},
-        {c3: 'leave'},
-        {c4: 'notOccupied'},
-        {c5: 'occupied'},
+        { c1: 'occupied' },
+        { c2: 'notOccupied' },
+        { c3: 'leave' },
+        { c4: 'notOccupied' },
+        { c5: 'occupied' },
       ],
     },
     {
       date: '03 Sep',
       index: 3,
       crew: [
-        {c1: 'notOccupied'},
-        {c2: 'notOccupied'},
-        {c3: 'leave'},
-        {c4: 'occupied'},
-        {c5: 'occupied'},
+        { c1: 'notOccupied' },
+        { c2: 'notOccupied' },
+        { c3: 'leave' },
+        { c4: 'occupied' },
+        { c5: 'occupied' },
       ],
     },
     {
       date: '04 Sep',
       index: 4,
       crew: [
-        {c1: 'occupied'},
-        {c2: 'leave'},
-        {c3: 'notOccupied'},
-        {c4: 'occupied'},
-        {c5: 'notOccupied'},
+        { c1: 'occupied' },
+        { c2: 'leave' },
+        { c3: 'notOccupied' },
+        { c4: 'occupied' },
+        { c5: 'notOccupied' },
       ],
     },
     {
       date: '05 Sep',
       index: 5,
       crew: [
-        {c1: 'notOccupied'},
-        {c2: 'notOccupied'},
-        {c3: 'notOccupied'},
-        {c4: 'notOccupied'},
-        {c5: 'leave'},
+        { c1: 'notOccupied' },
+        { c2: 'notOccupied' },
+        { c3: 'notOccupied' },
+        { c4: 'notOccupied' },
+        { c5: 'leave' },
       ],
     },
     {
       date: '06 Sep',
       index: 6,
       crew: [
-        {c1: 'leave'},
-        {c2: 'notOccupied'},
-        {c3: 'notOccupied'},
-        {c4: 'notOccupied'},
-        {c5: 'notOccupied'},
+        { c1: 'leave' },
+        { c2: 'notOccupied' },
+        { c3: 'notOccupied' },
+        { c4: 'notOccupied' },
+        { c5: 'notOccupied' },
       ],
     },
     {
       date: '07 Sep',
       index: 4,
       crew: [
-        {c1: 'occupied'},
-        {c2: 'leave'},
-        {c3: 'notOccupied'},
-        {c4: 'occupied'},
-        {c5: 'notOccupied'},
+        { c1: 'occupied' },
+        { c2: 'leave' },
+        { c3: 'notOccupied' },
+        { c4: 'occupied' },
+        { c5: 'notOccupied' },
       ],
     },
     {
       date: '08 Sep',
       index: 5,
       crew: [
-        {c1: 'notOccupied'},
-        {c2: 'notOccupied'},
-        {c3: 'notOccupied'},
-        {c4: 'notOccupied'},
-        {c5: 'leave'},
+        { c1: 'notOccupied' },
+        { c2: 'notOccupied' },
+        { c3: 'notOccupied' },
+        { c4: 'notOccupied' },
+        { c5: 'leave' },
       ],
     },
     {
       date: '09 Sep',
       index: 6,
       crew: [
-        {c1: 'leave'},
-        {c2: 'notOccupied'},
-        {c3: 'notOccupied'},
-        {c4: 'notOccupied'},
-        {c5: 'notOccupied'},
+        { c1: 'leave' },
+        { c2: 'notOccupied' },
+        { c3: 'notOccupied' },
+        { c4: 'notOccupied' },
+        { c5: 'notOccupied' },
       ],
     },
   ];
-  const TimeLine = ({item}) => {
-    const {date, crew} = item;
+  const TimeLine = ({ item }) => {
+    const { date, crew } = item;
     return (
       <View style={styles.crewTimeLine}>
         <View style={styles.dayWrapper}>

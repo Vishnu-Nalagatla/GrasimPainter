@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {Text, ScrollView, Image, TouchableOpacity} from 'react-native';
-import {View, FlatList} from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { View, FlatList } from 'native-base';
 import styles from './styles';
 import data from './data.json';
 import expandImg from '../../assets/images/insights/expand.png';
@@ -26,7 +26,7 @@ const Insights = () => {
       <FlatList
         data={insightsData}
         keyExtractor={(item, index) => item.Id}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <InsightCard
             project={item}
             insightsData={insightsData}
@@ -39,7 +39,7 @@ const Insights = () => {
 };
 
 const InsightCard = props => {
-  const {project, insightsData, updateInsights} = props;
+  const { project, insightsData, updateInsights } = props;
 
   const toggleExpand = eachProject => {
     const updatedInsights = insightsData.map(each => {
@@ -72,7 +72,7 @@ const InsightCard = props => {
           <FlatList
             data={project.Insights}
             keyExtractor={(item, index) => item.Id}
-            renderItem={({item, index}) => {
+            renderItem={({ item, index }) => {
               return (
                 <View
                   style={

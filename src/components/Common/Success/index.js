@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import styles from './styles.js';
 
@@ -12,8 +12,8 @@ export interface Props {
   date: Date;
 }
 
-function Success({info}: Props) {
-  const {message, image} = info;
+function Success({ info }: Props) {
+  const { message, image } = info;
   return (
     <View style={styles.container}>
       <Image source={doneColor} style={styles.doneColor} resizeMode="contain" />

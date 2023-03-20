@@ -1,9 +1,9 @@
-import {StyleSheet} from 'react-native';
-import {color} from 'react-native-reanimated';
+import { StyleSheet } from 'react-native';
+import { color } from 'react-native-reanimated';
 import colors from '../../../constants/colors';
 import ViewPort from '../../../constants/view-port';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: 8 * vh,
   },
   confirmMessageView: {
-    flexDirection:'row',
+    flexDirection: 'row',
     marginTop: 8 * vh,
   },
   confirmMessage: {
@@ -182,13 +182,13 @@ const styles = StyleSheet.create({
     width: 14 * vw,
     marginRight: 7 * vw,
   },
- 
+
   buttonWrapper: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
- 
+
   selectedTextStyle: {
     fontSize: 12 * vh,
     color: colors.black,

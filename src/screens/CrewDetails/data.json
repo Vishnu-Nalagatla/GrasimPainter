@@ -1,44 +1,44 @@
 [
-    {
-        "name": "Crew 01",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available"
-    },
-    {
-        "name": "Crew 02",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    },
-    {
-        "name": "Crew 03",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    },
-    {
-        "name": "Crew 04",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    },
-    {
-        "name": "Crew 05",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    },
-    {
-        "name": "Crew 06",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    },
-    {
-        "name": "Crew 07",
-        "startDate": "30 Oct 2022",
-        "skills": ["Wall artist", "Skill two", "Skill three"],
-        "status": "Available in 2 days"
-    }
+  {
+    "name": "Crew 01",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available"
+  },
+  {
+    "name": "Crew 02",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  },
+  {
+    "name": "Crew 03",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  },
+  {
+    "name": "Crew 04",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  },
+  {
+    "name": "Crew 05",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  },
+  {
+    "name": "Crew 06",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  },
+  {
+    "name": "Crew 07",
+    "startDate": "30 Oct 2022",
+    "skills": ["Wall artist", "Skill two", "Skill three"],
+    "status": "Available in 2 days"
+  }
 ]

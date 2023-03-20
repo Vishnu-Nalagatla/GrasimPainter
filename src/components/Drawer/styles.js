@@ -1,7 +1,7 @@
-import {StyleSheet, Platform} from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
-const {vw, vh} = ViewPort;
+const { vw, vh } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -62,11 +62,11 @@ const styles = StyleSheet.create({
     height: Platform.OS === 'ios' ? 24 * vh : 27 * vh,
     marginRight: 10 * vh,
   },
-  langPrefText: {color: '#000', fontSize: 14 * vh},
-  prefIcon: {fontSize: 20 * vh, color: '#000'},
-  radio: {marginRight: 10 * vh, marginBottom: 5 * vh, fontSize: 10 * vh},
-  iosRadio: {fontSize: 20 * vh},
-  langLabel: {fontSize: 14 * vh},
+  langPrefText: { color: '#000', fontSize: 14 * vh },
+  prefIcon: { fontSize: 20 * vh, color: '#000' },
+  radio: { marginRight: 10 * vh, marginBottom: 5 * vh, fontSize: 10 * vh },
+  iosRadio: { fontSize: 20 * vh },
+  langLabel: { fontSize: 14 * vh },
   logout: {
     fontSize: 16 * vh,
     textAlign: 'center',
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     textDecorationColor: '#C11111',
   },
 
-  rowCenter: {flexDirection: 'row', alignItems: 'center'},
+  rowCenter: { flexDirection: 'row', alignItems: 'center' },
   resetPasswordWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10 * vh,
   },
-  resetPasswordIcon: {width: 20 * vh, height: 20 * vh, marginRight: 5 * vh},
+  resetPasswordIcon: { width: 20 * vh, height: 20 * vh, marginRight: 5 * vh },
 
   profileIcon: {
     width: 56 * vw,
@@ -121,7 +121,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 29 * vh,
   },
-  logoutIcon: {height: 27 * vh, width: 29 * vw, marginRight: 16 * vw},
+  logoutIcon: { height: 27 * vh, width: 29 * vw, marginRight: 16 * vw },
 });
 
 export default styles;

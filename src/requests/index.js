@@ -80,7 +80,7 @@ class SfdcAPI {
     this.instance
       .post(URLs.accessToken, Config.SFDC_SUBSCRIPTION_KEY)
       .then(res => {
-        const {access_token} = res.data;
+        const { access_token } = res.data;
         console.info('access_token: ', access_token);
         SFDC_API.setBearerToken(access_token);
       })

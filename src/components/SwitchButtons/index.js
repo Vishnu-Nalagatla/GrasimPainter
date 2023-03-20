@@ -1,15 +1,15 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import styles from './styles';
 
 const SwitchButtons = props => {
-  const {buttons, onClick} = props;
+  const { buttons, onClick } = props;
 
   // TODO: text style review.
   return (
     <View style={styles.container}>
       {buttons.map(button => {
-        const {status, label, id} = button;
+        const { status, label, id } = button;
         return (
           <TouchableOpacity
             key={id}

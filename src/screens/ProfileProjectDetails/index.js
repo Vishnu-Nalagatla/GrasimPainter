@@ -1,6 +1,6 @@
-import {View} from 'native-base';
+import { View } from 'native-base';
 import React from 'react';
-import {Image, Text} from 'react-native';
+import { Image, Text } from 'react-native';
 import styles from './styles';
 import flagImg from '../../assets/images/profileColor/flag.png';
 import timeImg from '../../assets/images/myProjects/time.png';
@@ -8,9 +8,9 @@ import locationImg from '../../assets/images/location/image.png';
 
 class ProfileProjectDetails extends React.Component {
   getProjectDetails = () => {
-    const {route} = this.props;
-    const {params} = route;
-    const {project} = params;
+    const { route } = this.props;
+    const { params } = route;
+    const { project } = params;
     return (
       <View style={styles.projectWrapper}>
         <View style={styles.odd}>
@@ -42,9 +42,9 @@ class ProfileProjectDetails extends React.Component {
   };
 
   render() {
-    const {route} = this.props;
-    const {params} = route;
-    const {project} = params;
+    const { route } = this.props;
+    const { params } = route;
+    const { project } = params;
     const {
       ProjectStartDate,
       ProjectEndDate,

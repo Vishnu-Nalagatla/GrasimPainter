@@ -6,7 +6,7 @@
     "today": [
       {
         "Id": "a061y000000EvblAAC",
-        "Name": "Project1", 
+        "Name": "Project1",
         "SiteId": "a051y000004AvlbAAC",
         "LeadId": "00Q1y0000016IvyEAE",
         "AccountId": "0011y00000YGD9nAAH",
@@ -392,9 +392,9 @@
         "displayStatus": {
           "order": "1",
           "title": "Create Project Plan",
-          "ctaLabel": "Create Now",
+          "ctaLabel": "Create Now"
           // "confirmMessage": "Plan created and shared with customer"
-      }
+        }
       },
       {
         "Id": "a061y000000EvblAAC",
@@ -476,9 +476,9 @@
         "displayStatus": {
           "order": "2",
           "title": "Confirm Crew Allocation",
-          "ctaLabel": "Confirm",
+          "ctaLabel": "Confirm"
           // "confirmMessage": "Crew 01 ( Rajesh Akash, Jay) is confirmed"
-      }
+        }
       },
       {
         "Id": "a061y000000EvVzAAK",
@@ -553,9 +553,9 @@
         "displayStatus": {
           "order": "3",
           "title": "Confirm updated plan",
-          "ctaLabel": "View requested timeline",
+          "ctaLabel": "View requested timeline"
           // "confirmMessage": "<p>Updated plan is confirmed</p>\n"
-      }
+        }
       },
       {
         "Id": "a061y000000EvVzAAK",
@@ -630,9 +630,9 @@
         "displayStatus": {
           "order": "4",
           "title": "Visit Project Site",
-          "ctaLabel": "Schedule a time",
+          "ctaLabel": "Schedule a time"
           // "confirmMessage": "<p>Project site visit is scheduled at</p>\n"
-      }
+        }
       },
       {
         "Id": "a061y000000EvVzAAK",
@@ -709,7 +709,7 @@
           "title": "Request for Quality Check",
           "ctaLabel": "Request now",
           "confirmMessage": "<p>Quality Check Requested</p>\n"
-      }
+        }
       },
       {
         "Id": "a061y000000EwQ5AAK",
@@ -781,9 +781,9 @@
         "displayStatus": {
           "order": "6",
           "title": "Check updates",
-          "ctaLabel": "Check now",
+          "ctaLabel": "Check now"
           // "confirmMessage": "<p>Updates are checked</p>\n"
-      }
+        }
       },
       {
         "Id": "a061y000000EwQ5AAK",
@@ -857,7 +857,7 @@
           "title": "Update leftover material",
           "ctaLabel": "Update now",
           "confirmMessage": "<p>Updates were made</p>\n"
-      }
+        }
       },
       {
         "Id": "a061y000000EwQ5AAK",

@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     captureText: {
         position: 'relative',
-        paddingVertical: 35 * vh, 
+        paddingVertical: 35 * vh,
     },
     margin: {
         marginRight: 20 * vw,

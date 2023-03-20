@@ -1,9 +1,9 @@
-import {View, FlatList} from 'native-base';
+import { View, FlatList } from 'native-base';
 import React from 'react';
-import {Image, Text, TouchableOpacity} from 'react-native';
+import { Image, Text, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import data from './data.json';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import checkImg from '../../assets/images/myProjects/check.png';
 import flagImg from '../../assets/images/timeline/flag.png';
 import projectImg from '../../assets/images/myProjects/projectImg.png';
@@ -11,14 +11,14 @@ import flaskImg from '../../assets/images/flask/image.png';
 import RouteConfig from '../../constants/route-config';
 
 const statuses = [
-  {label: 'All', value: 'All'},
-  {label: 'Completed', value: 'Completed'},
-  {label: 'New', value: 'New'},
-  {label: 'On Hold', value: 'On Hold'},
-  {label: 'Conflict', value: 'Conflict'},
-  {label: 'QC Visit', value: 'QC Visit'},
-  {label: 'Paid', value: 'Paid'},
-  {label: 'In Progress', value: 'In Progress'},
+  { label: 'All', value: 'All' },
+  { label: 'Completed', value: 'Completed' },
+  { label: 'New', value: 'New' },
+  { label: 'On Hold', value: 'On Hold' },
+  { label: 'Conflict', value: 'Conflict' },
+  { label: 'QC Visit', value: 'QC Visit' },
+  { label: 'Paid', value: 'Paid' },
+  { label: 'In Progress', value: 'In Progress' },
 ];
 
 class ProfileProjects extends React.Component {
@@ -31,14 +31,14 @@ class ProfileProjects extends React.Component {
   }
 
   setStatus = status => {
-    const {projectsList} = this.state;
+    const { projectsList } = this.state;
     const filteredList = projectsList.filter(each => each.Status === status);
-    this.setState({status: status, projectsList: filteredList});
+    this.setState({ status: status, projectsList: filteredList });
   };
 
   renderItem = item => {
     console.log('render item', item);
-    const {status} = this.state;
+    const { status } = this.state;
     if (status === item.value) {
       return (
         <View style={styles.item}>
@@ -55,14 +55,14 @@ class ProfileProjects extends React.Component {
   };
 
   navigateToDetails = project => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.ProfileProjectDetails, {
       project: project,
     });
   };
 
   render() {
-    const {projectsList} = this.state;
+    const { projectsList } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>
@@ -78,10 +78,10 @@ class ProfileProjects extends React.Component {
             }}
             renderRightIcon={() => {
               return <Image
-              source={flaskImg}
-              style={styles.flaskImg}
-              resizeMode="contain"
-            />;
+                source={flaskImg}
+                style={styles.flaskImg}
+                resizeMode="contain"
+              />;
             }}
             value={() => {
               return <Text>Filter</Text>;
@@ -95,7 +95,7 @@ class ProfileProjects extends React.Component {
         <FlatList
           data={projectsList}
           keyExtractor={(item, index) => item.Id}
-          renderItem={({item, index}) => (
+          renderItem={({ item, index }) => (
             <ProjectCard project={item} onPress={this.navigateToDetails} />
           )}
         />
@@ -105,7 +105,7 @@ class ProfileProjects extends React.Component {
 }
 
 const ProjectCard = props => {
-  const {project, onPress} = props;
+  const { project, onPress } = props;
 
   const getStatusColor = () => {
     let statusColor = '';
@@ -148,7 +148,7 @@ const ProjectCard = props => {
         <View style={styles.header}>
           <Text style={styles.textStyle}>{project.Name}</Text>
           <View
-            style={[styles.statusContainer, {backgroundColor: statusColor}]}>
+            style={[styles.statusContainer, { backgroundColor: statusColor }]}>
             <Text style={styles.status}>{project.Status}</Text>
           </View>
         </View>

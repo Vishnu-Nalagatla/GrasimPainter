@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import ViewPort from '../../constants/view-port';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     //height: 324 * vh,
     borderRadius: 8 * vh,
     marginTop: 12 * vh,
-    padding:10
+    padding: 10
   },
   imgLeaveSuccessStyle: {
     width: 64 * vw,

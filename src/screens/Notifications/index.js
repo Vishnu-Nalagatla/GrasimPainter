@@ -55,8 +55,8 @@ const Notifications = (props) => {
         'New Project “The Mehtas” has been assigned to you. Tap to view the details',
     },
     {
-      type: 'leaveRequest', 
-       id: '0051y00000MZkuVAAT',
+      type: 'leaveRequest',
+      id: '0051y00000MZkuVAAT',
       message: 'Leave request from Painter Ravi Verma for 3 days',
     },
     {
@@ -152,16 +152,16 @@ const Notifications = (props) => {
       });
   }
 
- const updateNotification= (notification) => {
-  const { id = 'a0x1y000000EYZsAAO'} = notification;
+  const updateNotification = (notification) => {
+    const { id = 'a0x1y000000EYZsAAO' } = notification;
     setPopup({ type: POPUP_CONSTANTS.SPINNER_POPUP });
-  const request = {
+    const request = {
       Is_Read__c: true,
     };
     SFDC_API.updateNotification(request, id)
       .then(res => {
         const { type } = notification;
-        const { navigation} = props;
+        const { navigation } = props;
         const route = routeMap.get(type);
         navigation.navigate(route);
       })
@@ -197,15 +197,15 @@ const Notifications = (props) => {
   ]);
   const routeMap = new Map([
     ["complaint", RouteConfig.MyDay],
-    ["newCrewMember",  RouteConfig.MyDay],
-    ["leaveRequest",  RouteConfig.LeaveRequests],
+    ["newCrewMember", RouteConfig.MyDay],
+    ["leaveRequest", RouteConfig.LeaveRequests],
 
-    ["materialUpdates",  RouteConfig.ProfileProjects],
+    ["materialUpdates", RouteConfig.ProfileProjects],
     ["newProject", newProjectAllocatedImg],
     ["paymentUpdate", paymentsImg],
 
     ["siteVisit", RouteConfig.MyDay],
-    ["timeLineChange",  RouteConfig.LeaveRequests],
+    ["timeLineChange", RouteConfig.LeaveRequests],
     ["projectUpdate", RouteConfig.LeaveRequests],
   ]);
 
@@ -213,7 +213,7 @@ const Notifications = (props) => {
     const { type, message } = notification;
     const imageSrc = imagesMap.get(type);
     return (
-      <TouchableOpacity style={styles.notificationCard} onPress={()=> onPress(notification)}>
+      <TouchableOpacity style={styles.notificationCard} onPress={() => onPress(notification)}>
         <View style={styles.notification}>
           <Image
             source={imageSrc}
@@ -229,7 +229,7 @@ const Notifications = (props) => {
 
   return (
     <View style={styles.container}>
-       <Popup visible={!!popup} onPress={closePopup}>
+      <Popup visible={!!popup} onPress={closePopup}>
         {getPopupContent()}
       </Popup>
       <ScrollView contentContainerStyle={styles.bodyContainer}>

@@ -8,10 +8,10 @@ import {
   PermissionsAndroid,
   Platform,
 } from 'react-native';
-import {View, FlatList} from 'native-base';
+import { View, FlatList } from 'native-base';
 import styles from './styles';
 import data from './data.json';
-import {Dropdown} from 'react-native-element-dropdown';
+import { Dropdown } from 'react-native-element-dropdown';
 import RNFetchBlob from 'rn-fetch-blob';
 
 const crewData = [
@@ -67,7 +67,7 @@ const crewData = [
 
 class Benefits extends React.Component {
   renderItem = (item: any) => {
-    const {value} = item;
+    const { value } = item;
     return (
       <View style={styles.renderItem}>
         <Text style={styles.renderName}>{value}</Text>
@@ -75,7 +75,7 @@ class Benefits extends React.Component {
     );
   };
   async downloadHistory() {
-    const {config, fs} = RNFetchBlob;
+    const { config, fs } = RNFetchBlob;
     let DownloadDir = fs.dirs.DownloadDir;
     let date = new Date();
     const path =
@@ -131,8 +131,8 @@ class Benefits extends React.Component {
   };
 
   render() {
-    const {insurance} = data;
-    const {insurer, policyNumber, membersCovered} = insurance;
+    const { insurance } = data;
+    const { insurer, policyNumber, membersCovered } = insurance;
 
     return (
       <ScrollView style={styles.container}>

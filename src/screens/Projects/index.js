@@ -6,7 +6,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import React from 'react';
-import {FlatList, Image, ScrollView} from 'native-base';
+import { FlatList, Image, ScrollView } from 'native-base';
 import styles from './styles';
 import bellImg from '../../assets/images/group/image.png';
 import barchart from '../../assets/images/barchart/image.png';
@@ -14,7 +14,7 @@ import Popup from '../../components/Popup';
 import POPUP_CONSTANTS from '../../enums/popup';
 import colors from '../../constants/colors';
 import RouteConfig from '../../constants/route-config';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import StandardPopup from '../../components/Common/StandardPopup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UTIL from '../../util/index';
@@ -57,16 +57,16 @@ class Projects extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
   getMyProjects = user => {
     const loggedInUser = JSON.parse(user);
-    const {Id, Territory__c, roleKey} = loggedInUser || {};
+    const { Id, Territory__c, roleKey } = loggedInUser || {};
     const request = {
       TeamLeadId: Id,
     };
@@ -78,7 +78,7 @@ class Projects extends React.Component<Props, State> {
         console.log('ProjectList--->', ProjectList);
         let newProj = ProjectList.filter(item => item.Status == 'New');
         let onGoingProj = ProjectList.filter(item => item.Status != 'New');
-      this.closePopup();
+        this.closePopup();
         this.setState({
           newProjects: newProj,
           ongoingProjects: onGoingProj,
@@ -93,7 +93,7 @@ class Projects extends React.Component<Props, State> {
   };
 
   onPress = (item, index) => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.ProjectDetails, {
       index: PROJECT_DETAILS_NAVIGATION.PROGRESS,
       ProjectDetailsData: item,
@@ -101,7 +101,7 @@ class Projects extends React.Component<Props, State> {
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
     if (!popup) {
       return null;
     }
@@ -115,16 +115,16 @@ class Projects extends React.Component<Props, State> {
     }
   };
   insights = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.Insights);
   };
   render() {
-    const {ongoingProjects, newProjects, popup} = this.state;
+    const { ongoingProjects, newProjects, popup } = this.state;
     return (
       <ScrollView style={styles.container}>
         <Popup
           popupStyle={{
-             borderRadius: 20,
+            borderRadius: 20,
           }}
           visible={!!popup}>
           {this.getPopupContent()}
@@ -152,8 +152,8 @@ class Projects extends React.Component<Props, State> {
 
 export default Projects;
 import Moment from 'moment';
-const Project = ({project, label, index, onPress}) => {
-  const {Name, ProjectPlanStatus, ProjectStartDate, ProjectEndDate} = project;
+const Project = ({ project, label, index, onPress }) => {
+  const { Name, ProjectPlanStatus, ProjectStartDate, ProjectEndDate } = project;
   const date = Moment(new Date()).format('DD MMM YYYY');
   const startingDiff =
     new Date(ProjectStartDate).getTime() - new Date().getTime();
@@ -199,7 +199,7 @@ const Project = ({project, label, index, onPress}) => {
   );
 };
 
-const ProjectList = ({projects, label, onPress, onInsightsPress}) => {
+const ProjectList = ({ projects, label, onPress, onInsightsPress }) => {
   return (
     <SafeAreaView style={styles.projectsWrapper}>
       {label == 'Ongoing' ? (
@@ -212,7 +212,7 @@ const ProjectList = ({projects, label, onPress, onInsightsPress}) => {
               resizeMode="contain"
               alt=""
             />
-            <Text style={{color: '#3C58B5'}}>Insights</Text>
+            <Text style={{ color: '#3C58B5' }}>Insights</Text>
           </TouchableOpacity>
         </View>
       ) : (
@@ -222,7 +222,7 @@ const ProjectList = ({projects, label, onPress, onInsightsPress}) => {
       <FlatList
         data={projects}
         keyExtractor={(item, index) => item.Id}
-        renderItem={({item, index}) => (
+        renderItem={({ item, index }) => (
           <Project
             project={item}
             label={label}

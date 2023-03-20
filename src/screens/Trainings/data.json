@@ -1,65 +1,65 @@
 [
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Completed"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Completed"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    },
-    {
-        "Name": "Training 1",
-        "StartDate": "2022-08-19",
-        "EndDate": "2022-10-19",
-        "PercentageCompletion": 75,
-        "Status": "Assigned"
-    }
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Completed"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Completed"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  },
+  {
+    "Name": "Training 1",
+    "StartDate": "2022-08-19",
+    "EndDate": "2022-10-19",
+    "PercentageCompletion": 75,
+    "Status": "Assigned"
+  }
 ]

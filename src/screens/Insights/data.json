@@ -1,108 +1,110 @@
-[{
+[
+  {
     "Id": 1,
     "Name": "The Mehtas",
     "Status": "INPROGRESS",
     "Percentage": 10,
     "Insights": [
-        {
-            "Name": "Labour Availability",
-            "Value": "Sufficient",
-        },
-        {
-            "Name": "Product Availability",
-            "Value": "Sufficient"
-        },
-        {
-            "Name": "Labour Productivity",
-            "Value": "Good"
-        },
-        {
-            "Name": "Surface Damaged",
-            "Value": "Water Leakage"
-        },
-        {
-            "Name": "Change Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Rework Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Theft/Property Damage",
-            "Value": "None"
-        }
+      {
+        "Name": "Labour Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Product Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Labour Productivity",
+        "Value": "Good"
+      },
+      {
+        "Name": "Surface Damaged",
+        "Value": "Water Leakage"
+      },
+      {
+        "Name": "Change Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Rework Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Theft/Property Damage",
+        "Value": "None"
+      }
     ]
-},
-{
+  },
+  {
     "Id": 2,
     "Name": "The Mehtas",
     "Status": "IN PROGRESS",
     "Percentage": 10,
     "Insights": [
-        {
-            "Name": "Labour Availability",
-            "Value": "Sufficient"
-        },
-        {
-            "Name": "Product Availability",
-            "Value": "Sufficient"
-        },
-        {
-            "Name": "Labour Productivity",
-            "Value": "Good"
-        },
-        {
-            "Name": "Surface Damaged",
-            "Value": "Water Leakage"
-        },
-        {
-            "Name": "Change Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Rework Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Theft/Property Damage",
-            "Value": "None"
-        }
+      {
+        "Name": "Labour Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Product Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Labour Productivity",
+        "Value": "Good"
+      },
+      {
+        "Name": "Surface Damaged",
+        "Value": "Water Leakage"
+      },
+      {
+        "Name": "Change Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Rework Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Theft/Property Damage",
+        "Value": "None"
+      }
     ]
-},
-{
+  },
+  {
     "Id": 3,
     "Name": "The Mehtas",
     "Status": "IN PROGRESS",
     "Percentage": 10,
     "Insights": [
-        {
-            "Name": "Labour Availability",
-            "Value": "Sufficient"
-        },
-        {
-            "Name": "Product Availability",
-            "Value": "Sufficient"
-        },
-        {
-            "Name": "Labour Productivity",
-            "Value": "Good"
-        },
-        {
-            "Name": "Surface Damaged",
-            "Value": "Water Leakage"
-        },
-        {
-            "Name": "Change Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Rework Requests",
-            "Value": "None"
-        },
-        {
-            "Name": "Theft/Property Damage",
-            "Value": "None"
-        }
+      {
+        "Name": "Labour Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Product Availability",
+        "Value": "Sufficient"
+      },
+      {
+        "Name": "Labour Productivity",
+        "Value": "Good"
+      },
+      {
+        "Name": "Surface Damaged",
+        "Value": "Water Leakage"
+      },
+      {
+        "Name": "Change Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Rework Requests",
+        "Value": "None"
+      },
+      {
+        "Name": "Theft/Property Damage",
+        "Value": "None"
+      }
     ]
-}]
+  }
+]

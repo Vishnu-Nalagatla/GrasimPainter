@@ -1,14 +1,14 @@
-import {ScrollView, Text} from 'native-base';
-import React, {useEffect, useState} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import { ScrollView, Text } from 'native-base';
+import React, { useEffect, useState } from 'react';
+import { View, ActivityIndicator } from 'react-native';
 import ToggleSwitch from 'toggle-switch-react-native';
 import CustomButton from '../../components/Button';
 import colors from '../../constants/colors';
 import styles from './styles';
-import {AEM_API, SFDC_API} from '../../requests';
+import { AEM_API, SFDC_API } from '../../requests';
 
 const SiteCheckList = props => {
-  const {project} = props;
+  const { project } = props;
   const [projectData, setProjectData] = useState({});
   const [popup, setPopup] = useState(false);
   const lable1 = 'Ensure following items are right';
@@ -21,7 +21,7 @@ const SiteCheckList = props => {
     if (projectData && projectData?.SitePreJobStatus != '') {
       setPopup(true);
       console.info('onToggle..', index, status);
-      let tempObj = {...projectData};
+      let tempObj = { ...projectData };
       tempObj[entity.key] = status == true ? 'Yes' : 'No';
       setProjectData(tempObj);
       setPopup(false);
@@ -36,32 +36,32 @@ const SiteCheckList = props => {
           : 'No',
       Power_Availability__c:
         projectData.SitePowerAvailability == true ||
-        projectData.SitePowerAvailability == 'Yes'
+          projectData.SitePowerAvailability == 'Yes'
           ? 'Yes'
           : 'No',
       Water_Availability__c:
         projectData.SiteWaterAvailability == true ||
-        projectData.SiteWaterAvailability == 'Yes'
+          projectData.SiteWaterAvailability == 'Yes'
           ? 'Yes'
           : 'No',
       Cleaning_Changing_Area__c:
         projectData.SiteCleaningChangingArea == true ||
-        projectData.SiteCleaningChangingArea == 'Yes'
+          projectData.SiteCleaningChangingArea == 'Yes'
           ? 'Yes'
           : 'No',
       Washroom_Facility__c:
         projectData.SiteWashroomFacility == true ||
-        projectData.SiteWashroomFacility == 'Yes'
+          projectData.SiteWashroomFacility == 'Yes'
           ? 'Yes'
           : 'No',
       Material_Storage__c:
         projectData.SiteMaterialStorage == true ||
-        projectData.SiteMaterialStorage == 'Yes'
+          projectData.SiteMaterialStorage == 'Yes'
           ? 'Yes'
           : 'No',
       Service_Lift__c:
         projectData.SiteServiceLift == true ||
-        projectData.SiteServiceLift == 'Yes'
+          projectData.SiteServiceLift == 'Yes'
           ? 'Yes'
           : 'No',
       Lighting__c:
@@ -70,17 +70,17 @@ const SiteCheckList = props => {
           : 'No',
       ID_Requirement__c:
         projectData.SiteIDRequirement == true ||
-        projectData.SiteIDRequirement == 'Yes'
+          projectData.SiteIDRequirement == 'Yes'
           ? 'Yes'
           : 'No',
       Work_Permit__c:
         projectData.SiteWorkPermit == true ||
-        projectData.SiteWorkPermit == 'Yes'
+          projectData.SiteWorkPermit == 'Yes'
           ? 'Yes'
           : 'No',
       Start_Date_Alignment__c:
         projectData.SiteStartDateAlignment == true ||
-        projectData.SiteStartDateAlignment == 'Yes'
+          projectData.SiteStartDateAlignment == 'Yes'
           ? 'Yes'
           : 'No',
     };
@@ -98,7 +98,7 @@ const SiteCheckList = props => {
         // });
       });
   };
-  const Item = ({entity, index, isLast}) => {
+  const Item = ({ entity, index, isLast }) => {
     return (
       <View style={isLast ? styles.itemNoHr : styles.item}>
         <Text style={styles.question}>{entity.value}</Text>
@@ -122,7 +122,7 @@ const SiteCheckList = props => {
     setProjectData(project);
   }, []);
 
-  const CheckList = ({data, lable}) => {
+  const CheckList = ({ data, lable }) => {
     return (
       <View style={styles.checkList}>
         {/* {popup ? (
@@ -160,7 +160,7 @@ const SiteCheckList = props => {
         ) : null
       ) : (
         <ActivityIndicator
-          style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
           size="large"
           color={colors.primary}
           animating

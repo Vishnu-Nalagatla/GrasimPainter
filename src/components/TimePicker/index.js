@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, Platform, Appearance} from 'react-native';
-import {View, Text, Icon, Button} from 'native-base';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, Platform, Appearance } from 'react-native';
+import { View, Text, Icon, Button } from 'native-base';
 import DatePicker from 'react-native-date-picker';
 import ViewPort from '../../constants/view-port';
 import colors from '../../constants/colors';
 
-const {vw, vh} = ViewPort;
+const { vw, vh } = ViewPort;
 
 const styles = StyleSheet.create({
   viewContainer: {
@@ -33,8 +33,8 @@ const styles = StyleSheet.create({
     right: 10,
     top: 5,
   },
-  closeIcon: {color: '#fff'},
-  arrowIcon: {color: '#000'},
+  closeIcon: { color: '#fff' },
+  arrowIcon: { color: '#000' },
   btnStyle: {
     height: 35 * vh,
     backgroundColor: 'white',
@@ -95,7 +95,7 @@ interface NewProps {
 }
 
 export default function TimePicker(props: Props) {
-  const {onChange, hours: hr, minutes: min, meridian: mer, onClose} = props;
+  const { onChange, hours: hr, minutes: min, meridian: mer, onClose } = props;
   console.info('props....', props);
   const getHour = (selHour, format) => {
     if (format === 'PM') {

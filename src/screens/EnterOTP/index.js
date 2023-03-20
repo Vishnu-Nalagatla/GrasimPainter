@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, Image} from 'react-native';
-import {View} from 'native-base';
+import { Text, Image } from 'react-native';
+import { View } from 'native-base';
 import strings from '../../constants/strings';
 import styles from './styles';
 import CustomButton from '../../components/Button';
@@ -31,10 +31,10 @@ class EnterOTP extends React.Component {
             codeInputHighlightStyle={
               validationMsg
                 ? [
-                    styles.underlineStyleBase,
-                    styles.underlineStyleHighLighted,
-                    styles.errorField,
-                  ]
+                  styles.underlineStyleBase,
+                  styles.underlineStyleHighLighted,
+                  styles.errorField,
+                ]
                 : [styles.underlineStyleBase, styles.underlineStyleHighLighted]
             }
             autofillFromClipboard={false}

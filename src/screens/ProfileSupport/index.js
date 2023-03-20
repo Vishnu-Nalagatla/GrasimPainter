@@ -1,6 +1,6 @@
 import React from 'react';
-import {Text, Image, TouchableOpacity} from 'react-native';
-import {View} from 'native-base';
+import { Text, Image, TouchableOpacity } from 'react-native';
+import { View } from 'native-base';
 import styles from './styles';
 import callImg from '../../assets/images/help/call.png';
 import UTIL from '../../util';

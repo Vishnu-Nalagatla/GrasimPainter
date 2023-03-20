@@ -5,13 +5,13 @@ import {
   ScrollView,
   ActivityIndicator,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './styles';
 import Moment from 'moment';
 import attendanceIcon from '../../assets/images/attendence/attendance.png';
 import markedAttendanceIcon from '../../assets/images/attendence/markedAttendence.png';
 import applyLeave from '../../assets/images/addLeave/image.png';
-import {FlatList, Image} from 'native-base';
+import { FlatList, Image } from 'native-base';
 import RouteConfig from '../../constants/route-config';
 import strings from '../../globalization';
 import Popup from '../../components/Popup';
@@ -20,10 +20,10 @@ import colors from '../../constants/colors';
 import StandardPopup from '../../components/Common/StandardPopup';
 import util from '../../util';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {API, SFDC_API} from '../../requests';
+import { API, SFDC_API } from '../../requests';
 import ViewPort from '../../constants/view-port';
 import moment from 'moment';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 export interface Props {
   props: String;
@@ -92,7 +92,7 @@ class Attendance extends React.Component<Props, State> {
     this.showSpinner();
     API.getMyDayInfo(request)
       .then(response => {
-        const {data} = response;
+        const { data } = response;
         const myDayInfo = data.response;
         this.closePopup();
         this.setState({
@@ -120,16 +120,16 @@ class Attendance extends React.Component<Props, State> {
 
   showSpinner = () => {
     this.setState({
-      popup: {type: POPUP_CONSTANTS.SPINNER_POPUP},
+      popup: { type: POPUP_CONSTANTS.SPINNER_POPUP },
     });
   };
 
   closePopup = () => {
-    this.setState({popup: undefined});
+    this.setState({ popup: undefined });
   };
 
   updateAttendance = () => {
-    const {loggedInUser} = this.state;
+    const { loggedInUser } = this.state;
     //FIXME:
     const {
       Id,
@@ -145,7 +145,7 @@ class Attendance extends React.Component<Props, State> {
     this.showSpinner();
     API.markAttendance(request)
       .then(resp => {
-        if(resp.status == 200){
+        if (resp.status == 200) {
           this.setState({
             attendance: true,
             attendanceLabel: 'Marked',
@@ -199,17 +199,17 @@ class Attendance extends React.Component<Props, State> {
   };
 
   onLeaveRequest = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.LeaveRequests);
   };
 
   applyLeave = () => {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     navigation.navigate(RouteConfig.ApplyLeave);
   };
 
   getPopupContent = () => {
-    const {popup} = this.state;
+    const { popup } = this.state;
 
     if (!popup) {
       return null;
@@ -230,7 +230,7 @@ class Attendance extends React.Component<Props, State> {
       attendanceLabel,
       leavesHistory,
     } = this.state;
-    const {style = {}} = popup || {};
+    const { style = {} } = popup || {};
     return (
       <View style={styles.container}>
         <Popup popupStyle={style} visible={!!popup}>
@@ -277,7 +277,7 @@ class Attendance extends React.Component<Props, State> {
           <FlatList
             data={leavesHistory?.LeavesHistory}
             keyExtractor={(item, index) => item.index}
-            renderItem={({item, index}) => (
+            renderItem={({ item, index }) => (
               <LeaveCard leaveInfo={item} index={index} />
             )}
           />
@@ -287,7 +287,7 @@ class Attendance extends React.Component<Props, State> {
   }
 }
 
-const LeaveCard = ({leaveInfo}) => {
+const LeaveCard = ({ leaveInfo }) => {
   const {
     Leave_Status__c,
     LeaveDays,

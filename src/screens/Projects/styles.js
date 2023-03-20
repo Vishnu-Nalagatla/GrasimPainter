@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import ViewPort from '../../constants/view-port';
 import colors from '../../constants/colors';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  rowStyles:{
-    flexDirection:'row'
+  rowStyles: {
+    flexDirection: 'row'
   },
   status: {
     backgroundColor: colors.ultraMass,

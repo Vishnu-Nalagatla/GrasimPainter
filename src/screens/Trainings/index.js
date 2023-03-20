@@ -1,27 +1,27 @@
 import React from 'react';
-import {Text, Image} from 'react-native';
-import {View, FlatList} from 'native-base';
+import { Text, Image } from 'react-native';
+import { View, FlatList } from 'native-base';
 import styles from './styles';
 import flagImg from '../../assets/images/profileColor/flag.png';
 import timeImg from '../../assets/images/myProjects/time.png';
 import data from './data.json';
-import {AnimatedCircularProgress} from 'react-native-circular-progress';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import ViewPort from '../../constants/view-port';
 import SwitchButtons from '../../components/SwitchButtons';
-import {SFDC_API} from '../../requests';
-import {connect} from 'react-redux';
+import { SFDC_API } from '../../requests';
+import { connect } from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import util from '../../util';
 import moment from 'moment';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 class Trainings extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       trainings: [],
-      filteredData:[],
+      filteredData: [],
       buttons: [
         {
           label: 'All',
@@ -53,38 +53,38 @@ class Trainings extends React.Component {
   }
   fetchTrainingInfo = user => {
     const loggedInUser = JSON.parse(user);
-    const {Id, Territory__c, roleKey = 'TeamLeadId',role} = loggedInUser || {};
-    if(role?.toLowerCase() == 'team lead'){
+    const { Id, Territory__c, roleKey = 'TeamLeadId', role } = loggedInUser || {};
+    if (role?.toLowerCase() == 'team lead') {
       SFDC_API.getTrainingsInfo(Id)
-      .then(resp => {
-        if (resp?.status == 200) {
-          this.setState({
-            trainings: resp?.data?.records,
-            filteredData:resp?.data?.records
-          });
-        }
-      })
-      .catch(er => console.log(er, 'er'));
-    }else{
+        .then(resp => {
+          if (resp?.status == 200) {
+            this.setState({
+              trainings: resp?.data?.records,
+              filteredData: resp?.data?.records
+            });
+          }
+        })
+        .catch(er => console.log(er, 'er'));
+    } else {
       SFDC_API.getCrewTrainingInfo(Id)
-      .then(resp => {
-        if (resp?.status == 200) {
-          this.setState({
-            trainings: resp?.data?.records,
-            filteredData:resp?.data?.records
-          });
-        }
-      })
-      .catch(er => console.log(er, 'er'));
+        .then(resp => {
+          if (resp?.status == 200) {
+            this.setState({
+              trainings: resp?.data?.records,
+              filteredData: resp?.data?.records
+            });
+          }
+        })
+        .catch(er => console.log(er, 'er'));
     }
-   
+
   };
   onClick = event => {
     let updatedTrainings = [];
-    const {buttons} = this.state;
+    const { buttons } = this.state;
     const activeTabIndex = event.index;
     const buttonsChanged = buttons.map(button => {
-      const {index} = button;
+      const { index } = button;
       if (event.index === index && !event.status) {
         if (event.index === 1) {
           updatedTrainings = this.state.trainings;
@@ -92,7 +92,7 @@ class Trainings extends React.Component {
           updatedTrainings = this.state.trainings.filter(
             obj => {
               const currentDate = moment(new Date()).format('YYYY-MM-DD');
-              return event.index == 2? currentDate <= obj?.End_Date__c:currentDate > obj?.End_Date__c;
+              return event.index == 2 ? currentDate <= obj?.End_Date__c : currentDate > obj?.End_Date__c;
             },
           );
         }
@@ -156,7 +156,7 @@ class Trainings extends React.Component {
   };
 
   render() {
-    const {trainings, buttons,filteredData} = this.state;
+    const { trainings, buttons, filteredData } = this.state;
     return (
       <View style={styles.container}>
         <View style={styles.buttonContainer}>
@@ -168,9 +168,9 @@ class Trainings extends React.Component {
         <FlatList
           data={filteredData}
           keyExtractor={(item, index) => index}
-          renderItem={({item}) =>{
-           return filteredData?.length> 0 ?this.renderItem(item) : <Text>{'no data'}</Text>
-          } }
+          renderItem={({ item }) => {
+            return filteredData?.length > 0 ? this.renderItem(item) : <Text>{'no data'}</Text>
+          }}
         />
       </View>
     );

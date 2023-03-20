@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import ViewPort from '../../constants/view-port';
 import colors from '../../constants/colors';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   rightInfo: {
     flexDirection: 'row',
-    alignItems:'center'
+    alignItems: 'center'
   },
   leaveInfo: {
     fontFamily: 'Karla',

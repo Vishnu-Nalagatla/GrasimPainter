@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import { Image, Text, View } from 'react-native';
 
 import styles from './styles.js';
 
@@ -12,7 +12,7 @@ export interface Props {
   date: Date;
 }
 
-function ProjectCard({name, status, onPress, ...remainingProps}: Props) {
+function ProjectCard({ name, status, onPress, ...remainingProps }: Props) {
   return (
     <View style={styles.container}>
       <View style={styles.topWrapper}>

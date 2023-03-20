@@ -26,7 +26,7 @@ export interface Props {
 }
 
 const renderItem = (item: any) => {
-  const {title, names} = item.value;
+  const { title, names } = item.value;
   return (
     <View style={styles.item}>
       <Text style={styles.crewTitle}>{title}</Text>
@@ -82,7 +82,7 @@ class DropDown extends React.Component<Props, State> {
       top: layout.height - 1,
     });
   }
-   user = {
+  user = {
     label: 'Crew 4',
     value: {
       title: 'Crew4',
@@ -92,7 +92,7 @@ class DropDown extends React.Component<Props, State> {
   }
 
   render() {
-    const {placeholder, items} = this.props;
+    const { placeholder, items } = this.props;
     const isPlaceholderActive = this.state.choice.label === null;
     const label = isPlaceholderActive ? placeholder : this.state.choice.label;
     return (
@@ -133,7 +133,7 @@ class DropDown extends React.Component<Props, State> {
             styles.dropDownBox,
             this.props.dropDownStyle,
             !this.state.isVisible && styles.hidden,
-            {top: this.state.top, zIndex: this.props.zIndex},
+            { top: this.state.top, zIndex: this.props.zIndex },
           ]}>
           <ScrollView
             style={styles.dropDownScrollView}
@@ -146,7 +146,7 @@ class DropDown extends React.Component<Props, State> {
                   styles.dropDownItem,
                   this.props.itemStyle,
                   this.state.choice.value === item.value &&
-                    this.props.activeItemStyle,
+                  this.props.activeItemStyle,
                 ]}
                 disabled={item?.disabled || false === true}>
                 <View style={styles.dropdownLabel}>
@@ -154,7 +154,7 @@ class DropDown extends React.Component<Props, State> {
                     style={[
                       this.props.labelStyle,
                       this.state.choice.value === item.value &&
-                        this.props.activeLabelStyle,
+                      this.props.activeLabelStyle,
                     ]}>
                     {renderItem(item)}
                   </Text>

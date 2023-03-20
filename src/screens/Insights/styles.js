@@ -1,7 +1,7 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import ViewPort from '../../constants/view-port';
 
-const {vh, vw} = ViewPort;
+const { vh, vw } = ViewPort;
 
 const styles = StyleSheet.create({
   container: {
@@ -25,8 +25,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 24 * vh,
   },
-  cardContainer:{
-    borderRadius: 15 ,
+  cardContainer: {
+    borderRadius: 15,
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     padding: 16 * vh,

@@ -1,4 +1,4 @@
-import {Platform, Linking} from 'react-native';
+import { Platform, Linking } from 'react-native';
 
 class UTIL {
   connectThroughCall = number => {
